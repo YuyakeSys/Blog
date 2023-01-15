@@ -79,21 +79,23 @@
 
 
 
-<meta name="description" content="3D transformation Viewing(观测) transformation View (视图)&#x2F; Camera transformation Projection (投影) transformation Orthographic (正交) projection Perspective (透视) projection      3D transformation point &#x3D; $(">
+<meta name="description" content="AbstractRasterization Different raster displays Rasterizing a triangle   红线之间角度 -&gt; 垂直可视角度 Vertical filed of view  角度&#x2F;2 屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p An array of pixels Size of the array reso">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Transformation_cont.">
-<meta property="og:url" content="http://example.com/2023/01/14/Transformation-cont/index.html">
+<meta property="og:title" content="Rasterization">
+<meta property="og:url" content="http://example.com/2023/01/15/Rasterization/index.html">
 <meta property="og:site_name" content="Melo&#39;s blog">
-<meta property="og:description" content="3D transformation Viewing(观测) transformation View (视图)&#x2F; Camera transformation Projection (投影) transformation Orthographic (正交) projection Perspective (透视) projection      3D transformation point &#x3D; $(">
+<meta property="og:description" content="AbstractRasterization Different raster displays Rasterizing a triangle   红线之间角度 -&gt; 垂直可视角度 Vertical filed of view  角度&#x2F;2 屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p An array of pixels Size of the array reso">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/01/14/image/view_img.png">
-<meta property="og:image" content="http://example.com/2023/01/14/image/orth-pers.png">
-<meta property="og:image" content="http://example.com/2023/01/14/image/pers.png">
-<meta property="article:published_time" content="2023-01-13T22:20:22.000Z">
-<meta property="article:modified_time" content="2023-01-14T23:54:59.240Z">
+<meta property="og:image" content="g:\github\blog\source\_posts\image-20230115073410188.png">
+<meta property="og:image" content="g:\github\blog\source\_posts\image-20230115073738823.png">
+<meta property="og:image" content="g:\github\blog\source\_posts\image-20230115074741615.png">
+<meta property="og:image" content="http://example.com/2023/01/15/image/image-20230115082117380.png">
+<meta property="og:image" content="g:\github\blog\source\_posts\image-20230115083024989.png">
+<meta property="article:published_time" content="2023-01-14T23:20:13.000Z">
+<meta property="article:modified_time" content="2023-01-15T00:42:12.665Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/01/14/image/view_img.png">
+<meta name="twitter:image" content="g:\github\blog\source\_posts\image-20230115073410188.png">
 
 
 
@@ -123,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2023/01/14/Transformation-cont/"/>
+  <link rel="canonical" href="http://example.com/2023/01/15/Rasterization/"/>
 
 
 
 
 
-  <title>Transformation_cont. | Melo's blog</title>
+  <title>Rasterization | Melo's blog</title>
   
 
 
@@ -268,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation-cont/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/15/Rasterization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Meng Zhouyang">
@@ -285,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Transformation_cont.</h1>
+          <h1 class="post-title" itemprop="name headline">Rasterization</h1>
         
 
         <div class="post-meta">
@@ -297,8 +299,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-14T06:20:22+08:00">
-                2023-01-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-15T07:20:13+08:00">
+                2023-01-15
               </time>
             
 
@@ -307,28 +309,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -357,138 +337,74 @@
       
 
       
-        <ul>
-<li>3D transformation</li>
-<li>Viewing(观测) transformation<ul>
-<li>View (视图)/ Camera transformation</li>
-<li>Projection (投影) transformation<ul>
-<li>Orthographic (正交) projection</li>
-<li>Perspective (透视) projection</li>
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><h3 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h3><ul>
+<li>Different raster displays</li>
+<li>Rasterizing a triangle</li>
 </ul>
-</li>
+<p><img src="G:\github\blog\source\_posts\image-20230115073410188.png" alt="image-20230115073410188"></p>
+<p>红线之间角度 -&gt; 垂直可视角度 Vertical filed of view</p>
+<p><img src="G:\github\blog\source\_posts\image-20230115073738823.png" alt="image-20230115073738823"></p>
+<p>角度/2</p>
+<p>屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p</p>
+<p>An array of pixels</p>
+<p>Size of the array resolution</p>
+<p>A typical kind of raster display</p>
+<h4 id="Raster-screen-in-German"><a href="#Raster-screen-in-German" class="headerlink" title="Raster == screen in German"></a>Raster == screen in German</h4><ul>
+<li>Rasterize == drawing onto the screen</li>
 </ul>
-</li>
-</ul>
-<h3 id="3D-transformation"><a href="#3D-transformation" class="headerlink" title="3D transformation"></a>3D transformation</h3><ul>
-<li><p>point = $(x, y, z, 1)^T$</p>
-</li>
-<li><p>vector = $(x, y, z, 0)^T$</p>
-<h5 id="4-4-matrices-for-affine-transformations"><a href="#4-4-matrices-for-affine-transformations" class="headerlink" title="4 * 4 matrices for affine transformations"></a>4 * 4 matrices for affine transformations</h5><script type="math/tex; mode=display">
-\begin{pmatrix}
-    x' \\ y' \\z' 1
-\end{pmatrix}
-= \begin{pmatrix}
-    a & b& c & t_x \\
-    d & e & f & t_y \\
-    g & h & i & t_z \\
-    0 & 0 & 0 & 1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-x \\ y \\ z \\1
-\end{pmatrix}</script></li>
-</ul>
-<p>缩放 Scale ….</p>
-<script type="math/tex; mode=display">
-\begin{pmatrix}
-    S_x & 0& 0 & 0 \\
-    d & s_y & 0 & 0 \\
-    0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>旋转 important</p>
-<script type="math/tex; mode=display">
-R_x(\alpha)=\begin{pmatrix}
-    1 & 0& 0 & 0 \\
-    0 & cos\theta & -sin\theta & 0 \\
-    0 & sin\theta & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}\\
-R_y(\alpha)=\begin{pmatrix}
-    cos\theta & 0& sin\theta & 0 \\
-    0 & 0 & 0 & 0 \\
-    -sin\theta & 0 & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>对x轴旋转 -&gt; 第一行为 1, 0 ,0</p>
-<p>2 x 2是对y与z操作</p>
-<p>对旋转不同 ？z × x -&gt; y 不是x叉乘z 所以相反</p>
-<h3 id="3D-Rotations"><a href="#3D-Rotations" class="headerlink" title="3D Rotations"></a>3D Rotations</h3><p>Compose 3D roration from $R_x, R_y, R_z$    $\bold{Euler \ angels}$</p>
-<script type="math/tex; mode=display">
-R_{xyz}(\alpha, \beta, \gamma) = R_x(\alpha)R_y(\beta)R_z(\gamma)</script><h4 id="Rodrigues’-Rotation-Formula"><a href="#Rodrigues’-Rotation-Formula" class="headerlink" title="Rodrigues’ Rotation Formula"></a>Rodrigues’ Rotation Formula</h4><h5 id="Rotation-by-angle-alpha-around-axis-bold-n"><a href="#Rotation-by-angle-alpha-around-axis-bold-n" class="headerlink" title="Rotation by angle $\alpha$ around axis $\bold{n}$"></a>Rotation by angle $\alpha$ around axis $\bold{n}$</h5><p>认为过原点 向量就是方向</p>
-<script type="math/tex; mode=display">
-R(\bold{n}, \alpha) = cos(\alpha)I + (1-cos(\alpha))\bold{n}\bold{n}^T + sin(\alpha)
-\begin{pmatrix}
-    0 & -n_z & n_y \\
-    n_z & 0 & -n_x \\
-    -n_y & n_x & 0
-\end{pmatrix}</script><p>Proof: </p>
-
-
-	<div class="row">
-    <embed src="PDF/GAMES101_Lecture_04_supp.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-   
-<h4 id="View-Camera-transformation-三维-gt-二维"><a href="#View-Camera-transformation-三维-gt-二维" class="headerlink" title="View / Camera transformation   三维-&gt;二维"></a>View / Camera transformation   三维-&gt;二维</h4><ul>
-<li>Take a photo<ul>
-<li>find place and arrange people (model transformation)</li>
-<li>find good “angle” (view)</li>
-<li>Cheese! (projection)</li>
-</ul>
-</li>
-</ul>
-<p>MVP!!!!!!!!!</p>
+<h4 id="Pixel-picture-element"><a href="#Pixel-picture-element" class="headerlink" title="Pixel (picture element)"></a>Pixel (picture element)</h4><p>r,g,b</p>
+<h4 id="Canonical-Cube-to-Screen"><a href="#Canonical-Cube-to-Screen" class="headerlink" title="Canonical Cube to Screen"></a>Canonical Cube to Screen</h4><ul>
+<li><p>Defining the screen space</p>
 <ul>
-<li><p>Define the camera first</p>
-<ul>
-<li>Position $\vec{e}$</li>
-<li>Look-at / gaze direction $\hat{g}$</li>
-<li>Up direction $\hat{t}$</li>
+<li>Slightly different from 虎书</li>
 </ul>
-<p>向上方向 固定相机旋转）</p>
-</li>
-<li><p>Key observation </p>
-<ul>
-<li>一起移动 相对运动 相片一定是一样的  = 固定相机（远点） 物体运动</li>
-<li>The origin, up at Y, look at -Z</li>
-<li>And transform the objects along with the camera</li>
-</ul>
+<p><img src="G:\github\blog\source\_posts\image-20230115074741615.png" alt="image-20230115074741615"></p>
 </li>
 </ul>
-<p><img src="../image/view_img.png" alt=""></p>
-<h4 id="M-view-in-math"><a href="#M-view-in-math" class="headerlink" title="$M_{view}$ in math"></a>$M_{view}$ in math</h4><ul>
-<li><p>$M_{view} = R{view}T{view}$</p>
-</li>
-<li><p>Translate e to origin       </p>
 <script type="math/tex; mode=display">
-T_view = \begin{bmatrix}1&0&0&-x_e\\
-0&1&0&-y_e\\
-0&0&1&-z_e\\
-0&0&0&1\\
-\end{bmatrix}</script><p>inverse rotation is easier X to (g x t), Y to t, Z to -g 叉乘</p>
-<p>Model|View Transformation</p>
-<p><img src="../image/orth-pers.png" alt="image-20230114091549245"></p>
+M_{viewport} = \begin{pmatrix}
+\frac{width}{2} &0 &0 & \frac{width}{2}\\
+0 & \frac{height}{2} &0 & \frac{width}{2} \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}</script><p>屏幕左下角在原点上需要移回来 z方向不需要改动  视口变换</p>
+<p>LED light emitting diode 发光二极管</p>
+<h3 id="Triangles-Fundamental-Shape-Primitives"><a href="#Triangles-Fundamental-Shape-Primitives" class="headerlink" title="Triangles - Fundamental Shape Primitives"></a>Triangles - Fundamental Shape Primitives</h3><ul>
+<li><p>Most basic polygon</p>
+<ul>
+<li>Break up other polygons (CG 坏了加班了)</li>
+</ul>
+</li>
+<li><p>Unique properties</p>
+<ul>
+<li>Guaranteed to be planar</li>
+<li>Well-defined interior</li>
+<li>Well-defined method for interpolating values at vertices over triangle</li>
+</ul>
+</li>
+<li><p>Pixel Values Approximate a Triangle</p>
+<p>判断一个像素和三角形的位置关系 </p>
+<p>三角形中心点与三角形的位置关系</p>
 </li>
 </ul>
-<h3 id="Orthographic-Projection"><a href="#Orthographic-Projection" class="headerlink" title="Orthographic Projection"></a>Orthographic Projection</h3><p>map a cuboid [l, r] x [b, t] x [$f, n$] to</p>
-<p>the “canonical” cube $[- 1, 1]^3$ 标准的立方体</p>
-<p>离得远z小 近z大</p>
-<p>Translate (center to origin) first, then scale (length/width/height to 2) 转换为2也就是（-1 ， 1）</p>
-<p>Matrix is easy</p>
-<h3 id="Perspective-Projection"><a href="#Perspective-Projection" class="headerlink" title="Perspective Projection"></a>Perspective Projection</h3><p><img src="..\image\pers.png" alt="image-20230114095401335"></p>
-<p>如何挤压？</p>
-<p>从侧面往里看</p>
-<p>$y’ = \frac{n}{z}y$</p>
-<p>Observation for z’</p>
-<ul>
-<li>Any point near plane will not change</li>
-<li>Any point’s z on the far plane will not change</li>
-</ul>
-<p>third row must be of the form (0  0  A  B)</p>
-<p>Solve for A and B</p>
-<script type="math/tex; mode=display">
-An + B = n^2 \ \ \ A = n + f\\
-An + B = f^2 \ \ \ B = -nf</script>
+<h3 id="Sampling-a-Function-采样"><a href="#Sampling-a-Function-采样" class="headerlink" title="Sampling a Function 采样"></a>Sampling a Function 采样</h3><p>Evaluating a function a point is sampling</p>
+<p>We can discretize a function by sampling</p>
+<pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
+	output[x] &#x3D; f(x);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Core idea in graphics</p>
+<p>time (1D), area (2D), direction(2D) ….</p>
+<p>inside(t, x, y) 判断是否在三角形内</p>
+<p><img src="..\image\image-20230115082117380.png" alt="image-20230115082117380"></p>
+<pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
+	for (int y&#x3D;0; y &lt; ymax; ++y)
+		image[x][y] &#x3D; inside(tri, x+0.5, y+0.5)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>通过采样实现光栅化</p>
+<h3 id="Inside-Three-Cross-Product"><a href="#Inside-Three-Cross-Product" class="headerlink" title="Inside? Three Cross Product"></a>Inside? Three Cross Product</h3><p>P1P2 X P1Q -&gt; z是正的 Q 在P1左侧</p>
+<p>包围盒 Bounding Box</p>
+<p><img src="G:\github\blog\source\_posts\image-20230115083024989.png" alt="image-20230115083024989"></p>
+<p>加速方法</p>
+<p>采样率不够高 -&gt; 锯齿 Alias 抗锯齿 反走样</p>
+
       
     </div>
     
@@ -512,8 +428,8 @@ An + B = f^2 \ \ \ B = -nf</script>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/14/Transformation/" rel="next" title="Transformation">
-                <i class="fa fa-chevron-left"></i> Transformation
+              <a href="/2023/01/14/Transformation-cont/" rel="next" title="Transformation_cont.">
+                <i class="fa fa-chevron-left"></i> Transformation_cont.
               </a>
             
           </div>
@@ -521,10 +437,6 @@ An + B = f^2 \ \ \ B = -nf</script>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2023/01/15/Rasterization/" rel="prev" title="Rasterization">
-                Rasterization <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -661,7 +573,7 @@ An + B = f^2 \ \ \ B = -nf</script>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3D-transformation"><span class="nav-number">1.</span> <span class="nav-text">3D transformation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-matrices-for-affine-transformations"><span class="nav-number">1.0.1.</span> <span class="nav-text">4 * 4 matrices for affine transformations</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3D-Rotations"><span class="nav-number">2.</span> <span class="nav-text">3D Rotations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Rodrigues%E2%80%99-Rotation-Formula"><span class="nav-number">2.1.</span> <span class="nav-text">Rodrigues’ Rotation Formula</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Rotation-by-angle-alpha-around-axis-bold-n"><span class="nav-number">2.1.1.</span> <span class="nav-text">Rotation by angle $\alpha$ around axis $\bold{n}$</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-Camera-transformation-%E4%B8%89%E7%BB%B4-gt-%E4%BA%8C%E7%BB%B4"><span class="nav-number">2.2.</span> <span class="nav-text">View &#x2F; Camera transformation   三维-&gt;二维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#M-view-in-math"><span class="nav-number">2.3.</span> <span class="nav-text">$M_{view}$ in math</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Orthographic-Projection"><span class="nav-number">3.</span> <span class="nav-text">Orthographic Projection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Perspective-Projection"><span class="nav-number">4.</span> <span class="nav-text">Perspective Projection</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Rasterization"><span class="nav-number">1.0.1.</span> <span class="nav-text">Rasterization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Raster-screen-in-German"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">Raster &#x3D;&#x3D; screen in German</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pixel-picture-element"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">Pixel (picture element)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Canonical-Cube-to-Screen"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">Canonical Cube to Screen</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triangles-Fundamental-Shape-Primitives"><span class="nav-number">1.0.2.</span> <span class="nav-text">Triangles - Fundamental Shape Primitives</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sampling-a-Function-%E9%87%87%E6%A0%B7"><span class="nav-number">1.0.3.</span> <span class="nav-text">Sampling a Function 采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inside-Three-Cross-Product"><span class="nav-number">1.0.4.</span> <span class="nav-text">Inside? Three Cross Product</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

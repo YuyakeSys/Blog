@@ -263,6 +263,192 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/15/Rasterization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/15/Rasterization/" itemprop="url">Rasterization</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-15T07:20:13+08:00">
+                2023-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><h3 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h3><ul>
+<li>Different raster displays</li>
+<li>Rasterizing a triangle</li>
+</ul>
+<p><img src="G:\github\blog\source\_posts\image-20230115073410188.png" alt="image-20230115073410188"></p>
+<p>红线之间角度 -&gt; 垂直可视角度 Vertical filed of view</p>
+<p><img src="G:\github\blog\source\_posts\image-20230115073738823.png" alt="image-20230115073738823"></p>
+<p>角度/2</p>
+<p>屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p</p>
+<p>An array of pixels</p>
+<p>Size of the array resolution</p>
+<p>A typical kind of raster display</p>
+<h4 id="Raster-screen-in-German"><a href="#Raster-screen-in-German" class="headerlink" title="Raster == screen in German"></a>Raster == screen in German</h4><ul>
+<li>Rasterize == drawing onto the screen</li>
+</ul>
+<h4 id="Pixel-picture-element"><a href="#Pixel-picture-element" class="headerlink" title="Pixel (picture element)"></a>Pixel (picture element)</h4><p>r,g,b</p>
+<h4 id="Canonical-Cube-to-Screen"><a href="#Canonical-Cube-to-Screen" class="headerlink" title="Canonical Cube to Screen"></a>Canonical Cube to Screen</h4><ul>
+<li><p>Defining the screen space</p>
+<ul>
+<li>Slightly different from 虎书</li>
+</ul>
+<p><img src="G:\github\blog\source\_posts\image-20230115074741615.png" alt="image-20230115074741615"></p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+M_{viewport} = \begin{pmatrix}
+\frac{width}{2} &0 &0 & \frac{width}{2}\\
+0 & \frac{height}{2} &0 & \frac{width}{2} \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}</script><p>屏幕左下角在原点上需要移回来 z方向不需要改动  视口变换</p>
+<p>LED light emitting diode 发光二极管</p>
+<h3 id="Triangles-Fundamental-Shape-Primitives"><a href="#Triangles-Fundamental-Shape-Primitives" class="headerlink" title="Triangles - Fundamental Shape Primitives"></a>Triangles - Fundamental Shape Primitives</h3><ul>
+<li><p>Most basic polygon</p>
+<ul>
+<li>Break up other polygons (CG 坏了加班了)</li>
+</ul>
+</li>
+<li><p>Unique properties</p>
+<ul>
+<li>Guaranteed to be planar</li>
+<li>Well-defined interior</li>
+<li>Well-defined method for interpolating values at vertices over triangle</li>
+</ul>
+</li>
+<li><p>Pixel Values Approximate a Triangle</p>
+<p>判断一个像素和三角形的位置关系 </p>
+<p>三角形中心点与三角形的位置关系</p>
+</li>
+</ul>
+<h3 id="Sampling-a-Function-采样"><a href="#Sampling-a-Function-采样" class="headerlink" title="Sampling a Function 采样"></a>Sampling a Function 采样</h3><p>Evaluating a function a point is sampling</p>
+<p>We can discretize a function by sampling</p>
+<pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
+	output[x] &#x3D; f(x);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Core idea in graphics</p>
+<p>time (1D), area (2D), direction(2D) ….</p>
+<p>inside(t, x, y) 判断是否在三角形内</p>
+<p><img src="..\image\image-20230115082117380.png" alt="image-20230115082117380"></p>
+<pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
+	for (int y&#x3D;0; y &lt; ymax; ++y)
+		image[x][y] &#x3D; inside(tri, x+0.5, y+0.5)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>通过采样实现光栅化</p>
+<h3 id="Inside-Three-Cross-Product"><a href="#Inside-Three-Cross-Product" class="headerlink" title="Inside? Three Cross Product"></a>Inside? Three Cross Product</h3><p>P1P2 X P1Q -&gt; z是正的 Q 在P1左侧</p>
+<p>包围盒 Bounding Box</p>
+<p><img src="G:\github\blog\source\_posts\image-20230115083024989.png" alt="image-20230115083024989"></p>
+<p>加速方法</p>
+<p>采样率不够高 -&gt; 锯齿 Alias 抗锯齿 反走样</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation-cont/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -394,7 +580,7 @@ x \\ y \\ z \\1
     d & s_y & 0 & 0 \\
     0 & 0 & 0 & 0 \\
     0 & 0 & 0 & 1
-\end{pmatrix}</script><p>旋转 $\bold{important}$</p>
+\end{pmatrix}</script><p>旋转 important</p>
 <script type="math/tex; mode=display">
 R_x(\alpha)=\begin{pmatrix}
     1 & 0& 0 & 0 \\
@@ -469,7 +655,7 @@ T_view = \begin{bmatrix}1&0&0&-x_e\\
 <p><img src="../image/orth-pers.png" alt="image-20230114091549245"></p>
 </li>
 </ul>
-<h3 id="Orthographic-Projection"><a href="#Orthographic-Projection" class="headerlink" title="Orthographic Projection"></a>Orthographic Projection</h3><p>map a cuboid [l, r] x [b, t] x [$\bold{f}, \bold{n}$] to</p>
+<h3 id="Orthographic-Projection"><a href="#Orthographic-Projection" class="headerlink" title="Orthographic Projection"></a>Orthographic Projection</h3><p>map a cuboid [l, r] x [b, t] x [$f, n$] to</p>
 <p>the “canonical” cube $[- 1, 1]^3$ 标准的立方体</p>
 <p>离得远z小 近z大</p>
 <p>Translate (center to origin) first, then scale (length/width/height to 2) 转换为2也就是（-1 ， 1）</p>
@@ -1163,7 +1349,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
