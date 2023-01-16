@@ -263,6 +263,211 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/16/antialias/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/16/antialias/" itemprop="url">antialias</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-16T07:20:38+08:00">
+                2023-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Games101/" itemprop="url" rel="index">
+                    <span itemprop="name">Games101</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Antialias 反走样 遮挡</p>
+<p>锯齿 学名 走样 Alias</p>
+<p>Sampling Artifacts (Error/…)</p>
+<p>Moire Patterns in Imaging  </p>
+<p>Reason:</p>
+<p>Signals are changing too fast (high frequency), but<font color='red'> sampled too slow</font></p>
+<h3 id="Antialiasing-Idea-Blurring-Pre-Filtering-before-sampling"><a href="#Antialiasing-Idea-Blurring-Pre-Filtering-before-sampling" class="headerlink" title="Antialiasing Idea: Blurring (Pre-Filtering) before sampling"></a>Antialiasing Idea: Blurring (Pre-Filtering) before sampling</h3><h3 id="Frequency-Domain-频率"><a href="#Frequency-Domain-频率" class="headerlink" title="Frequency Domain 频率"></a>Frequency Domain 频率</h3><p>$f = \frac{1}{T}$</p>
+<p>Fourier Transform 傅里叶展开</p>
+<p>Represent a function as a weighted sum of sines and cosines</p>
+<p>$e^{ix}=cosx + isinx$</p>
+<p><img src="..\image\Ras\image-20230116074814025.png" alt="image-20230116074814025"></p>
+<p>不必要知道$F$</p>
+<p>不同正弦与余弦函数有不同的频率</p>
+<p>采样与函数频率有关</p>
+<p>走样</p>
+<p><img src="..\image\Ras\image-20230116075646896.png" alt="image-20230116075646896"></p>
+<p>Two frequencies that are indistinguishable at a given sampling are called “aliases”</p>
+<p>Filtering = <font color='red'> Getting rid of </font> certain frequency contents</p>
+<p>图像中心到周围频率++</p>
+<p>Filtert out low frequencies only (edges)</p>
+<p>高通滤波（高频可以通过）</p>
+<p><img src="..\image\Ras\image-20230116080338635.png" alt="image-20230116080338635"></p>
+<p>Filtert out high frequencies (Blur)</p>
+<p><img src="..\image\Ras\image-20230116080532333.png" alt="image-20230116080532333"></p>
+<p><img src="..\image\Ras\image-20230116080634727.png" alt="image-20230116080634727"></p>
+<p>Filtering = Convolution (= Averaging)</p>
+<p>卷积： 用滤波器对信号进行处理 （图形学简化定义）</p>
+<h3 id="Convolution-Theorem"><a href="#Convolution-Theorem" class="headerlink" title="Convolution Theorem"></a>Convolution Theorem</h3><p>Convolution in the spatial domain is equal to multiplication in the frequency domain, and </p>
+<p>vice versa</p>
+<h4 id="Option-1"><a href="#Option-1" class="headerlink" title="Option 1:"></a>Option 1:</h4><ul>
+<li>Filter by convolution in the spatial domain</li>
+</ul>
+<h4 id="Option-2"><a href="#Option-2" class="headerlink" title="Option 2:"></a>Option 2:</h4><ul>
+<li>Transform to frequency domain (Fourier transform)</li>
+<li>Muliply by Fourier transform of convolution kernel</li>
+<li>Transform back to spatial domain (inverse Fourier)</li>
+</ul>
+<p><img src="..\image\Ras\image-20230116081527022.png" alt="image-20230116081527022"></p>
+<p>频谱混叠产生走样</p>
+<p>How can we reduce alias Error</p>
+<h5 id="Option1-Increase-sampling-rate"><a href="#Option1-Increase-sampling-rate" class="headerlink" title="Option1: Increase sampling rate"></a>Option1: Increase sampling rate</h5><ul>
+<li>Essentially increasing the distance between replicas in the Fourier domain</li>
+<li>Higher resolution displays, sensors, framebuffers…</li>
+<li>But: costly</li>
+</ul>
+<h5 id="Option-2-Antialiasing"><a href="#Option-2-Antialiasing" class="headerlink" title="Option 2: Antialiasing"></a>Option 2: Antialiasing</h5><ul>
+<li>Making Fourier contents “narrower” before repeating</li>
+<li>i.e. Filtering out high frequencies before sampling</li>
+</ul>
+<h4 id="A-Practical-Pre-Filter"><a href="#A-Practical-Pre-Filter" class="headerlink" title="A Practical Pre-Filter"></a>A Practical Pre-Filter</h4><p>A 1 pixel-width box filter (low pass, blurring)</p>
+<h4 id="Antialiasing-By-Averageing-Values-in-Pixel-Area"><a href="#Antialiasing-By-Averageing-Values-in-Pixel-Area" class="headerlink" title="Antialiasing By Averageing Values in Pixel Area"></a>Antialiasing By Averageing Values in Pixel Area</h4><p>Solution:</p>
+<ul>
+<li>Convolve f(x,y) by a 1-pixel box-blur<ul>
+<li>Recall: convolving = filtering = averaging</li>
+</ul>
+</li>
+<li>Then sample at every pixel’s center</li>
+</ul>
+<h4 id="Antialiasing-By-Supersampling-MSAA"><a href="#Antialiasing-By-Supersampling-MSAA" class="headerlink" title="Antialiasing By Supersampling (MSAA)"></a>Antialiasing By Supersampling (MSAA)</h4><p>Approximate the effect of the 1-pixel box filter by sampling multiple locatiuons</p>
+<p>within a pixel and averaging their values:</p>
+<p>Average NxN samples “inside” each pixel</p>
+<p>采样-&gt;一个格子一个颜色 解决了信号模糊这一操作</p>
+<h5 id="Cost"><a href="#Cost" class="headerlink" title="Cost:"></a>Cost:</h5><p>FXAA 图像的后期处理</p>
+<p>TAA</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/15/Rasterization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -338,9 +543,9 @@
 <li>Different raster displays</li>
 <li>Rasterizing a triangle</li>
 </ul>
-<p><img src="G:\github\blog\source\_posts\image-20230115073410188.png" alt="image-20230115073410188"></p>
+<p><img src="..\image\image-20230115073410188.png" alt="image-20230115073410188"></p>
 <p>红线之间角度 -&gt; 垂直可视角度 Vertical filed of view</p>
-<p><img src="G:\github\blog\source\_posts\image-20230115073738823.png" alt="image-20230115073738823"></p>
+<p><img src="..\image\image-20230115073738823.png" alt="image-20230115073738823"></p>
 <p>角度/2</p>
 <p>屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p</p>
 <p>An array of pixels</p>
@@ -355,7 +560,7 @@
 <ul>
 <li>Slightly different from 虎书</li>
 </ul>
-<p><img src="G:\github\blog\source\_posts\image-20230115074741615.png" alt="image-20230115074741615"></p>
+<p><img src="..\image\image-20230115074741615.png" alt="image-20230115074741615"></p>
 </li>
 </ul>
 <script type="math/tex; mode=display">
@@ -398,7 +603,7 @@ M_{viewport} = \begin{pmatrix}
 <p>通过采样实现光栅化</p>
 <h3 id="Inside-Three-Cross-Product"><a href="#Inside-Three-Cross-Product" class="headerlink" title="Inside? Three Cross Product"></a>Inside? Three Cross Product</h3><p>P1P2 X P1Q -&gt; z是正的 Q 在P1左侧</p>
 <p>包围盒 Bounding Box</p>
-<p><img src="G:\github\blog\source\_posts\image-20230115083024989.png" alt="image-20230115083024989"></p>
+<p><img src="..\image\image-20230115083024989.png" alt="image-20230115083024989"></p>
 <p>加速方法</p>
 <p>采样率不够高 -&gt; 锯齿 Alias 抗锯齿 反走样</p>
 
@@ -1349,7 +1554,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
