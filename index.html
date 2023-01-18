@@ -263,6 +263,273 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/17/shading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/17/shading/" itemprop="url">shading</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-17T07:50:53+08:00">
+                2023-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Games101/" itemprop="url" rel="index">
+                    <span itemprop="name">Games101</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Painter’s-Algorithm"><a href="#Painter’s-Algorithm" class="headerlink" title="Painter’s Algorithm"></a>Painter’s Algorithm</h3><p>Paint from back to front， <font color="red">overwrite</font> in the frame buffer</p>
+<p>由远到近 画画 （覆盖）</p>
+<p> Require sorting in depth (O(n log n)) for n triangles)</p>
+<p>可能有unresolvable depth order</p>
+<h2 id="Z-Buffer-深度缓存"><a href="#Z-Buffer-深度缓存" class="headerlink" title="Z-Buffer 深度缓存"></a>Z-Buffer 深度缓存</h2><h4 id="Idea"><a href="#Idea" class="headerlink" title="Idea:"></a>Idea:</h4><ul>
+<li><p>Store current min. z-value <font color="red">for each sample(pixel)</font></p>
+</li>
+<li><p>Needs an additional buffer for depth values</p>
+<pre><code> - frame buffer stores color values
+</code></pre></li>
+<li><p>depth buffer (z-buffer) stores depth</p>
+</li>
+</ul>
+<p>我们认为深度是点到摄像机的距离， 小-&gt;近 大-&gt;远</p>
+<p>因为原本是向 -z 方向看</p>
+<pre class="line-numbers language-none"><code class="language-none">for (each triangle T)
+	for (each sample (x,y,z) in T)
+		if (z&lt;zbuffer[x,y]) &#x2F;&#x2F; closest sample
+			framebuffer[x,y] &#x3D; rgb; &#x2F;&#x2F;update color
+			zbuffer[x,y] &#x3D; z; &#x2F;&#x2F;update depth
+		else
+			; &#x2F;&#x2F;do nothing<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>初始深度无限大 inf </p>
+<p>逐个判断</p>
+<p>Complexity</p>
+<ul>
+<li>O(n) for n triangles (constant coverage)</li>
+<li>我们并没有排序 只是记录当前看到的最小值</li>
+</ul>
+<p>很难判断浮点数相等 </p>
+<h3 id="Shading"><a href="#Shading" class="headerlink" title="Shading"></a>Shading</h3><p>The process of applying a material to an object</p>
+<p>specular highlights 高光</p>
+<p>Ambient lighting 简介光照</p>
+<p>首先定义 点到面的法线</p>
+<ul>
+<li>Viewer direction v 观测方向</li>
+<li>Surface normal n 法线</li>
+<li>Light direction 光照方向</li>
+</ul>
+<p>都是单位向量 同时需要物体表面信息 （有多么亮Shininess）颜色color</p>
+<p>Shading $\ne$ shadow</p>
+<p>Shading is Local 着色是局部的</p>
+<h4 id="Difuuse-Reflection-漫反射"><a href="#Difuuse-Reflection-漫反射" class="headerlink" title="Difuuse Reflection 漫反射"></a>Difuuse Reflection 漫反射</h4><p>Light is scattered uniformly in all directions</p>
+<p>法线与光线来源方向的夹角决定物体有多亮</p>
+<p>光是一种能量 光照 -&gt; 物体接收到了多少能量 (考虑单位面积)</p>
+<ul>
+<li>Lambert’s cosine law <ul>
+<li>cos $\theta$ = $I \cdot n$</li>
+</ul>
+</li>
+</ul>
+<h5 id="Light-Falloff"><a href="#Light-Falloff" class="headerlink" title="Light Falloff"></a>Light Falloff</h5><p>Shading independent of view direction</p>
+<script type="math/tex; mode=display">
+L_d = k_d(I/r^2)max(0,n \cdot l)</script><p>到达shading point的能量  n*l是cos的值</p>
+<p>$k_d$ 是颜色系数</p>
+<p>漫反射与观察方向完全无关</p>
+<h3 id="Shading-2"><a href="#Shading-2" class="headerlink" title="Shading 2"></a>Shading 2</h3><p>当v与r(镜面反射方向)是高光项</p>
+<p><img src="..\image\shade\blin.png" alt="image-20230118214809696"></p>
+<p>v与r接近 就是n和h接近 半程向量和法线是否接近 （接近点乘接近1）</p>
+<p>后面需要考虑还有多少能量被吸收</p>
+<p>这个模型高光对$cos\theta$ (指数p)要到100-200 高光普遍只有几度</p>
+<h4 id="Ambient-Term-环境光照"><a href="#Ambient-Term-环境光照" class="headerlink" title="Ambient Term 环境光照"></a>Ambient Term 环境光照</h4><p>假设 Shading that does not depend on anything</p>
+<ul>
+<li>Add constant color to account for disregarded illumination and fill in black shadows</li>
+<li>Approximate</li>
+</ul>
+<script type="math/tex; mode=display">
+L_a = k_a I_a</script><p>$L_a$:reflected ambient light                                     $k_a$:ambient coefficient</p>
+<script type="math/tex; mode=display">
+L = L_a+L_d+L_s\\
+= k_aI_a + k_d(I/r^2)max(0,n\cdot l) + k_s(I/r^2)max(0,n\cdot h)^p</script><h3 id="Flat-逐三角形-Grouaud-逐顶点-Phong-逐像素-shading"><a href="#Flat-逐三角形-Grouaud-逐顶点-Phong-逐像素-shading" class="headerlink" title="Flat(逐三角形)/Grouaud(逐顶点)/Phong(逐像素) shading"></a>Flat(逐三角形)/Grouaud(逐顶点)/Phong(逐像素) shading</h3><p>Blinn-Phong is a model $\neq$ Phong shading</p>
+<p>取决于具体的物体</p>
+<h5 id="Defining-Per-Vertex-Normal-Vectors"><a href="#Defining-Per-Vertex-Normal-Vectors" class="headerlink" title="Defining Per-Vertex Normal Vectors"></a>Defining Per-Vertex Normal Vectors</h5><p><img src="..\image\shade\normal.png" alt="image-20230118221458715"></p>
+<p>相邻的法线求平均</p>
+<h3 id="Graphics-Real-time-Rendering-Pipeline"><a href="#Graphics-Real-time-Rendering-Pipeline" class="headerlink" title="Graphics (Real-time Rendering) Pipeline"></a>Graphics (Real-time Rendering) Pipeline</h3><p>Vertex Processing -&gt; Triangle Processing -&gt; Rasterization -&gt; Fragment Processing -&gt; Framebuffer Operations -&gt; display</p>
+<h3 id="Shader-Programs"><a href="#Shader-Programs" class="headerlink" title="Shader Programs"></a>Shader Programs</h3><p>每一个顶点 fragment执行一次 通用的</p>
+<h3 id="Texture-Mapping-纹理映射"><a href="#Texture-Mapping-纹理映射" class="headerlink" title="Texture Mapping 纹理映射"></a>Texture Mapping 纹理映射</h3><p>Surface lives in 3D world space</p>
+<p>Every 3D surface point also has a place where it goes in the 2D image (<strong>texture</strong>)</p>
+<p><img src="..\image\shade\texture.png" alt="image-20230118225008718"></p>
+<p>u,v 都是0-1之内</p>
+<p>纹理无缝衔接的合成</p>
+<h4 id="Interpolation-Across-Triangles-Barycenteric-Coordinates"><a href="#Interpolation-Across-Triangles-Barycenteric-Coordinates" class="headerlink" title="Interpolation Across Triangles : Barycenteric Coordinates"></a>Interpolation Across Triangles : Barycenteric Coordinates</h4><p>重心坐标</p>
+<p>为什么要插值(interpolate)?</p>
+<ul>
+<li>Specify values <strong>at vertices</strong></li>
+<li>Obtain smoothly varying values <strong>across triangles</strong></li>
+</ul>
+<p>is a coordinate system for triangles $(\alpha,\beta,\gamma)$</p>
+<script type="math/tex; mode=display">
+(x,y) = \alpha A + \beta B + \gamma C\\
+\alpha + \beta + \gamma =1</script><p>在三角形内如果三个坐标都是非负的</p>
+<p>A 1 0 0        B 0 1 0       C 0 0 1</p>
+<script type="math/tex; mode=display">
+\alpha = \frac{A_A}{A_A + A_B + A_C}
+\beta = \frac{A_B}{A_A + A_B + A_C}
+\gamma = \frac{A_C}{A_A + A_B + A_C}</script><p>重心 1/3 1/3 1/3 三个等面积三角形</p>
+<p>通过坐标属性线性结合起来</p>
+<p><img src="..\image\shade\linearcent.png" alt="image-20230118232935132"></p>
+<p>重心坐标在投影下不能保持不变</p>
+<p>找到对应三维空间坐标的深度插值</p>
+<h5 id="Applying-Texture"><a href="#Applying-Texture" class="headerlink" title="Applying Texture"></a>Applying Texture</h5><pre class="line-numbers language-none"><code class="language-none">for each rasterized screen sample (x,y):
+	(u,v) &#x3D; evaluate texture coordinate at (x,y); &#x2F;&#x2F;重心坐标
+	texcolor &#x3D; texture.sample(u,v);
+	set sample&#39;s color to texcolor; &lt;- k_d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="Problem-1-Texture-Magnification-纹理放大"><a href="#Problem-1-Texture-Magnification-纹理放大" class="headerlink" title="Problem 1 Texture Magnification 纹理放大"></a>Problem 1 Texture Magnification 纹理放大</h5><p>如果纹理太小256x256 被拉大</p>
+<p>纹理上的像素 A pixel on a texture — a <strong>texel</strong> （纹素）</p>
+<p>四舍五入很难看 不连续</p>
+<p>-&gt; 双线性插值 Bilinear interpolation</p>
+<p>线性插值 Linear interpolation (1 D)</p>
+<p>$lerp(x,v_0,v_1)=v_0+x(v_1-v_0)$</p>
+<p><img src="..\image\shade\lerp.png" alt="image-20230119001241519"></p>
+<p>Bicubic 取周围16个</p>
+<h5 id="Problem-2-hard-case-纹理太大"><a href="#Problem-2-hard-case-纹理太大" class="headerlink" title="Problem 2: hard case 纹理太大"></a>Problem 2: hard case 纹理太大</h5><p>supersampling is costly</p>
+<p>避免采样</p>
+<p>Point Query vs. (Avg.) Range Query</p>
+<h5 id="Mipmap"><a href="#Mipmap" class="headerlink" title="Mipmap"></a>Mipmap</h5><p>Allowing (<font color="red">fast, approx, square</font>) range queries</p>
+<p>一张图分成数张图 $log_2 n$</p>
+<p><img src="..\image\shade\filter.png" alt="image-20230119004909853"></p>
+<p>再在层与层之间进行插值</p>
+<p>Trilinear Interpolation 三线性插值  Ripmaps</p>
+<p>D 层 -&gt; D+1层</p>
+<p>Anisotropic Filtering 各向异性过滤</p>
+<p>解决了矩形问题 无法解决斜的矩形 </p>
+<p>EWA 过滤 </p>
+<p>多次查询</p>
+<p>Wait for further update 最后俩topic</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/16/antialias/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1554,7 +1821,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
