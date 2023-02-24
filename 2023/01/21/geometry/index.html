@@ -79,21 +79,17 @@
 
 
 
-<meta name="description" content="3D transformation Viewing(观测) transformation View (视图)&#x2F; Camera transformation Projection (投影) transformation Orthographic (正交) projection Perspective (透视) projection      3D transformation point &#x3D; $(">
+<meta name="description" content="A blog to save my notes">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Transformation_cont.">
-<meta property="og:url" content="http://example.com/2023/01/14/Transformation-cont/index.html">
+<meta property="og:title" content="geometry">
+<meta property="og:url" content="http://example.com/2023/01/21/geometry/index.html">
 <meta property="og:site_name" content="Melo&#39;s blog">
-<meta property="og:description" content="3D transformation Viewing(观测) transformation View (视图)&#x2F; Camera transformation Projection (投影) transformation Orthographic (正交) projection Perspective (透视) projection      3D transformation point &#x3D; $(">
+<meta property="og:description" content="A blog to save my notes">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/01/14/image/view_img.png">
-<meta property="og:image" content="http://example.com/2023/01/14/image/orth-pers.png">
-<meta property="og:image" content="http://example.com/2023/01/14/image/pers.png">
-<meta property="article:published_time" content="2023-01-13T22:20:22.000Z">
-<meta property="article:modified_time" content="2023-01-16T18:21:19.372Z">
+<meta property="article:published_time" content="2023-01-20T20:27:45.000Z">
+<meta property="article:modified_time" content="2023-01-20T20:27:45.891Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/01/14/image/view_img.png">
 
 
 
@@ -123,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2023/01/14/Transformation-cont/"/>
+  <link rel="canonical" href="http://example.com/2023/01/21/geometry/"/>
 
 
 
 
 
-  <title>Transformation_cont. | Melo's blog</title>
+  <title>geometry | Melo's blog</title>
   
 
 
@@ -268,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation-cont/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/21/geometry/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Meng Zhouyang">
@@ -285,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Transformation_cont.</h1>
+          <h1 class="post-title" itemprop="name headline">geometry</h1>
         
 
         <div class="post-meta">
@@ -297,8 +293,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-14T06:20:22+08:00">
-                2023-01-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-21T04:27:45+08:00">
+                2023-01-21
               </time>
             
 
@@ -307,28 +303,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -357,138 +331,7 @@
       
 
       
-        <ul>
-<li>3D transformation</li>
-<li>Viewing(观测) transformation<ul>
-<li>View (视图)/ Camera transformation</li>
-<li>Projection (投影) transformation<ul>
-<li>Orthographic (正交) projection</li>
-<li>Perspective (透视) projection</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="3D-transformation"><a href="#3D-transformation" class="headerlink" title="3D transformation"></a>3D transformation</h3><ul>
-<li><p>point = $(x, y, z, 1)^T$</p>
-</li>
-<li><p>vector = $(x, y, z, 0)^T$</p>
-<h5 id="4-4-matrices-for-affine-transformations"><a href="#4-4-matrices-for-affine-transformations" class="headerlink" title="4 * 4 matrices for affine transformations"></a>4 * 4 matrices for affine transformations</h5><script type="math/tex; mode=display">
-\begin{pmatrix}
-    x' \\ y' \\z' 1
-\end{pmatrix}
-= \begin{pmatrix}
-    a & b& c & t_x \\
-    d & e & f & t_y \\
-    g & h & i & t_z \\
-    0 & 0 & 0 & 1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-x \\ y \\ z \\1
-\end{pmatrix}</script></li>
-</ul>
-<p>缩放 Scale ….</p>
-<script type="math/tex; mode=display">
-\begin{pmatrix}
-    S_x & 0& 0 & 0 \\
-    d & s_y & 0 & 0 \\
-    0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>旋转 important</p>
-<script type="math/tex; mode=display">
-R_x(\alpha)=\begin{pmatrix}
-    1 & 0& 0 & 0 \\
-    0 & cos\theta & -sin\theta & 0 \\
-    0 & sin\theta & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}\\
-R_y(\alpha)=\begin{pmatrix}
-    cos\theta & 0& sin\theta & 0 \\
-    0 & 0 & 0 & 0 \\
-    -sin\theta & 0 & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>对x轴旋转 -&gt; 第一行为 1, 0 ,0</p>
-<p>2 x 2是对y与z操作</p>
-<p>对旋转不同 ？z × x -&gt; y 不是x叉乘z 所以相反</p>
-<h3 id="3D-Rotations"><a href="#3D-Rotations" class="headerlink" title="3D Rotations"></a>3D Rotations</h3><p>Compose 3D roration from $R_x, R_y, R_z$    $\bold{Euler \ angels}$</p>
-<script type="math/tex; mode=display">
-R_{xyz}(\alpha, \beta, \gamma) = R_x(\alpha)R_y(\beta)R_z(\gamma)</script><h4 id="Rodrigues’-Rotation-Formula"><a href="#Rodrigues’-Rotation-Formula" class="headerlink" title="Rodrigues’ Rotation Formula"></a>Rodrigues’ Rotation Formula</h4><h5 id="Rotation-by-angle-alpha-around-axis-bold-n"><a href="#Rotation-by-angle-alpha-around-axis-bold-n" class="headerlink" title="Rotation by angle $\alpha$ around axis $\bold{n}$"></a>Rotation by angle $\alpha$ around axis $\bold{n}$</h5><p>认为过原点 向量就是方向</p>
-<script type="math/tex; mode=display">
-R(\bold{n}, \alpha) = cos(\alpha)I + (1-cos(\alpha))\bold{n}\bold{n}^T + sin(\alpha)
-\begin{pmatrix}
-    0 & -n_z & n_y \\
-    n_z & 0 & -n_x \\
-    -n_y & n_x & 0
-\end{pmatrix}</script><p>Proof: </p>
-
-
-	<div class="row">
-    <embed src="PDF/GAMES101_Lecture_04_supp.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-   
-<h4 id="View-Camera-transformation-三维-gt-二维"><a href="#View-Camera-transformation-三维-gt-二维" class="headerlink" title="View / Camera transformation   三维-&gt;二维"></a>View / Camera transformation   三维-&gt;二维</h4><ul>
-<li>Take a photo<ul>
-<li>find place and arrange people (model transformation)</li>
-<li>find good “angle” (view)</li>
-<li>Cheese! (projection)</li>
-</ul>
-</li>
-</ul>
-<p>MVP!!!!!!!!!</p>
-<ul>
-<li><p>Define the camera first</p>
-<ul>
-<li>Position $\vec{e}$</li>
-<li>Look-at / gaze direction $\hat{g}$</li>
-<li>Up direction $\hat{t}$</li>
-</ul>
-<p>向上方向 固定相机旋转）</p>
-</li>
-<li><p>Key observation </p>
-<ul>
-<li>一起移动 相对运动 相片一定是一样的  = 固定相机（远点） 物体运动</li>
-<li>The origin, up at Y, look at -Z</li>
-<li>And transform the objects along with the camera</li>
-</ul>
-</li>
-</ul>
-<p><img src="../image/view_img.png" alt=""></p>
-<h4 id="M-view-in-math"><a href="#M-view-in-math" class="headerlink" title="$M_{view}$ in math"></a>$M_{view}$ in math</h4><ul>
-<li><p>$M_{view} = R{view}T{view}$</p>
-</li>
-<li><p>Translate e to origin       </p>
-<script type="math/tex; mode=display">
-T_view = \begin{bmatrix}1&0&0&-x_e\\
-0&1&0&-y_e\\
-0&0&1&-z_e\\
-0&0&0&1\\
-\end{bmatrix}</script><p>inverse rotation is easier X to (g x t), Y to t, Z to -g 叉乘</p>
-<p>Model|View Transformation</p>
-<p><img src="../image/orth-pers.png" alt="image-20230114091549245"></p>
-</li>
-</ul>
-<h3 id="Orthographic-Projection"><a href="#Orthographic-Projection" class="headerlink" title="Orthographic Projection"></a>Orthographic Projection</h3><p>map a cuboid [l, r] x [b, t] x [$f, n$] to</p>
-<p>the “canonical” cube $[- 1, 1]^3$ 标准的立方体</p>
-<p>离得远z小 近z大</p>
-<p>Translate (center to origin) first, then scale (length/width/height to 2) 转换为2也就是（-1 ， 1）</p>
-<p>Matrix is easy</p>
-<h3 id="Perspective-Projection"><a href="#Perspective-Projection" class="headerlink" title="Perspective Projection"></a>Perspective Projection</h3><p><img src="..\image\pers.png" alt="image-20230114095401335"></p>
-<p>如何挤压？</p>
-<p>从侧面往里看</p>
-<p>$y’ = \frac{n}{z}y$</p>
-<p>Observation for z’</p>
-<ul>
-<li>Any point near plane will not change</li>
-<li>Any point’s z on the far plane will not change</li>
-</ul>
-<p>third row must be of the form (0  0  A  B)</p>
-<p>Solve for A and B</p>
-<script type="math/tex; mode=display">
-An + B = n^2 \ \ \ A = n + f\\
-An + B = f^2 \ \ \ B = -nf</script>
+        
       
     </div>
     
@@ -512,8 +355,8 @@ An + B = f^2 \ \ \ B = -nf</script>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/14/Transformation/" rel="next" title="Transformation">
-                <i class="fa fa-chevron-left"></i> Transformation
+              <a href="/2023/01/17/shading/" rel="next" title="shading">
+                <i class="fa fa-chevron-left"></i> shading
               </a>
             
           </div>
@@ -522,8 +365,8 @@ An + B = f^2 \ \ \ B = -nf</script>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/01/15/Rasterization/" rel="prev" title="Rasterization">
-                Rasterization <i class="fa fa-chevron-right"></i>
+              <a href="/2023/02/05/opengl1/" rel="prev" title="opengl1">
+                opengl1 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -576,17 +419,8 @@ An + B = f^2 \ \ \ B = -nf</script>
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -651,22 +485,6 @@ An + B = f^2 \ \ \ B = -nf</script>
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3D-transformation"><span class="nav-number">1.</span> <span class="nav-text">3D transformation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-matrices-for-affine-transformations"><span class="nav-number">1.0.1.</span> <span class="nav-text">4 * 4 matrices for affine transformations</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3D-Rotations"><span class="nav-number">2.</span> <span class="nav-text">3D Rotations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Rodrigues%E2%80%99-Rotation-Formula"><span class="nav-number">2.1.</span> <span class="nav-text">Rodrigues’ Rotation Formula</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Rotation-by-angle-alpha-around-axis-bold-n"><span class="nav-number">2.1.1.</span> <span class="nav-text">Rotation by angle $\alpha$ around axis $\bold{n}$</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-Camera-transformation-%E4%B8%89%E7%BB%B4-gt-%E4%BA%8C%E7%BB%B4"><span class="nav-number">2.2.</span> <span class="nav-text">View &#x2F; Camera transformation   三维-&gt;二维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#M-view-in-math"><span class="nav-number">2.3.</span> <span class="nav-text">$M_{view}$ in math</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Orthographic-Projection"><span class="nav-number">3.</span> <span class="nav-text">Orthographic Projection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Perspective-Projection"><span class="nav-number">4.</span> <span class="nav-text">Perspective Projection</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
