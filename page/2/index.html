@@ -263,6 +263,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/14/Transformation/" itemprop="url">Transformation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-14T05:21:02+01:00">
+                2023-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Games101/" itemprop="url" rel="index">
+                    <span itemprop="name">Games101</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Transformation"><a href="#Transformation" class="headerlink" title="Transformation"></a>Transformation</h1><script type="math/tex; mode=display">
+\begin{bmatrix}
+
+x' \\\  y'
+
+\end{bmatrix}=\begin{bmatrix}a&b \\ c&d\end{bmatrix} \begin{bmatrix} x\\ y \end{bmatrix}</script><p>linear transforms = Matrices</p>
+<p>x’ = M x</p>
+<h4 id="齐次坐标-Translation"><a href="#齐次坐标-Translation" class="headerlink" title="齐次坐标 Translation"></a>齐次坐标 Translation</h4><script type="math/tex; mode=display">
+x' = x + t_x\\
+y' = y + t_y</script><h3 id="Can-we-turn-it-into-matrix-format-Affine-map-仿射"><a href="#Can-we-turn-it-into-matrix-format-Affine-map-仿射" class="headerlink" title="Can we turn it into matrix format? Affine map 仿射"></a>Can we turn it into matrix format? Affine map 仿射</h3><script type="math/tex; mode=display">
+\begin{bmatrix}x' \\ y'\end{bmatrix}=\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} + \begin{bmatrix}t_x \\ t_y\end{bmatrix}</script><h5 id="Not-linear-transform"><a href="#Not-linear-transform" class="headerlink" title="(Not linear transform!)"></a>(Not linear transform!)</h5><p>Add a third coordinate (w-coordinate)</p>
+<ul>
+<li>2D point = $(x, y, 1)^T$</li>
+<li>2D vector = $(x, y, 0)^T$</li>
+</ul>
+<h3 id="Using-homogenous-coordinates"><a href="#Using-homogenous-coordinates" class="headerlink" title="Using homogenous coordinates"></a>Using homogenous coordinates</h3><script type="math/tex; mode=display">
+\begin{pmatrix}
+  x'\\y'\\w'
+\end{pmatrix}
+=
+\begin{pmatrix}
+  1&0&t_x \\
+  0&1&t_y\\
+  0&0&1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+  x\\y\\1 
+\end{pmatrix}
+=\begin{pmatrix}
+  x+t_x\\y+t_y\\1 \\
+\end{pmatrix}</script><p>最后一行 0 0 1，</p>
+<script type="math/tex; mode=display">
+\begin{pmatrix}
+  x'\\y'\\1
+\end{pmatrix}
+=
+\begin{pmatrix}
+  a&b&t_x \\
+  c&d&t_y\\
+  0&0&1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+  x\\y\\1 
+\end{pmatrix}</script><p>Like Rotation</p>
+<script type="math/tex; mode=display">
+R(\alpha)=\begin{pmatrix}
+  cos\theta & -sin\theta&0 \\sin\theta&cos\theta\ &0 \\ 0&0&1
+\end{pmatrix}</script><h3 id="仿射才是以001收尾"><a href="#仿射才是以001收尾" class="headerlink" title="!仿射才是以001收尾"></a>!仿射才是以001收尾</h3><p>Sequence is important</p>
+<h5 id="Matrices-are-applied-right-to-left"><a href="#Matrices-are-applied-right-to-left" class="headerlink" title="Matrices are applied right to left"></a>Matrices are applied right to left</h5><h3 id="Composing-Transforms"><a href="#Composing-Transforms" class="headerlink" title="Composing Transforms"></a>Composing Transforms</h3><h5 id="Sequence-of-affine-transforms-A-1-A-2-A-3-…"><a href="#Sequence-of-affine-transforms-A-1-A-2-A-3-…" class="headerlink" title="Sequence of affine transforms $A_1,A_2,A_3$,…"></a>Sequence of affine transforms $A_1,A_2,A_3$,…</h5><script type="math/tex; mode=display">
+A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
+  x\\y\\1 
+\end{pmatrix}</script><p>Pre-multiply n matirices to obtain single matrix representing transformation</p>
+<h3 id="Decomposing-Complex-Transforms"><a href="#Decomposing-Complex-Transforms" class="headerlink" title="Decomposing Complex Transforms"></a>Decomposing Complex Transforms</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/11/review/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -572,7 +767,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -589,6 +784,15 @@
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
