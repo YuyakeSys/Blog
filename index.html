@@ -263,6 +263,183 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/07/PhysicBasedRendering/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/07/PhysicBasedRendering/" itemprop="url">PhysicBasedRendering</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-07T10:56:43+02:00">
+                2023-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Physic-Based-Rendering"><a href="#Physic-Based-Rendering" class="headerlink" title="Physic Based Rendering"></a>Physic Based Rendering</h1><p>eye don’t perceive color in linear way and more sensitve to darker tones</p>
+<p>sRGB - gamma of approximately 2.2</p>
+<p>openGL can handle encoding and decoding of sRGB images</p>
+<p>Gamma correction in OpenGL</p>
+<ul>
+<li>Textures:<ul>
+<li>Use internal format GL_SRGB or GL_SRGB_ALPHA</li>
+<li>Only use for color images (not normal map etc.)</li>
+<li>Only on normalized integer types ignored for floating point</li>
+</ul>
+</li>
+<li><p>Framebuffer:</p>
+</li>
+<li><ul>
+<li>glEnable(GL_FRAMEBUFFER_SRGB)</li>
+<li>Performs blending in linear space then changed to sRGB</li>
+<li>Careful with multi objects</li>
+</ul>
+</li>
+</ul>
+<h2 id="PBR"><a href="#PBR" class="headerlink" title="PBR"></a>PBR</h2><p>Collection of render techniques</p>
+<p>Achieve more realistic look and adapt better to different lighting conditions</p>
+<ul>
+<li>Energy conservation: surface can not reflect more light than it receives</li>
+<li>Positivity: Surfaces cannot reflect negative amount of light</li>
+<li>Law of reflection: The angle of incidence equal the angle of reflection for specular light</li>
+<li>Fresnel equations: Light reflects and refracts in accordance with —</li>
+<li>Helmholtz reciprocity: Light rays behave identically when following the same path, regardless of direction</li>
+<li>Everything is shiny</li>
+</ul>
+<h5 id="Reflectance-equation"><a href="#Reflectance-equation" class="headerlink" title="Reflectance equation:"></a>Reflectance equation:</h5><script type="math/tex; mode=display">L_o(p,w_o)= \int f_r(p,w_i,w_o)L_i(p,w_i)n \cdot w_idw_i</script><p>Light output of position p on specific direction is equal to all the lighting input, multiply by the reflectance in those conditions, multiplied by cosine of normal and light vectors</p>
+<h4 id="Microface-surface-model"><a href="#Microface-surface-model" class="headerlink" title="Microface surface model"></a>Microface surface model</h4><p>a group of micro-surfaces</p>
+<p>Driven by a roughness parameter</p>
+<p>Bidirectional Reflectance Distribution Function</p>
+<script type="math/tex; mode=display">f_r(w_i,w_r)</script><p>input/ output direction</p>
+<h5 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h5><ul>
+<li><p>positivity <script type="math/tex">f_r(w_i,w_r)\geq0</script></p>
+</li>
+<li><p>Helmoholtz reciprocity <script type="math/tex">f_r(w_i,w_r)=f_r(w_r,w_i)</script></p>
+</li>
+<li><p>Energy conserving</p>
+<script type="math/tex; mode=display">\forall w_i, \int f_r(w_i,w_r)cos\theta_rdw_r \leq 1</script></li>
+</ul>
+<h3 id="Diffuse-models"><a href="#Diffuse-models" class="headerlink" title="Diffuse models"></a>Diffuse models</h3><ul>
+<li><p>Lambertian:</p>
+</li>
+<li><ul>
+<li>Needs normalizing:</li>
+<li><ul>
+<li>Light get scattered equally in all directions</li>
+<li>integral of cosine weighted hemisphere: <script type="math/tex">\int cos(\theta)d\omega = \pi</script></li>
+<li>Each direction gets <script type="math/tex">\frac{1}{\pi}</script></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><script type="math/tex; mode=display">f_d(v, l) = \frac{\rho}{\pi}</script></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/Forward%20rendering/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1941,278 +2118,6 @@ M_{viewport} = \begin{pmatrix}
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation-cont/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/14/Transformation-cont/" itemprop="url">Transformation_cont.</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-14T06:20:22+01:00">
-                2023-01-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>3D transformation</li>
-<li>Viewing(观测) transformation<ul>
-<li>View (视图)/ Camera transformation</li>
-<li>Projection (投影) transformation<ul>
-<li>Orthographic (正交) projection</li>
-<li>Perspective (透视) projection</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="3D-transformation"><a href="#3D-transformation" class="headerlink" title="3D transformation"></a>3D transformation</h3><ul>
-<li><p>point = $(x, y, z, 1)^T$</p>
-</li>
-<li><p>vector = $(x, y, z, 0)^T$</p>
-<h5 id="4-4-matrices-for-affine-transformations"><a href="#4-4-matrices-for-affine-transformations" class="headerlink" title="4 * 4 matrices for affine transformations"></a>4 * 4 matrices for affine transformations</h5><script type="math/tex; mode=display">
-\begin{pmatrix}
-    x' \\ y' \\z' 1
-\end{pmatrix}
-= \begin{pmatrix}
-    a & b& c & t_x \\
-    d & e & f & t_y \\
-    g & h & i & t_z \\
-    0 & 0 & 0 & 1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-x \\ y \\ z \\1
-\end{pmatrix}</script></li>
-</ul>
-<p>缩放 Scale ….</p>
-<script type="math/tex; mode=display">
-\begin{pmatrix}
-    S_x & 0& 0 & 0 \\
-    d & s_y & 0 & 0 \\
-    0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>旋转 important</p>
-<script type="math/tex; mode=display">
-R_x(\alpha)=\begin{pmatrix}
-    1 & 0& 0 & 0 \\
-    0 & cos\theta & -sin\theta & 0 \\
-    0 & sin\theta & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}\\
-R_y(\alpha)=\begin{pmatrix}
-    cos\theta & 0& sin\theta & 0 \\
-    0 & 0 & 0 & 0 \\
-    -sin\theta & 0 & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>对x轴旋转 -&gt; 第一行为 1, 0 ,0</p>
-<p>2 x 2是对y与z操作</p>
-<p>对旋转不同 ？z × x -&gt; y 不是x叉乘z 所以相反</p>
-<h3 id="3D-Rotations"><a href="#3D-Rotations" class="headerlink" title="3D Rotations"></a>3D Rotations</h3><p>Compose 3D roration from $R_x, R_y, R_z$    $\bold{Euler \ angels}$</p>
-<script type="math/tex; mode=display">
-R_{xyz}(\alpha, \beta, \gamma) = R_x(\alpha)R_y(\beta)R_z(\gamma)</script><h4 id="Rodrigues’-Rotation-Formula"><a href="#Rodrigues’-Rotation-Formula" class="headerlink" title="Rodrigues’ Rotation Formula"></a>Rodrigues’ Rotation Formula</h4><h5 id="Rotation-by-angle-alpha-around-axis-bold-n"><a href="#Rotation-by-angle-alpha-around-axis-bold-n" class="headerlink" title="Rotation by angle $\alpha$ around axis $\bold{n}$"></a>Rotation by angle $\alpha$ around axis $\bold{n}$</h5><p>认为过原点 向量就是方向</p>
-<script type="math/tex; mode=display">
-R(\bold{n}, \alpha) = cos(\alpha)I + (1-cos(\alpha))\bold{n}\bold{n}^T + sin(\alpha)
-\begin{pmatrix}
-    0 & -n_z & n_y \\
-    n_z & 0 & -n_x \\
-    -n_y & n_x & 0
-\end{pmatrix}</script><p>Proof: </p>
-
-
-	<div class="row">
-    <embed src="PDF/GAMES101_Lecture_04_supp.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-   
-<h4 id="View-Camera-transformation-三维-gt-二维"><a href="#View-Camera-transformation-三维-gt-二维" class="headerlink" title="View / Camera transformation   三维-&gt;二维"></a>View / Camera transformation   三维-&gt;二维</h4><ul>
-<li>Take a photo<ul>
-<li>find place and arrange people (model transformation)</li>
-<li>find good “angle” (view)</li>
-<li>Cheese! (projection)</li>
-</ul>
-</li>
-</ul>
-<p>MVP!!!!!!!!!</p>
-<ul>
-<li><p>Define the camera first</p>
-<ul>
-<li>Position $\vec{e}$</li>
-<li>Look-at / gaze direction $\hat{g}$</li>
-<li>Up direction $\hat{t}$</li>
-</ul>
-<p>向上方向 固定相机旋转）</p>
-</li>
-<li><p>Key observation </p>
-<ul>
-<li>一起移动 相对运动 相片一定是一样的  = 固定相机（远点） 物体运动</li>
-<li>The origin, up at Y, look at -Z</li>
-<li>And transform the objects along with the camera</li>
-</ul>
-</li>
-</ul>
-<p><img src="../image/view_img.png" alt=""></p>
-<h4 id="M-view-in-math"><a href="#M-view-in-math" class="headerlink" title="$M_{view}$ in math"></a>$M_{view}$ in math</h4><ul>
-<li><p>$M_{view} = R{view}T{view}$</p>
-</li>
-<li><p>Translate e to origin       </p>
-<script type="math/tex; mode=display">
-T_view = \begin{bmatrix}1&0&0&-x_e\\
-0&1&0&-y_e\\
-0&0&1&-z_e\\
-0&0&0&1\\
-\end{bmatrix}</script><p>inverse rotation is easier X to (g x t), Y to t, Z to -g 叉乘</p>
-<p>Model|View Transformation</p>
-<p><img src="../image/orth-pers.png" alt="image-20230114091549245"></p>
-</li>
-</ul>
-<h3 id="Orthographic-Projection"><a href="#Orthographic-Projection" class="headerlink" title="Orthographic Projection"></a>Orthographic Projection</h3><p>map a cuboid [l, r] x [b, t] x [$f, n$] to</p>
-<p>the “canonical” cube $[- 1, 1]^3$ 标准的立方体</p>
-<p>离得远z小 近z大</p>
-<p>Translate (center to origin) first, then scale (length/width/height to 2) 转换为2也就是（-1 ， 1）</p>
-<p>Matrix is easy</p>
-<h3 id="Perspective-Projection"><a href="#Perspective-Projection" class="headerlink" title="Perspective Projection"></a>Perspective Projection</h3><p><img src="..\image\pers.png" alt="image-20230114095401335"></p>
-<p>如何挤压？</p>
-<p>从侧面往里看</p>
-<p>$y’ = \frac{n}{z}y$</p>
-<p>Observation for z’</p>
-<ul>
-<li>Any point near plane will not change</li>
-<li>Any point’s z on the far plane will not change</li>
-</ul>
-<p>third row must be of the form (0  0  A  B)</p>
-<p>Solve for A and B</p>
-<script type="math/tex; mode=display">
-An + B = n^2 \ \ \ A = n + f\\
-An + B = f^2 \ \ \ B = -nf</script>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2267,7 +2172,7 @@ An + B = f^2 \ \ \ B = -nf</script>
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
