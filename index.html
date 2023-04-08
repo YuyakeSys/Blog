@@ -819,8 +819,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/WRS/" itemprop="url" rel="index">
-                    <span itemprop="name">WRS</span>
+                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Recommender System</span>
                   </a>
                 </span>
 
@@ -1020,6 +1020,76 @@
 <li>What about new words (neologisms, misspellings, out of vocabulary words…)? </li>
 <li>Interpretability?</li>
 </ul>
+<h1 id="Lecture6-Hybrid-Recommendation"><a href="#Lecture6-Hybrid-Recommendation" class="headerlink" title="Lecture6 Hybrid Recommendation"></a>Lecture6 Hybrid Recommendation</h1><h4 id="Three-types"><a href="#Three-types" class="headerlink" title="Three types:"></a>Three types:</h4><h4 id="Ensemble-combine-predictions-of-different-recommender-models"><a href="#Ensemble-combine-predictions-of-different-recommender-models" class="headerlink" title="Ensemble: combine predictions of different recommender models"></a>Ensemble: combine predictions of different recommender models</h4><ul>
+<li><p>Linear combination of model outputs</p>
+<p>• Each model is used off-the-shelf </p>
+<p>• Combine only outputs </p>
+<p>• Models can have different inputs</p>
+</li>
+</ul>
+<p>Advantages </p>
+<p>• Easy </p>
+<p>• Parallel execution </p>
+<p>Disadvantages </p>
+<p>• Optimal values of weights depend on dataset </p>
+<p>• Works better when outputs are on the same scale</p>
+<p><strong>Round roubin</strong></p>
+<ul>
+<li>for the sequence of recommendation pick the top k items for recommendation</li>
+</ul>
+<p>Advantage: independent of output scale </p>
+<p>Disadvantage: hard to calibrate the quality of each model</p>
+<p><strong>BordaFuse</strong></p>
+<p>First item with k-1 point, the last item is 0 point </p>
+<p>Advantage: considers importance of rank position </p>
+<p>Disadvantage: assumes “equal distance” between ranks</p>
+<p><strong>Condorcet method</strong> Pairwise</p>
+<p><img src="..\image\pairwise.png" alt="1680876426842"></p>
+<p>Reciprocal Rank  Fusion (RRF)</p>
+<script type="math/tex; mode=display">RRF(m)=\sum_j \frac{1}{k+r_j(m)}</script><p>m: movie r_j: rank position k parameter</p>
+<p><img src="..\image\WRS\pipeline_seq.png" alt="1680880359591"></p>
+<p><strong>Advantage</strong> </p>
+<p>• Increased density of User Rating Matrix  gives better recommendations </p>
+<p><strong>Disadvantages</strong> </p>
+<p>• Computational efficiency (memory, runtime, …) </p>
+<p>• Too dense User Rating Matrix can lead to overfitting</p>
+<p>• Parallel combination of outputs </p>
+<p>​    • Combinations of ratings: weighted sum, combMAX, combMIN,  combMZ </p>
+<p>​    • Combinations of rank positions: round robin, Borda, Condorcet, RRF </p>
+<p>• Sequential combination</p>
+<h4 id="Monolithic-create-a-new-recommender-model"><a href="#Monolithic-create-a-new-recommender-model" class="headerlink" title="Monolithic: create a new recommender model"></a>Monolithic: create a new recommender model</h4><h4 id=""><a href="#" class="headerlink" title=" "></a> </h4><h4 id="Mixed-present-predictions-of-different-recommender-models-side-by-side"><a href="#Mixed-present-predictions-of-different-recommender-models-side-by-side" class="headerlink" title="Mixed: present predictions of different recommender models side by side"></a>Mixed: present predictions of different recommender models side by side</h4><h1 id="Lecture7"><a href="#Lecture7" class="headerlink" title="Lecture7"></a>Lecture7</h1><p>Explanation: piece of information justifying why an item is recommended </p>
+<h5 id="Ablation-is-the-simplest-type-of-attribution"><a href="#Ablation-is-the-simplest-type-of-attribution" class="headerlink" title="Ablation is the simplest type of attribution"></a>Ablation is the simplest type of attribution</h5><p>• Drop each feature (one at a time)  </p>
+<p>• Attribute the change in prediction to the ablated feature </p>
+<p>Advantage </p>
+<p>• Simple and intuitive to interpret Disadvantages </p>
+<p>• Indirect and partial explainability </p>
+<p>• Does not always explain output (output invariant to ablation) </p>
+<p>• Improper accounting of interactive features </p>
+<p>• Can be computationally expensive</p>
+<h5 id="Shapley-value"><a href="#Shapley-value" class="headerlink" title="Shapley value"></a>Shapley value</h5><p>Game where players collaborate to make profit </p>
+<p>• Take all possible subsets of players (in all possible orderings) </p>
+<p>• Compute marginal contribution of a player </p>
+<p>​    • For each player entering a subset:  </p>
+<p>​        • profit that the player creates by entering the subset </p>
+<p>​        • profit in the subset before the player entered </p>
+<p>• At the end, compute the average marginal contribution of each player </p>
+<p>• The higher the average marginal contribution, the higher the attribution</p>
+<p>NNs may use only the simplest feature and remain invariant to more  complex features, even when every complex feature has significantly  greater predictive power than each simple feature</p>
+<p>Gradient-based optimization may get  stuck at local minima</p>
+<p>• At the start of training, the gradient  of the simplest feature has  predominant role </p>
+<p>• Drags the model towards the best  decision boundary of the simplest  feature </p>
+<p>• The model may get stuck in there</p>
+<h4 id="Attribution-ablation-Shapley-for-recommendation-explainability"><a href="#Attribution-ablation-Shapley-for-recommendation-explainability" class="headerlink" title="Attribution (ablation, Shapley) for recommendation explainability:"></a><strong>Attribution</strong> (ablation, Shapley) for recommendation explainability:</h4><p><strong>feature importance to output</strong> </p>
+<h5 id="Good-for"><a href="#Good-for" class="headerlink" title="Good for:"></a>Good for:</h5><p>• Generating an explanation for the user </p>
+<p>• Debugging model predictions </p>
+<p>• Analysing model robustness (irrelevant features getting attributed? relevant features not  getting attributed?) </p>
+<h5 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h5><p>Computationally costly for hundreds of features </p>
+<p>Reductive formulation of “why this prediction”: </p>
+<p>• Not explain how features interact </p>
+<p>• Not explain the model logic (e.g. model that recommends a photo when there is an even  number of black pixels in it, otherwise it does not recommend it) </p>
+<p>• Training-agnostic (what training samples influenced the prediction)</p>
+<h5 id="Item-based-vs-User-based"><a href="#Item-based-vs-User-based" class="headerlink" title="Item based vs User based"></a>Item based vs User based</h5><p>• Item-based explanations are more intuitive &amp; credible to users  because users are familiar with the items they interacted with before </p>
+<p>• User-based explanations are less convincing &amp; trustworthy because  the target user may know nothing about other “similar” users</p>
 
           
         
@@ -2122,11 +2192,8 @@ M_{viewport} = \begin{pmatrix}
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span>
-    <a class="page-number" href="/page/2/">2</a>
-    <a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
-  
 
 
 
