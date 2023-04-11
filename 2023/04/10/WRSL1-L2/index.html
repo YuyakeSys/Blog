@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Lecture1Feature of a Recommender System Personalised Recommendations → different recommendations for every user;   Maintain a user model or user profile, describes the users’s preferences;    Implicit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WRSL1+L2">
+<meta property="og:url" content="http://example.com/2023/04/10/WRSL1-L2/index.html">
+<meta property="og:site_name" content="Melo&#39;s blog">
+<meta property="og:description" content="Lecture1Feature of a Recommender System Personalised Recommendations → different recommendations for every user;   Maintain a user model or user profile, describes the users’s preferences;    Implicit">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/04/10/image/pearson_Co.png">
+<meta property="og:image" content="http://example.com/2023/04/10/image/longtailImpact.png">
+<meta property="og:image" content="http://example.com/2023/04/10/image/WRS/cosine_similarity.png">
+<meta property="og:image" content="g:\github\blog\source\_posts\image-20230411183921420.png">
+<meta property="article:published_time" content="2023-04-10T10:57:45.000Z">
+<meta property="article:modified_time" content="2023-04-11T18:12:40.795Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/04/10/image/pearson_Co.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/04/10/WRSL1-L2/"/>
+
+
+
+
+
+  <title>WRSL1+L2 | Melo's blog</title>
+  
+
+
+
+
+
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Melo's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Welcome</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/10/WRSL1-L2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WRSL1+L2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-10T12:57:45+02:00">
+                2023-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Recommender System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Lecture1"><a href="#Lecture1" class="headerlink" title="Lecture1"></a>Lecture1</h2><h3 id="Feature-of-a-Recommender-System"><a href="#Feature-of-a-Recommender-System" class="headerlink" title="Feature of a Recommender System"></a>Feature of a Recommender System</h3><ul>
+<li><p><strong>Personalised</strong> Recommendations → different recommendations for every user; </p>
+</li>
+<li><p>Maintain a <strong>user model</strong> or user profile, describes the users’s preferences;  </p>
+</li>
+<li><p>Implicit or explicit <strong>behavioural</strong> signals → ethical concerns? </p>
+</li>
+<li><p>Account for the <strong>context</strong> and additional information; </p>
+</li>
+<li><p>Types of Recommender Systems: <strong>Collaborative Filtering</strong> and <strong>Content-Based</strong></p>
+</li>
+</ul>
+<h2 id="Problem-Setting"><a href="#Problem-Setting" class="headerlink" title="Problem Setting"></a>Problem Setting</h2><h3 id="User-Item-Matrix"><a href="#User-Item-Matrix" class="headerlink" title="User-Item Matrix"></a>User-Item Matrix</h3><p>Goal: predict ratings for unseen items</p>
+<h2 id="Properties-of-the-Ratings-Matrix"><a href="#Properties-of-the-Ratings-Matrix" class="headerlink" title="Properties of the Ratings Matrix"></a>Properties of the Ratings Matrix</h2><p><strong>Sparse matrix</strong>: a small subset of entries are specified</p>
+<ul>
+<li>Ratings can be: </li>
+<li><ul>
+<li><strong>Continuous</strong>: level of like or dislike (rare); </li>
+<li><strong>Interval based ratings</strong>: 5 or 7-point scale, sometimes 10 points, e.g., 5-star ratings; </li>
+<li><strong>Ordinal ratings</strong>: categorical values, e.g., strongly disagree, disagree, neutral, agree,  strongly agree; </li>
+<li><strong>Binary ratings</strong>: 2 options (forced choice), e.g., like or dislike; </li>
+<li><strong>Unary ratings</strong>: only positive preference (positive preference utility matrix), e.g., purchase</li>
+</ul>
+</li>
+</ul>
+<h3 id="Implicit-Explicit-Feedback"><a href="#Implicit-Explicit-Feedback" class="headerlink" title="Implicit / Explicit Feedback"></a>Implicit / Explicit Feedback</h3><ul>
+<li>Explicit feedback: ratings explicitly provided by users, e.g., click on “like” button;</li>
+<li>Implicit feedback, sometimes <strong>Positive-Unlabeled</strong> (PU): </li>
+<li><ul>
+<li>Ratings are inferred from user actions; </li>
+<li>Easier to obtain, transparent to users;  </li>
+<li>Almost no cost;</li>
+<li>Harder to interpret and can be misleading: no information whether the user liked/disliked  an item;</li>
+</ul>
+</li>
+</ul>
+<h3 id="Long-tail-Distribution"><a href="#Long-tail-Distribution" class="headerlink" title="Long-tail Distribution"></a>Long-tail Distribution</h3><p>• Low frequency items: </p>
+<ul>
+<li><ul>
+<li>Larger profit; </li>
+<li>More difficult to recommend;</li>
+</ul>
+</li>
+</ul>
+<h2 id="Collaborative-Filtering-Recommendation"><a href="#Collaborative-Filtering-Recommendation" class="headerlink" title="Collaborative Filtering Recommendation"></a>Collaborative Filtering Recommendation</h2><p>• Idea: exploit past behaviour/opinions of an existing user community to predict items the  current users will like in the future (collective intelligence);</p>
+<p>• Input: ratings matrix (pure CF)</p>
+<p>• Output: </p>
+<p>A. Predicted rate for unobserved user-item; </p>
+<p>B. List of top-k recommended items (or users);</p>
+<p><strong>User-based</strong> nearest neighbour recommendation: </p>
+<p>• Similar users have similar ratings on the same item; •</p>
+<p> Use ratings from neighbouring users; </p>
+<p><strong>Item-based</strong> nearest neighbour recommendation: </p>
+<p>• Reverse the problem → similarity between items; </p>
+<p>• Similar items are rated in a similar way by the same user; </p>
+<p>• Use user’s own ratings on neighbouring items.</p>
+<h3 id="User-based-Nearest-Neighbour-Recommendation"><a href="#User-based-Nearest-Neighbour-Recommendation" class="headerlink" title="User-based Nearest Neighbour  Recommendation"></a>User-based Nearest Neighbour  Recommendation</h3><p>• Idea: given a target user: </p>
+<ol>
+<li>Identify users (peer users or nearest neighbours) that have similar  preferences; </li>
+<li>For every unobserved item, make a prediction based on the preferences of  peer users; </li>
+</ol>
+<p>• Assumptions: </p>
+<p>​    • Similar tastes in the past → similar tastes in the future; </p>
+<p>​    • Preferences are stable and consistent over time.</p>
+<h4 id="Step-1-Similarity-with-Pearson-Coefficient"><a href="#Step-1-Similarity-with-Pearson-Coefficient" class="headerlink" title="Step 1: Similarity with Pearson Coefficient"></a>Step 1: Similarity with Pearson Coefficient</h4><p><img src="..\image\pearson_Co.png" alt="image-20230411181714647"></p>
+<p>• Simple approach: users with highest similarity score (Pearson coefficient); </p>
+<p>• Problem: number of observed ratings can be very different depending on the  item, e.g., popular items;</p>
+<h3 id="Step-2-Mean-centered-Rating-Prediction"><a href="#Step-2-Mean-centered-Rating-Prediction" class="headerlink" title="Step 2: Mean-centered Rating Prediction"></a>Step 2: Mean-centered Rating Prediction</h3><p><strong>Solution</strong>: center ratings by their row-mean</p>
+<script type="math/tex; mode=display">s_{u,j}=r_{u,j}-\mu_u</script><p>Use a weighted average to predict the rating:</p>
+<script type="math/tex; mode=display">\hat{r}_{u,j}=\mu_U+\frac{\sum_{v \in P_u(j) Sim(u,v) \cdot s_{v,j}}}{\sum_{v \in P_u(j) |Sim(u,v)|}}</script><h2 id="Better-Neighbourhood-Selection"><a href="#Better-Neighbourhood-Selection" class="headerlink" title="Better Neighbourhood Selection?"></a>Better Neighbourhood Selection?</h2><p>• Include all users? </p>
+<p>​    • Negative impact on accuracy and computing time; </p>
+<p>• Minimum threshold on user similarity: </p>
+<p>​    • Only positive correlation (negative correlations → inversion     → not much predictive value); </p>
+<p>​    • High threshold → small sets of neighbours → no                      predictions (reduced coverage); </p>
+<p>• Top-k closest neighbours: </p>
+<p>​    • High value for k → additional noise; </p>
+<p>​    • Empirically: good values for k are in the range of [20, 50]</p>
+<p><img src="..\image\longtailImpact.png" alt="image-20230411183239484"></p>
+<h2 id="Item-based-Nearest-Neighbour-Recommendation"><a href="#Item-based-Nearest-Neighbour-Recommendation" class="headerlink" title="Item-based Nearest Neighbour  Recommendation"></a>Item-based Nearest Neighbour  Recommendation</h2><p>similarity  between items instead of similarity  between users</p>
+<p>Works better with offline pre-processing</p>
+<h3 id="Step-1-Cosine-Similarity"><a href="#Step-1-Cosine-Similarity" class="headerlink" title="Step 1: Cosine Similarity"></a>Step 1: Cosine Similarity</h3><p> <strong>Cosine similarity</strong>: empirically better than Pearson for item-based recommendation</p>
+<p>Adjusted cosine similarity: mean centred ratings <script type="math/tex">s_{u,j}</script>;</p>
+<p><img src="..\image\WRS\cosine_similarity.png" alt="image-20230411184516752"></p>
+<h3 id="Step-2-Rating-Prediction"><a href="#Step-2-Rating-Prediction" class="headerlink" title="Step 2: Rating Prediction"></a>Step 2: Rating Prediction</h3><p>Consider the top-k similar items on a user basis;</p>
+<p><script type="math/tex">Q_t(u)</script> set of <strong>K</strong> closest items (adjusted cosine similarity) to the target item that  were rated by user ;</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><img src="G:\github\blog\source\_posts\image-20230411183921420.png" alt="image-20230411183921420"></p>
+<h1 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h1><h2 id="Computational-Complexity"><a href="#Computational-Complexity" class="headerlink" title="Computational Complexity"></a>Computational Complexity</h2><ul>
+<li>User-based CF does not scale well to large numbers of users and items.</li>
+<li>Item-based CF is more stable with changes to the ratings:</li>
+</ul>
+<h2 id="Dimensionality-Reduction"><a href="#Dimensionality-Reduction" class="headerlink" title="Dimensionality Reduction"></a>Dimensionality Reduction</h2><p>Improve neighbourhood-based methods: quality and efficiency;</p>
+<p><strong>Latent factor models</strong>: dense low dimensional representation: </p>
+<ol>
+<li>Reduced representation of the data, either row-wise or column-wise, to  reduce sparsity; </li>
+<li>Latent representation of both row-space and column space (simultaneously);</li>
+</ol>
+<p>ea: use PCA-like methods or <strong>SVD</strong>-like methods to project R into a reduced d-dimensional space;</p>
+<h2 id="Offline-and-Online-Evaluation"><a href="#Offline-and-Online-Evaluation" class="headerlink" title="Offline and Online Evaluation"></a>Offline and Online Evaluation</h2><h3 id="Offline-and-Online-Evaluation-1"><a href="#Offline-and-Online-Evaluation-1" class="headerlink" title="Offline and Online Evaluation"></a>Offline and Online Evaluation</h3><h4 id="Training-and-Test-Split"><a href="#Training-and-Test-Split" class="headerlink" title="Training and Test Split"></a>Training and Test Split</h4><ul>
+<li>Hold-out: a fraction of the entries in the ratings matrix is hidden for testing and the remaining is used  for training:</li>
+<li>K-fold cross validation: K equal sets of entries, one used for testing and K-1 for training, then repeat  K times, until each segment has been used for testing</li>
+</ul>
+<h3 id="Set-Based-Evaluation"><a href="#Set-Based-Evaluation" class="headerlink" title="Set Based Evaluation"></a>Set Based Evaluation</h3><ul>
+<li><strong>Precision</strong> is the proportion of recommended items that are actually relevant </li>
+<li><strong>Recall</strong> is the proportion of relevant items actually recommended</li>
+</ul>
+<h4 id="Hit-Rate"><a href="#Hit-Rate" class="headerlink" title="Hit Rate"></a>Hit Rate</h4><p>Specifically suited for implicit feedback data (e.g., purchases) and when there is a  single hidden relevant item (e.g., leave-one-out cross validation)</p>
+<p>Hit Rate (HR) = fraction of users for which the relevant (e.g., purchased) item is  within the top k items:</p>
+<h4 id="Mean-Reciprocal-Rank-MRR"><a href="#Mean-Reciprocal-Rank-MRR" class="headerlink" title="Mean Reciprocal Rank (MRR)"></a>Mean Reciprocal Rank (MRR)</h4><p>Reciprocal Rank (RR): inverse of the rank position of the (first) relevant item;</p>
+<h4 id="Average-Precision-AP"><a href="#Average-Precision-AP" class="headerlink" title="Average Precision (AP)"></a>Average Precision (AP)</h4><p>The Mean Average Precision (MAP) is the mean of AP over all users:</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/10/WRS-Industry/" rel="next" title="WRS_Industry">
+                <i class="fa fa-chevron-left"></i> WRS_Industry
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/04/11/Shader/" rel="prev" title="Shader">
+                Shader <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="Meng Zhouyang" />
+            
+              <p class="site-author-name" itemprop="name">Meng Zhouyang</p>
+              <p class="site-description motion-element" itemprop="description">A blog to save my notes</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zmeng18cc@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture1"><span class="nav-number">1.</span> <span class="nav-text">Lecture1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Feature-of-a-Recommender-System"><span class="nav-number">1.1.</span> <span class="nav-text">Feature of a Recommender System</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Setting"><span class="nav-number">2.</span> <span class="nav-text">Problem Setting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#User-Item-Matrix"><span class="nav-number">2.1.</span> <span class="nav-text">User-Item Matrix</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Properties-of-the-Ratings-Matrix"><span class="nav-number">3.</span> <span class="nav-text">Properties of the Ratings Matrix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Implicit-Explicit-Feedback"><span class="nav-number">3.1.</span> <span class="nav-text">Implicit &#x2F; Explicit Feedback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Long-tail-Distribution"><span class="nav-number">3.2.</span> <span class="nav-text">Long-tail Distribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collaborative-Filtering-Recommendation"><span class="nav-number">4.</span> <span class="nav-text">Collaborative Filtering Recommendation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#User-based-Nearest-Neighbour-Recommendation"><span class="nav-number">4.1.</span> <span class="nav-text">User-based Nearest Neighbour  Recommendation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1-Similarity-with-Pearson-Coefficient"><span class="nav-number">4.1.1.</span> <span class="nav-text">Step 1: Similarity with Pearson Coefficient</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Mean-centered-Rating-Prediction"><span class="nav-number">4.2.</span> <span class="nav-text">Step 2: Mean-centered Rating Prediction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Better-Neighbourhood-Selection"><span class="nav-number">5.</span> <span class="nav-text">Better Neighbourhood Selection?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Item-based-Nearest-Neighbour-Recommendation"><span class="nav-number">6.</span> <span class="nav-text">Item-based Nearest Neighbour  Recommendation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-Cosine-Similarity"><span class="nav-number">6.1.</span> <span class="nav-text">Step 1: Cosine Similarity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Rating-Prediction"><span class="nav-number">6.2.</span> <span class="nav-text">Step 2: Rating Prediction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">7.</span> <span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lecture-2"><span class="nav-number"></span> <span class="nav-text">Lecture 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Computational-Complexity"><span class="nav-number">1.</span> <span class="nav-text">Computational Complexity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dimensionality-Reduction"><span class="nav-number">2.</span> <span class="nav-text">Dimensionality Reduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Offline-and-Online-Evaluation"><span class="nav-number">3.</span> <span class="nav-text">Offline and Online Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Offline-and-Online-Evaluation-1"><span class="nav-number">3.1.</span> <span class="nav-text">Offline and Online Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Training-and-Test-Split"><span class="nav-number">3.1.1.</span> <span class="nav-text">Training and Test Split</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-Based-Evaluation"><span class="nav-number">3.2.</span> <span class="nav-text">Set Based Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hit-Rate"><span class="nav-number">3.2.1.</span> <span class="nav-text">Hit Rate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mean-Reciprocal-Rank-MRR"><span class="nav-number">3.2.2.</span> <span class="nav-text">Mean Reciprocal Rank (MRR)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Average-Precision-AP"><span class="nav-number">3.2.3.</span> <span class="nav-text">Average Precision (AP)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng Zhouyang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
