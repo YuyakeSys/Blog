@@ -1627,9 +1627,10 @@
 <p>given a start score </p>
 <p>End score A = $\frac{0.5}{2}$ = 0.25</p>
 <p>PageRank(A) = (1-d) + d * EndScore(A)</p>
-<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h5><script type="math/tex; mode=display">PR(p_i) = \frac{1-d}{N}+d\sum_{p_j \in M(p_i) \frac{PR(p_j)}{|L(p_j)|}}</script><p>d: damping factor;</p>
+<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h5><script type="math/tex; mode=display">PR(p_i) = \frac{1-d}{N}+d \sum_{p_j \in M(p_i) }\frac{PR(p_j)}{|L(p_j)|}</script><p>d: damping factor;</p>
 <p>N: total number of webpages;</p>
-<script type="math/tex; mode=display">M(p_i)$$: set of in-links of $$p_i</script><script type="math/tex; mode=display">|L(p_j)|$$: cardinality of the set of out-links of p_j
+<p>$M(p_i)$: set of in-links of $p_i$</p>
+<script type="math/tex; mode=display">|L(p_j)|$$: cardinality of the set of out-links of $p_j$
 
 # Lecutre4
 
