@@ -263,6 +263,340 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/05/opengl1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/02/05/opengl1/" itemprop="url">opengl1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-02-05T02:06:20+01:00">
+                2023-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/21/geometry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/21/geometry/" itemprop="url">Geometry & Render</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-21T04:27:45+01:00">
+                2023-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphics-Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphics Programming</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Geometry"><a href="#Geometry" class="headerlink" title="Geometry"></a>Geometry</h1><h2 id="VBO-amp-EBO-amp-VAO"><a href="#VBO-amp-EBO-amp-VAO" class="headerlink" title="VBO &amp; EBO &amp; VAO"></a>VBO &amp; EBO &amp; VAO</h2><h4 id="Vertex-buffer-objects"><a href="#Vertex-buffer-objects" class="headerlink" title="Vertex buffer objects"></a>Vertex buffer objects</h4><h5 id="Describe-what-they-are"><a href="#Describe-what-they-are" class="headerlink" title="- Describe what they are"></a>- Describe what they are</h5><p>Buffer object that uses the target </p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">GL_ARRAY_BUFFER<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>Contain vertex data, one or more attributes pervertex</li>
+<li>Buffer size: Number of vertices * Size of all attributes</li>
+<li>Each attribute stored separately</li>
+</ul>
+<h5 id="List-different-vertex-attributes"><a href="#List-different-vertex-attributes" class="headerlink" title="- List different vertex attributes"></a>- List different vertex attributes</h5><ul>
+<li>Position: 3D space</li>
+<li>Color</li>
+<li>Normal</li>
+<li>Tangent</li>
+<li>Texture coords</li>
+</ul>
+<h4 id="Element-Buffer-Object"><a href="#Element-Buffer-Object" class="headerlink" title="Element Buffer Object"></a>Element Buffer Object</h4><h5 id="Describe-what-they-are-1"><a href="#Describe-what-they-are-1" class="headerlink" title="- Describe what they are"></a>- Describe what they are</h5><ul>
+<li>Buffer object that uses the target</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">GL_ELEMENT_ARRAY_BUFFER<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><p>Contains a list of numbers (indices) of the vertices to be used</p>
+</li>
+<li><p>Buffer size: Number of primitives <em> Vertex per primitive </em> Size of integer type</p>
+</li>
+</ul>
+<h5 id="What-is-the-benefit-of-using-them"><a href="#What-is-the-benefit-of-using-them" class="headerlink" title="- What is the benefit of using them?"></a>- What is the benefit of using them?</h5><p>Allows to reuses vertices in primitives</p>
+<h4 id="Vertex-Array-Object"><a href="#Vertex-Array-Object" class="headerlink" title="Vertex Array Object"></a>Vertex Array Object</h4><h5 id="•-Describe-what-they-are"><a href="#•-Describe-what-they-are" class="headerlink" title="• Describe what they are"></a>• Describe what they are</h5><ul>
+<li>Subtype of OpenGL objects (but not a buffer object)</li>
+<li>Contains the information required to draw geometry</li>
+<li>Does not store the data itself, just references</li>
+<li>Bind it before calling glDrawArrays or glDrawElements functions</li>
+</ul>
+<h5 id="•-Relation-to-VBO-and-EBO"><a href="#•-Relation-to-VBO-and-EBO" class="headerlink" title="• Relation to VBO and EBO"></a>• Relation to VBO and EBO</h5><p> Keeps pointers to all the vertex attributes stored in vertex buffer  objects (<strong>VBO</strong>)</p>
+<p> it specifies an element buffer object (<strong>EBO</strong>)</p>
+<p><img src="..\image\gp\VAORelationship.png" alt="image-20230417143832663"></p>
+<h2 id="Primitives"><a href="#Primitives" class="headerlink" title="Primitives"></a>Primitives</h2><h3 id="Different-types"><a href="#Different-types" class="headerlink" title="Different types"></a>Different types</h3><p>Points, Lines, Triangles, Patches</p>
+<h3 id="What-is-the-winding-order"><a href="#What-is-the-winding-order" class="headerlink" title="What is the winding order"></a>What is the winding order</h3><p>• Triangle facing determined by winding order</p>
+<p>The winding order has attribute GLENUM mode with clockwise and counter clockwise for drawing the triangle</p>
+<p><strong>Culling</strong>: Discard back and/or front faces</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void glCullFace( GLenum mode); &#x2F;&#x2F; Culling mode
+&#x2F;**
+• GL_FRONT
+• GL_BACK
+• GL_FRONT_AND_BACK
+**&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Rendering-pipeline"><a href="#Rendering-pipeline" class="headerlink" title="Rendering pipeline:"></a>Rendering pipeline:</h2><p><img src="..\image\shader_pipeline.png" alt="image-20230417144422555"></p>
+<h4 id="enumerate-all-the-stages-in-order"><a href="#enumerate-all-the-stages-in-order" class="headerlink" title="enumerate all the stages in order"></a>enumerate all the stages in order</h4><h4 id="what-happens-on-each-stage"><a href="#what-happens-on-each-stage" class="headerlink" title="what happens on each stage"></a>what happens on each stage</h4><h5 id="Vertex-specification"><a href="#Vertex-specification" class="headerlink" title="Vertex specification"></a><strong>Vertex specification</strong></h5><p>​        Takes the input data and builds the list of vertices that we need to process . </p>
+<p>​        Extract attributes from VBO using pointers in the VAO</p>
+<h5 id="Vertex-processing-programmable"><a href="#Vertex-processing-programmable" class="headerlink" title="Vertex processing (programmable)"></a><strong>Vertex processing</strong> (programmable)</h5><p>• Process each vertex individually, in parallel </p>
+<p>• Behavior is defined by shaders</p>
+<p>Transform vertex attributes -&gt; <strong>Transform postion</strong></p>
+<h5 id="Vertex-post-processing"><a href="#Vertex-post-processing" class="headerlink" title="Vertex post-processing"></a><strong>Vertex post-processing</strong></h5><p>• Transform feedback (optional) </p>
+<p>• Can be used to store transformed vertices back into buffer objects</p>
+<h5 id="Primitive-assembly"><a href="#Primitive-assembly" class="headerlink" title="Primitive assembly"></a>Primitive assembly</h5><p> Split the input in a sequence of individual basic primitives</p>
+<h5 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h5><p>• Transform each primitive to the screen </p>
+<p>• Breaks it into fragments </p>
+<p>• Interpolates vertex data to fragments</p>
+<h5 id="Fragment-processing-Programmable"><a href="#Fragment-processing-Programmable" class="headerlink" title="Fragment processing (Programmable)"></a>Fragment processing (Programmable)</h5><p>• Process each fragment individually, in parallel </p>
+<p>• the behavior is defined by fragment shaders</p>
+<h5 id="Per-sample-operations"><a href="#Per-sample-operations" class="headerlink" title="Per-sample operations"></a>Per-sample operations</h5><p>Writes the pixel color, blending the fragment color with the previous  content in the draw buffer</p>
+<hr>
+<h5 id="Which-ones-are-progammable"><a href="#Which-ones-are-progammable" class="headerlink" title="Which ones are progammable"></a>Which ones are progammable</h5><h1 id="Render"><a href="#Render" class="headerlink" title="Render"></a>Render</h1><h2 id="What-is-a-shader-and-a-shader-program"><a href="#What-is-a-shader-and-a-shader-program" class="headerlink" title="What is a shader and a shader program"></a>What is a shader and a shader program</h2><p>Shader: Computer program that runs on the GPU</p>
+<p>Single instruction, multiple data (SIMD)</p>
+<p><strong>Shader program</strong>: Set of shaders required for the entire pipeline</p>
+<h2 id="List-all-the-different-shader-types"><a href="#List-all-the-different-shader-types" class="headerlink" title="List all the different shader types"></a>List all the different shader types</h2><ul>
+<li>input and outputs of each one</li>
+<li>Pipeline stage and order in which they are executed</li>
+<li>Compute shaders X</li>
+</ul>
+<h4 id="Vertex-shader"><a href="#Vertex-shader" class="headerlink" title="Vertex shader"></a>Vertex shader</h4><p>One input vertex -&gt;  at least position is provided as an attribute</p>
+<p>One output vertex -&gt; output position in clip coordinates to gl_Position / Can have any other output attributes</p>
+<h2 id="Vertex-attributes"><a href="#Vertex-attributes" class="headerlink" title="Vertex attributes"></a>Vertex attributes</h2><p>How is geometry data (VAO, VBO) received by the shader</p>
+<h2 id="Uniforms"><a href="#Uniforms" class="headerlink" title="Uniforms"></a>Uniforms</h2><h4 id="What-are-they-used-for-and-how-to-set-them"><a href="#What-are-they-used-for-and-how-to-set-them" class="headerlink" title="What are they used for and how to set them"></a>What are they used for and how to set them</h4><p>Uniforms: Variables with same value for all the data set </p>
+<p>• Can change every frame </p>
+<p>• Provided by the application</p>
+<h2 id="Interpolation"><a href="#Interpolation" class="headerlink" title="Interpolation"></a>Interpolation</h2><h4 id="What-to-do-in-fragment-shader-if-we-pass-normal-from-vertex-and-projected-position"><a href="#What-to-do-in-fragment-shader-if-we-pass-normal-from-vertex-and-projected-position" class="headerlink" title="What to do in fragment shader if we pass normal from vertex and projected position"></a>What to do in fragment shader if we pass normal from vertex and projected position</h4><h2 id="GLSL-code-in-project"><a href="#GLSL-code-in-project" class="headerlink" title="GLSL code in project"></a>GLSL code in project</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/17/shading/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1484,7 +1818,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
             
 
 	<div class="row">
-    <embed src="PDF/Linear_Algebra_Review.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="../PDF/Linear_Algebra_Review.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -1697,7 +2031,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1708,7 +2042,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

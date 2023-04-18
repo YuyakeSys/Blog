@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Graphics Programming," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="Forward and deferred rendering RecapR_{phong}&#x3D;R_{ambient}+R_{diffuse}+R_{specular}R_{phong}&#x3D;I_a*k_a*color+\sum(IIi_{ghti}*(k_d*(N\cdot L_i)*color+ks+(N*H_i)^{exp}))Texture formatInternal format define">
+<meta name="description" content="Post-preprocessingDefinition of post-processing and some examplesPost-processing:Techniques used to improve or alter the final image after the 3D scene has been rendered Full screen passUsually perfor">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GP">
-<meta property="og:url" content="http://example.com/2023/04/06/Forward%20rendering/index.html">
+<meta property="og:title" content="post-processing">
+<meta property="og:url" content="http://example.com/2023/04/15/post-processing/index.html">
 <meta property="og:site_name" content="Melo&#39;s blog">
-<meta property="og:description" content="Forward and deferred rendering RecapR_{phong}&#x3D;R_{ambient}+R_{diffuse}+R_{specular}R_{phong}&#x3D;I_a*k_a*color+\sum(IIi_{ghti}*(k_d*(N\cdot L_i)*color+ks+(N*H_i)^{exp}))Texture formatInternal format define">
+<meta property="og:description" content="Post-preprocessingDefinition of post-processing and some examplesPost-processing:Techniques used to improve or alter the final image after the 3D scene has been rendered Full screen passUsually perfor">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-04-06T13:46:04.000Z">
-<meta property="article:modified_time" content="2023-04-06T15:37:44.108Z">
+<meta property="og:image" content="http://example.com/2023/04/15/image/gp/fullScreenPass.png">
+<meta property="og:image" content="g:\github\blog\source\image\gp\gaussian1.png">
+<meta property="article:published_time" content="2023-04-15T14:30:11.000Z">
+<meta property="article:modified_time" content="2023-04-17T12:09:46.028Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Graphics Programming">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/04/15/image/gp/fullScreenPass.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2023/04/06/Forward rendering/"/>
+  <link rel="canonical" href="http://example.com/2023/04/15/post-processing/"/>
 
 
 
 
 
-  <title>GP | Melo's blog</title>
+  <title>post-processing | Melo's blog</title>
   
 
 
@@ -265,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/Forward%20rendering/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/15/post-processing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Meng Zhouyang">
@@ -282,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">GP</h1>
+          <h1 class="post-title" itemprop="name headline">post-processing</h1>
         
 
         <div class="post-meta">
@@ -294,8 +296,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-06T15:46:04+02:00">
-                2023-04-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-15T16:30:11+02:00">
+                2023-04-15
               </time>
             
 
@@ -304,6 +306,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphics-Programing/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphics Programing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -332,93 +356,72 @@
       
 
       
-        <p>Forward and deferred rendering</p>
-<h3 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h3><script type="math/tex; mode=display">R_{phong}=R_{ambient}+R_{diffuse}+R_{specular}</script><script type="math/tex; mode=display">R_{phong}=I_a*k_a*color+\sum(IIi_{ghti}*(k_d*(N\cdot L_i)*color+ks+(N*H_i)^{exp}))</script><h5 id="Texture-format"><a href="#Texture-format" class="headerlink" title="Texture format"></a>Texture format</h5><p>Internal format defines the size and encoding</p>
-<h5 id="Dept-test"><a href="#Dept-test" class="headerlink" title="Dept test"></a>Dept test</h5><p>Depth is computed automatically based on the position</p>
-<hr>
-<h3 id="Forward-rendering"><a href="#Forward-rendering" class="headerlink" title="Forward rendering"></a>Forward rendering</h3><p>Shader renders one light at a time</p>
+        <h1 id="Post-preprocessing"><a href="#Post-preprocessing" class="headerlink" title="Post-preprocessing"></a>Post-preprocessing</h1><h2 id="Definition-of-post-processing-and-some-examples"><a href="#Definition-of-post-processing-and-some-examples" class="headerlink" title="Definition of post-processing and some examples"></a>Definition of post-processing and some examples</h2><h3 id="Post-processing"><a href="#Post-processing" class="headerlink" title="Post-processing:"></a><strong>Post-processing</strong>:</h3><p>Techniques used to improve or alter the final image after the 3D scene has been rendered</p>
+<h3 id="Full-screen-pass"><a href="#Full-screen-pass" class="headerlink" title="Full screen pass"></a>Full screen pass</h3><p>Usually performed with one quad (two triangles) or one triangle</p>
+<p><img src="..\image\gp\fullScreenPass.png" alt="image-20230415163811503"></p>
+<p>• Vertex shader computes the texture coordinates:<br>• Remap from (-1, 1) NDC (left bottom corner to right top corner), to (0, 1) with origin at one corner</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">vec2 TexCoords &#x3D; VertexPosition * 0.5 + vec2(0.5)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Fragment shader uses data from uniforms and</p>
+<p>previous image, depth buffer…</p>
 <ul>
-<li>First pass<ul>
-<li>No blending</li>
-<li>Writes to depth</li>
-<li>Depth comparison by default GL_LESS</li>
-<li>Compute indirect lighting</li>
-</ul>
-</li>
-<li>Additional passes:<ul>
-<li>Additive blending: GL_ONE, GL_ONE</li>
-<li>No depth -&gt; first pass did</li>
-<li>Depth comparison  GL_EQUAL\GL_LEQUAL</li>
-<li>no indirect light</li>
-</ul>
-</li>
-</ul>
-<p>bad for many lights (light of small range)</p>
-<h1 id="Deferred-rendering"><a href="#Deferred-rendering" class="headerlink" title="Deferred rendering"></a>Deferred rendering</h1><h4 id="Geometry-pass"><a href="#Geometry-pass" class="headerlink" title="Geometry pass"></a>Geometry pass</h4><ul>
-<li>Render all objects</li>
-<li>Render to textures (g-butters) geometry buffers</li>
-<li>Each object can have its own specific shader</li>
-</ul>
-<h4 id="Lighting-pass"><a href="#Lighting-pass" class="headerlink" title="Lighting pass"></a>Lighting pass</h4><ul>
-<li>Render all lights</li>
-<li>For each light<ul>
-<li>Read information stored in g-buffers</li>
-<li>Transform it to original form</li>
+<li>Fragment shader uses data from uniforms</li>
+<li>We can’t render to the same texture that we are reading from</li>
+<li>Allocate more textures:</li>
 <li><ul>
-<li>reconstruct position from depth</li>
-<li>Recover Z component of normal</li>
-<li>undo any range transformations</li>
+<li>As a temporary destination framebuffer</li>
+<li>To store intermediate data for other post-processing passes</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>Obtain view direction/ light direction and compute lighting equation</li>
-<li>Lighting in view space: relative to the camera</li>
-<li><ul>
-<li>Read normals from g-buffer</li>
-<li>Light position or direction(passed as uniform) must be in view space</li>
-</ul>
-</li>
-<li>Render all the lights in additive passes</li>
-</ul>
-<h4 id="G-buffers"><a href="#G-buffers" class="headerlink" title="G-buffers"></a>G-buffers</h4><p>textures store geometry data same size as framebuffer</p>
-<p>Example Bling-Phong with 4 g-buffers</p>
+<p>Another way is using blending</p>
+<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><p>Full HD (1920x1080) =&gt; 2,073,600 fragments</p>
+<p>can use stencil buffer to improve it </p>
+<h2 id="Gaussian-blur"><a href="#Gaussian-blur" class="headerlink" title="Gaussian blur"></a>Gaussian blur</h2><p><strong>Blur</strong>: Smooth the color of a pixel based on the color of the surrounding pixels</p>
 <ul>
-<li><p>Depth buffer (D32)</p>
+<li>Sample neighbor pixels and add the color multiplied by a weight</li>
+<li>Total sum of weights need to be 1</li>
+<li>The set of neighbors and their weights is named kernel</li>
+<li>The weight is usually proportional to the distance to the pixel</li>
+</ul>
+<p>Gaussian blur: Weights based on a gaussian distribution</p>
+<p><img src="G:\github\blog\source\image\gp\gaussian1.png" alt="image-20230415170002691"></p>
+<p>The distance of the blur depends on the size of the kernel (linear interpolation)</p>
+<p><strong>Can be divided in to 2 parts</strong></p>
+<p>1xN + Nx1 is better than NxN -&gt;</p>
+<p>we have 2 passes one for horizontal, one for  vertical</p>
+<h2 id="What-is-HDR-and-tone-mapping-in-games"><a href="#What-is-HDR-and-tone-mapping-in-games" class="headerlink" title="What is HDR and tone mapping in games"></a>What is HDR and tone mapping in games</h2><h3 id="HDR-High-Dynamic-Range"><a href="#HDR-High-Dynamic-Range" class="headerlink" title="HDR: High Dynamic Range"></a>HDR: High Dynamic Range</h3><p>Dynamic range:</p>
 <ul>
-<li><ul>
-<li>Range [0,1]</li>
-<li>Reconstruct fragment position<ul>
-<li>value in texture -&gt; Z component in clip space</li>
-<li>X, Y pass projected position from vertex shader</li>
-<li>once have (X,Y,Z) in clip space, transform it by the inverse of projection matrix</li>
-<li>for position in wold space, multiply by the inverse of view matrix</li>
+<li>Ratio between the largest and small value that can be represented </li>
+<li>Depends on many things (how we store color, display capabilities, etc)</li>
 </ul>
-</li>
+<p>Keep detail in both bright and dark areas in complex scenes</p>
+<p>Rendering limited by <strong>precision</strong> of framebuffer:</p>
+<p>RGBA8 -&gt; 256 shades of light</p>
+<p>Instead, use floating point framebuffers during rendering<br>• 4 times more memory<br>• Not clamped by the max value of 1<br>• Map to a good range when displaying the final image</p>
+<h3 id="Tone-mapping"><a href="#Tone-mapping" class="headerlink" title="Tone mapping"></a>Tone mapping</h3><p>Map the high dynamic range image to a normalized (0-1) range</p>
+<script type="math/tex; mode=display">color_{01} = 1 - e^{-color_{HDR}*exposure}</script><ul>
+<li>High exposure: dark -&gt; brighter</li>
+<li>bright values too bright -&gt; can’t see detail</li>
+<li>Low exposure: Dark values too dark, bright less bright</li>
 </ul>
-</li>
+<p>Many games simulate this with a <strong>dynamic exposure</strong>:</p>
+<ul>
+<li>Compute the luminance of every pixel</li>
+<li>Scale down, averaging neighboring pixels</li>
+<li>Repeat until we have a single exposure value</li>
+<li>Blend with exposure value from previous frame</li>
+<li>Use that exposure value for tone-mapping</li>
 </ul>
-</li>
-<li><p>Albedo(RGB8)</p>
-</li>
-<li><ul>
-<li>reflection color of the objects</li>
-</ul>
-</li>
-<li><p>Normals(RG16F)</p>
-</li>
-<li><ul>
-<li>store per-fragment normals in view space</li>
-<li>normal mapping computed before storing the normal</li>
-</ul>
-</li>
-<li>Other(RGBA8)</li>
-</ul>
-<h3 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h3><ul>
-<li>Memory usage </li>
-<li>Shader complexity</li>
-<li>Transparancy</li>
-</ul>
+<h2 id="What-is-anti-aliasing-and-mention-some-techniques"><a href="#What-is-anti-aliasing-and-mention-some-techniques" class="headerlink" title="What is anti-aliasing and mention some techniques"></a>What is anti-aliasing and mention some techniques</h2><p>• <strong>Aliasing</strong>: Visual stair-stepping of edges that occurs in an image<br>when the resolution is too low</p>
+<p>• <strong>Anti-aliasing</strong>: Techniques targeted to reduce aliasing<br>        Some of them are applied as post-processing</p>
+<h3 id="Super-sampling"><a href="#Super-sampling" class="headerlink" title="Super sampling"></a>Super sampling</h3><p>Render at a higher resolution (x2, x4,…) and downscale to target resolution. Not good for performance</p>
+<h3 id="Multi-sampling-MSAA"><a href="#Multi-sampling-MSAA" class="headerlink" title="Multi sampling -MSAA"></a>Multi sampling -MSAA</h3><p>Tries to preserve the benefits of super sampling<br>• While using less memory</p>
+<p>Fragment per pixel, depth test per-sample</p>
+<p>and average the result</p>
+<h3 id="Morphological-FXAA-MLAA-SMAA"><a href="#Morphological-FXAA-MLAA-SMAA" class="headerlink" title="Morphological - FXAA, MLAA, SMAA"></a>Morphological - FXAA, MLAA, SMAA</h3><p>Try to detect high contrast edges in image and blur</p>
+<p>Pros: easy to implement in pipeline, works over the final image / can correct aliasing not caused by geometry</p>
+<p>Cons: smooth anything</p>
+<h3 id="Temporal-TAA"><a href="#Temporal-TAA" class="headerlink" title="Temporal - TAA"></a>Temporal - TAA</h3><p>Same concept as MSAA, sample in small offsets within pixel, but one each frame and blend previous frame</p>
 
       
     </div>
@@ -434,12 +437,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Graphics-Programming/" rel="tag"># Graphics Programming</a>
-          
-        </div>
-      
 
       
       
@@ -449,8 +446,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/04/06/WRS3/" rel="next" title="WRS Lecture 8">
-                <i class="fa fa-chevron-left"></i> WRS Lecture 8
+              <a href="/2023/04/11/Shader/" rel="next" title="Shader">
+                <i class="fa fa-chevron-left"></i> Shader
               </a>
             
           </div>
@@ -459,8 +456,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/04/07/PhysicBasedRendering/" rel="prev" title="PhysicBasedRendering">
-                PhysicBasedRendering <i class="fa fa-chevron-right"></i>
+              <a href="/2023/04/18/matching/" rel="prev" title="SDF & ray matching">
+                SDF & ray matching <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -607,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Recap"><span class="nav-number">1.</span> <span class="nav-text">Recap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Texture-format"><span class="nav-number">1.0.1.</span> <span class="nav-text">Texture format</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Dept-test"><span class="nav-number">1.0.2.</span> <span class="nav-text">Dept test</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forward-rendering"><span class="nav-number">2.</span> <span class="nav-text">Forward rendering</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deferred-rendering"><span class="nav-number"></span> <span class="nav-text">Deferred rendering</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Geometry-pass"><span class="nav-number">0.1.</span> <span class="nav-text">Geometry pass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lighting-pass"><span class="nav-number">0.2.</span> <span class="nav-text">Lighting pass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G-buffers"><span class="nav-number">0.3.</span> <span class="nav-text">G-buffers</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Limitations"><span class="nav-number">1.</span> <span class="nav-text">Limitations</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Post-preprocessing"><span class="nav-number">1.</span> <span class="nav-text">Post-preprocessing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition-of-post-processing-and-some-examples"><span class="nav-number">1.1.</span> <span class="nav-text">Definition of post-processing and some examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Post-processing"><span class="nav-number">1.1.1.</span> <span class="nav-text">Post-processing:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-screen-pass"><span class="nav-number">1.1.2.</span> <span class="nav-text">Full screen pass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance"><span class="nav-number">1.1.3.</span> <span class="nav-text">Performance</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gaussian-blur"><span class="nav-number">1.2.</span> <span class="nav-text">Gaussian blur</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-HDR-and-tone-mapping-in-games"><span class="nav-number">1.3.</span> <span class="nav-text">What is HDR and tone mapping in games</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HDR-High-Dynamic-Range"><span class="nav-number">1.3.1.</span> <span class="nav-text">HDR: High Dynamic Range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tone-mapping"><span class="nav-number">1.3.2.</span> <span class="nav-text">Tone mapping</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-anti-aliasing-and-mention-some-techniques"><span class="nav-number">1.4.</span> <span class="nav-text">What is anti-aliasing and mention some techniques</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Super-sampling"><span class="nav-number">1.4.1.</span> <span class="nav-text">Super sampling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-sampling-MSAA"><span class="nav-number">1.4.2.</span> <span class="nav-text">Multi sampling -MSAA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Morphological-FXAA-MLAA-SMAA"><span class="nav-number">1.4.3.</span> <span class="nav-text">Morphological - FXAA, MLAA, SMAA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Temporal-TAA"><span class="nav-number">1.4.4.</span> <span class="nav-text">Temporal - TAA</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

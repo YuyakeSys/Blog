@@ -263,6 +263,355 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/18/matching/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/18/matching/" itemprop="url">SDF & ray matching</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-18T08:17:56+02:00">
+                2023-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphics-Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphics Programming</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>• Understand what an SDF is, and some uses<br>• Know how to compute the SDF of a sphere<br>• Basic operations</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/15/post-processing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/15/post-processing/" itemprop="url">post-processing</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-15T16:30:11+02:00">
+                2023-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphics-Programing/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphics Programing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Post-preprocessing"><a href="#Post-preprocessing" class="headerlink" title="Post-preprocessing"></a>Post-preprocessing</h1><h2 id="Definition-of-post-processing-and-some-examples"><a href="#Definition-of-post-processing-and-some-examples" class="headerlink" title="Definition of post-processing and some examples"></a>Definition of post-processing and some examples</h2><h3 id="Post-processing"><a href="#Post-processing" class="headerlink" title="Post-processing:"></a><strong>Post-processing</strong>:</h3><p>Techniques used to improve or alter the final image after the 3D scene has been rendered</p>
+<h3 id="Full-screen-pass"><a href="#Full-screen-pass" class="headerlink" title="Full screen pass"></a>Full screen pass</h3><p>Usually performed with one quad (two triangles) or one triangle</p>
+<p><img src="..\image\gp\fullScreenPass.png" alt="image-20230415163811503"></p>
+<p>• Vertex shader computes the texture coordinates:<br>• Remap from (-1, 1) NDC (left bottom corner to right top corner), to (0, 1) with origin at one corner</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">vec2 TexCoords &#x3D; VertexPosition * 0.5 + vec2(0.5)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Fragment shader uses data from uniforms and</p>
+<p>previous image, depth buffer…</p>
+<ul>
+<li>Fragment shader uses data from uniforms</li>
+<li>We can’t render to the same texture that we are reading from</li>
+<li>Allocate more textures:</li>
+<li><ul>
+<li>As a temporary destination framebuffer</li>
+<li>To store intermediate data for other post-processing passes</li>
+</ul>
+</li>
+</ul>
+<p>Another way is using blending</p>
+<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><p>Full HD (1920x1080) =&gt; 2,073,600 fragments</p>
+<p>can use stencil buffer to improve it </p>
+<h2 id="Gaussian-blur"><a href="#Gaussian-blur" class="headerlink" title="Gaussian blur"></a>Gaussian blur</h2><p><strong>Blur</strong>: Smooth the color of a pixel based on the color of the surrounding pixels</p>
+<ul>
+<li>Sample neighbor pixels and add the color multiplied by a weight</li>
+<li>Total sum of weights need to be 1</li>
+<li>The set of neighbors and their weights is named kernel</li>
+<li>The weight is usually proportional to the distance to the pixel</li>
+</ul>
+<p>Gaussian blur: Weights based on a gaussian distribution</p>
+<p><img src="G:\github\blog\source\image\gp\gaussian1.png" alt="image-20230415170002691"></p>
+<p>The distance of the blur depends on the size of the kernel (linear interpolation)</p>
+<p><strong>Can be divided in to 2 parts</strong></p>
+<p>1xN + Nx1 is better than NxN -&gt;</p>
+<p>we have 2 passes one for horizontal, one for  vertical</p>
+<h2 id="What-is-HDR-and-tone-mapping-in-games"><a href="#What-is-HDR-and-tone-mapping-in-games" class="headerlink" title="What is HDR and tone mapping in games"></a>What is HDR and tone mapping in games</h2><h3 id="HDR-High-Dynamic-Range"><a href="#HDR-High-Dynamic-Range" class="headerlink" title="HDR: High Dynamic Range"></a>HDR: High Dynamic Range</h3><p>Dynamic range:</p>
+<ul>
+<li>Ratio between the largest and small value that can be represented </li>
+<li>Depends on many things (how we store color, display capabilities, etc)</li>
+</ul>
+<p>Keep detail in both bright and dark areas in complex scenes</p>
+<p>Rendering limited by <strong>precision</strong> of framebuffer:</p>
+<p>RGBA8 -&gt; 256 shades of light</p>
+<p>Instead, use floating point framebuffers during rendering<br>• 4 times more memory<br>• Not clamped by the max value of 1<br>• Map to a good range when displaying the final image</p>
+<h3 id="Tone-mapping"><a href="#Tone-mapping" class="headerlink" title="Tone mapping"></a>Tone mapping</h3><p>Map the high dynamic range image to a normalized (0-1) range</p>
+<script type="math/tex; mode=display">color_{01} = 1 - e^{-color_{HDR}*exposure}</script><ul>
+<li>High exposure: dark -&gt; brighter</li>
+<li>bright values too bright -&gt; can’t see detail</li>
+<li>Low exposure: Dark values too dark, bright less bright</li>
+</ul>
+<p>Many games simulate this with a <strong>dynamic exposure</strong>:</p>
+<ul>
+<li>Compute the luminance of every pixel</li>
+<li>Scale down, averaging neighboring pixels</li>
+<li>Repeat until we have a single exposure value</li>
+<li>Blend with exposure value from previous frame</li>
+<li>Use that exposure value for tone-mapping</li>
+</ul>
+<h2 id="What-is-anti-aliasing-and-mention-some-techniques"><a href="#What-is-anti-aliasing-and-mention-some-techniques" class="headerlink" title="What is anti-aliasing and mention some techniques"></a>What is anti-aliasing and mention some techniques</h2><p>• <strong>Aliasing</strong>: Visual stair-stepping of edges that occurs in an image<br>when the resolution is too low</p>
+<p>• <strong>Anti-aliasing</strong>: Techniques targeted to reduce aliasing<br>        Some of them are applied as post-processing</p>
+<h3 id="Super-sampling"><a href="#Super-sampling" class="headerlink" title="Super sampling"></a>Super sampling</h3><p>Render at a higher resolution (x2, x4,…) and downscale to target resolution. Not good for performance</p>
+<h3 id="Multi-sampling-MSAA"><a href="#Multi-sampling-MSAA" class="headerlink" title="Multi sampling -MSAA"></a>Multi sampling -MSAA</h3><p>Tries to preserve the benefits of super sampling<br>• While using less memory</p>
+<p>Fragment per pixel, depth test per-sample</p>
+<p>and average the result</p>
+<h3 id="Morphological-FXAA-MLAA-SMAA"><a href="#Morphological-FXAA-MLAA-SMAA" class="headerlink" title="Morphological - FXAA, MLAA, SMAA"></a>Morphological - FXAA, MLAA, SMAA</h3><p>Try to detect high contrast edges in image and blur</p>
+<p>Pros: easy to implement in pipeline, works over the final image / can correct aliasing not caused by geometry</p>
+<p>Cons: smooth anything</p>
+<h3 id="Temporal-TAA"><a href="#Temporal-TAA" class="headerlink" title="Temporal - TAA"></a>Temporal - TAA</h3><p>Same concept as MSAA, sample in small offsets within pixel, but one each frame and blend previous frame</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/11/Shader/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2039,244 +2388,6 @@ for(int i&#x3D;0; i &lt; intList.Count; i++)&#123;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/05/opengl1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/02/05/opengl1/" itemprop="url">opengl1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-02-05T02:06:20+01:00">
-                2023-02-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/21/geometry/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/21/geometry/" itemprop="url">geometry</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-21T04:27:45+01:00">
-                2023-01-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2331,7 +2442,7 @@ for(int i&#x3D;0; i &lt; intList.Count; i++)&#123;
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2342,7 +2453,7 @@ for(int i&#x3D;0; i &lt; intList.Count; i++)&#123;
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
