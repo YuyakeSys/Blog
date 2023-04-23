@@ -86,16 +86,16 @@
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="AbstractRasterization Different raster displays Rasterizing a triangle   红线之间角度 -&gt; 垂直可视角度 Vertical filed of view  角度&#x2F;2 屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p An array of pixels Size of the array reso">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/01/15/image/image-20230115073410188.png">
-<meta property="og:image" content="http://example.com/2023/01/15/image/image-20230115073738823.png">
-<meta property="og:image" content="http://example.com/2023/01/15/image/image-20230115074741615.png">
-<meta property="og:image" content="http://example.com/2023/01/15/image/image-20230115082117380.png">
-<meta property="og:image" content="http://example.com/2023/01/15/image/image-20230115083024989.png">
+<meta property="og:image" content="http://example.com/2023/01/15/Rasterization/image/image-20230115073410188.png">
+<meta property="og:image" content="http://example.com/2023/01/15/Rasterization/image/image-20230115073738823.png">
+<meta property="og:image" content="http://example.com/2023/01/15/Rasterization/image/image-20230115074741615.png">
+<meta property="og:image" content="http://example.com/2023/01/15/Rasterization/image/image-20230115082117380.png">
+<meta property="og:image" content="http://example.com/2023/01/15/Rasterization/image/image-20230115083024989.png">
 <meta property="article:published_time" content="2023-01-15T06:20:13.000Z">
 <meta property="article:modified_time" content="2023-01-16T18:19:54.449Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/01/15/image/image-20230115073410188.png">
+<meta name="twitter:image" content="http://example.com/2023/01/15/Rasterization/image/image-20230115073410188.png">
 
 
 
@@ -341,9 +341,9 @@
 <li>Different raster displays</li>
 <li>Rasterizing a triangle</li>
 </ul>
-<p><img src="..\image\image-20230115073410188.png" alt="image-20230115073410188"></p>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115073410188.png" alt="image-20230115073410188"></p>
 <p>红线之间角度 -&gt; 垂直可视角度 Vertical filed of view</p>
-<p><img src="..\image\image-20230115073738823.png" alt="image-20230115073738823"></p>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115073738823.png" alt="image-20230115073738823"></p>
 <p>角度/2</p>
 <p>屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p</p>
 <p>An array of pixels</p>
@@ -358,7 +358,7 @@
 <ul>
 <li>Slightly different from 虎书</li>
 </ul>
-<p><img src="..\image\image-20230115074741615.png" alt="image-20230115074741615"></p>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115074741615.png" alt="image-20230115074741615"></p>
 </li>
 </ul>
 <script type="math/tex; mode=display">
@@ -394,14 +394,14 @@ M_{viewport} = \begin{pmatrix}
 <p>Core idea in graphics</p>
 <p>time (1D), area (2D), direction(2D) ….</p>
 <p>inside(t, x, y) 判断是否在三角形内</p>
-<p><img src="..\image\image-20230115082117380.png" alt="image-20230115082117380"></p>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115082117380.png" alt="image-20230115082117380"></p>
 <pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
 	for (int y&#x3D;0; y &lt; ymax; ++y)
 		image[x][y] &#x3D; inside(tri, x+0.5, y+0.5)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>通过采样实现光栅化</p>
 <h3 id="Inside-Three-Cross-Product"><a href="#Inside-Three-Cross-Product" class="headerlink" title="Inside? Three Cross Product"></a>Inside? Three Cross Product</h3><p>P1P2 X P1Q -&gt; z是正的 Q 在P1左侧</p>
 <p>包围盒 Bounding Box</p>
-<p><img src="..\image\image-20230115083024989.png" alt="image-20230115083024989"></p>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115083024989.png" alt="image-20230115083024989"></p>
 <p>加速方法</p>
 <p>采样率不够高 -&gt; 锯齿 Alias 抗锯齿 反走样</p>
 
@@ -521,7 +521,7 @@ M_{viewport} = \begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

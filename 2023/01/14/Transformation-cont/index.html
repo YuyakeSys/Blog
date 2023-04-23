@@ -86,14 +86,14 @@
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="3D transformation Viewing(观测) transformation View (视图)&#x2F; Camera transformation Projection (投影) transformation Orthographic (正交) projection Perspective (透视) projection      3D transformation point &#x3D; $(">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/01/14/image/view_img.png">
-<meta property="og:image" content="http://example.com/2023/01/14/image/orth-pers.png">
-<meta property="og:image" content="http://example.com/2023/01/14/image/pers.png">
+<meta property="og:image" content="http://example.com/2023/01/14/Transformation-cont/image/view_img.png">
+<meta property="og:image" content="http://example.com/2023/01/14/Transformation-cont/image/orth-pers.png">
+<meta property="og:image" content="http://example.com/2023/01/14/Transformation-cont/image/pers.png">
 <meta property="article:published_time" content="2023-01-14T05:20:22.000Z">
 <meta property="article:modified_time" content="2023-01-16T18:21:19.372Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/01/14/image/view_img.png">
+<meta name="twitter:image" content="http://example.com/2023/01/14/Transformation-cont/image/view_img.png">
 
 
 
@@ -455,7 +455,7 @@ R(\bold{n}, \alpha) = cos(\alpha)I + (1-cos(\alpha))\bold{n}\bold{n}^T + sin(\al
 </ul>
 </li>
 </ul>
-<p><img src="../image/view_img.png" alt=""></p>
+<p><img src="/2023/01/14/Transformation-cont/image/view_img.png" alt></p>
 <h4 id="M-view-in-math"><a href="#M-view-in-math" class="headerlink" title="$M_{view}$ in math"></a>$M_{view}$ in math</h4><ul>
 <li><p>$M_{view} = R{view}T{view}$</p>
 </li>
@@ -467,7 +467,7 @@ T_view = \begin{bmatrix}1&0&0&-x_e\\
 0&0&0&1\\
 \end{bmatrix}</script><p>inverse rotation is easier X to (g x t), Y to t, Z to -g 叉乘</p>
 <p>Model|View Transformation</p>
-<p><img src="../image/orth-pers.png" alt="image-20230114091549245"></p>
+<p><img src="/2023/01/14/Transformation-cont/image/orth-pers.png" alt="image-20230114091549245"></p>
 </li>
 </ul>
 <h3 id="Orthographic-Projection"><a href="#Orthographic-Projection" class="headerlink" title="Orthographic Projection"></a>Orthographic Projection</h3><p>map a cuboid [l, r] x [b, t] x [$f, n$] to</p>
@@ -475,7 +475,7 @@ T_view = \begin{bmatrix}1&0&0&-x_e\\
 <p>离得远z小 近z大</p>
 <p>Translate (center to origin) first, then scale (length/width/height to 2) 转换为2也就是（-1 ， 1）</p>
 <p>Matrix is easy</p>
-<h3 id="Perspective-Projection"><a href="#Perspective-Projection" class="headerlink" title="Perspective Projection"></a>Perspective Projection</h3><p><img src="..\image\pers.png" alt="image-20230114095401335"></p>
+<h3 id="Perspective-Projection"><a href="#Perspective-Projection" class="headerlink" title="Perspective Projection"></a>Perspective Projection</h3><p><img src="/2023/01/14/Transformation-cont/image\pers.png" alt="image-20230114095401335"></p>
 <p>如何挤压？</p>
 <p>从侧面往里看</p>
 <p>$y’ = \frac{n}{z}y$</p>
@@ -605,7 +605,7 @@ An + B = f^2 \ \ \ B = -nf</script>
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -86,17 +86,17 @@
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="Antialias 反走样 遮挡 锯齿 学名 走样 Alias Sampling Artifacts (Error&#x2F;…) Moire Patterns in Imaging   Reason: Signals are changing too fast (high frequency), but sampled too slow Antialiasing Idea: Blurring (Pre-F">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/01/16/image/Ras/image-20230116074814025.png">
-<meta property="og:image" content="http://example.com/2023/01/16/image/Ras/image-20230116075646896.png">
-<meta property="og:image" content="http://example.com/2023/01/16/image/Ras/image-20230116080338635.png">
-<meta property="og:image" content="http://example.com/2023/01/16/image/Ras/image-20230116080532333.png">
-<meta property="og:image" content="http://example.com/2023/01/16/image/Ras/image-20230116080634727.png">
-<meta property="og:image" content="http://example.com/2023/01/16/image/Ras/image-20230116081527022.png">
+<meta property="og:image" content="http://example.com/2023/01/16/antialias/image/Ras/image-20230116074814025.png">
+<meta property="og:image" content="http://example.com/2023/01/16/antialias/image/Ras/image-20230116075646896.png">
+<meta property="og:image" content="http://example.com/2023/01/16/antialias/image/Ras/image-20230116080338635.png">
+<meta property="og:image" content="http://example.com/2023/01/16/antialias/image/Ras/image-20230116080532333.png">
+<meta property="og:image" content="http://example.com/2023/01/16/antialias/image/Ras/image-20230116080634727.png">
+<meta property="og:image" content="http://example.com/2023/01/16/antialias/image/Ras/image-20230116081527022.png">
 <meta property="article:published_time" content="2023-01-16T06:20:38.000Z">
 <meta property="article:modified_time" content="2023-01-16T18:21:17.273Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/01/16/image/Ras/image-20230116074814025.png">
+<meta name="twitter:image" content="http://example.com/2023/01/16/antialias/image/Ras/image-20230116074814025.png">
 
 
 
@@ -365,26 +365,26 @@
 <p>Sampling Artifacts (Error/…)</p>
 <p>Moire Patterns in Imaging  </p>
 <p>Reason:</p>
-<p>Signals are changing too fast (high frequency), but<font color='red'> sampled too slow</font></p>
+<p>Signals are changing too fast (high frequency), but<font color="red"> sampled too slow</font></p>
 <h3 id="Antialiasing-Idea-Blurring-Pre-Filtering-before-sampling"><a href="#Antialiasing-Idea-Blurring-Pre-Filtering-before-sampling" class="headerlink" title="Antialiasing Idea: Blurring (Pre-Filtering) before sampling"></a>Antialiasing Idea: Blurring (Pre-Filtering) before sampling</h3><h3 id="Frequency-Domain-频率"><a href="#Frequency-Domain-频率" class="headerlink" title="Frequency Domain 频率"></a>Frequency Domain 频率</h3><p>$f = \frac{1}{T}$</p>
 <p>Fourier Transform 傅里叶展开</p>
 <p>Represent a function as a weighted sum of sines and cosines</p>
 <p>$e^{ix}=cosx + isinx$</p>
-<p><img src="..\image\Ras\image-20230116074814025.png" alt="image-20230116074814025"></p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116074814025.png" alt="image-20230116074814025"></p>
 <p>不必要知道$F$</p>
 <p>不同正弦与余弦函数有不同的频率</p>
 <p>采样与函数频率有关</p>
 <p>走样</p>
-<p><img src="..\image\Ras\image-20230116075646896.png" alt="image-20230116075646896"></p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116075646896.png" alt="image-20230116075646896"></p>
 <p>Two frequencies that are indistinguishable at a given sampling are called “aliases”</p>
-<p>Filtering = <font color='red'> Getting rid of </font> certain frequency contents</p>
+<p>Filtering = <font color="red"> Getting rid of </font> certain frequency contents</p>
 <p>图像中心到周围频率++</p>
 <p>Filtert out low frequencies only (edges)</p>
 <p>高通滤波（高频可以通过）</p>
-<p><img src="..\image\Ras\image-20230116080338635.png" alt="image-20230116080338635"></p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080338635.png" alt="image-20230116080338635"></p>
 <p>Filtert out high frequencies (Blur)</p>
-<p><img src="..\image\Ras\image-20230116080532333.png" alt="image-20230116080532333"></p>
-<p><img src="..\image\Ras\image-20230116080634727.png" alt="image-20230116080634727"></p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080532333.png" alt="image-20230116080532333"></p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080634727.png" alt="image-20230116080634727"></p>
 <p>Filtering = Convolution (= Averaging)</p>
 <p>卷积： 用滤波器对信号进行处理 （图形学简化定义）</p>
 <h3 id="Convolution-Theorem"><a href="#Convolution-Theorem" class="headerlink" title="Convolution Theorem"></a>Convolution Theorem</h3><p>Convolution in the spatial domain is equal to multiplication in the frequency domain, and </p>
@@ -397,7 +397,7 @@
 <li>Muliply by Fourier transform of convolution kernel</li>
 <li>Transform back to spatial domain (inverse Fourier)</li>
 </ul>
-<p><img src="..\image\Ras\image-20230116081527022.png" alt="image-20230116081527022"></p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116081527022.png" alt="image-20230116081527022"></p>
 <p>频谱混叠产生走样</p>
 <p>How can we reduce alias Error</p>
 <h5 id="Option1-Increase-sampling-rate"><a href="#Option1-Increase-sampling-rate" class="headerlink" title="Option1: Increase sampling rate"></a>Option1: Increase sampling rate</h5><ul>
@@ -541,7 +541,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

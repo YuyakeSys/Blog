@@ -86,17 +86,17 @@
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="Painter’s AlgorithmPaint from back to front， overwrite in the frame buffer 由远到近 画画 （覆盖）  Require sorting in depth (O(n log n)) for n triangles) 可能有unresolvable depth order Z-Buffer 深度缓存Idea: Store cur">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/01/17/image/shade/blin.png">
-<meta property="og:image" content="http://example.com/2023/01/17/image/shade/normal.png">
-<meta property="og:image" content="http://example.com/2023/01/17/image/shade/texture.png">
-<meta property="og:image" content="http://example.com/2023/01/17/image/shade/linearcent.png">
-<meta property="og:image" content="http://example.com/2023/01/17/image/shade/lerp.png">
-<meta property="og:image" content="http://example.com/2023/01/17/image/shade/filter.png">
+<meta property="og:image" content="http://example.com/2023/01/17/shading/image/shade/blin.png">
+<meta property="og:image" content="http://example.com/2023/01/17/shading/image/shade/normal.png">
+<meta property="og:image" content="http://example.com/2023/01/17/shading/image/shade/texture.png">
+<meta property="og:image" content="http://example.com/2023/01/17/shading/image/shade/linearcent.png">
+<meta property="og:image" content="http://example.com/2023/01/17/shading/image/shade/lerp.png">
+<meta property="og:image" content="http://example.com/2023/01/17/shading/image/shade/filter.png">
 <meta property="article:published_time" content="2023-01-17T06:50:53.000Z">
 <meta property="article:modified_time" content="2023-01-18T17:11:02.585Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/01/17/image/shade/blin.png">
+<meta name="twitter:image" content="http://example.com/2023/01/17/shading/image/shade/blin.png">
 
 
 
@@ -417,7 +417,7 @@ L_d = k_d(I/r^2)max(0,n \cdot l)</script><p>到达shading point的能量  n*l是
 <p>$k_d$ 是颜色系数</p>
 <p>漫反射与观察方向完全无关</p>
 <h3 id="Shading-2"><a href="#Shading-2" class="headerlink" title="Shading 2"></a>Shading 2</h3><p>当v与r(镜面反射方向)是高光项</p>
-<p><img src="..\image\shade\blin.png" alt="image-20230118214809696"></p>
+<p><img src="/2023/01/17/shading/image\shade\blin.png" alt="image-20230118214809696"></p>
 <p>v与r接近 就是n和h接近 半程向量和法线是否接近 （接近点乘接近1）</p>
 <p>后面需要考虑还有多少能量被吸收</p>
 <p>这个模型高光对$cos\theta$ (指数p)要到100-200 高光普遍只有几度</p>
@@ -432,13 +432,13 @@ L_a = k_a I_a</script><p>$L_a$:reflected ambient light                          
 L = L_a+L_d+L_s\\
 = k_aI_a + k_d(I/r^2)max(0,n\cdot l) + k_s(I/r^2)max(0,n\cdot h)^p</script><h3 id="Flat-逐三角形-Grouaud-逐顶点-Phong-逐像素-shading"><a href="#Flat-逐三角形-Grouaud-逐顶点-Phong-逐像素-shading" class="headerlink" title="Flat(逐三角形)/Grouaud(逐顶点)/Phong(逐像素) shading"></a>Flat(逐三角形)/Grouaud(逐顶点)/Phong(逐像素) shading</h3><p>Blinn-Phong is a model $\neq$ Phong shading</p>
 <p>取决于具体的物体</p>
-<h5 id="Defining-Per-Vertex-Normal-Vectors"><a href="#Defining-Per-Vertex-Normal-Vectors" class="headerlink" title="Defining Per-Vertex Normal Vectors"></a>Defining Per-Vertex Normal Vectors</h5><p><img src="..\image\shade\normal.png" alt="image-20230118221458715"></p>
+<h5 id="Defining-Per-Vertex-Normal-Vectors"><a href="#Defining-Per-Vertex-Normal-Vectors" class="headerlink" title="Defining Per-Vertex Normal Vectors"></a>Defining Per-Vertex Normal Vectors</h5><p><img src="/2023/01/17/shading/image\shade\normal.png" alt="image-20230118221458715"></p>
 <p>相邻的法线求平均</p>
 <h3 id="Graphics-Real-time-Rendering-Pipeline"><a href="#Graphics-Real-time-Rendering-Pipeline" class="headerlink" title="Graphics (Real-time Rendering) Pipeline"></a>Graphics (Real-time Rendering) Pipeline</h3><p>Vertex Processing -&gt; Triangle Processing -&gt; Rasterization -&gt; Fragment Processing -&gt; Framebuffer Operations -&gt; display</p>
 <h3 id="Shader-Programs"><a href="#Shader-Programs" class="headerlink" title="Shader Programs"></a>Shader Programs</h3><p>每一个顶点 fragment执行一次 通用的</p>
 <h3 id="Texture-Mapping-纹理映射"><a href="#Texture-Mapping-纹理映射" class="headerlink" title="Texture Mapping 纹理映射"></a>Texture Mapping 纹理映射</h3><p>Surface lives in 3D world space</p>
 <p>Every 3D surface point also has a place where it goes in the 2D image (<strong>texture</strong>)</p>
-<p><img src="..\image\shade\texture.png" alt="image-20230118225008718"></p>
+<p><img src="/2023/01/17/shading/image\shade\texture.png" alt="image-20230118225008718"></p>
 <p>u,v 都是0-1之内</p>
 <p>纹理无缝衔接的合成</p>
 <h4 id="Interpolation-Across-Triangles-Barycenteric-Coordinates"><a href="#Interpolation-Across-Triangles-Barycenteric-Coordinates" class="headerlink" title="Interpolation Across Triangles : Barycenteric Coordinates"></a>Interpolation Across Triangles : Barycenteric Coordinates</h4><p>重心坐标</p>
@@ -457,7 +457,7 @@ L = L_a+L_d+L_s\\
 \beta = \frac{A_B}{A_A + A_B + A_C}
 \gamma = \frac{A_C}{A_A + A_B + A_C}</script><p>重心 1/3 1/3 1/3 三个等面积三角形</p>
 <p>通过坐标属性线性结合起来</p>
-<p><img src="..\image\shade\linearcent.png" alt="image-20230118232935132"></p>
+<p><img src="/2023/01/17/shading/image\shade\linearcent.png" alt="image-20230118232935132"></p>
 <p>重心坐标在投影下不能保持不变</p>
 <p>找到对应三维空间坐标的深度插值</p>
 <h5 id="Applying-Texture"><a href="#Applying-Texture" class="headerlink" title="Applying Texture"></a>Applying Texture</h5><pre class="line-numbers language-none"><code class="language-none">for each rasterized screen sample (x,y):
@@ -470,14 +470,14 @@ L = L_a+L_d+L_s\\
 <p>-&gt; 双线性插值 Bilinear interpolation</p>
 <p>线性插值 Linear interpolation (1 D)</p>
 <p>$lerp(x,v_0,v_1)=v_0+x(v_1-v_0)$</p>
-<p><img src="..\image\shade\lerp.png" alt="image-20230119001241519"></p>
+<p><img src="/2023/01/17/shading/image\shade\lerp.png" alt="image-20230119001241519"></p>
 <p>Bicubic 取周围16个</p>
 <h5 id="Problem-2-hard-case-纹理太大"><a href="#Problem-2-hard-case-纹理太大" class="headerlink" title="Problem 2: hard case 纹理太大"></a>Problem 2: hard case 纹理太大</h5><p>supersampling is costly</p>
 <p>避免采样</p>
 <p>Point Query vs. (Avg.) Range Query</p>
 <h5 id="Mipmap"><a href="#Mipmap" class="headerlink" title="Mipmap"></a>Mipmap</h5><p>Allowing (<font color="red">fast, approx, square</font>) range queries</p>
 <p>一张图分成数张图 $log_2 n$</p>
-<p><img src="..\image\shade\filter.png" alt="image-20230119004909853"></p>
+<p><img src="/2023/01/17/shading/image\shade\filter.png" alt="image-20230119004909853"></p>
 <p>再在层与层之间进行插值</p>
 <p>Trilinear Interpolation 三线性插值  Ripmaps</p>
 <p>D 层 -&gt; D+1层</p>
@@ -603,7 +603,7 @@ L = L_a+L_d+L_s\\
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

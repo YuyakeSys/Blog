@@ -86,15 +86,15 @@
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="Lecture1Feature of a Recommender System Personalised Recommendations → different recommendations for every user;   Maintain a user model or user profile, describes the users’s preferences;    Implicit">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/04/10/image/pearson_Co.png">
-<meta property="og:image" content="http://example.com/2023/04/10/image/longtailImpact.png">
-<meta property="og:image" content="http://example.com/2023/04/10/image/WRS/cosine_similarity.png">
-<meta property="og:image" content="http://example.com/2023/04/10/image/WRS/ub_ib.png">
+<meta property="og:image" content="http://example.com/2023/04/10/WRSL1-L2/image/pearson_Co.png">
+<meta property="og:image" content="http://example.com/2023/04/10/WRSL1-L2/image/longtailImpact.png">
+<meta property="og:image" content="http://example.com/2023/04/10/WRSL1-L2/image/WRS/cosine_similarity.png">
+<meta property="og:image" content="http://example.com/2023/04/10/WRSL1-L2/image/WRS/ub_ib.png">
 <meta property="article:published_time" content="2023-04-10T10:57:45.000Z">
 <meta property="article:modified_time" content="2023-04-12T13:19:14.089Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/04/10/image/pearson_Co.png">
+<meta name="twitter:image" content="http://example.com/2023/04/10/WRSL1-L2/image/pearson_Co.png">
 
 
 
@@ -422,7 +422,7 @@
 <p>• Assumptions: </p>
 <p>​    • Similar tastes in the past → similar tastes in the future; </p>
 <p>​    • Preferences are stable and consistent over time.</p>
-<h4 id="Step-1-Similarity-with-Pearson-Coefficient"><a href="#Step-1-Similarity-with-Pearson-Coefficient" class="headerlink" title="Step 1: Similarity with Pearson Coefficient"></a>Step 1: Similarity with Pearson Coefficient</h4><p><img src="..\image\pearson_Co.png" alt="image-20230411181714647"></p>
+<h4 id="Step-1-Similarity-with-Pearson-Coefficient"><a href="#Step-1-Similarity-with-Pearson-Coefficient" class="headerlink" title="Step 1: Similarity with Pearson Coefficient"></a>Step 1: Similarity with Pearson Coefficient</h4><p><img src="/2023/04/10/WRSL1-L2/image\pearson_Co.png" alt="image-20230411181714647"></p>
 <p>• Simple approach: users with highest similarity score (Pearson coefficient); </p>
 <p>• Problem: number of observed ratings can be very different depending on the  item, e.g., popular items;</p>
 <h3 id="Step-2-Mean-centered-Rating-Prediction"><a href="#Step-2-Mean-centered-Rating-Prediction" class="headerlink" title="Step 2: Mean-centered Rating Prediction"></a>Step 2: Mean-centered Rating Prediction</h3><p><strong>Solution</strong>: center ratings by their row-mean</p>
@@ -435,15 +435,15 @@
 <p>• Top-k closest neighbours: </p>
 <p>​    • High value for k → additional noise; </p>
 <p>​    • Empirically: good values for k are in the range of [20, 50]</p>
-<p><img src="..\image\longtailImpact.png" alt="image-20230411183239484"></p>
+<p><img src="/2023/04/10/WRSL1-L2/image\longtailImpact.png" alt="image-20230411183239484"></p>
 <h2 id="Item-based-Nearest-Neighbour-Recommendation"><a href="#Item-based-Nearest-Neighbour-Recommendation" class="headerlink" title="Item-based Nearest Neighbour  Recommendation"></a>Item-based Nearest Neighbour  Recommendation</h2><p>similarity  between items instead of similarity  between users</p>
 <p>Works better with offline pre-processing</p>
 <h3 id="Step-1-Cosine-Similarity"><a href="#Step-1-Cosine-Similarity" class="headerlink" title="Step 1: Cosine Similarity"></a>Step 1: Cosine Similarity</h3><p> <strong>Cosine similarity</strong>: empirically better than Pearson for item-based recommendation</p>
 <p>Adjusted cosine similarity: mean centred ratings <script type="math/tex">s_{u,j}</script>;</p>
-<p><img src="..\image\WRS\cosine_similarity.png" alt="image-20230411184516752"></p>
+<p><img src="/2023/04/10/WRSL1-L2/image\WRS\cosine_similarity.png" alt="image-20230411184516752"></p>
 <h3 id="Step-2-Rating-Prediction"><a href="#Step-2-Rating-Prediction" class="headerlink" title="Step 2: Rating Prediction"></a>Step 2: Rating Prediction</h3><p>Consider the top-k similar items on a user basis;</p>
 <p><script type="math/tex">Q_t(u)</script> set of <strong>K</strong> closest items (adjusted cosine similarity) to the target item that  were rated by user ;</p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><img src="..\image\WRS\ub_ib.png" alt="image-20230411183921420"></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><img src="/2023/04/10/WRSL1-L2/image\WRS\ub_ib.png" alt="image-20230411183921420"></p>
 <h1 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h1><h2 id="Computational-Complexity"><a href="#Computational-Complexity" class="headerlink" title="Computational Complexity"></a>Computational Complexity</h2><ul>
 <li>User-based CF does not scale well to large numbers of users and items.</li>
 <li>Item-based CF is more stable with changes to the ratings:</li>
@@ -584,7 +584,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
