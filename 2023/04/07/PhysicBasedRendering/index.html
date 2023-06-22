@@ -86,11 +86,13 @@
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="Physic Based Renderingeye don’t perceive color in linear way and more sensitve to darker tones sRGB - gamma of approximately 2.2 openGL can handle encoding and decoding of sRGB images Gamma correction">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/04/07/PhysicBasedRendering/github/blog/source/_posts/image-20230605222816778.png">
 <meta property="article:published_time" content="2023-04-07T08:56:43.000Z">
-<meta property="article:modified_time" content="2023-04-07T14:48:59.135Z">
+<meta property="article:modified_time" content="2023-06-05T23:37:25.679Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Graphics Programming">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/04/07/PhysicBasedRendering/github/blog/source/_posts/image-20230605222816778.png">
 
 
 
@@ -352,7 +354,39 @@
 </ul>
 </li>
 </ul>
-<h2 id="PBR"><a href="#PBR" class="headerlink" title="PBR"></a>PBR</h2><p>Collection of render techniques</p>
+<h2 id="PBR"><a href="#PBR" class="headerlink" title="PBR"></a>PBR</h2><p>• Conditions for PBR, and a basic understanding of each one</p>
+<h5 id="Based-on-the-microfacet-surface-model"><a href="#Based-on-the-microfacet-surface-model" class="headerlink" title="Based on the microfacet surface model"></a>Based on the microfacet surface model</h5><p>surface modelled as a group of micro-surfaces with roughness parameter</p>
+<p>Only some microfacets will reflect light</p>
+<p><img src="/2023/04/07/PhysicBasedRendering/github\blog\source\_posts\image-20230605222816778.png" alt="image-20230605222816778"></p>
+<h5 id="Energy-conserving"><a href="#Energy-conserving" class="headerlink" title="Energy conserving"></a>Energy conserving</h5><p> No surface can reflect more light than it receives</p>
+<script type="math/tex; mode=display">
+E_{diffuse} + E_{specular} \leq E</script><p>Fresnel - determine the ratio of light reflected from a specific angle</p>
+<script type="math/tex; mode=display">
+E_{out} = E_{diffuse}(1-F) + E_{specular} * F\\
+E_{out} \leq E_{in}</script><p>• Application of Fresnel formula</p>
+<p>Diffuse  -  Light gets evenly spread in all directions</p>
+<p>Specular - Light gets evenly spread in all directions</p>
+<h5 id="Using-a-physically-based-BRDF"><a href="#Using-a-physically-based-BRDF" class="headerlink" title="Using a physically based BRDF"></a>Using a physically based BRDF</h5><p>• What is a BRDF? Definition and properties</p>
+<p>Bidirectional Reflectance Distribution Function</p>
+<script type="math/tex; mode=display">
+f_r(w_i, w_r)</script><ul>
+<li>Function that:<br>• Returns the ratio of light that gets reflected<br>• At a specific point<br>• Coming from one direction<br>• And exiting on another direction</li>
+<li>Determines the look of a material</li>
+<li>Different models to approximate different materials</li>
+<li>Can be obtained analitically (math formulas) \ measuring light response of a material</li>
+</ul>
+<h5 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h5><p>Helmholtz reciprocity: Light rays behave identically when following the same path, regardless of direction</p>
+<p>Energy conservation: surface can not reflect more light than it receives</p>
+<p>Positivity: Surfaces cannot reflect negative amount of light</p>
+<p><strong>• List the terms of the Cook-Torrance equation</strong></p>
+<script type="math/tex; mode=display">
+f_s(v, l) = \frac{D(h, \alpha)G(v,l,\alpha)F(v,h,f_0))}{4(n \cdot v)(n \cdot l)}</script><p>D: Distribution function</p>
+<p>G: Geometry function</p>
+<p>• The geometry term takes accounts for the microfacets that are<br>shadowed or masked by other microfacets</p>
+<p>F: Fresnel function</p>
+<p>Represents the ratio of the light that will get reflected</p>
+<p>————————————————————下面用不到 ——————————————————-</p>
+<p>Collection of render techniques</p>
 <p>Achieve more realistic look and adapt better to different lighting conditions</p>
 <ul>
 <li>Energy conservation: surface can not reflect more light than it receives</li>
@@ -367,7 +401,7 @@
 <p>Driven by a roughness parameter</p>
 <p>Bidirectional Reflectance Distribution Function</p>
 <script type="math/tex; mode=display">f_r(w_i,w_r)</script><p>input/ output direction</p>
-<h5 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h5><ul>
+<h5 id="Properties-1"><a href="#Properties-1" class="headerlink" title="Properties"></a>Properties</h5><ul>
 <li><p>positivity <script type="math/tex">f_r(w_i,w_r)\geq0</script></p>
 </li>
 <li><p>Helmoholtz reciprocity <script type="math/tex">f_r(w_i,w_r)=f_r(w_r,w_i)</script></p>
@@ -513,7 +547,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -535,7 +569,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -578,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Physic-Based-Rendering"><span class="nav-number">1.</span> <span class="nav-text">Physic Based Rendering</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PBR"><span class="nav-number">1.1.</span> <span class="nav-text">PBR</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Reflectance-equation"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">Reflectance equation:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Microface-surface-model"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Microface surface model</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Properties"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">Properties</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Diffuse-models"><span class="nav-number">1.1.1.</span> <span class="nav-text">Diffuse models</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Physic-Based-Rendering"><span class="nav-number">1.</span> <span class="nav-text">Physic Based Rendering</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PBR"><span class="nav-number">1.1.</span> <span class="nav-text">PBR</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Based-on-the-microfacet-surface-model"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">Based on the microfacet surface model</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Energy-conserving"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">Energy conserving</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-a-physically-based-BRDF"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">Using a physically based BRDF</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Properties"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">Properties</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reflectance-equation"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">Reflectance equation:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Microface-surface-model"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Microface surface model</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Properties-1"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">Properties</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Diffuse-models"><span class="nav-number">1.1.1.</span> <span class="nav-text">Diffuse models</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

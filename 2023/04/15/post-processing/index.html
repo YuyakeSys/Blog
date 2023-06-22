@@ -81,15 +81,17 @@
 
 <meta name="description" content="Post-preprocessingDefinition of post-processing and some examplesPost-processing:Techniques used to improve or alter the final image after the 3D scene has been rendered Full screen passUsually perfor">
 <meta property="og:type" content="article">
-<meta property="og:title" content="post-processing">
+<meta property="og:title" content="post-processing AND ray marching">
 <meta property="og:url" content="http://example.com/2023/04/15/post-processing/index.html">
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="Post-preprocessingDefinition of post-processing and some examplesPost-processing:Techniques used to improve or alter the final image after the 3D scene has been rendered Full screen passUsually perfor">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/04/15/post-processing/image/gp/fullScreenPass.png">
 <meta property="og:image" content="http://example.com/2023/04/15/post-processing/image/gp/gaussian1.png">
+<meta property="og:image" content="http://example.com/2023/04/15/post-processing/github/blog/source/_posts/image-20230606023809440.png">
+<meta property="og:image" content="http://example.com/2023/04/15/post-processing/github/blog/source/_posts/image-20230606023915557.png">
 <meta property="article:published_time" content="2023-04-15T14:30:11.000Z">
-<meta property="article:modified_time" content="2023-04-23T15:39:57.652Z">
+<meta property="article:modified_time" content="2023-06-09T01:53:23.091Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/04/15/post-processing/image/gp/fullScreenPass.png">
@@ -128,7 +130,7 @@
 
 
 
-  <title>post-processing | Melo's blog</title>
+  <title>post-processing AND ray marching | Melo's blog</title>
   
 
 
@@ -284,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">post-processing</h1>
+          <h1 class="post-title" itemprop="name headline">post-processing AND ray marching</h1>
         
 
         <div class="post-meta">
@@ -422,6 +424,51 @@
 <p>Pros: easy to implement in pipeline, works over the final image / can correct aliasing not caused by geometry</p>
 <p>Cons: smooth anything</p>
 <h3 id="Temporal-TAA"><a href="#Temporal-TAA" class="headerlink" title="Temporal - TAA"></a>Temporal - TAA</h3><p>Same concept as MSAA, sample in small offsets within pixel, but one each frame and blend previous frame</p>
+<h1 id="SDF"><a href="#SDF" class="headerlink" title="SDF"></a>SDF</h1><p><strong>• Understand what an SDF is, and some uses</strong></p>
+<p>• Signed distance field: • A distance field that can have negative values</p>
+<p><img src="/2023/04/15/post-processing/github\blog\source\_posts\image-20230606023809440.png" alt="image-20230606023809440"></p>
+<p>uses: distance aided ray-marching , Improved collisions, Simplified analytic representation of the scene </p>
+<p>• Know how to compute the SDF of a sphere</p>
+<p><img src="/2023/04/15/post-processing/github\blog\source\_posts\image-20230606023915557.png" alt="image-20230606023915557"></p>
+<p>Substract the radius to the center</p>
+<p>• Basic operations</p>
+<ul>
+<li>Invert : negate the distance</li>
+<li>Union: two objects fused together, minimum of two distances</li>
+<li>intersection: maximum of two distances</li>
+<li>Substraction: Remove from an object everything that is shared with another, maximum of a distance and the inverse of the other </li>
+</ul>
+<p>​        max(d1, -d2)</p>
+<p>• Ray-marching algorithm<br>    • How to find ray direction</p>
+<p>In fragment shader use the fragment position as ray original point and normalized position is the ray direction(in view space)</p>
+<p>​    • Exit conditions</p>
+<p>- If the distance of this step was very small, we consider that we have found a hit</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">float rayMarch(vec3 origin, vec3 dir)
+&#123;
+	float distance &#x3D; 0.0f;
+	for(int i &#x3D; 0; i &lt; maxSteps; ++i)
+	&#123;
+		vec3 p &#x3D; origin + dir * distance;
+		float d &#x3D; GetDistance(p);
+		distance +&#x3D; d;
+		if (distance &gt; maxDistance)
+			discard;
+		if (d &lt; surfaceDistance)
+			break;
+	&#125;
+return distance;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>• Ray-marching limitations</p>
+<p>For objects to interact they have to be in the same distance function =&gt; same fragment shader</p>
+<p>Fragment shader can become very slow:</p>
+<ul>
+<li>Divide in passes for objects that don’t interact</li>
+<li>Draw only pixels that have visible objects</li>
+</ul>
+<p>It only considers opaque objects</p>
+<p>Need to find alternatives for transparent objects  </p>
+<p>​    • Ray-march some objects and apply blending with other passes </p>
+<p>​    • Use rasterized geometry for those objects</p>
 
       
     </div>
@@ -539,7 +586,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -561,7 +608,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -604,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Post-preprocessing"><span class="nav-number">1.</span> <span class="nav-text">Post-preprocessing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition-of-post-processing-and-some-examples"><span class="nav-number">1.1.</span> <span class="nav-text">Definition of post-processing and some examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Post-processing"><span class="nav-number">1.1.1.</span> <span class="nav-text">Post-processing:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-screen-pass"><span class="nav-number">1.1.2.</span> <span class="nav-text">Full screen pass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance"><span class="nav-number">1.1.3.</span> <span class="nav-text">Performance</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gaussian-blur"><span class="nav-number">1.2.</span> <span class="nav-text">Gaussian blur</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-HDR-and-tone-mapping-in-games"><span class="nav-number">1.3.</span> <span class="nav-text">What is HDR and tone mapping in games</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HDR-High-Dynamic-Range"><span class="nav-number">1.3.1.</span> <span class="nav-text">HDR: High Dynamic Range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tone-mapping"><span class="nav-number">1.3.2.</span> <span class="nav-text">Tone mapping</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-anti-aliasing-and-mention-some-techniques"><span class="nav-number">1.4.</span> <span class="nav-text">What is anti-aliasing and mention some techniques</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Super-sampling"><span class="nav-number">1.4.1.</span> <span class="nav-text">Super sampling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-sampling-MSAA"><span class="nav-number">1.4.2.</span> <span class="nav-text">Multi sampling -MSAA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Morphological-FXAA-MLAA-SMAA"><span class="nav-number">1.4.3.</span> <span class="nav-text">Morphological - FXAA, MLAA, SMAA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Temporal-TAA"><span class="nav-number">1.4.4.</span> <span class="nav-text">Temporal - TAA</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Post-preprocessing"><span class="nav-number">1.</span> <span class="nav-text">Post-preprocessing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition-of-post-processing-and-some-examples"><span class="nav-number">1.1.</span> <span class="nav-text">Definition of post-processing and some examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Post-processing"><span class="nav-number">1.1.1.</span> <span class="nav-text">Post-processing:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-screen-pass"><span class="nav-number">1.1.2.</span> <span class="nav-text">Full screen pass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance"><span class="nav-number">1.1.3.</span> <span class="nav-text">Performance</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gaussian-blur"><span class="nav-number">1.2.</span> <span class="nav-text">Gaussian blur</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-HDR-and-tone-mapping-in-games"><span class="nav-number">1.3.</span> <span class="nav-text">What is HDR and tone mapping in games</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HDR-High-Dynamic-Range"><span class="nav-number">1.3.1.</span> <span class="nav-text">HDR: High Dynamic Range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tone-mapping"><span class="nav-number">1.3.2.</span> <span class="nav-text">Tone mapping</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-anti-aliasing-and-mention-some-techniques"><span class="nav-number">1.4.</span> <span class="nav-text">What is anti-aliasing and mention some techniques</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Super-sampling"><span class="nav-number">1.4.1.</span> <span class="nav-text">Super sampling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-sampling-MSAA"><span class="nav-number">1.4.2.</span> <span class="nav-text">Multi sampling -MSAA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Morphological-FXAA-MLAA-SMAA"><span class="nav-number">1.4.3.</span> <span class="nav-text">Morphological - FXAA, MLAA, SMAA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Temporal-TAA"><span class="nav-number">1.4.4.</span> <span class="nav-text">Temporal - TAA</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SDF"><span class="nav-number">2.</span> <span class="nav-text">SDF</span></a></li></ol></div>
             
 
           </div>
