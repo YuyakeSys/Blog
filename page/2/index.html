@@ -263,6 +263,912 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/15/post-processing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/15/post-processing/" itemprop="url">post-processing AND ray marching</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-15T16:30:11+02:00">
+                2023-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphics-Programing/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphics Programing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Post-preprocessing"><a href="#Post-preprocessing" class="headerlink" title="Post-preprocessing"></a>Post-preprocessing</h1><h2 id="Definition-of-post-processing-and-some-examples"><a href="#Definition-of-post-processing-and-some-examples" class="headerlink" title="Definition of post-processing and some examples"></a>Definition of post-processing and some examples</h2><h3 id="Post-processing"><a href="#Post-processing" class="headerlink" title="Post-processing:"></a><strong>Post-processing</strong>:</h3><p>Techniques used to improve or alter the final image after the 3D scene has been rendered</p>
+<h3 id="Full-screen-pass"><a href="#Full-screen-pass" class="headerlink" title="Full screen pass"></a>Full screen pass</h3><p>Usually performed with one quad (two triangles) or one triangle</p>
+<p><img src="/2023/04/15/post-processing/image\gp\fullScreenPass.png" alt="image-20230415163811503"></p>
+<p>• Vertex shader computes the texture coordinates:<br>• Remap from (-1, 1) NDC (left bottom corner to right top corner), to (0, 1) with origin at one corner</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">vec2 TexCoords &#x3D; VertexPosition * 0.5 + vec2(0.5)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Fragment shader uses data from uniforms and</p>
+<p>previous image, depth buffer…</p>
+<ul>
+<li>Fragment shader uses data from uniforms</li>
+<li>We can’t render to the same texture that we are reading from</li>
+<li>Allocate more textures:</li>
+<li><ul>
+<li>As a temporary destination framebuffer</li>
+<li>To store intermediate data for other post-processing passes</li>
+</ul>
+</li>
+</ul>
+<p>Another way is using blending</p>
+<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><p>Full HD (1920x1080) =&gt; 2,073,600 fragments</p>
+<p>can use stencil buffer to improve it </p>
+<h2 id="Gaussian-blur"><a href="#Gaussian-blur" class="headerlink" title="Gaussian blur"></a>Gaussian blur</h2><p><strong>Blur</strong>: Smooth the color of a pixel based on the color of the surrounding pixels</p>
+<ul>
+<li>Sample neighbor pixels and add the color multiplied by a weight</li>
+<li>Total sum of weights need to be 1</li>
+<li>The set of neighbors and their weights is named kernel</li>
+<li>The weight is usually proportional to the distance to the pixel</li>
+</ul>
+<p>Gaussian blur: Weights based on a gaussian distribution</p>
+<p><img src="/2023/04/15/post-processing/image\gp\gaussian1.png" alt="image-20230415170002691"></p>
+<p>The distance of the blur depends on the size of the kernel (linear interpolation)</p>
+<p><strong>Can be divided in to 2 parts</strong></p>
+<p>1xN + Nx1 is better than NxN -&gt;</p>
+<p>we have 2 passes one for horizontal, one for  vertical</p>
+<h2 id="What-is-HDR-and-tone-mapping-in-games"><a href="#What-is-HDR-and-tone-mapping-in-games" class="headerlink" title="What is HDR and tone mapping in games"></a>What is HDR and tone mapping in games</h2><h3 id="HDR-High-Dynamic-Range"><a href="#HDR-High-Dynamic-Range" class="headerlink" title="HDR: High Dynamic Range"></a>HDR: High Dynamic Range</h3><p>Dynamic range:</p>
+<ul>
+<li>Ratio between the largest and small value that can be represented </li>
+<li>Depends on many things (how we store color, display capabilities, etc)</li>
+</ul>
+<p>Keep detail in both bright and dark areas in complex scenes</p>
+<p>Rendering limited by <strong>precision</strong> of framebuffer:</p>
+<p>RGBA8 -&gt; 256 shades of light</p>
+<p>Instead, use floating point framebuffers during rendering<br>• 4 times more memory<br>• Not clamped by the max value of 1<br>• Map to a good range when displaying the final image</p>
+<h3 id="Tone-mapping"><a href="#Tone-mapping" class="headerlink" title="Tone mapping"></a>Tone mapping</h3><p>Map the high dynamic range image to a normalized (0-1) range</p>
+<script type="math/tex; mode=display">color_{01} = 1 - e^{-color_{HDR}*exposure}</script><ul>
+<li>High exposure: dark -&gt; brighter</li>
+<li>bright values too bright -&gt; can’t see detail</li>
+<li>Low exposure: Dark values too dark, bright less bright</li>
+</ul>
+<p>Many games simulate this with a <strong>dynamic exposure</strong>:</p>
+<ul>
+<li>Compute the luminance of every pixel</li>
+<li>Scale down, averaging neighboring pixels</li>
+<li>Repeat until we have a single exposure value</li>
+<li>Blend with exposure value from previous frame</li>
+<li>Use that exposure value for tone-mapping</li>
+</ul>
+<h2 id="What-is-anti-aliasing-and-mention-some-techniques"><a href="#What-is-anti-aliasing-and-mention-some-techniques" class="headerlink" title="What is anti-aliasing and mention some techniques"></a>What is anti-aliasing and mention some techniques</h2><p>• <strong>Aliasing</strong>: Visual stair-stepping of edges that occurs in an image<br>when the resolution is too low</p>
+<p>• <strong>Anti-aliasing</strong>: Techniques targeted to reduce aliasing<br>        Some of them are applied as post-processing</p>
+<h3 id="Super-sampling"><a href="#Super-sampling" class="headerlink" title="Super sampling"></a>Super sampling</h3><p>Render at a higher resolution (x2, x4,…) and downscale to target resolution. Not good for performance</p>
+<h3 id="Multi-sampling-MSAA"><a href="#Multi-sampling-MSAA" class="headerlink" title="Multi sampling -MSAA"></a>Multi sampling -MSAA</h3><p>Tries to preserve the benefits of super sampling<br>• While using less memory</p>
+<p>Fragment per pixel, depth test per-sample</p>
+<p>and average the result</p>
+<h3 id="Morphological-FXAA-MLAA-SMAA"><a href="#Morphological-FXAA-MLAA-SMAA" class="headerlink" title="Morphological - FXAA, MLAA, SMAA"></a>Morphological - FXAA, MLAA, SMAA</h3><p>Try to detect high contrast edges in image and blur</p>
+<p>Pros: easy to implement in pipeline, works over the final image / can correct aliasing not caused by geometry</p>
+<p>Cons: smooth anything</p>
+<h3 id="Temporal-TAA"><a href="#Temporal-TAA" class="headerlink" title="Temporal - TAA"></a>Temporal - TAA</h3><p>Same concept as MSAA, sample in small offsets within pixel, but one each frame and blend previous frame</p>
+<h1 id="SDF"><a href="#SDF" class="headerlink" title="SDF"></a>SDF</h1><p><strong>• Understand what an SDF is, and some uses</strong></p>
+<p>• Signed distance field: • A distance field that can have negative values</p>
+<p><img src="/2023/04/15/post-processing/github\blog\source\_posts\image-20230606023809440.png" alt="image-20230606023809440"></p>
+<p>uses: distance aided ray-marching , Improved collisions, Simplified analytic representation of the scene </p>
+<p>• Know how to compute the SDF of a sphere</p>
+<p><img src="/2023/04/15/post-processing/github\blog\source\_posts\image-20230606023915557.png" alt="image-20230606023915557"></p>
+<p>Substract the radius to the center</p>
+<p>• Basic operations</p>
+<ul>
+<li>Invert : negate the distance</li>
+<li>Union: two objects fused together, minimum of two distances</li>
+<li>intersection: maximum of two distances</li>
+<li>Substraction: Remove from an object everything that is shared with another, maximum of a distance and the inverse of the other </li>
+</ul>
+<p>​        max(d1, -d2)</p>
+<p>• Ray-marching algorithm<br>    • How to find ray direction</p>
+<p>In fragment shader use the fragment position as ray original point and normalized position is the ray direction(in view space)</p>
+<p>​    • Exit conditions</p>
+<p>- If the distance of this step was very small, we consider that we have found a hit</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">float rayMarch(vec3 origin, vec3 dir)
+&#123;
+	float distance &#x3D; 0.0f;
+	for(int i &#x3D; 0; i &lt; maxSteps; ++i)
+	&#123;
+		vec3 p &#x3D; origin + dir * distance;
+		float d &#x3D; GetDistance(p);
+		distance +&#x3D; d;
+		if (distance &gt; maxDistance)
+			discard;
+		if (d &lt; surfaceDistance)
+			break;
+	&#125;
+return distance;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>• Ray-marching limitations</p>
+<p>For objects to interact they have to be in the same distance function =&gt; same fragment shader</p>
+<p>Fragment shader can become very slow:</p>
+<ul>
+<li>Divide in passes for objects that don’t interact</li>
+<li>Draw only pixels that have visible objects</li>
+</ul>
+<p>It only considers opaque objects</p>
+<p>Need to find alternatives for transparent objects  </p>
+<p>​    • Ray-march some objects and apply blending with other passes </p>
+<p>​    • Use rasterized geometry for those objects</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/10/WRSL1-L2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/10/WRSL1-L2/" itemprop="url">WRSL1+L2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-10T12:57:45+02:00">
+                2023-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Recommender System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Lecture1"><a href="#Lecture1" class="headerlink" title="Lecture1"></a>Lecture1</h2><h3 id="Feature-of-a-Recommender-System"><a href="#Feature-of-a-Recommender-System" class="headerlink" title="Feature of a Recommender System"></a>Feature of a Recommender System</h3><ul>
+<li><p><strong>Personalised</strong> Recommendations → different recommendations for every user; </p>
+</li>
+<li><p>Maintain a <strong>user model</strong> or user profile, describes the users’s preferences;  </p>
+</li>
+<li><p>Implicit or explicit <strong>behavioural</strong> signals → ethical concerns? </p>
+</li>
+<li><p>Account for the <strong>context</strong> and additional information; </p>
+</li>
+<li><p>Types of Recommender Systems: <strong>Collaborative Filtering</strong> and <strong>Content-Based</strong></p>
+</li>
+</ul>
+<h2 id="Problem-Setting"><a href="#Problem-Setting" class="headerlink" title="Problem Setting"></a>Problem Setting</h2><h3 id="User-Item-Matrix"><a href="#User-Item-Matrix" class="headerlink" title="User-Item Matrix"></a>User-Item Matrix</h3><p>Goal: predict ratings for unseen items</p>
+<h2 id="Properties-of-the-Ratings-Matrix"><a href="#Properties-of-the-Ratings-Matrix" class="headerlink" title="Properties of the Ratings Matrix"></a>Properties of the Ratings Matrix</h2><p><strong>Sparse matrix</strong>: a small subset of entries are specified</p>
+<ul>
+<li>Ratings can be: </li>
+<li><ul>
+<li><strong>Continuous</strong>: level of like or dislike (rare); </li>
+<li><strong>Interval based ratings</strong>: 5 or 7-point scale, sometimes 10 points, e.g., 5-star ratings; </li>
+<li><strong>Ordinal ratings</strong>: categorical values, e.g., strongly disagree, disagree, neutral, agree,  strongly agree; </li>
+<li><strong>Binary ratings</strong>: 2 options (forced choice), e.g., like or dislike; </li>
+<li><strong>Unary ratings</strong>: only positive preference (positive preference utility matrix), e.g., purchase</li>
+</ul>
+</li>
+</ul>
+<h3 id="Implicit-Explicit-Feedback"><a href="#Implicit-Explicit-Feedback" class="headerlink" title="Implicit / Explicit Feedback"></a>Implicit / Explicit Feedback</h3><ul>
+<li>Explicit feedback: ratings explicitly provided by users, e.g., click on “like” button;</li>
+<li>Implicit feedback, sometimes <strong>Positive-Unlabeled</strong> (PU): </li>
+<li><ul>
+<li>Ratings are inferred from user actions; </li>
+<li>Easier to obtain, transparent to users;  </li>
+<li>Almost no cost;</li>
+<li>Harder to interpret and can be misleading: no information whether the user liked/disliked  an item;</li>
+</ul>
+</li>
+</ul>
+<h3 id="Long-tail-Distribution"><a href="#Long-tail-Distribution" class="headerlink" title="Long-tail Distribution"></a>Long-tail Distribution</h3><p>• Low frequency items: </p>
+<ul>
+<li><ul>
+<li>Larger profit; </li>
+<li>More difficult to recommend;</li>
+</ul>
+</li>
+</ul>
+<h2 id="Collaborative-Filtering-Recommendation"><a href="#Collaborative-Filtering-Recommendation" class="headerlink" title="Collaborative Filtering Recommendation"></a>Collaborative Filtering Recommendation</h2><p>• Idea: exploit past behaviour/opinions of an existing user community to predict items the  current users will like in the future (collective intelligence);</p>
+<p>• Input: ratings matrix (pure CF)</p>
+<p>• Output: </p>
+<p>A. Predicted rate for unobserved user-item; </p>
+<p>B. List of top-k recommended items (or users);</p>
+<p><strong>User-based</strong> nearest neighbour recommendation: </p>
+<p>• Similar users have similar ratings on the same item; •</p>
+<p> Use ratings from neighbouring users; </p>
+<p><strong>Item-based</strong> nearest neighbour recommendation: </p>
+<p>• Reverse the problem → similarity between items; </p>
+<p>• Similar items are rated in a similar way by the same user; </p>
+<p>• Use user’s own ratings on neighbouring items.</p>
+<h3 id="User-based-Nearest-Neighbour-Recommendation"><a href="#User-based-Nearest-Neighbour-Recommendation" class="headerlink" title="User-based Nearest Neighbour  Recommendation"></a>User-based Nearest Neighbour  Recommendation</h3><p>• Idea: given a target user: </p>
+<ol>
+<li>Identify users (peer users or nearest neighbours) that have similar  preferences; </li>
+<li>For every unobserved item, make a prediction based on the preferences of  peer users; </li>
+</ol>
+<p>• Assumptions: </p>
+<p>​    • Similar tastes in the past → similar tastes in the future; </p>
+<p>​    • Preferences are stable and consistent over time.</p>
+<h4 id="Step-1-Similarity-with-Pearson-Coefficient"><a href="#Step-1-Similarity-with-Pearson-Coefficient" class="headerlink" title="Step 1: Similarity with Pearson Coefficient"></a>Step 1: Similarity with Pearson Coefficient</h4><p><img src="/2023/04/10/WRSL1-L2/image\pearson_Co.png" alt="image-20230411181714647"></p>
+<p>• Simple approach: users with highest similarity score (Pearson coefficient); </p>
+<p>• Problem: number of observed ratings can be very different depending on the  item, e.g., popular items;</p>
+<h3 id="Step-2-Mean-centered-Rating-Prediction"><a href="#Step-2-Mean-centered-Rating-Prediction" class="headerlink" title="Step 2: Mean-centered Rating Prediction"></a>Step 2: Mean-centered Rating Prediction</h3><p><strong>Solution</strong>: center ratings by their row-mean</p>
+<script type="math/tex; mode=display">s_{u,j}=r_{u,j}-\mu_u</script><p>Use a weighted average to predict the rating:</p>
+<script type="math/tex; mode=display">\hat{r}_{u,j}=\mu_U+\frac{\sum_{v \in P_u(j) Sim(u,v) \cdot s_{v,j}}}{\sum_{v \in P_u(j) |Sim(u,v)|}}</script><h2 id="Better-Neighbourhood-Selection"><a href="#Better-Neighbourhood-Selection" class="headerlink" title="Better Neighbourhood Selection?"></a>Better Neighbourhood Selection?</h2><p>• Include all users? </p>
+<p>​    • Negative impact on accuracy and computing time; </p>
+<p>• Minimum threshold on user similarity: </p>
+<p>​    • Only positive correlation (negative correlations → inversion     → not much predictive value); </p>
+<p>​    • High threshold → small sets of neighbours → no                      predictions (reduced coverage); </p>
+<p>• Top-k closest neighbours: </p>
+<p>​    • High value for k → additional noise; </p>
+<p>​    • Empirically: good values for k are in the range of [20, 50]</p>
+<p><img src="/2023/04/10/WRSL1-L2/image\longtailImpact.png" alt="image-20230411183239484"></p>
+<h2 id="Item-based-Nearest-Neighbour-Recommendation"><a href="#Item-based-Nearest-Neighbour-Recommendation" class="headerlink" title="Item-based Nearest Neighbour  Recommendation"></a>Item-based Nearest Neighbour  Recommendation</h2><p>similarity  between items instead of similarity  between users</p>
+<p>Works better with offline pre-processing</p>
+<h3 id="Step-1-Cosine-Similarity"><a href="#Step-1-Cosine-Similarity" class="headerlink" title="Step 1: Cosine Similarity"></a>Step 1: Cosine Similarity</h3><p> <strong>Cosine similarity</strong>: empirically better than Pearson for item-based recommendation</p>
+<p>Adjusted cosine similarity: mean centred ratings <script type="math/tex">s_{u,j}</script>;</p>
+<p><img src="/2023/04/10/WRSL1-L2/image\WRS\cosine_similarity.png" alt="image-20230411184516752"></p>
+<h3 id="Step-2-Rating-Prediction"><a href="#Step-2-Rating-Prediction" class="headerlink" title="Step 2: Rating Prediction"></a>Step 2: Rating Prediction</h3><p>Consider the top-k similar items on a user basis;</p>
+<p><script type="math/tex">Q_t(u)</script> set of <strong>K</strong> closest items (adjusted cosine similarity) to the target item that  were rated by user ;</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><img src="/2023/04/10/WRSL1-L2/image\WRS\ub_ib.png" alt="image-20230411183921420"></p>
+<h1 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h1><h2 id="Computational-Complexity"><a href="#Computational-Complexity" class="headerlink" title="Computational Complexity"></a>Computational Complexity</h2><ul>
+<li>User-based CF does not scale well to large numbers of users and items.</li>
+<li>Item-based CF is more stable with changes to the ratings:</li>
+</ul>
+<h2 id="Dimensionality-Reduction"><a href="#Dimensionality-Reduction" class="headerlink" title="Dimensionality Reduction"></a>Dimensionality Reduction</h2><p>Improve neighbourhood-based methods: quality and efficiency;</p>
+<p><strong>Latent factor models</strong>: dense low dimensional representation: </p>
+<ol>
+<li>Reduced representation of the data, either row-wise or column-wise, to  reduce sparsity; </li>
+<li>Latent representation of both row-space and column space (simultaneously);</li>
+</ol>
+<p>ea: use PCA-like methods or <strong>SVD</strong>-like methods to project R into a reduced d-dimensional space;</p>
+<h2 id="Offline-and-Online-Evaluation"><a href="#Offline-and-Online-Evaluation" class="headerlink" title="Offline and Online Evaluation"></a>Offline and Online Evaluation</h2><h3 id="Offline-and-Online-Evaluation-1"><a href="#Offline-and-Online-Evaluation-1" class="headerlink" title="Offline and Online Evaluation"></a>Offline and Online Evaluation</h3><h4 id="Training-and-Test-Split"><a href="#Training-and-Test-Split" class="headerlink" title="Training and Test Split"></a>Training and Test Split</h4><ul>
+<li>Hold-out: a fraction of the entries in the ratings matrix is hidden for testing and the remaining is used  for training:</li>
+<li>K-fold cross validation: K equal sets of entries, one used for testing and K-1 for training, then repeat  K times, until each segment has been used for testing</li>
+</ul>
+<h3 id="Set-Based-Evaluation"><a href="#Set-Based-Evaluation" class="headerlink" title="Set Based Evaluation"></a>Set Based Evaluation</h3><ul>
+<li><strong>Precision</strong> is the proportion of recommended items that are actually relevant </li>
+<li><strong>Recall</strong> is the proportion of relevant items actually recommended</li>
+</ul>
+<h4 id="Hit-Rate"><a href="#Hit-Rate" class="headerlink" title="Hit Rate"></a>Hit Rate</h4><p>Specifically suited for implicit feedback data (e.g., purchases) and when there is a  single hidden relevant item (e.g., leave-one-out cross validation)</p>
+<p>Hit Rate (HR) = fraction of users for which the relevant (e.g., purchased) item is  within the top k items:</p>
+<h4 id="Mean-Reciprocal-Rank-MRR"><a href="#Mean-Reciprocal-Rank-MRR" class="headerlink" title="Mean Reciprocal Rank (MRR)"></a>Mean Reciprocal Rank (MRR)</h4><p>Reciprocal Rank (RR): inverse of the rank position of the (first) relevant item;</p>
+<h4 id="Average-Precision-AP"><a href="#Average-Precision-AP" class="headerlink" title="Average Precision (AP)"></a>Average Precision (AP)</h4><p>The Mean Average Precision (MAP) is the mean of AP over all users:</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/10/WRS-Industry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/10/WRS-Industry/" itemprop="url">WRS_Industry</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-10T00:07:00+02:00">
+                2023-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Recommender System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Insurance-domain"><a href="#Insurance-domain" class="headerlink" title="Insurance domain"></a>Insurance domain</h3><p>• Many users navigate through the  insurance website but still prefer  to purchase over the phone.           <strong>User actions and purchase data</strong></p>
+<p>• The insurance domain is data-sparse because of few different  items and low purchase frequency.    <strong>Graph based approach</strong></p>
+<p>• Customers have dynamic needs of  insurance products as they are  closely connected to life events.             <strong>Session-based approach</strong></p>
+<p>The simple UB-KNN is better than  the latent factor models. </p>
+<p>The graph-based models  generally perform well. </p>
+<p>NGCF performs best, but  Genetically Optimized Graph  obtains competing results</p>
+<p><img src="/2023/04/10/WRS-Industry/github\blog\source\_posts\demographic.png" alt="demographic"></p>
+<h5 id="Cross-sessions-Model"><a href="#Cross-sessions-Model" class="headerlink" title="Cross-sessions Model"></a>Cross-sessions Model</h5><p>Model: RNN with a single GRU-layer.</p>
+<p>Input: A user’s multiple past sessions. </p>
+<p>Output: What items the user will buy  after the last time step.</p>
+<p>Cross-sessions outperforms SKNN</p>
+<p>Hybrid of Cross-sessions and Demographic  Mode</p>
+<h3 id="Pleaz"><a href="#Pleaz" class="headerlink" title="Pleaz"></a>Pleaz</h3><p>Content-hosting websites traditionally want their users to have a personalized  experience. Personalization increases user satisfaction, user satisfaction increases revenue</p>
+<p>Planning the recommendation system:</p>
+<p>Data -&gt; Method -&gt; Implementation</p>
+<h5 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h5><ul>
+<li><p>Data/signal collection </p>
+</li>
+<li><p>Data preprocessing</p>
+</li>
+</ul>
+<p>​        - excluding company data</p>
+<p>​        - excluding test/noise data points which exist because of technical/sync     errors</p>
+<ul>
+<li>Video localizations pairing with originals</li>
+<li>Connecting user behavior data to user accounts</li>
+<li>Distinguishing between company VS personal logins</li>
+</ul>
+<h5 id="Recommendation-methods-tested"><a href="#Recommendation-methods-tested" class="headerlink" title="Recommendation methods tested:"></a>Recommendation methods tested:</h5><ul>
+<li><p>Random recommendations </p>
+</li>
+<li><p>Top-K (most popular videos) </p>
+</li>
+<li><p>Collaborative filtering (surprise toolbox for Python) </p>
+</li>
+<li><p>Content based (based on video titles + descriptions)</p>
+</li>
+</ul>
+<p><img src="/2023/04/10/WRS-Industry/github\blog\source\_posts\metrics.png" alt="metrics"></p>
+<h4 id="Integration"><a href="#Integration" class="headerlink" title="Integration"></a>Integration</h4><h5 id="Core-concept"><a href="#Core-concept" class="headerlink" title="Core concept"></a>Core concept</h5><ol>
+<li>WordPress site connects to an external service (API) </li>
+<li>API responds with a recommendation list </li>
+<li>WordPress uses it to display recommendations</li>
+</ol>
+<h5 id="Challenge-s"><a href="#Challenge-s" class="headerlink" title="Challenge(s)?"></a>Challenge(s)?</h5><p>Python code running as an API </p>
+<p>Keeping an up-to-date version of the dataset </p>
+<p>Already-seen videos - multiple refreshes within the same day. </p>
+<p>It needs to be available all the time - no downtime for the server to retrain. </p>
+<p>Also, don’t crash the main site at any point!</p>
+<h4 id="Why-not-even-larger-effect-on-the-KPIs"><a href="#Why-not-even-larger-effect-on-the-KPIs" class="headerlink" title="Why not even larger effect  on the KPIs?"></a>Why not even larger effect  on the KPIs?</h4><p>To align with our editorial values after scale  up, we  </p>
+<p>• Limited the types of news content that  could be recommended,  </p>
+<p>• Only recommended to readers who  accepted profiling </p>
+<p>• Constrained model training to avoid  feedback loops that could create filter  bubbles </p>
+<p>• Among other things</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/07/PhysicBasedRendering/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/07/PhysicBasedRendering/" itemprop="url">PhysicBasedRendering</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-07T10:56:43+02:00">
+                2023-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Physic-Based-Rendering"><a href="#Physic-Based-Rendering" class="headerlink" title="Physic Based Rendering"></a>Physic Based Rendering</h1><p>eye don’t perceive color in linear way and more sensitve to darker tones</p>
+<p>sRGB - gamma of approximately 2.2</p>
+<p>openGL can handle encoding and decoding of sRGB images</p>
+<p>Gamma correction in OpenGL</p>
+<ul>
+<li>Textures:<ul>
+<li>Use internal format GL_SRGB or GL_SRGB_ALPHA</li>
+<li>Only use for color images (not normal map etc.)</li>
+<li>Only on normalized integer types ignored for floating point</li>
+</ul>
+</li>
+<li><p>Framebuffer:</p>
+</li>
+<li><ul>
+<li>glEnable(GL_FRAMEBUFFER_SRGB)</li>
+<li>Performs blending in linear space then changed to sRGB</li>
+<li>Careful with multi objects</li>
+</ul>
+</li>
+</ul>
+<h2 id="PBR"><a href="#PBR" class="headerlink" title="PBR"></a>PBR</h2><p>• Conditions for PBR, and a basic understanding of each one</p>
+<h5 id="Based-on-the-microfacet-surface-model"><a href="#Based-on-the-microfacet-surface-model" class="headerlink" title="Based on the microfacet surface model"></a>Based on the microfacet surface model</h5><p>surface modelled as a group of micro-surfaces with roughness parameter</p>
+<p>Only some microfacets will reflect light</p>
+<p><img src="/2023/04/07/PhysicBasedRendering/github\blog\source\_posts\image-20230605222816778.png" alt="image-20230605222816778"></p>
+<h5 id="Energy-conserving"><a href="#Energy-conserving" class="headerlink" title="Energy conserving"></a>Energy conserving</h5><p> No surface can reflect more light than it receives</p>
+<script type="math/tex; mode=display">
+E_{diffuse} + E_{specular} \leq E</script><p>Fresnel - determine the ratio of light reflected from a specific angle</p>
+<script type="math/tex; mode=display">
+E_{out} = E_{diffuse}(1-F) + E_{specular} * F\\
+E_{out} \leq E_{in}</script><p>• Application of Fresnel formula</p>
+<p>Diffuse  -  Light gets evenly spread in all directions</p>
+<p>Specular - Light gets evenly spread in all directions</p>
+<h5 id="Using-a-physically-based-BRDF"><a href="#Using-a-physically-based-BRDF" class="headerlink" title="Using a physically based BRDF"></a>Using a physically based BRDF</h5><p>• What is a BRDF? Definition and properties</p>
+<p>Bidirectional Reflectance Distribution Function</p>
+<script type="math/tex; mode=display">
+f_r(w_i, w_r)</script><ul>
+<li>Function that:<br>• Returns the ratio of light that gets reflected<br>• At a specific point<br>• Coming from one direction<br>• And exiting on another direction</li>
+<li>Determines the look of a material</li>
+<li>Different models to approximate different materials</li>
+<li>Can be obtained analitically (math formulas) \ measuring light response of a material</li>
+</ul>
+<h5 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h5><p>Helmholtz reciprocity: Light rays behave identically when following the same path, regardless of direction</p>
+<p>Energy conservation: surface can not reflect more light than it receives</p>
+<p>Positivity: Surfaces cannot reflect negative amount of light</p>
+<p><strong>• List the terms of the Cook-Torrance equation</strong></p>
+<script type="math/tex; mode=display">
+f_s(v, l) = \frac{D(h, \alpha)G(v,l,\alpha)F(v,h,f_0))}{4(n \cdot v)(n \cdot l)}</script><p>D: Distribution function</p>
+<p>G: Geometry function</p>
+<p>• The geometry term takes accounts for the microfacets that are<br>shadowed or masked by other microfacets</p>
+<p>F: Fresnel function</p>
+<p>Represents the ratio of the light that will get reflected</p>
+<p>————————————————————下面用不到 ——————————————————-</p>
+<p>Collection of render techniques</p>
+<p>Achieve more realistic look and adapt better to different lighting conditions</p>
+<ul>
+<li>Energy conservation: surface can not reflect more light than it receives</li>
+<li>Positivity: Surfaces cannot reflect negative amount of light</li>
+<li>Law of reflection: The angle of incidence equal the angle of reflection for specular light</li>
+<li>Fresnel equations: Light reflects and refracts in accordance with —</li>
+<li>Helmholtz reciprocity: Light rays behave identically when following the same path, regardless of direction</li>
+<li>Everything is shiny</li>
+</ul>
+<h5 id="Reflectance-equation"><a href="#Reflectance-equation" class="headerlink" title="Reflectance equation:"></a>Reflectance equation:</h5><script type="math/tex; mode=display">L_o(p,w_o)= \int f_r(p,w_i,w_o)L_i(p,w_i)n \cdot w_idw_i</script><p>Light output of position p on specific direction is equal to all the lighting input, multiply by the reflectance in those conditions, multiplied by cosine of normal and light vectors</p>
+<h4 id="Microface-surface-model"><a href="#Microface-surface-model" class="headerlink" title="Microface surface model"></a>Microface surface model</h4><p>a group of micro-surfaces</p>
+<p>Driven by a roughness parameter</p>
+<p>Bidirectional Reflectance Distribution Function</p>
+<script type="math/tex; mode=display">f_r(w_i,w_r)</script><p>input/ output direction</p>
+<h5 id="Properties-1"><a href="#Properties-1" class="headerlink" title="Properties"></a>Properties</h5><ul>
+<li><p>positivity <script type="math/tex">f_r(w_i,w_r)\geq0</script></p>
+</li>
+<li><p>Helmoholtz reciprocity <script type="math/tex">f_r(w_i,w_r)=f_r(w_r,w_i)</script></p>
+</li>
+<li><p>Energy conserving</p>
+<script type="math/tex; mode=display">\forall w_i, \int f_r(w_i,w_r)cos\theta_rdw_r \leq 1</script></li>
+</ul>
+<h3 id="Diffuse-models"><a href="#Diffuse-models" class="headerlink" title="Diffuse models"></a>Diffuse models</h3><ul>
+<li><p>Lambertian:</p>
+</li>
+<li><ul>
+<li>Needs normalizing:</li>
+<li><ul>
+<li>Light get scattered equally in all directions</li>
+<li>integral of cosine weighted hemisphere: <script type="math/tex">\int cos(\theta)d\omega = \pi</script></li>
+<li>Each direction gets <script type="math/tex">\frac{1}{\pi}</script></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><script type="math/tex; mode=display">f_d(v, l) = \frac{\rho}{\pi}</script></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/Forward%20rendering/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1825,864 +2731,6 @@ L = L_a+L_d+L_s\\
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/16/antialias/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/16/antialias/" itemprop="url">antialias</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-16T07:20:38+01:00">
-                2023-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Antialias 反走样 遮挡</p>
-<p>锯齿 学名 走样 Alias</p>
-<p>Sampling Artifacts (Error/…)</p>
-<p>Moire Patterns in Imaging  </p>
-<p>Reason:</p>
-<p>Signals are changing too fast (high frequency), but<font color="red"> sampled too slow</font></p>
-<h3 id="Antialiasing-Idea-Blurring-Pre-Filtering-before-sampling"><a href="#Antialiasing-Idea-Blurring-Pre-Filtering-before-sampling" class="headerlink" title="Antialiasing Idea: Blurring (Pre-Filtering) before sampling"></a>Antialiasing Idea: Blurring (Pre-Filtering) before sampling</h3><h3 id="Frequency-Domain-频率"><a href="#Frequency-Domain-频率" class="headerlink" title="Frequency Domain 频率"></a>Frequency Domain 频率</h3><p>$f = \frac{1}{T}$</p>
-<p>Fourier Transform 傅里叶展开</p>
-<p>Represent a function as a weighted sum of sines and cosines</p>
-<p>$e^{ix}=cosx + isinx$</p>
-<p><img src="/2023/01/16/antialias/image\Ras\image-20230116074814025.png" alt="image-20230116074814025"></p>
-<p>不必要知道$F$</p>
-<p>不同正弦与余弦函数有不同的频率</p>
-<p>采样与函数频率有关</p>
-<p>走样</p>
-<p><img src="/2023/01/16/antialias/image\Ras\image-20230116075646896.png" alt="image-20230116075646896"></p>
-<p>Two frequencies that are indistinguishable at a given sampling are called “aliases”</p>
-<p>Filtering = <font color="red"> Getting rid of </font> certain frequency contents</p>
-<p>图像中心到周围频率++</p>
-<p>Filtert out low frequencies only (edges)</p>
-<p>高通滤波（高频可以通过）</p>
-<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080338635.png" alt="image-20230116080338635"></p>
-<p>Filtert out high frequencies (Blur)</p>
-<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080532333.png" alt="image-20230116080532333"></p>
-<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080634727.png" alt="image-20230116080634727"></p>
-<p>Filtering = Convolution (= Averaging)</p>
-<p>卷积： 用滤波器对信号进行处理 （图形学简化定义）</p>
-<h3 id="Convolution-Theorem"><a href="#Convolution-Theorem" class="headerlink" title="Convolution Theorem"></a>Convolution Theorem</h3><p>Convolution in the spatial domain is equal to multiplication in the frequency domain, and </p>
-<p>vice versa</p>
-<h4 id="Option-1"><a href="#Option-1" class="headerlink" title="Option 1:"></a>Option 1:</h4><ul>
-<li>Filter by convolution in the spatial domain</li>
-</ul>
-<h4 id="Option-2"><a href="#Option-2" class="headerlink" title="Option 2:"></a>Option 2:</h4><ul>
-<li>Transform to frequency domain (Fourier transform)</li>
-<li>Muliply by Fourier transform of convolution kernel</li>
-<li>Transform back to spatial domain (inverse Fourier)</li>
-</ul>
-<p><img src="/2023/01/16/antialias/image\Ras\image-20230116081527022.png" alt="image-20230116081527022"></p>
-<p>频谱混叠产生走样</p>
-<p>How can we reduce alias Error</p>
-<h5 id="Option1-Increase-sampling-rate"><a href="#Option1-Increase-sampling-rate" class="headerlink" title="Option1: Increase sampling rate"></a>Option1: Increase sampling rate</h5><ul>
-<li>Essentially increasing the distance between replicas in the Fourier domain</li>
-<li>Higher resolution displays, sensors, framebuffers…</li>
-<li>But: costly</li>
-</ul>
-<h5 id="Option-2-Antialiasing"><a href="#Option-2-Antialiasing" class="headerlink" title="Option 2: Antialiasing"></a>Option 2: Antialiasing</h5><ul>
-<li>Making Fourier contents “narrower” before repeating</li>
-<li>i.e. Filtering out high frequencies before sampling</li>
-</ul>
-<h4 id="A-Practical-Pre-Filter"><a href="#A-Practical-Pre-Filter" class="headerlink" title="A Practical Pre-Filter"></a>A Practical Pre-Filter</h4><p>A 1 pixel-width box filter (low pass, blurring)</p>
-<h4 id="Antialiasing-By-Averageing-Values-in-Pixel-Area"><a href="#Antialiasing-By-Averageing-Values-in-Pixel-Area" class="headerlink" title="Antialiasing By Averageing Values in Pixel Area"></a>Antialiasing By Averageing Values in Pixel Area</h4><p>Solution:</p>
-<ul>
-<li>Convolve f(x,y) by a 1-pixel box-blur<ul>
-<li>Recall: convolving = filtering = averaging</li>
-</ul>
-</li>
-<li>Then sample at every pixel’s center</li>
-</ul>
-<h4 id="Antialiasing-By-Supersampling-MSAA"><a href="#Antialiasing-By-Supersampling-MSAA" class="headerlink" title="Antialiasing By Supersampling (MSAA)"></a>Antialiasing By Supersampling (MSAA)</h4><p>Approximate the effect of the 1-pixel box filter by sampling multiple locatiuons</p>
-<p>within a pixel and averaging their values:</p>
-<p>Average NxN samples “inside” each pixel</p>
-<p>采样-&gt;一个格子一个颜色 解决了信号模糊这一操作</p>
-<h5 id="Cost"><a href="#Cost" class="headerlink" title="Cost:"></a>Cost:</h5><p>FXAA 图像的后期处理</p>
-<p>TAA</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/15/Rasterization/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/15/Rasterization/" itemprop="url">Rasterization</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-15T07:20:13+01:00">
-                2023-01-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><h3 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h3><ul>
-<li>Different raster displays</li>
-<li>Rasterizing a triangle</li>
-</ul>
-<p><img src="/2023/01/15/Rasterization/image\image-20230115073410188.png" alt="image-20230115073410188"></p>
-<p>红线之间角度 -&gt; 垂直可视角度 Vertical filed of view</p>
-<p><img src="/2023/01/15/Rasterization/image\image-20230115073738823.png" alt="image-20230115073738823"></p>
-<p>角度/2</p>
-<p>屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p</p>
-<p>An array of pixels</p>
-<p>Size of the array resolution</p>
-<p>A typical kind of raster display</p>
-<h4 id="Raster-screen-in-German"><a href="#Raster-screen-in-German" class="headerlink" title="Raster == screen in German"></a>Raster == screen in German</h4><ul>
-<li>Rasterize == drawing onto the screen</li>
-</ul>
-<h4 id="Pixel-picture-element"><a href="#Pixel-picture-element" class="headerlink" title="Pixel (picture element)"></a>Pixel (picture element)</h4><p>r,g,b</p>
-<h4 id="Canonical-Cube-to-Screen"><a href="#Canonical-Cube-to-Screen" class="headerlink" title="Canonical Cube to Screen"></a>Canonical Cube to Screen</h4><ul>
-<li><p>Defining the screen space</p>
-<ul>
-<li>Slightly different from 虎书</li>
-</ul>
-<p><img src="/2023/01/15/Rasterization/image\image-20230115074741615.png" alt="image-20230115074741615"></p>
-</li>
-</ul>
-<script type="math/tex; mode=display">
-M_{viewport} = \begin{pmatrix}
-\frac{width}{2} &0 &0 & \frac{width}{2}\\
-0 & \frac{height}{2} &0 & \frac{width}{2} \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{pmatrix}</script><p>屏幕左下角在原点上需要移回来 z方向不需要改动  视口变换</p>
-<p>LED light emitting diode 发光二极管</p>
-<h3 id="Triangles-Fundamental-Shape-Primitives"><a href="#Triangles-Fundamental-Shape-Primitives" class="headerlink" title="Triangles - Fundamental Shape Primitives"></a>Triangles - Fundamental Shape Primitives</h3><ul>
-<li><p>Most basic polygon</p>
-<ul>
-<li>Break up other polygons (CG 坏了加班了)</li>
-</ul>
-</li>
-<li><p>Unique properties</p>
-<ul>
-<li>Guaranteed to be planar</li>
-<li>Well-defined interior</li>
-<li>Well-defined method for interpolating values at vertices over triangle</li>
-</ul>
-</li>
-<li><p>Pixel Values Approximate a Triangle</p>
-<p>判断一个像素和三角形的位置关系 </p>
-<p>三角形中心点与三角形的位置关系</p>
-</li>
-</ul>
-<h3 id="Sampling-a-Function-采样"><a href="#Sampling-a-Function-采样" class="headerlink" title="Sampling a Function 采样"></a>Sampling a Function 采样</h3><p>Evaluating a function a point is sampling</p>
-<p>We can discretize a function by sampling</p>
-<pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
-	output[x] &#x3D; f(x);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>Core idea in graphics</p>
-<p>time (1D), area (2D), direction(2D) ….</p>
-<p>inside(t, x, y) 判断是否在三角形内</p>
-<p><img src="/2023/01/15/Rasterization/image\image-20230115082117380.png" alt="image-20230115082117380"></p>
-<pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
-	for (int y&#x3D;0; y &lt; ymax; ++y)
-		image[x][y] &#x3D; inside(tri, x+0.5, y+0.5)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>通过采样实现光栅化</p>
-<h3 id="Inside-Three-Cross-Product"><a href="#Inside-Three-Cross-Product" class="headerlink" title="Inside? Three Cross Product"></a>Inside? Three Cross Product</h3><p>P1P2 X P1Q -&gt; z是正的 Q 在P1左侧</p>
-<p>包围盒 Bounding Box</p>
-<p><img src="/2023/01/15/Rasterization/image\image-20230115083024989.png" alt="image-20230115083024989"></p>
-<p>加速方法</p>
-<p>采样率不够高 -&gt; 锯齿 Alias 抗锯齿 反走样</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation-cont/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/14/Transformation-cont/" itemprop="url">Transformation_cont.</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-14T06:20:22+01:00">
-                2023-01-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>3D transformation</li>
-<li>Viewing(观测) transformation<ul>
-<li>View (视图)/ Camera transformation</li>
-<li>Projection (投影) transformation<ul>
-<li>Orthographic (正交) projection</li>
-<li>Perspective (透视) projection</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="3D-transformation"><a href="#3D-transformation" class="headerlink" title="3D transformation"></a>3D transformation</h3><ul>
-<li><p>point = $(x, y, z, 1)^T$</p>
-</li>
-<li><p>vector = $(x, y, z, 0)^T$</p>
-<h5 id="4-4-matrices-for-affine-transformations"><a href="#4-4-matrices-for-affine-transformations" class="headerlink" title="4 * 4 matrices for affine transformations"></a>4 * 4 matrices for affine transformations</h5><script type="math/tex; mode=display">
-\begin{pmatrix}
-    x' \\ y' \\z' 1
-\end{pmatrix}
-= \begin{pmatrix}
-    a & b& c & t_x \\
-    d & e & f & t_y \\
-    g & h & i & t_z \\
-    0 & 0 & 0 & 1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-x \\ y \\ z \\1
-\end{pmatrix}</script></li>
-</ul>
-<p>缩放 Scale ….</p>
-<script type="math/tex; mode=display">
-\begin{pmatrix}
-    S_x & 0& 0 & 0 \\
-    d & s_y & 0 & 0 \\
-    0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>旋转 important</p>
-<script type="math/tex; mode=display">
-R_x(\alpha)=\begin{pmatrix}
-    1 & 0& 0 & 0 \\
-    0 & cos\theta & -sin\theta & 0 \\
-    0 & sin\theta & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}\\
-R_y(\alpha)=\begin{pmatrix}
-    cos\theta & 0& sin\theta & 0 \\
-    0 & 0 & 0 & 0 \\
-    -sin\theta & 0 & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>对x轴旋转 -&gt; 第一行为 1, 0 ,0</p>
-<p>2 x 2是对y与z操作</p>
-<p>对旋转不同 ？z × x -&gt; y 不是x叉乘z 所以相反</p>
-<h3 id="3D-Rotations"><a href="#3D-Rotations" class="headerlink" title="3D Rotations"></a>3D Rotations</h3><p>Compose 3D roration from $R_x, R_y, R_z$    $\bold{Euler \ angels}$</p>
-<script type="math/tex; mode=display">
-R_{xyz}(\alpha, \beta, \gamma) = R_x(\alpha)R_y(\beta)R_z(\gamma)</script><h4 id="Rodrigues’-Rotation-Formula"><a href="#Rodrigues’-Rotation-Formula" class="headerlink" title="Rodrigues’ Rotation Formula"></a>Rodrigues’ Rotation Formula</h4><h5 id="Rotation-by-angle-alpha-around-axis-bold-n"><a href="#Rotation-by-angle-alpha-around-axis-bold-n" class="headerlink" title="Rotation by angle $\alpha$ around axis $\bold{n}$"></a>Rotation by angle $\alpha$ around axis $\bold{n}$</h5><p>认为过原点 向量就是方向</p>
-<script type="math/tex; mode=display">
-R(\bold{n}, \alpha) = cos(\alpha)I + (1-cos(\alpha))\bold{n}\bold{n}^T + sin(\alpha)
-\begin{pmatrix}
-    0 & -n_z & n_y \\
-    n_z & 0 & -n_x \\
-    -n_y & n_x & 0
-\end{pmatrix}</script><p>Proof: </p>
-
-
-	<div class="row">
-    <embed src="PDF/GAMES101_Lecture_04_supp.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-   
-<h4 id="View-Camera-transformation-三维-gt-二维"><a href="#View-Camera-transformation-三维-gt-二维" class="headerlink" title="View / Camera transformation   三维-&gt;二维"></a>View / Camera transformation   三维-&gt;二维</h4><ul>
-<li>Take a photo<ul>
-<li>find place and arrange people (model transformation)</li>
-<li>find good “angle” (view)</li>
-<li>Cheese! (projection)</li>
-</ul>
-</li>
-</ul>
-<p>MVP!!!!!!!!!</p>
-<ul>
-<li><p>Define the camera first</p>
-<ul>
-<li>Position $\vec{e}$</li>
-<li>Look-at / gaze direction $\hat{g}$</li>
-<li>Up direction $\hat{t}$</li>
-</ul>
-<p>向上方向 固定相机旋转）</p>
-</li>
-<li><p>Key observation </p>
-<ul>
-<li>一起移动 相对运动 相片一定是一样的  = 固定相机（远点） 物体运动</li>
-<li>The origin, up at Y, look at -Z</li>
-<li>And transform the objects along with the camera</li>
-</ul>
-</li>
-</ul>
-<p><img src="/2023/01/14/Transformation-cont/image/view_img.png" alt></p>
-<h4 id="M-view-in-math"><a href="#M-view-in-math" class="headerlink" title="$M_{view}$ in math"></a>$M_{view}$ in math</h4><ul>
-<li><p>$M_{view} = R{view}T{view}$</p>
-</li>
-<li><p>Translate e to origin       </p>
-<script type="math/tex; mode=display">
-T_view = \begin{bmatrix}1&0&0&-x_e\\
-0&1&0&-y_e\\
-0&0&1&-z_e\\
-0&0&0&1\\
-\end{bmatrix}</script><p>inverse rotation is easier X to (g x t), Y to t, Z to -g 叉乘</p>
-<p>Model|View Transformation</p>
-<p><img src="/2023/01/14/Transformation-cont/image/orth-pers.png" alt="image-20230114091549245"></p>
-</li>
-</ul>
-<h3 id="Orthographic-Projection"><a href="#Orthographic-Projection" class="headerlink" title="Orthographic Projection"></a>Orthographic Projection</h3><p>map a cuboid [l, r] x [b, t] x [$f, n$] to</p>
-<p>the “canonical” cube $[- 1, 1]^3$ 标准的立方体</p>
-<p>离得远z小 近z大</p>
-<p>Translate (center to origin) first, then scale (length/width/height to 2) 转换为2也就是（-1 ， 1）</p>
-<p>Matrix is easy</p>
-<h3 id="Perspective-Projection"><a href="#Perspective-Projection" class="headerlink" title="Perspective Projection"></a>Perspective Projection</h3><p><img src="/2023/01/14/Transformation-cont/image\pers.png" alt="image-20230114095401335"></p>
-<p>如何挤压？</p>
-<p>从侧面往里看</p>
-<p>$y’ = \frac{n}{z}y$</p>
-<p>Observation for z’</p>
-<ul>
-<li>Any point near plane will not change</li>
-<li>Any point’s z on the far plane will not change</li>
-</ul>
-<p>third row must be of the form (0  0  A  B)</p>
-<p>Solve for A and B</p>
-<script type="math/tex; mode=display">
-An + B = n^2 \ \ \ A = n + f\\
-An + B = f^2 \ \ \ B = -nf</script>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/14/Transformation/" itemprop="url">Transformation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-14T05:21:02+01:00">
-                2023-01-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Transformation"><a href="#Transformation" class="headerlink" title="Transformation"></a>Transformation</h1><script type="math/tex; mode=display">
-\begin{bmatrix}
-
-x' \\\  y'
-
-\end{bmatrix}=\begin{bmatrix}a&b \\ c&d\end{bmatrix} \begin{bmatrix} x\\ y \end{bmatrix}</script><p>linear transforms = Matrices</p>
-<p>x’ = M x</p>
-<h4 id="齐次坐标-Translation"><a href="#齐次坐标-Translation" class="headerlink" title="齐次坐标 Translation"></a>齐次坐标 Translation</h4><script type="math/tex; mode=display">
-x' = x + t_x\\
-y' = y + t_y</script><h3 id="Can-we-turn-it-into-matrix-format-Affine-map-仿射"><a href="#Can-we-turn-it-into-matrix-format-Affine-map-仿射" class="headerlink" title="Can we turn it into matrix format? Affine map 仿射"></a>Can we turn it into matrix format? Affine map 仿射</h3><script type="math/tex; mode=display">
-\begin{bmatrix}x' \\ y'\end{bmatrix}=\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} + \begin{bmatrix}t_x \\ t_y\end{bmatrix}</script><h5 id="Not-linear-transform"><a href="#Not-linear-transform" class="headerlink" title="(Not linear transform!)"></a>(Not linear transform!)</h5><p>Add a third coordinate (w-coordinate)</p>
-<ul>
-<li>2D point = $(x, y, 1)^T$</li>
-<li>2D vector = $(x, y, 0)^T$</li>
-</ul>
-<h3 id="Using-homogenous-coordinates"><a href="#Using-homogenous-coordinates" class="headerlink" title="Using homogenous coordinates"></a>Using homogenous coordinates</h3><script type="math/tex; mode=display">
-\begin{pmatrix}
-  x'\\y'\\w'
-\end{pmatrix}
-=
-\begin{pmatrix}
-  1&0&t_x \\
-  0&1&t_y\\
-  0&0&1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-  x\\y\\1 
-\end{pmatrix}
-=\begin{pmatrix}
-  x+t_x\\y+t_y\\1 \\
-\end{pmatrix}</script><p>最后一行 0 0 1，</p>
-<script type="math/tex; mode=display">
-\begin{pmatrix}
-  x'\\y'\\1
-\end{pmatrix}
-=
-\begin{pmatrix}
-  a&b&t_x \\
-  c&d&t_y\\
-  0&0&1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-  x\\y\\1 
-\end{pmatrix}</script><p>Like Rotation</p>
-<script type="math/tex; mode=display">
-R(\alpha)=\begin{pmatrix}
-  cos\theta & -sin\theta&0 \\sin\theta&cos\theta\ &0 \\ 0&0&1
-\end{pmatrix}</script><h3 id="仿射才是以001收尾"><a href="#仿射才是以001收尾" class="headerlink" title="!仿射才是以001收尾"></a>!仿射才是以001收尾</h3><p>Sequence is important</p>
-<h5 id="Matrices-are-applied-right-to-left"><a href="#Matrices-are-applied-right-to-left" class="headerlink" title="Matrices are applied right to left"></a>Matrices are applied right to left</h5><h3 id="Composing-Transforms"><a href="#Composing-Transforms" class="headerlink" title="Composing Transforms"></a>Composing Transforms</h3><h5 id="Sequence-of-affine-transforms-A-1-A-2-A-3-…"><a href="#Sequence-of-affine-transforms-A-1-A-2-A-3-…" class="headerlink" title="Sequence of affine transforms $A_1,A_2,A_3$,…"></a>Sequence of affine transforms $A_1,A_2,A_3$,…</h5><script type="math/tex; mode=display">
-A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
-  x\\y\\1 
-\end{pmatrix}</script><p>Pre-multiply n matirices to obtain single matrix representing transformation</p>
-<h3 id="Decomposing-Complex-Transforms"><a href="#Decomposing-Complex-Transforms" class="headerlink" title="Decomposing Complex Transforms"></a>Decomposing Complex Transforms</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2737,7 +2785,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2748,7 +2796,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
