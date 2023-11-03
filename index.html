@@ -263,6 +263,806 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/22/ReactHookReview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/10/22/ReactHookReview/" itemprop="url">ReactHookReview</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-22T17:15:58+02:00">
+                2023-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>This blog aims to review the react Hooks or some other tricks for preparation with full-stack intern.</p>
+<h3 id="1-useState"><a href="#1-useState" class="headerlink" title="1. useState"></a>1. useState</h3><ul>
+<li>Used inside function component not class</li>
+<li>Every time runs, execute in the same order</li>
+</ul>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">const [count, setCount (funtion to update first(current state))] &#x3D; useState(4)
+
+&#x2F;&#x2F; set 
+function decrementCount() &#123;
+    setCount(prevCount &#x3D;&gt; prevCount - 1)
+&#125;
+
+&lt;button conclick &#x3D; &#123;decrementCount&#125;&gt; - &lt;&#x2F;button&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2 ways passing the state ( direct / function )</p>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">useState(() &#x3D; &gt; CountInitial())
+
+const CountInitial() &#123;
+    return 4
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Function only runs once -&gt; good for performance</p>
+<p>Update the parameter we want：</p>
+<pre class="line-numbers language-none"><code class="language-none">function decrememtCount() &#123;
+setState(prevState &#x3D;&gt; &#123;
+return &#123;...prevState, count: prevState.count + 1&#125;
+&#125;)
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Advantage, make multiple state to split them </p>
+<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><p>side effect for state changes</p>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">
+const [resourceType, func ] &#x3D; useState(...)
+useEffect(() &#x3D;&gt; &#123;
+	code
+&#125;, [resourceType]) &#x2F;&#x2F; run the code when parameter changes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">export default function App() &#123;
+    const[windowWidth, setwindoWidth] &#x3D; useState(window.innerWidth)
+    const handleResize &#x3D; () &#x3D;&gt; &#123;
+        setwindowWidth(window.innerWidth)
+    &#125;
+    
+    useEffect(() &#x3D;&gt; &#123;
+        window.addEvenListener(&#39;resize&#39;, handleResize)
+        
+    &#125;, [])
+    return (
+    	&lt;div&gt;&#123;windowWidth&#125;&lt;&#x2F;div&gt;
+    )
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-useMemo"><a href="#3-useMemo" class="headerlink" title="3. useMemo"></a>3. useMemo</h3><p>Momo: memoization</p>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">const number &#x3D; useMemo(() &#x3D;&gt; slowFunction(para), [number])
+
+function slowFunction(para) &#123;
+    
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>or we can use useMemo for invoking useEffect when the value changes</p>
+<h3 id="4-useRef"><a href="#4-useRef" class="headerlink" title="4. useRef"></a>4. useRef</h3><p>similar to state</p>
+<p>not cause re-update when changes  Separate from render cycle</p>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">const renderCount &#x3D; useRef(0)
+&#x2F;&#x2F;&#123; current: 0 &#125;
+useEffect(()&#x3D;&gt; &#123;
+    renderCount.current &#x3D; renderCount.current +1
+&#125;)
+
+--------------------------------------------------------
+&#x2F;&#x2F; common usage 
+inputRef &#x3D; useRef()
+
+function focus() &#123;
+    inputRef.current.focus()
+    &#x2F;&#x2F;inputRef.current.value &#x3D; &#39;Some value&#39;
+&#125;
+
+return (
+	&lt;&gt;
+    	&lt;input ref&#x3D;&#123;inputRef&#125; value&#x3D;&#123;name&#125; onChange&#123;e &#x3D;&gt; setName(e.target.value)&#125;&#x2F;&gt;
+        &lt;div&gt;&lt;&#x2F;div&gt;
+    &lt;&#x2F;&gt;
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><h3 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h3></li>
+</ol>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">&#x2F;&#x2F; create context
+export const ThemeContext &#x3D; React.createContext()
+
+export default function App() &#123;
+    const [darkTheme, setDarkTheme] &#x3D; useState(true)
+    
+    function toggleTheme()&#123;
+        setDarkTheme(prevDrakTheme &#x3D;&gt; !prevDarkTheme)
+    &#125;
+    
+    return
+    &lt;&gt;
+    	&lt;ThemeContext.Provider value&#x3D;&#123;darkTheme&#125;&gt;	
+    		&lt;button onclick&#x3D;&#123;toggleTheme&#125;&gt;Toggle Theme&lt;&#x2F;button&gt;
+        	&lt;FunctionContextComponent&#x2F;&gt;
+        	&lt;ClassContextComponent&#x2F;&gt;
+    	&lt;&#x2F;ThemeContext.Provider&gt;
+    &lt;&#x2F;&gt;
+&#125;
+
+--------------------------------
+ClassContextComponent.js 
+
+import &#123;ThemeContext&#125; from &#39;.&#x2F;App&#39;
+
+render() &#123;
+    return (
+    	&lt;ThemeContext.Consumer&gt;
+        	&#123;darkTheme &#x3D;&gt; &#123;
+                return &lt;div style &#x3D; &#123;this.themStyles(darkTheme)&#125;&gt;Class 					Theme&lt;&#x2F;div&gt;
+            &#125;&#125;
+        &lt;&#x2F;ThemeContext.Consumer&gt;
+    )
+&#125;
+
+-------------------------------------------------
+FunctionContextComponent.js
+import React, &#123;useContext&#125; from &#39;react&#39;
+import &#123;ThemeContext&#125; from &#39;.&#x2F;App&#39;
+
+export default function FunctionContextComponent()&#123;
+    const darkTheme &#x3D; useContext(ThemeContext)
+    const themeStyles &#x3D; &#123;
+        color: darkTheme ? &#39;#CCC&#39; : &#39;#333&#39;
+    &#125;
+    return (
+    	&lt;div style&#x3D;&#123;themeStyles&#125;&gt;Function Theme&lt;&#x2F;div&gt;
+    )
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Context is broke into two sections </p>
+<ul>
+<li>Context.provider: Wrap all the code need to access in the provider. All the child components have access to the <code>value</code> prop (Context is for passing dawn value without manual process)</li>
+</ul>
+<p>Function get rid of the nesting </p>
+<p><img src="https://i.imgur.com/Kumc8N5.png" alt="image-20231025013452430"></p>
+<p>Then we can use custom hook for use the themeContext</p>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">export function useTheme() &#123;
+	return useContext(ThemeContext)
+&#125;
+export function useThemeUpdate() &#123;
+	return useContext(ThemeUpdateContext)
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="UseReducer"><a href="#UseReducer" class="headerlink" title="UseReducer"></a>UseReducer</h3><p>start with two params</p>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">
+function reducer(state, action) &#123;
+    
+&#125;
+
+
+const [state, disapatch] &#x3D; useReducer(reducer, &#123;count :0&#125;) &#x2F;&#x2F; object
+const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>call dispatch to update the state</p>
+<p>we can dispatch a type to dispatch, like</p>
+<p>ruby programming</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/14/RubyBasic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/10/14/RubyBasic/" itemprop="url">RubyBasic</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-14T13:00:16+02:00">
+                2023-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Ruby-on-Rails"><a href="#Ruby-on-Rails" class="headerlink" title="Ruby on Rails"></a>Ruby on Rails</h2><p>File directory example:</p>
+<p><img src="https://i.imgur.com/bgUWKix.png" alt="image-20231014130434451"></p>
+<h2 id="app-assets"><a href="#app-assets" class="headerlink" title="app - assets"></a><strong>app</strong> - assets</h2><p>folder for css, images…</p>
+<p>models - part  of mvc model</p>
+<h2 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h2><p>hardly modify</p>
+<p>routes.rb — routes</p>
+<hr>
+<p>rails routes -&gt; all the routes</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">Rails<span class="token punctuation">.</span>application<span class="token punctuation">.</span>routes<span class="token punctuation">.</span>draw <span class="token keyword">do</span>
+  <span class="token comment"># get 'home/index'</span>
+  root <span class="token string-literal"><span class="token string">'home#index'</span></span> <span class="token comment"># root page</span>
+  <span class="token comment"># Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html</span>
+
+  <span class="token comment"># Defines the root path route ("/")</span>
+  <span class="token comment"># root "articles#index"</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="db"><a href="#db" class="headerlink" title="db"></a>db</h2><p>modes </p>
+<p>….</p>
+<h2 id="Gem"><a href="#Gem" class="headerlink" title="Gem"></a>Gem</h2><p>important</p>
+<h2 id="Create-a-controller"><a href="#Create-a-controller" class="headerlink" title="Create a controller"></a>Create a controller</h2><p>rails g controller [name (e.g. home -&gt; home_controller)] [page]</p>
+<h2 id="Navbar"><a href="#Navbar" class="headerlink" title="Navbar"></a>Navbar</h2><p>bootstrap 5.3 new dark nave bar <code>data-bs-theme=&quot;dark&quot;</code></p>
+<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>rails g scaffold + [name]</p>
+<p><img src="https://i.imgur.com/kq6y8Y2.png" alt="image-20231015155849915"></p>
+<p>It will generate a model for u</p>
+<h2 id="Simple-Deployment"><a href="#Simple-Deployment" class="headerlink" title="Simple Deployment"></a>Simple Deployment</h2><p>Both tutorial and project are using Heroku for deploying ruby application</p>
+<p>It’s using PostgreSQL</p>
+<p>example gemfile</p>
+<pre class="line-numbers language-none"><code class="language-none">source &quot;https:&#x2F;&#x2F;rubygems.org&quot;
+git_source(:github) &#123; |repo| &quot;https:&#x2F;&#x2F;github.com&#x2F;#&#123;repo&#125;.git&quot; &#125;
+
+ruby &quot;3.1.2&quot;
+
+gem &quot;rails&quot;,           &quot;7.0.4&quot;
+gem &quot;sprockets-rails&quot;, &quot;3.4.2&quot;
+gem &quot;importmap-rails&quot;, &quot;1.1.0&quot;
+gem &quot;turbo-rails&quot;,     &quot;1.1.1&quot;
+gem &quot;stimulus-rails&quot;,  &quot;1.0.4&quot;
+gem &quot;jbuilder&quot;,        &quot;2.11.5&quot;
+gem &quot;puma&quot;,            &quot;5.6.4&quot;
+gem &quot;bootsnap&quot;,        &quot;1.12.0&quot;, require: false
+
+group :development, :test do
+  gem &quot;sqlite3&quot;, &quot;1.4.2&quot;
+  gem &quot;debug&quot;,   &quot;1.5.0&quot;, platforms: %i[ mri mingw x64_mingw ]
+end
+
+group :development do
+  gem &quot;web-console&quot;, &quot;4.2.0&quot;
+end
+
+group :test do
+  gem &quot;capybara&quot;,           &quot;3.37.1&quot;
+  gem &quot;selenium-webdriver&quot;, &quot;4.2.0&quot;
+  gem &quot;webdrivers&quot;,         &quot;5.0.0&quot;
+end
+
+group :production do
+  gem &quot;pg&quot;, &quot;1.3.5&quot;
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>heroku login  -&gt; create </p>
+<p>Then push the main branch to heroku</p>
+<p>git push heroku main</p>
+<p>heroku apps:info</p>
+<p>small trick for domain address: (‘a’ .. ‘z’).to_a.shuffle[0..7].join</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">rails generate scaffold User name<span class="token symbol">:string</span> email<span class="token symbol">:string</span>
+rails db<span class="token symbol">:migrate</span>
+<span class="token keyword">for</span> looping usage<span class="token operator">:</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token variable">@users</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>user<span class="token operator">|</span> <span class="token string-literal"><span class="token string">%>
+		
+	&lt;% end %></span></span>
+        
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>models
+       one to many
+	<span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token operator">&lt;</span> ApplicationRecord
+        has_many <span class="token operator">:</span> microposts
+    <span class="token keyword">end</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>
+   <span class="token keyword">class</span> <span class="token class-name">Micropost</span> <span class="token operator">&lt;</span> ApplicationRecord
+       belongs_to <span class="token operator">:</span> user
+       <span class="token symbol">validates</span><span class="token operator">:</span> content<span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token symbol">maximum</span><span class="token operator">:</span> <span class="token number">140</span><span class="token punctuation">&#125;</span>
+   <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Test-in-rails"><a href="#Test-in-rails" class="headerlink" title="Test in rails"></a>Test in rails</h3><p>Also generated by rails generate</p>
+<pre class="line-numbers language-none"><code class="language-none">require &quot;test_helper&quot;
+
+class StaticPagesControllerTest &lt; ActionDispatch::IntegrationTest
+
+  test &quot;should get home&quot; do
+    get static_pages_home_url
+    assert_response :success
+    assert_select &quot;title&quot;, &quot;Home | Ruby on Rails Tutorial Sample App&quot;
+
+  end
+
+  test &quot;should get help&quot; do
+    get static_pages_help_url
+    assert_response :success
+    assert_select &quot;title&quot;, &quot;Help | Ruby on Rails Tutorial Sample App&quot;
+  end
+
+  test &quot;should get about&quot; do
+    get static_pages_about_url
+    assert_response :success
+    assert_select &quot;title&quot;, &quot;About | Ruby on Rails Tutorial Sample App&quot;
+  end
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>template system called Haml,</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;% provide(:title, &quot;Home&quot;) %&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;&lt;%&#x3D; yield(:title) %&gt; | Ruby on Rails Tutorial Sample App&lt;&#x2F;title&gt;
+  &lt;&#x2F;head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Sample App&lt;&#x2F;h1&gt;
+    &lt;p&gt;
+      This is the home page for the
+      &lt;a href&#x3D;&quot;https:&#x2F;&#x2F;www.railstutorial.org&#x2F;&quot;&gt;Ruby on Rails Tutorial&lt;&#x2F;a&gt;
+      sample application.
+    &lt;&#x2F;p&gt;
+  &lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>call the provide function with string “home” with label “title</p>
+<p>use the closely related notation <strong><code>&lt;%= ... %&gt;</code></strong> to insert the title into the template using Ruby’s <strong><code>yield</code></strong> function:”</p>
+<ul>
+<li>distinction between the two types of embedded Ruby is that <strong><code>&lt;% ... %&gt;</code></strong> <em>executes</em> the code inside, while <strong><code>&lt;%= ... %&gt;</code></strong> executes it <em>and inserts</em> the result into the template</li>
+</ul>
+<h3 id="Helper-in-rails"><a href="#Helper-in-rails" class="headerlink" title="Helper in rails"></a>Helper in rails</h3><p><code>*app/helpers/application_helper.rb*</code></p>
+<p>Like for the title we can have a helper function </p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">module</span> <span class="token class-name">ApplicationHelper</span>
+
+  <span class="token comment"># Returns the full title on a per-page basis.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">full_title</span></span><span class="token punctuation">(</span>page_title <span class="token operator">=</span> <span class="token string-literal"><span class="token string">''</span></span><span class="token punctuation">)</span>
+    base_title <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"Ruby on Rails Tutorial Sample App"</span></span>
+    <span class="token keyword">if</span> page_title<span class="token punctuation">.</span>empty<span class="token operator">?</span>
+      base_title
+    <span class="token keyword">else</span>
+      <span class="token string-literal"><span class="token string">"</span><span class="token interpolation"><span class="token delimiter punctuation">#&#123;</span><span class="token content">page_title</span><span class="token delimiter punctuation">&#125;</span></span><span class="token string"> | </span><span class="token interpolation"><span class="token delimiter punctuation">#&#123;</span><span class="token content">base_title</span><span class="token delimiter punctuation">&#125;</span></span><span class="token string">"</span></span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token comment"># then we can replace the original function with </span>
+<span class="token operator">&lt;</span>title<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">%=</span> full_title<span class="token punctuation">(</span><span class="token keyword">yield</span><span class="token punctuation">(</span><span class="token symbol">:title</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>&lt;/title></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>One more time: yield is yielding the contents to a block</p>
+<h3 id="Ruby-rush"><a href="#Ruby-rush" class="headerlink" title="Ruby rush!"></a>Ruby rush!</h3><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">puts <span class="token string-literal"><span class="token string">"foo"</span></span> <span class="token comment">#print string</span>
+
+<span class="token comment">#method definition</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">name</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+<span class="token keyword">end</span>
+
+<span class="token comment">#array and split</span>
+<span class="token string-literal"><span class="token string">"foo bar   baz"</span></span><span class="token punctuation">.</span>split
+<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"foo"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"bar"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"baz"</span></span><span class="token punctuation">]</span>
+
+<span class="token symbol">method</span><span class="token operator">:</span>
+<span class="token keyword">include</span><span class="token operator">?</span>
+sort <span class="token operator">/</span> sort<span class="token operator">!</span>
+reverse
+shuffle
+
+<span class="token punctuation">(</span><span class="token number">0.</span><span class="token number">.9</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_a
+
+a <span class="token operator">=</span> <span class="token string-literal"><span class="token string">%w[foo bar baz quux]</span></span>         <span class="token comment"># Use %w to make a string array.</span>
+
+<span class="token comment">#Blocks</span>
+<span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token punctuation">&#123;</span> <span class="token operator">|</span>i<span class="token operator">|</span> puts <span class="token number">2</span> <span class="token operator">*</span> i <span class="token punctuation">&#125;</span>
+<span class="token number">2</span>
+<span class="token number">4</span>
+<span class="token number">6</span>
+<span class="token number">8</span>
+<span class="token number">10</span>
+
+<span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>number<span class="token operator">|</span>
+<span class="token operator">?</span><span class="token operator">></span>   puts <span class="token number">2</span> <span class="token operator">*</span> number
+<span class="token operator">>></span>   puts <span class="token string-literal"><span class="token string">'--'</span></span>
+<span class="token operator">>></span> <span class="token keyword">end</span>
+<span class="token number">2</span>
+<span class="token operator">-</span><span class="token operator">-</span>
+<span class="token number">4</span>
+<span class="token operator">-</span><span class="token operator">-</span>
+<span class="token number">6</span>
+<span class="token operator">-</span><span class="token operator">-</span>
+<span class="token number">8</span>
+<span class="token operator">-</span><span class="token operator">-</span>
+<span class="token number">10</span>
+<span class="token operator">-</span><span class="token operator">-</span>
+    
+<span class="token operator">>></span> <span class="token number">3.</span>times <span class="token punctuation">&#123;</span> puts <span class="token string-literal"><span class="token string">"Betelgeuse!"</span></span> <span class="token punctuation">&#125;</span>   <span class="token comment"># 3.times takes a block with no variables.</span>
+<span class="token string-literal"><span class="token string">"Betelgeuse!"</span></span>
+<span class="token string-literal"><span class="token string">"Betelgeuse!"</span></span>
+<span class="token string-literal"><span class="token string">"Betelgeuse!"</span></span>
+<span class="token operator">=></span> <span class="token number">3</span>
+<span class="token operator">>></span> <span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>map <span class="token punctuation">&#123;</span> <span class="token operator">|</span>i<span class="token operator">|</span> i<span class="token operator">**</span><span class="token number">2</span> <span class="token punctuation">&#125;</span>          <span class="token comment"># The ** notation is for 'power'.</span>
+<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">]</span>
+<span class="token operator">>></span> <span class="token string-literal"><span class="token string">%w[a b c]</span></span>                        <span class="token comment"># Recall that %w makes string arrays.</span>
+<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"a"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"b"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"c"</span></span><span class="token punctuation">]</span>
+<span class="token operator">>></span> <span class="token string-literal"><span class="token string">%w[a b c]</span></span><span class="token punctuation">.</span>map <span class="token punctuation">&#123;</span> <span class="token operator">|</span>char<span class="token operator">|</span> char<span class="token punctuation">.</span>upcase <span class="token punctuation">&#125;</span>
+<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"A"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"B"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"C"</span></span><span class="token punctuation">]</span>
+<span class="token operator">>></span> <span class="token string-literal"><span class="token string">%w[A B C]</span></span><span class="token punctuation">.</span>map <span class="token punctuation">&#123;</span> <span class="token operator">|</span>char<span class="token operator">|</span> char<span class="token punctuation">.</span>downcase <span class="token punctuation">&#125;</span>
+<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"a"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"b"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"c"</span></span><span class="token punctuation">]</span>
+
+<span class="token operator">>></span> h1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token symbol">:name</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"Michael Hartl"</span></span><span class="token punctuation">,</span> <span class="token symbol">:email</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"michael@example.com"</span></span> <span class="token punctuation">&#125;</span>
+<span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token symbol">:name</span><span class="token operator">=></span><span class="token string-literal"><span class="token string">"Michael Hartl"</span></span><span class="token punctuation">,</span> <span class="token symbol">:email</span><span class="token operator">=></span><span class="token string-literal"><span class="token string">"michael@example.com"</span></span><span class="token punctuation">&#125;</span>
+<span class="token operator">>></span> h2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token symbol">name</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"Michael Hartl"</span></span><span class="token punctuation">,</span> <span class="token symbol">email</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"michael@example.com"</span></span> <span class="token punctuation">&#125;</span>
+<span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token symbol">:name</span><span class="token operator">=></span><span class="token string-literal"><span class="token string">"Michael Hartl"</span></span><span class="token punctuation">,</span> <span class="token symbol">:email</span><span class="token operator">=></span><span class="token string-literal"><span class="token string">"michael@example.com"</span></span><span class="token punctuation">&#125;</span>
+<span class="token operator">>></span> h1 <span class="token operator">==</span> h2
+<span class="token operator">=></span> <span class="token boolean">true</span>
+<span class="token comment">#The last example uses the useful inspect method, which returns a string with a literal representation of the object it’s called on:</span>
+<span class="token operator">>></span> puts <span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_a            <span class="token comment"># Put an array as a string.</span>
+<span class="token number">1</span>
+<span class="token number">2</span>
+<span class="token number">3</span>
+<span class="token number">4</span>
+<span class="token number">5</span>
+<span class="token operator">>></span> puts <span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_a<span class="token punctuation">.</span>inspect    <span class="token comment"># Put a literal array.</span>
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span>
+
+
+<span class="token operator">>></span> s <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"foobar"</span></span><span class="token punctuation">)</span>
+<span class="token operator">=></span> <span class="token string-literal"><span class="token string">"foobar"</span></span>
+<span class="token operator">>></span> s<span class="token punctuation">.</span><span class="token keyword">class</span>                        <span class="token comment"># Find the class of s.</span>
+<span class="token operator">=></span> <span class="token builtin">String</span>
+<span class="token operator">>></span> s<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span>superclass             <span class="token comment"># Find the superclass of String.</span>
+<span class="token operator">=></span> <span class="token builtin">Object</span>
+<span class="token operator">>></span> s<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span>superclass<span class="token punctuation">.</span>superclass  <span class="token comment"># Ruby has a BasicObject base class as of 1.9</span>
+<span class="token operator">=></span> BasicObject
+<span class="token operator">>></span> s<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span>superclass<span class="token punctuation">.</span>superclass<span class="token punctuation">.</span>superclass
+<span class="token operator">=></span> <span class="token keyword">nil</span>
+
+<span class="token comment">#define a class</span>
+<span class="token operator">>></span> <span class="token keyword">class</span> <span class="token class-name">Word</span> <span class="token operator">&lt;</span> <span class="token builtin">String</span>             <span class="token comment"># Word inherits from String.</span>
+<span class="token operator">>></span>   <span class="token comment"># Returns true if the string is its own reverse.</span>
+<span class="token operator">>></span>   <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">palindrome</span></span><span class="token operator">?</span>
+<span class="token operator">>></span>     <span class="token keyword">self</span> <span class="token operator">==</span> <span class="token keyword">self</span><span class="token punctuation">.</span>reverse        <span class="token comment"># self is the string itself.</span>
+<span class="token operator">>></span>   <span class="token keyword">end</span>
+<span class="token operator">>></span> <span class="token keyword">end</span>
+<span class="token operator">=></span> <span class="token keyword">nil</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/08/NextJS-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/10/08/NextJS-1/" itemprop="url">NextJS-1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-08T15:33:46+02:00">
+                2023-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NextJS/" itemprop="url" rel="index">
+                    <span itemprop="name">NextJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>‘use client’ : client side rendering</p>
+<p>state management (react hook)</p>
+<p><img src="https://i.imgur.com/17fuE5f.png" alt="image-20231008153916697"></p>
+<h1 id="How-to-fetch-data"><a href="#How-to-fetch-data" class="headerlink" title="How to fetch data?"></a>How to fetch data?</h1><ol>
+<li>server site rendering SSR</li>
+</ol>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">Page</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span>param<span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fectch</span> <span class="token punctuation">(</span>
+		<span class="token string">'url'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">cache</span><span class="token operator">:</span> <span class="token string">'no-store'</span><span class="token punctuation">&#125;</span> <span class="token comment">// don't store it</span>
+	<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">const</span> data <span class="token operator">=</span> <span class="token keyword">await</span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    	<span class="token operator">...</span><span class="token punctuation">.</span>
+    <span class="token punctuation">)</span> <span class="token comment">// refetch every single time -> server side rendering</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; server site generating saving it
+async function Page(&#123;param&#125;) &#123;
+	const res &#x3D; await fectch (
+		&#39;url&#39;
+	);
+	const data &#x3D; await res.json()
+    return (
+    	....
+    ) &#x2F;&#x2F; refetch every single time -&gt; server side rendering
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>Incremental Static Generation  (ISR)</li>
+</ol>
+<p>{ next : {revalidate:10}}</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/01/web-security/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3086,405 +3886,6 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/06/rayTracing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/06/06/rayTracing/" itemprop="url">rayTracing</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-06-06T22:13:43+02:00">
-                2023-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>• Ray tracing vs rasterization</p>
-<p>• <strong>Rasterization:</strong><br>    • For each object<br>    • For each pixel (covered by the object)<br>    • Test if is closer than the previously rendered (Depth buffer)<br>• <strong>Ray tracing:</strong><br>    • For each pixel<br>    • For each object<br>    • Test if it is the closest in that direction</p>
-<p>• With one ray per pixel and no lighting, results are equivalent<br>• <strong>Rasterization:</strong><br>    • Lighting: Uses equations to estimate the amount of light received<br>    • Shadows: Need to fake them in other ways (i.e. shadow maps)<br>• <strong>Ray tracing:</strong><br>    • Lighting: Cast rays to the light and other objects and accumulate light<br>    • Shadows: Part of the algorithm, if objects block the rays to the light<br>    • Can be recursive for more accurate lighting</p>
-<p>• Ray tracing vs ray marching</p>
-<p>Both methods start with rays from each pixel<br>• <strong>Ray marching:</strong><br>    • Many steps for one ray<br>    • Test for closest distance<br>    • Finish when it finds a hit<br>• <strong>Ray tracing:</strong><br>    • One single step per ray<br>    • Test for collision<br>    • Ray can bounce and create more rays</p>
-<p>• What is a BVH and why it is useful</p>
-<p>Good quality ray tracing requires many rays<br>• In real-time, we need to optimize the intersection with the scene</p>
-<p>acceleration structure</p>
-<p>Bounding Volume Hierarchy </p>
-<p>• Organize the scene using a tree structure<br>• Each object is a leaf node<br>• Objects need to define a simple bounding volume:</p>
-<p>• <strong>Benefits and limitations of ray tracing</strong></p>
-<p><strong>Benefits</strong>: Better reflect dynamic objects, not limited to pixels.</p>
-<p>Better shadows, not limited by shadow map resolution. allow transparent and tinted shadow</p>
-<p>Better transparency, doesn’t require sorting</p>
-<p>Refraction</p>
-<p><strong>Limitations:</strong></p>
-<p>Needs to test for colisions with every object<br>Complexity can grow exponentially<br>For good quality, many rays are needed<br>Can create noise when using path tracing</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/23/instruction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/04/23/instruction/" itemprop="url">instruction</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-23T17:47:01+02:00">
-                2023-04-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Use image like this :</p>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/18/matching/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/04/18/matching/" itemprop="url">SDF & ray matching</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-18T08:17:56+02:00">
-                2023-04-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graphics-Programming/" itemprop="url" rel="index">
-                    <span itemprop="name">Graphics Programming</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>• Understand what an SDF is, and some uses<br>• Know how to compute the SDF of a sphere<br>• Basic operations</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3539,7 +3940,7 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3550,7 +3951,7 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
