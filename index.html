@@ -263,6 +263,283 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/05/rubyOnRailsPart2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/11/05/rubyOnRailsPart2/" itemprop="url">ruby on Rails Part 2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-11-05T19:24:18+01:00">
+                2023-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ruby-on-Rails/" itemprop="url" rel="index">
+                    <span itemprop="name">Ruby on Rails</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Debugs-on-development-envieroment"><a href="#Debugs-on-development-envieroment" class="headerlink" title="Debugs on development envieroment"></a>Debugs on development envieroment</h3><p>when using development build, we can  use</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;%&#x3D; debug(params) if Rails.env.development? %&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>in layout, it won’t be inserted into production applications or tests</p>
+<p><strong>Box 7.1: Rails environments</strong></p>
+<p>Rails comes equipped with three environments: <code>test</code>, <code>development</code>, and <code>production</code>. The default environment for the Rails console is <code>development</code>:</p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0318-04">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails console
+Loading development environment
+&gt;&gt; Rails.env
+&#x3D;&gt; &quot;development&quot;
+&gt;&gt; Rails.env.development?
+&#x3D;&gt; true
+&gt;&gt; Rails.env.test?
+&#x3D;&gt; false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>As you can see, Rails provides a <code>Rails</code> object with an <code>env</code> attribute and associated environment boolean methods, so that, for example, <code>Rails.env.test?</code> returns <code>true</code> in a test environment and <code>false</code> otherwise.</p>
+<p>If you ever need to run a console in a different environment (to debug a test, for example), you can pass the environment as an option to the <code>console</code> script:</p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-01">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails console --environment test
+Loading test environment
+&gt;&gt; Rails.env
+&#x3D;&gt; &quot;test&quot;
+&gt;&gt; Rails.env.test?
+&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>As with the console, <code>development</code> is the default environment for the Rails server, but you can also run it in a different environment:</p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-02">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails server --environment production<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>If you view your app running in production, it won’t work without a production database, which we can create by running <code>rails db:migrate</code> in production:</p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-03">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails db:migrate RAILS_ENV&#x3D;production<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>By the way, if you have deployed your sample app to Heroku, you can see its environment using <code>heroku run rails console:</code></p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-04">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ heroku run rails console
+&gt;&gt; Rails.env
+&#x3D;&gt; &quot;production&quot;
+&gt;&gt; Rails.env.production?
+&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Naturally, since Heroku is a platform for production sites, it runs each application in a production environment.</p>
+<hr>
+<h4 id="Consequence-of-variable-in-controller-and-view"><a href="#Consequence-of-variable-in-controller-and-view" class="headerlink" title="Consequence of variable in controller and view"></a>Consequence of variable in controller and view</h4><p>For example we want to present user information, in the view we can use  <code>@user.param</code></p>
+<p>then we need to define <code>@user</code> variable in corresponding view controller (e.g. <code>show</code>), and also we can use <code>find</code> function the select the data</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span> provide<span class="token punctuation">(</span><span class="token symbol">:title</span><span class="token punctuation">,</span> <span class="token variable">@user</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>
+&lt;h1></span></span>
+  <span class="token operator">&lt;</span><span class="token operator">%=</span> gravatar_for <span class="token variable">@user</span> <span class="token string-literal"><span class="token string">%>
+  &lt;%= @user.name %></span></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+    
+<span class="token keyword">class</span> <span class="token class-name">UsersController</span> <span class="token operator">&lt;</span> ApplicationController
+
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">show</span></span>
+    <span class="token variable">@user</span> <span class="token operator">=</span> User<span class="token punctuation">.</span>find<span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token comment"># debug options to show Ruby debugger prompt</span>
+    debugger
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">new</span></span>
+      <span class="token variable">@user</span> <span class="token operator">=</span> <span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>user_params<span class="token punctuation">)</span>    
+    <span class="token keyword">if</span> <span class="token variable">@user</span><span class="token punctuation">.</span>save
+      flash<span class="token punctuation">[</span><span class="token symbol">:success</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"Welcome to the Sample App!"</span></span>
+      redirect_to <span class="token variable">@user</span>
+    <span class="token keyword">else</span>
+      render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">private</span>
+
+    <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">user_params</span></span>
+      params<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token symbol">:user</span><span class="token punctuation">)</span><span class="token punctuation">.</span>permit<span class="token punctuation">(</span><span class="token symbol">:name</span><span class="token punctuation">,</span> <span class="token symbol">:email</span><span class="token punctuation">,</span> <span class="token symbol">:password</span><span class="token punctuation">,</span>
+                                   <span class="token symbol">:password_confirmation</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token comment">#use strong parameter</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>avatar
+<span class="token keyword">module</span> <span class="token class-name">UsersHelper</span>
+
+  <span class="token comment"># Returns the Gravatar for the given user.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">gravatar_for</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+    gravatar_id  <span class="token operator">=</span> Digest<span class="token double-colon punctuation">::</span><span class="token constant">MD5</span><span class="token double-colon punctuation">::</span>hexdigest<span class="token punctuation">(</span>user<span class="token punctuation">.</span>email<span class="token punctuation">.</span>downcase<span class="token punctuation">)</span>
+    gravatar_url <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"https://secure.gravatar.com/avatar/</span><span class="token interpolation"><span class="token delimiter punctuation">#&#123;</span><span class="token content">gravatar_id</span><span class="token delimiter punctuation">&#125;</span></span><span class="token string">"</span></span>
+    image_tag<span class="token punctuation">(</span>gravatar_url<span class="token punctuation">,</span> <span class="token symbol">alt</span><span class="token operator">:</span> user<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token symbol">class</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"gravatar"</span></span><span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> sign up form format
+<span class="token operator">&lt;</span><span class="token operator">%</span> provide<span class="token punctuation">(</span><span class="token symbol">:title</span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">'Sign up'</span></span><span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>
+&lt;h1></span></span>Sign up<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"row"</span></span><span class="token operator">></span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"col-md-6 col-md-offset-3"</span></span><span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">%=</span> form_with<span class="token punctuation">(</span><span class="token symbol">model</span><span class="token operator">:</span> <span class="token variable">@user</span><span class="token punctuation">)</span> <span class="token keyword">do</span> <span class="token operator">|</span>f<span class="token operator">|</span> <span class="token string-literal"><span class="token string">%>
+	&lt;%= render 'shared/error_messages', object: f.object %></span></span>
+<span class="token operator">/</span><span class="token operator">/</span> html format
+<span class="token operator">/</span><span class="token operator">/</span><span class="token operator">&lt;</span>label <span class="token keyword">for</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"user_name"</span></span><span class="token operator">></span>Name<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+<span class="token operator">/</span><span class="token operator">/</span><span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string-literal"><span class="token string">"user_name"</span></span> name<span class="token operator">=</span><span class="token string-literal"><span class="token string">"user[name]"</span></span> type<span class="token operator">=</span><span class="token string-literal"><span class="token string">"text"</span></span> <span class="token operator">/</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:name</span> <span class="token string-literal"><span class="token string">%>
+      &lt;%= f.text_field :name %></span></span>
+
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:email</span> <span class="token string-literal"><span class="token string">%>
+      &lt;%= f.email_field :email %></span></span>
+
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:password</span> <span class="token string-literal"><span class="token string">%>
+      &lt;%= f.password_field :password %></span></span>
+
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:password_confirmation</span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"Confirmation"</span></span> <span class="token string-literal"><span class="token string">%>
+      &lt;%= f.password_field :password_confirmation %></span></span>
+
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>submit <span class="token string-literal"><span class="token string">"Create my account"</span></span><span class="token punctuation">,</span> <span class="token symbol">class</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"btn btn-primary"</span></span> <span class="token string-literal"><span class="token string">%>
+    &lt;% end %></span></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Strong-parameter"><a href="#Strong-parameter" class="headerlink" title="Strong parameter"></a>Strong parameter</h3><p>In the present instance, we want to require the <strong><code>params</code></strong> hash to have a <strong><code>:user</code></strong> attribute, and we want to permit the name, email, password, and password confirmation attributes</p>
+<pre class="line-numbers language-none"><code class="language-none">params.require(:user).permit(:name, :email, :password, :password_confirmation)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>to show the error message we can create a folder shared/error_messages</p>
+<p>&lt;%= render ‘shared/error_messages’, object: f.object %&gt;</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>any<span class="token operator">?</span> <span class="token string-literal"><span class="token string">%>
+  &lt;div id="error_explanation"></span></span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"alert alert-danger"</span></span><span class="token operator">></span>
+      The form contains <span class="token operator">&lt;</span><span class="token operator">%=</span> pluralize<span class="token punctuation">(</span><span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>count<span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"error"</span></span><span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>.
+    &lt;/div></span></span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>full_messages<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>msg<span class="token operator">|</span> <span class="token string-literal"><span class="token string">%>
+      &lt;li></span></span><span class="token operator">&lt;</span><span class="token operator">%=</span> msg <span class="token string-literal"><span class="token string">%>&lt;/li></span></span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string-literal"><span class="token string">%>
+    &lt;/ul></span></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token operator">%</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>count return number of errors. any? empty? is one of a pair of complementary methods</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt; user.errors.empty?
+&#x3D;&gt; false
+&gt;&gt; user.errors.any?
+&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The other new idea is the <strong><code>pluralize</code></strong> text helper, which is available in the console via the <strong><code>helper</code></strong> object</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt; helper.pluralize(1, &quot;error&quot;)
+&#x3D;&gt; &quot;1 error&quot;
+&gt;&gt; helper.pluralize(5, &quot;error&quot;)
+&#x3D;&gt; &quot;5 errors&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>flash</code> method is to display the assigned message on the first page after the redirect</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/22/ReactHookReview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -304,6 +581,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Software-study/" itemprop="url" rel="index">
+                    <span itemprop="name">Software study</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -578,6 +877,28 @@ const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-n
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ruby-on-Rails/" itemprop="url" rel="index">
+                    <span itemprop="name">Ruby on Rails</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -689,29 +1010,38 @@ rails db<span class="token symbol">:migrate</span>
        <span class="token symbol">validates</span><span class="token operator">:</span> content<span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token symbol">maximum</span><span class="token operator">:</span> <span class="token number">140</span><span class="token punctuation">&#125;</span>
    <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="Test-in-rails"><a href="#Test-in-rails" class="headerlink" title="Test in rails"></a>Test in rails</h3><p>Also generated by rails generate</p>
-<pre class="line-numbers language-none"><code class="language-none">require &quot;test_helper&quot;
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string-literal"><span class="token string">"test_helper"</span></span>
 
-class StaticPagesControllerTest &lt; ActionDispatch::IntegrationTest
+<span class="token keyword">class</span> <span class="token class-name">StaticPagesControllerTest</span> <span class="token operator">&lt;</span> ActionDispatch<span class="token double-colon punctuation">::</span>IntegrationTest
 
-  test &quot;should get home&quot; do
+  test <span class="token string-literal"><span class="token string">"should get home"</span></span> <span class="token keyword">do</span>
     get static_pages_home_url
-    assert_response :success
-    assert_select &quot;title&quot;, &quot;Home | Ruby on Rails Tutorial Sample App&quot;
+    assert_response <span class="token symbol">:success</span>
+    assert_select <span class="token string-literal"><span class="token string">"title"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"Home | Ruby on Rails Tutorial Sample App"</span></span>
 
-  end
+  <span class="token keyword">end</span>
 
-  test &quot;should get help&quot; do
+  test <span class="token string-literal"><span class="token string">"should get help"</span></span> <span class="token keyword">do</span>
     get static_pages_help_url
-    assert_response :success
-    assert_select &quot;title&quot;, &quot;Help | Ruby on Rails Tutorial Sample App&quot;
-  end
+    assert_response <span class="token symbol">:success</span>
+    assert_select <span class="token string-literal"><span class="token string">"title"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"Help | Ruby on Rails Tutorial Sample App"</span></span>
+  <span class="token keyword">end</span>
 
-  test &quot;should get about&quot; do
+  test <span class="token string-literal"><span class="token string">"should get about"</span></span> <span class="token keyword">do</span>
     get static_pages_about_url
-    assert_response :success
-    assert_select &quot;title&quot;, &quot;About | Ruby on Rails Tutorial Sample App&quot;
-  end
-end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    assert_response <span class="token symbol">:success</span>
+    assert_select <span class="token string-literal"><span class="token string">"title"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"About | Ruby on Rails Tutorial Sample App"</span></span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token comment">#assert_select automatically inserts the value to verify the link exists </span>
+<span class="token keyword">require</span> <span class="token string-literal"><span class="token string">"test_helper"</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">SiteLayoutTest</span> <span class="token operator">&lt;</span> ActionDispatch<span class="token double-colon punctuation">::</span>IntegrationTest
+    
+assert_select <span class="token string-literal"><span class="token string">"a[href=?]"</span></span><span class="token punctuation">,</span> root_path<span class="token punctuation">,</span> <span class="token symbol">count</span><span class="token operator">:</span> <span class="token number">2</span>
+assert_select <span class="token string-literal"><span class="token string">"a[href=?]"</span></span><span class="token punctuation">,</span> help_path<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://i.imgur.com/aJ9WRDi.png" alt="image-20231105161812124"></p>
 <p><strong>template system called Haml,</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">&lt;% provide(:title, &quot;Home&quot;) %&gt;
 &lt;!DOCTYPE html&gt;
@@ -729,6 +1059,7 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
   &lt;&#x2F;body&gt;
 &lt;&#x2F;html&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>call the provide function with string “home” with label “title</p>
+<p>the <strong><code>provide</code></strong> function and associate the string <strong><code>&quot;Home&quot;</code></strong> with the label <strong><code>:title</code></strong>.</p>
 <p>use the closely related notation <strong><code>&lt;%= ... %&gt;</code></strong> to insert the title into the template using Ruby’s <strong><code>yield</code></strong> function:”</p>
 <ul>
 <li>distinction between the two types of embedded Ruby is that <strong><code>&lt;% ... %&gt;</code></strong> <em>executes</em> the code inside, while <strong><code>&lt;%= ... %&gt;</code></strong> executes it <em>and inserts</em> the result into the template</li>
@@ -845,6 +1176,86 @@ a <span class="token operator">=</span> <span class="token string-literal"><span
 <span class="token operator">>></span>   <span class="token keyword">end</span>
 <span class="token operator">>></span> <span class="token keyword">end</span>
 <span class="token operator">=></span> <span class="token keyword">nil</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Using-css-bootstrap-in-rails"><a href="#Using-css-bootstrap-in-rails" class="headerlink" title="Using css (bootstrap) in rails"></a>Using css (bootstrap) in rails</h3><pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; gem file
+.
+gem &quot;rails&quot;,           &quot;7.0.4&quot;
+gem &quot;bootstrap-sass&quot;,  &quot;3.4.1&quot;
+gem &quot;sassc-rails&quot;,     &quot;2.1.2&quot;
+gem &quot;sprockets-rails&quot;, &quot;3.4.2&quot;
+
+@import &quot;bootstrap-sprockets&quot;;
+@import &quot;bootstrap&quot;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>app/views/layouts/_footer.html.erb</em><br>-&gt; &lt;%= render ‘layouts/footer’ %&gt;</p>
+<ul>
+<li><strong><code>app/assets</code></strong>: assets specific to the present application</li>
+<li><strong><code>lib/assets</code></strong>: assets for libraries written by your dev team</li>
+<li><strong><code>vendor/assets</code></strong>: assets from third-party vendors (not present by default)</li>
+</ul>
+<h3 id="Rails-routes"><a href="#Rails-routes" class="headerlink" title="Rails routes"></a>Rails routes</h3><pre class="line-numbers language-none"><code class="language-none">&lt;a href&#x3D;&quot;&#x2F;static_pages&#x2F;about&quot;&gt;About&lt;&#x2F;a&gt;
+-&gt; 
+&lt;%&#x3D; link_to &quot;About&quot;, about_path %&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Examples of routes:</p>
+<p><img src="https://i.imgur.com/IZOl4bu.png" alt="image-20231105131623737"></p>
+<h4 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h4><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">root <span class="token string-literal"><span class="token string">"static_pages#home"</span></span>
+root_path <span class="token operator">-</span><span class="token operator">></span> <span class="token string-literal"><span class="token string">'/'</span></span>
+root_url  <span class="token operator">-</span><span class="token operator">></span> <span class="token string-literal"><span class="token string">'http://www.example.com/'</span></span>
+get <span class="token string-literal"><span class="token string">"static_pages/help"</span></span> <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">></span> get <span class="token string-literal"><span class="token string">"/help"</span></span><span class="token punctuation">,</span> <span class="token symbol">to</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"static_pages#help"</span></span>
+<span class="token operator">/</span><span class="token operator">/</span> it will create two name space help_path <span class="token keyword">and</span> help_url  <span class="token operator">:</span>
+help_path <span class="token operator">-</span><span class="token operator">></span> <span class="token string-literal"><span class="token string">'/help'</span></span>
+help_url  <span class="token operator">-</span><span class="token operator">></span> <span class="token string-literal"><span class="token string">'http://www.example.com/help'</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Then-we-try-tests"><a href="#Then-we-try-tests" class="headerlink" title="Then we try tests:"></a>Then we try tests:</h4><pre class="line-numbers language-none"><code class="language-none">$ rails generate integration_test site_layout
+      invoke  test_unit
+      create    test&#x2F;integration&#x2F;site_layout_test.rb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Rails generator automatically appends <strong><code>_test</code></strong> to the name of the test file.</p>
+<p><strong>Tips: gem “tzinfo-data”</strong> do not include platform to avoid error with timezone</p>
+<p><img src="https://i.imgur.com/drCMurB.png" alt="image-20231105170406483"></p>
+<p>User:</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token operator">&lt;</span> ApplicationRecord
+  before_save <span class="token punctuation">&#123;</span> <span class="token keyword">self</span><span class="token punctuation">.</span>email <span class="token operator">=</span> email<span class="token punctuation">.</span>downcase <span class="token punctuation">&#125;</span>
+  validates <span class="token symbol">:name</span><span class="token punctuation">,</span>  <span class="token symbol">presence</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">maximum</span><span class="token operator">:</span> <span class="token number">50</span> <span class="token punctuation">&#125;</span>
+  <span class="token constant">VALID_EMAIL_REGEX</span> <span class="token operator">=</span> <span class="token regex-literal"><span class="token regex">/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i</span></span>
+  validates <span class="token symbol">:email</span><span class="token punctuation">,</span> <span class="token symbol">presence</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">maximum</span><span class="token operator">:</span> <span class="token number">255</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                    <span class="token symbol">format</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">with</span><span class="token operator">:</span> <span class="token constant">VALID_EMAIL_REGEX</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token comment">#Validating the uniqueness of email addresses</span>
+                    <span class="token symbol">uniqueness</span><span class="token operator">:</span> uniqueness<span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">case_sensitive</span><span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">&#125;</span>
+  has_secure_password
+  validates <span class="token symbol">:password</span><span class="token punctuation">,</span> <span class="token symbol">presence</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">minimum</span><span class="token operator">:</span> <span class="token number">6</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>Uniqueness Validation</strong></p>
+<p> test for rejection of duplicate email addresses</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">
+<span class="token keyword">require</span> <span class="token string-literal"><span class="token string">"test_helper"</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">UserTest</span> <span class="token operator">&lt;</span> ActiveSupport<span class="token double-colon punctuation">::</span>TestCase
+
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">setup</span></span>
+    <span class="token variable">@user</span> <span class="token operator">=</span> <span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token symbol">name</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"Example User"</span></span><span class="token punctuation">,</span> <span class="token symbol">email</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"user@example.com"</span></span><span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+  <span class="token punctuation">.</span>
+  <span class="token punctuation">.</span>
+  <span class="token punctuation">.</span>
+  test <span class="token string-literal"><span class="token string">"email addresses should be unique"</span></span> <span class="token keyword">do</span>
+    duplicate_user <span class="token operator">=</span> <span class="token variable">@user</span><span class="token punctuation">.</span>dup
+    <span class="token variable">@user</span><span class="token punctuation">.</span>save
+    assert_not duplicate_user<span class="token punctuation">.</span>valid<span class="token operator">?</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">rails generate migration add_index_to_users_email
+_______________
+rails generate migration add_password_digest_to_users password_digest:string
+
+class AddPasswordDigestToUsers &lt; ActiveRecord::Migration[7.0]
+  def change
+    add_column :users, :password_digest, :string
+  end
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">class AddIndexToUsersEmail &lt; ActiveRecord::Migration[7.0]
+  def change
+    add_index :users, :email, unique: true
+  end
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Then migrate to guarantee unique index</p>
 
           
         
@@ -1016,125 +1427,6 @@ async function Page(&#123;param&#125;) &#123;
 </ol>
 <p>{ next : {revalidate:10}}</p>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/01/web-security/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/10/01/web-security/" itemprop="url">web_security</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-01T15:36:18+02:00">
-                2023-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
           
         
       
@@ -3951,7 +4243,7 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -3962,7 +4254,7 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

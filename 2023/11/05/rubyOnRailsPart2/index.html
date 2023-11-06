@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Debugs on development envieromentwhen using development build, we can  use &lt;%&#x3D; debug(params) if Rails.env.development? %&gt; in layout, it won’t be inserted into production applications or tes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ruby on Rails Part 2">
+<meta property="og:url" content="http://example.com/2023/11/05/rubyOnRailsPart2/index.html">
+<meta property="og:site_name" content="Melo&#39;s blog">
+<meta property="og:description" content="Debugs on development envieromentwhen using development build, we can  use &lt;%&#x3D; debug(params) if Rails.env.development? %&gt; in layout, it won’t be inserted into production applications or tes">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-05T18:24:18.000Z">
+<meta property="article:modified_time" content="2023-11-05T20:20:55.097Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/11/05/rubyOnRailsPart2/"/>
+
+
+
+
+
+  <title>ruby on Rails Part 2 | Melo's blog</title>
+  
+
+
+
+
+
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Melo's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Welcome</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/05/rubyOnRailsPart2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ruby on Rails Part 2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-11-05T19:24:18+01:00">
+                2023-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ruby-on-Rails/" itemprop="url" rel="index">
+                    <span itemprop="name">Ruby on Rails</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Debugs-on-development-envieroment"><a href="#Debugs-on-development-envieroment" class="headerlink" title="Debugs on development envieroment"></a>Debugs on development envieroment</h3><p>when using development build, we can  use</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;%&#x3D; debug(params) if Rails.env.development? %&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>in layout, it won’t be inserted into production applications or tests</p>
+<p><strong>Box 7.1: Rails environments</strong></p>
+<p>Rails comes equipped with three environments: <code>test</code>, <code>development</code>, and <code>production</code>. The default environment for the Rails console is <code>development</code>:</p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0318-04">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails console
+Loading development environment
+&gt;&gt; Rails.env
+&#x3D;&gt; &quot;development&quot;
+&gt;&gt; Rails.env.development?
+&#x3D;&gt; true
+&gt;&gt; Rails.env.test?
+&#x3D;&gt; false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>As you can see, Rails provides a <code>Rails</code> object with an <code>env</code> attribute and associated environment boolean methods, so that, for example, <code>Rails.env.test?</code> returns <code>true</code> in a test environment and <code>false</code> otherwise.</p>
+<p>If you ever need to run a console in a different environment (to debug a test, for example), you can pass the environment as an option to the <code>console</code> script:</p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-01">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails console --environment test
+Loading test environment
+&gt;&gt; Rails.env
+&#x3D;&gt; &quot;test&quot;
+&gt;&gt; Rails.env.test?
+&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>As with the console, <code>development</code> is the default environment for the Rails server, but you can also run it in a different environment:</p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-02">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails server --environment production<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>If you view your app running in production, it won’t work without a production database, which we can create by running <code>rails db:migrate</code> in production:</p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-03">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails db:migrate RAILS_ENV&#x3D;production<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>By the way, if you have deployed your sample app to Heroku, you can see its environment using <code>heroku run rails console:</code></p>
+<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-04">Click here to view code image</a></p>
+<pre class="line-numbers language-none"><code class="language-none">$ heroku run rails console
+&gt;&gt; Rails.env
+&#x3D;&gt; &quot;production&quot;
+&gt;&gt; Rails.env.production?
+&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Naturally, since Heroku is a platform for production sites, it runs each application in a production environment.</p>
+<hr>
+<h4 id="Consequence-of-variable-in-controller-and-view"><a href="#Consequence-of-variable-in-controller-and-view" class="headerlink" title="Consequence of variable in controller and view"></a>Consequence of variable in controller and view</h4><p>For example we want to present user information, in the view we can use  <code>@user.param</code></p>
+<p>then we need to define <code>@user</code> variable in corresponding view controller (e.g. <code>show</code>), and also we can use <code>find</code> function the select the data</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span> provide<span class="token punctuation">(</span><span class="token symbol">:title</span><span class="token punctuation">,</span> <span class="token variable">@user</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>
+&lt;h1></span></span>
+  <span class="token operator">&lt;</span><span class="token operator">%=</span> gravatar_for <span class="token variable">@user</span> <span class="token string-literal"><span class="token string">%>
+  &lt;%= @user.name %></span></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+    
+<span class="token keyword">class</span> <span class="token class-name">UsersController</span> <span class="token operator">&lt;</span> ApplicationController
+
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">show</span></span>
+    <span class="token variable">@user</span> <span class="token operator">=</span> User<span class="token punctuation">.</span>find<span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token comment"># debug options to show Ruby debugger prompt</span>
+    debugger
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">new</span></span>
+      <span class="token variable">@user</span> <span class="token operator">=</span> <span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>user_params<span class="token punctuation">)</span>    
+    <span class="token keyword">if</span> <span class="token variable">@user</span><span class="token punctuation">.</span>save
+      flash<span class="token punctuation">[</span><span class="token symbol">:success</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"Welcome to the Sample App!"</span></span>
+      redirect_to <span class="token variable">@user</span>
+    <span class="token keyword">else</span>
+      render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">private</span>
+
+    <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">user_params</span></span>
+      params<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token symbol">:user</span><span class="token punctuation">)</span><span class="token punctuation">.</span>permit<span class="token punctuation">(</span><span class="token symbol">:name</span><span class="token punctuation">,</span> <span class="token symbol">:email</span><span class="token punctuation">,</span> <span class="token symbol">:password</span><span class="token punctuation">,</span>
+                                   <span class="token symbol">:password_confirmation</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+<span class="token comment">#use strong parameter</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>avatar
+<span class="token keyword">module</span> <span class="token class-name">UsersHelper</span>
+
+  <span class="token comment"># Returns the Gravatar for the given user.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">gravatar_for</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+    gravatar_id  <span class="token operator">=</span> Digest<span class="token double-colon punctuation">::</span><span class="token constant">MD5</span><span class="token double-colon punctuation">::</span>hexdigest<span class="token punctuation">(</span>user<span class="token punctuation">.</span>email<span class="token punctuation">.</span>downcase<span class="token punctuation">)</span>
+    gravatar_url <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"https://secure.gravatar.com/avatar/</span><span class="token interpolation"><span class="token delimiter punctuation">#&#123;</span><span class="token content">gravatar_id</span><span class="token delimiter punctuation">&#125;</span></span><span class="token string">"</span></span>
+    image_tag<span class="token punctuation">(</span>gravatar_url<span class="token punctuation">,</span> <span class="token symbol">alt</span><span class="token operator">:</span> user<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token symbol">class</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"gravatar"</span></span><span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> sign up form format
+<span class="token operator">&lt;</span><span class="token operator">%</span> provide<span class="token punctuation">(</span><span class="token symbol">:title</span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">'Sign up'</span></span><span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>
+&lt;h1></span></span>Sign up<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"row"</span></span><span class="token operator">></span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"col-md-6 col-md-offset-3"</span></span><span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">%=</span> form_with<span class="token punctuation">(</span><span class="token symbol">model</span><span class="token operator">:</span> <span class="token variable">@user</span><span class="token punctuation">)</span> <span class="token keyword">do</span> <span class="token operator">|</span>f<span class="token operator">|</span> <span class="token string-literal"><span class="token string">%>
+	&lt;%= render 'shared/error_messages', object: f.object %></span></span>
+<span class="token operator">/</span><span class="token operator">/</span> html format
+<span class="token operator">/</span><span class="token operator">/</span><span class="token operator">&lt;</span>label <span class="token keyword">for</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"user_name"</span></span><span class="token operator">></span>Name<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+<span class="token operator">/</span><span class="token operator">/</span><span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string-literal"><span class="token string">"user_name"</span></span> name<span class="token operator">=</span><span class="token string-literal"><span class="token string">"user[name]"</span></span> type<span class="token operator">=</span><span class="token string-literal"><span class="token string">"text"</span></span> <span class="token operator">/</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:name</span> <span class="token string-literal"><span class="token string">%>
+      &lt;%= f.text_field :name %></span></span>
+
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:email</span> <span class="token string-literal"><span class="token string">%>
+      &lt;%= f.email_field :email %></span></span>
+
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:password</span> <span class="token string-literal"><span class="token string">%>
+      &lt;%= f.password_field :password %></span></span>
+
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:password_confirmation</span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"Confirmation"</span></span> <span class="token string-literal"><span class="token string">%>
+      &lt;%= f.password_field :password_confirmation %></span></span>
+
+      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>submit <span class="token string-literal"><span class="token string">"Create my account"</span></span><span class="token punctuation">,</span> <span class="token symbol">class</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"btn btn-primary"</span></span> <span class="token string-literal"><span class="token string">%>
+    &lt;% end %></span></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Strong-parameter"><a href="#Strong-parameter" class="headerlink" title="Strong parameter"></a>Strong parameter</h3><p>In the present instance, we want to require the <strong><code>params</code></strong> hash to have a <strong><code>:user</code></strong> attribute, and we want to permit the name, email, password, and password confirmation attributes</p>
+<pre class="line-numbers language-none"><code class="language-none">params.require(:user).permit(:name, :email, :password, :password_confirmation)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>to show the error message we can create a folder shared/error_messages</p>
+<p>&lt;%= render ‘shared/error_messages’, object: f.object %&gt;</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>any<span class="token operator">?</span> <span class="token string-literal"><span class="token string">%>
+  &lt;div id="error_explanation"></span></span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"alert alert-danger"</span></span><span class="token operator">></span>
+      The form contains <span class="token operator">&lt;</span><span class="token operator">%=</span> pluralize<span class="token punctuation">(</span><span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>count<span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"error"</span></span><span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>.
+    &lt;/div></span></span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>full_messages<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>msg<span class="token operator">|</span> <span class="token string-literal"><span class="token string">%>
+      &lt;li></span></span><span class="token operator">&lt;</span><span class="token operator">%=</span> msg <span class="token string-literal"><span class="token string">%>&lt;/li></span></span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string-literal"><span class="token string">%>
+    &lt;/ul></span></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token operator">%</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>count return number of errors. any? empty? is one of a pair of complementary methods</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt; user.errors.empty?
+&#x3D;&gt; false
+&gt;&gt; user.errors.any?
+&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The other new idea is the <strong><code>pluralize</code></strong> text helper, which is available in the console via the <strong><code>helper</code></strong> object</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt; helper.pluralize(1, &quot;error&quot;)
+&#x3D;&gt; &quot;1 error&quot;
+&gt;&gt; helper.pluralize(5, &quot;error&quot;)
+&#x3D;&gt; &quot;5 errors&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>flash</code> method is to display the assigned message on the first page after the redirect</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/10/22/ReactHookReview/" rel="next" title="ReactHookReview">
+                <i class="fa fa-chevron-left"></i> ReactHookReview
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="Meng Zhouyang" />
+            
+              <p class="site-author-name" itemprop="name">Meng Zhouyang</p>
+              <p class="site-description motion-element" itemprop="description">A blog to save my notes</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zmeng18cc@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Debugs-on-development-envieroment"><span class="nav-number">1.</span> <span class="nav-text">Debugs on development envieroment</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Consequence-of-variable-in-controller-and-view"><span class="nav-number">1.1.</span> <span class="nav-text">Consequence of variable in controller and view</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strong-parameter"><span class="nav-number">2.</span> <span class="nav-text">Strong parameter</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng Zhouyang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
