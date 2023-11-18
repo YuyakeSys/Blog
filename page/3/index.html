@@ -263,6 +263,460 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/Web%20Recommender%20System/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/06/Web%20Recommender%20System/" itemprop="url">WRS Lecture 3+</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-06T01:02:00+02:00">
+                2023-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Recommender System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="WRS-Lecture3"><a href="#WRS-Lecture3" class="headerlink" title="WRS Lecture3"></a>WRS Lecture3</h2><p>MSE:  <script type="math/tex">\frac{\sum_{(u,j)\in E}\ e^2_{u,j}}{|E|}</script></p>
+<p>RMSE: <script type="math/tex">\sqrt\frac{\sum_{(u,j)\in E}\ e^2_{u,j}}{|E|}</script></p>
+<p>diffRMSE : <script type="math/tex">\frac{1}{|E|}\sqrt{\sum_{(u,j)\in E}\ e^2_{u,j}}</script></p>
+<ul>
+<li>Offline evaluation:<ul>
+<li>Offline process with data previously collected;</li>
+<li>Train/Validation/Test splits and measures as HitRate, Precision, Recalls, AP, etc;</li>
+<li>Risk: might not reflect the performance of the system when deployed online.</li>
+</ul>
+</li>
+<li>Online Evaluation:<ul>
+<li>Online process with live interactions from real users</li>
+<li>Different modalities, e.g., A/B testing, user studies, surveys, etc;</li>
+<li>Risk: might harm user experience, loose customers;</li>
+</ul>
+</li>
+<li>Counterfactual evaluation: </li>
+<li><ul>
+<li>Idea: use users interaction data (logs from an online system) to simulate online evaluation.</li>
+</ul>
+</li>
+</ul>
+<h2 id="A-B-Testing"><a href="#A-B-Testing" class="headerlink" title="A/B Testing"></a>A/B Testing</h2><ul>
+<li>A/B Testing is a classic between-subject experiment, where each subject is exposed to exactly one  of two conditions:  </li>
+<li><ul>
+<li>Control: the current system; </li>
+<li>Treatment: an experimental system that is hypothesised to outperform the control</li>
+</ul>
+</li>
+<li><strong>Statistical tests</strong> should be run to confirm differences are not due to chance</li>
+</ul>
+<h2 id="Interleaving"><a href="#Interleaving" class="headerlink" title="Interleaving"></a>Interleaving</h2><p>• Idea: rather than showing each user the results from just one of the 2 systems, the results are  combined in an unbiased way so that every user can observe results produced by both systems;</p>
+<p> • If one system returns better results on average, users can select them more often; </p>
+<p>• Interleaved comparison methods consists of two components: </p>
+<ul>
+<li>Mixing policy: method to select documents from the original rankings and construct the  interleaved lists; </li>
+<li><ul>
+<li>Scoring rule: method for inferring comparison outcomes, i.e., how to interpret observed  interactions; </li>
+</ul>
+</li>
+</ul>
+<p>• Based on hypothesis that the constructed interleaved result should <strong>minimally differ</strong> from either  candidate ranking</p>
+<h2 id="Sparsity"><a href="#Sparsity" class="headerlink" title="Sparsity"></a>Sparsity</h2><p><img src="/2023/04/06/Web%20Recommender%20System/image\WRS\sparsity.png" alt="image-20230412152359413"></p>
+<h3 id="Model-based-Collaborative-Filtering"><a href="#Model-based-Collaborative-Filtering" class="headerlink" title="Model-based Collaborative Filtering"></a>Model-based Collaborative <strong>Filtering</strong></h3><p>• Memory-based: user-item matrix held in memory and used directly to produce  recommendations; </p>
+<p>• Model-based: summarised model of the data is created up front and used to  generate recommendations;</p>
+<h3 id="Latent-Factor-Models"><a href="#Latent-Factor-Models" class="headerlink" title="Latent Factor Models"></a>Latent Factor Models</h3><p>• Goal: dimensionality reduction to estimate the complete user-item matrix; </p>
+<p>• Idea: portions of rows and columns can be highly correlated → redundancies → low-rank matrix → derive latent factors to characterise both user and items</p>
+<p><strong>State-of-the-art</strong> in Collaborative Filtering </p>
+<h3 id="Singular-Value-Decomposition"><a href="#Singular-Value-Decomposition" class="headerlink" title="Singular Value Decomposition"></a>Singular Value Decomposition</h3><p>Assume we have a complete user-item matrix </p>
+<script type="math/tex; mode=display">R=Q\sum P^T</script><p>Truncated SVD: approximate the full matrix with the most important features (largest singular  values), where ; U V k k &lt; &lt; min{m, n}</p>
+<p><img src="/2023/04/06/Web%20Recommender%20System/image\WRS\SVD.png" alt="image-20230412153618667"></p>
+<h4 id="SVD-with-Missing-Entries"><a href="#SVD-with-Missing-Entries" class="headerlink" title="SVD with Missing Entries"></a>SVD with Missing Entries</h4><ol>
+<li><p>Mean-center each row of by subtracting the average rating <script type="math/tex">u_i</script>→ <script type="math/tex">R_c</script>;</p>
+</li>
+<li><p>Set the missing entries of <script type="math/tex">R_c</script> to 0 (equivalent to set missing entries to the  average rating);</p>
+</li>
+<li><p>Apply SVD <script type="math/tex">R_c</script> to to obtain the factorisation: <script type="math/tex">U = Q_k \sum_k</script> and <script type="math/tex">V=P_k</script> ;</p>
+</li>
+<li><p>Make the prediction as follows:</p>
+<p>$\hat{r}_{i,j} = \bar{u_i}\cdot \bar{v_j} + \mu_i$</p>
+</li>
+</ol>
+<h4 id="Graph-Based-Collaborative-Filtering"><a href="#Graph-Based-Collaborative-Filtering" class="headerlink" title="Graph Based Collaborative  Filtering"></a>Graph Based Collaborative  Filtering</h4><h5 id="Katz-Measure"><a href="#Katz-Measure" class="headerlink" title="Katz Measure"></a>Katz Measure</h5><p>Katz Measure — Discount for long  paths, β ∈ (0,1)</p>
+<p>Katz(i, j) = $\sum^{\infin}<em>{t=1}\beta^t \cdot n</em>{i,j}^{(t)}$ -&gt; number of paths of length t between nodes i and j </p>
+<p>• Adjacency matrix: only {0, 1}, where 1 an edge exists between 2 nodes; </p>
+<p>• Replace adjacency matrix with weight based on ratings;</p>
+<h4 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank"></a>PageRank</h4><pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD<span class="token punctuation">;</span>
+    A<span class="token arrow operator">--></span>B<span class="token punctuation">;</span>
+    A<span class="token arrow operator">--></span>C<span class="token punctuation">;</span>
+    C<span class="token arrow operator">--></span>A<span class="token punctuation">;</span>
+    B<span class="token arrow operator">--></span>C<span class="token punctuation">;</span>
+    C<span class="token arrow operator">--></span>B<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>In</th>
+<th>Out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>C</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>given a start score </p>
+<p>End score A = $\frac{0.5}{2}$ = 0.25</p>
+<p>PageRank(A) = (1-d) + d * EndScore(A)</p>
+<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h5><script type="math/tex; mode=display">PR(p_i) = \frac{1-d}{N}+d \sum_{p_j \in M(p_i) }\frac{PR(p_j)}{|L(p_j)|}</script><p>d: damping factor;</p>
+<p>N: total number of webpages;</p>
+<p>$M(p_i)$: set of in-links of $p_i$</p>
+<script type="math/tex; mode=display">|L(p_j)|$$: cardinality of the set of out-links of $p_j$
+
+# Lecutre4
+
+Content-based Recommendation:
+
+\- User’s own ratings on similar items
+
+\- Useful for new items 
+
+it contains two sources of data:
+
+- item description: text description of item
+- User profile: generated by user feedback , e.g., ratings from a  user to specific items;
+
+User profiles: relate attributes of items to user interests;
+
+generated by user feedback (explicit or implicit), e.g., ratings from a  user to specific items;
+
+• Document: information conveying item represented with text, e.g., item  description, review, tweet, Web page, news article, … 
+
+• Corpus: collection of documents (dataset); 
+
+• Vocabulary: set of all tokens (words) in the corpus.
+
+### Text Preprocessing
+
+![image-20230412164258955](..\image\WRS\text_pipeline.png)
+
+#### Lexical Analysis -> 
+
+treat digits, hyphens, punctuation marks, case of letters
+
+**Blank spaces and punctuation** are separator and all words convert to lower cases
+
+**numbers** -> regareded
+
+**Hyphens** state-of-art -> single word
+
+**Upoercases** usually not important (city name exception)
+
+#### Elimination of stopwords -> 
+
+Examples of stopwords: articles, prepositions, pronouns, conjunctions
+
+Advantage: reduces the size of the vocabulary
+
+Disadvantage: ‘to be or not to be’ → represented as ‘{}’;
+
+#### Stemming and Lemmatization
+
+Stemming: crude heuristic process that chops off the ends of words;
+
+Suffixes(mainly) danish and prefixes ploymorph
+
+- Advantages: reduce variants of the same root word to a common concept and reduce the  size of the vocabulary; 
+- Disadvantages: controversy in the literature and many conflicting conclusions
+
+Lemmatization: use of a vocabulary and morphological analysis of words
+
+Reduces a term to a lemma 
+
+- Example: run is the lemma of runs, running, and ran
+
+##### Stemming 
+
+**Stem**: portion of a word after removal of affixes, i.e., prefixes and suffixes, example: ‘connect’ is the  stem for the variants connected, connecting and connections
+
+• Improve efficiency: reduces the  vocabulary size; 
+
+• Fast to execute; 
+
+• Can be overly aggressive: with Porter  stemmer orient → oriental,  orienteering, orienteers; 
+
+• Might allow inappropriate matches.
+
+##### Lemmatization 
+
+Reduces a term to a **lemma** ~ word in the sense of a dictionary entry;
+
+• Improve efficiency: reduces the  vocabulary size (but less than stemming); 
+
+• Easier to interpret; 
+
+• Not so fast to run and added complexity:  meeting → to meet or meeting?; 
+
+• Might allows unwanted matches: good is  the lemma for better and best.
+
+##### Advantages and Disadvantages
+
+![image-20230412172400169](..\image\WRS\text_pro_con.png)
+
+### Text Represented as a Vector
+
+#### One-Hot Encoding
+
+#### Zipf Law
+
+• Terms that are too frequent: do not  describe the content of the document; 
+
+• Terms that are too rare: are often noise,  for example typos or misspelled words.
+
+#### Term Weighting 
+
+One of the most popular weighting scheme: **Term Frequency** (TF) and **Inverse  Document Frequency** (IDF).
+
+$$TF_{t,d}=f_{t,d}= \frac{count\,of\,t\,in\,d}{number\,of\,terms\,in\,d}</script><p><strong>Inverse Document Frequency</strong> (IDF)</p>
+<p>number of documents term occurs $N_t$</p>
+<script type="math/tex; mode=display">w_{t,d} = \begin{cases}(1+log_2f_{t,d})*log_2\frac{N}{N_t} \, if f_{t,d}>0\\0\,otherwise\end{cases}</script><p>Inverse of the number of </p>
+<h5 id="Representations-Based-on-BoW"><a href="#Representations-Based-on-BoW" class="headerlink" title="Representations Based on BoW"></a>Representations Based on BoW</h5><h5 id="Advantages-and-Disadvantage"><a href="#Advantages-and-Disadvantage" class="headerlink" title="Advantages and Disadvantage"></a>Advantages and Disadvantage</h5><p>• Advantages: </p>
+<ul>
+<li>Easy and fast to compute; </li>
+<li><ul>
+<li>Easy to interpret; </li>
+</ul>
+</li>
+</ul>
+<p>• Disadvantages: </p>
+<ul>
+<li>Size, i.e., number of dimensions, increases with the size of the vocabulary, sparse  representation; </li>
+<li><ul>
+<li>Term proximity is not considered and terms are mutually independent.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Similarity-Based-Representation"><a href="#Similarity-Based-Representation" class="headerlink" title="Similarity Based Representation"></a>Similarity Based Representation</h2><h4 id="Word-Embedding"><a href="#Word-Embedding" class="headerlink" title="Word Embedding"></a>Word Embedding</h4><p>The GloVe model is trained on the non-zero entries of a global word-word cooccurrence matrix → capture both global and local statistics</p>
+<p>Advantages: </p>
+<ul>
+<li>Very good properties for semantic representation; </li>
+<li>Very good performance in many NLP tasks (Q&amp;A, speech recognition, machine  translation, … ). </li>
+</ul>
+<p>Disadvantages: </p>
+<ul>
+<li>Training is computationally expensive → pre-trained word embeddings; </li>
+<li>What about new words (neologisms, misspellings, out of vocabulary words…)? </li>
+<li>Interpretability?</li>
+</ul>
+<h1 id="Lecture6-Hybrid-Recommendation"><a href="#Lecture6-Hybrid-Recommendation" class="headerlink" title="Lecture6 Hybrid Recommendation"></a>Lecture6 Hybrid Recommendation</h1><h4 id="Three-types"><a href="#Three-types" class="headerlink" title="Three types:"></a>Three types:</h4><h4 id="Ensemble-combine-predictions-of-different-recommender-models"><a href="#Ensemble-combine-predictions-of-different-recommender-models" class="headerlink" title="Ensemble: combine predictions of different recommender models"></a>Ensemble: combine predictions of different recommender models</h4><ul>
+<li><p>Linear combination of model outputs</p>
+<p>• Each model is used off-the-shelf </p>
+<p>• Combine only outputs </p>
+<p>• Models can have different inputs</p>
+</li>
+</ul>
+<p>Advantages </p>
+<p>• Easy </p>
+<p>• Parallel execution </p>
+<p>Disadvantages </p>
+<p>• Optimal values of weights depend on dataset </p>
+<p>• Works better when outputs are on the same scale</p>
+<p><strong>Round roubin</strong></p>
+<ul>
+<li>for the sequence of recommendation pick the top k items for recommendation</li>
+</ul>
+<p>Advantage: independent of output scale </p>
+<p>Disadvantage: hard to calibrate the quality of each model</p>
+<p><strong>BordaFuse</strong></p>
+<p>First item with k-1 point, the last item is 0 point </p>
+<p>Advantage: considers importance of rank position </p>
+<p>Disadvantage: assumes “equal distance” between ranks</p>
+<p><strong>Condorcet method</strong> Pairwise</p>
+<p><img src="/2023/04/06/Web%20Recommender%20System/image\pairwise.png" alt="1680876426842"></p>
+<p>Reciprocal Rank  Fusion (RRF)</p>
+<script type="math/tex; mode=display">RRF(m)=\sum_j \frac{1}{k+r_j(m)}</script><p>m: movie r_j: rank position k parameter</p>
+<p><img src="/2023/04/06/Web%20Recommender%20System/image\WRS\pipeline_seq.png" alt="1680880359591"></p>
+<p><strong>Advantage</strong> </p>
+<p>• Increased density of User Rating Matrix  gives better recommendations </p>
+<p><strong>Disadvantages</strong> </p>
+<p>• Computational efficiency (memory, runtime, …) </p>
+<p>• Too dense User Rating Matrix can lead to overfitting</p>
+<p>• Parallel combination of outputs </p>
+<p>​    • Combinations of ratings: weighted sum, combMAX, combMIN,  combMZ </p>
+<p>​    • Combinations of rank positions: round robin, Borda, Condorcet, RRF </p>
+<p>• Sequential combination</p>
+<h4 id="Monolithic-create-a-new-recommender-model"><a href="#Monolithic-create-a-new-recommender-model" class="headerlink" title="Monolithic: create a new recommender model"></a>Monolithic: create a new recommender model</h4><h4 id><a href="#" class="headerlink" title=" "></a> </h4><h4 id="Mixed-present-predictions-of-different-recommender-models-side-by-side"><a href="#Mixed-present-predictions-of-different-recommender-models-side-by-side" class="headerlink" title="Mixed: present predictions of different recommender models side by side"></a>Mixed: present predictions of different recommender models side by side</h4><h1 id="Lecture7"><a href="#Lecture7" class="headerlink" title="Lecture7"></a>Lecture7</h1><p>Explanation: piece of information justifying why an item is recommended </p>
+<h5 id="Ablation-is-the-simplest-type-of-attribution"><a href="#Ablation-is-the-simplest-type-of-attribution" class="headerlink" title="Ablation is the simplest type of attribution"></a>Ablation is the simplest type of attribution</h5><p>• Drop each feature (one at a time)  </p>
+<p>• Attribute the change in prediction to the ablated feature </p>
+<p>Advantage </p>
+<p>• Simple and intuitive to interpret Disadvantages </p>
+<p>• Indirect and partial explainability </p>
+<p>• Does not always explain output (output invariant to ablation) </p>
+<p>• Improper accounting of interactive features </p>
+<p>• Can be computationally expensive</p>
+<h5 id="Shapley-value"><a href="#Shapley-value" class="headerlink" title="Shapley value"></a>Shapley value</h5><p>Game where players collaborate to make profit </p>
+<p>• Take all possible subsets of players (in all possible orderings) </p>
+<p>• Compute marginal contribution of a player </p>
+<p>​    • For each player entering a subset:  </p>
+<p>​        • profit that the player creates by entering the subset </p>
+<p>​        • profit in the subset before the player entered </p>
+<p>• At the end, compute the average marginal contribution of each player </p>
+<p>• The higher the average marginal contribution, the higher the attribution</p>
+<p>NNs may use only the simplest feature and remain invariant to more  complex features, even when every complex feature has significantly  greater predictive power than each simple feature</p>
+<p>Gradient-based optimization may get  stuck at local minima</p>
+<p>• At the start of training, the gradient  of the simplest feature has  predominant role </p>
+<p>• Drags the model towards the best  decision boundary of the simplest  feature </p>
+<p>• The model may get stuck in there</p>
+<h4 id="Attribution-ablation-Shapley-for-recommendation-explainability"><a href="#Attribution-ablation-Shapley-for-recommendation-explainability" class="headerlink" title="Attribution (ablation, Shapley) for recommendation explainability:"></a><strong>Attribution</strong> (ablation, Shapley) for recommendation explainability:</h4><p><strong>feature importance to output</strong> </p>
+<h5 id="Good-for"><a href="#Good-for" class="headerlink" title="Good for:"></a>Good for:</h5><p>• Generating an explanation for the user </p>
+<p>• Debugging model predictions </p>
+<p>• Analysing model robustness (irrelevant features getting attributed? relevant features not  getting attributed?) </p>
+<h5 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h5><p>Computationally costly for hundreds of features </p>
+<p>Reductive formulation of “why this prediction”: </p>
+<p>• Not explain how features interact </p>
+<p>• Not explain the model logic (e.g. model that recommends a photo when there is an even  number of black pixels in it, otherwise it does not recommend it) </p>
+<p>• Training-agnostic (what training samples influenced the prediction)</p>
+<h5 id="Item-based-vs-User-based"><a href="#Item-based-vs-User-based" class="headerlink" title="Item based vs User based"></a>Item based vs User based</h5><p>• Item-based explanations are more intuitive &amp; credible to users  because users are familiar with the items they interacted with before </p>
+<p>• User-based explanations are less convincing &amp; trustworthy because  the target user may know nothing about other “similar” users</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/13/basic-c-sharp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2106,7 +2560,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

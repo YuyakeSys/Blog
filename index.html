@@ -263,6 +263,147 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/18/RailsAdvanced/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/11/18/RailsAdvanced/" itemprop="url">RailsAdvanced</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-11-18T15:08:12+01:00">
+                2023-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ruby-on-Rails/" itemprop="url" rel="index">
+                    <span itemprop="name">Ruby on Rails</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/05/rubyOnRailsPart2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -492,6 +633,192 @@ Loading test environment
 &gt;&gt; helper.pluralize(5, &quot;error&quot;)
 &#x3D;&gt; &quot;5 errors&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>flash</code> method is to display the assigned message on the first page after the redirect</p>
+<h4 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h4><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">SessionsController</span> <span class="token operator">&lt;</span> ApplicationController
+
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">new</span></span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">create</span></span>
+    user <span class="token operator">=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">email</span><span class="token operator">:</span> params<span class="token punctuation">[</span><span class="token symbol">:session</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token symbol">:email</span><span class="token punctuation">]</span><span class="token punctuation">.</span>downcase<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> user <span class="token operator">&amp;&amp;</span> user<span class="token punctuation">.</span>authenticate<span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:session</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token symbol">:password</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+      reset_session
+      log_in user
+      redirect_to user
+    <span class="token keyword">else</span>
+      flash<span class="token punctuation">.</span>now<span class="token punctuation">[</span><span class="token symbol">:danger</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">'Invalid email/password combination'</span></span>
+      render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">destroy</span></span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong><code>:unprocessable_entity</code></strong> status code is necessary when using turbo</p>
+<p>This means that</p>
+<pre class="line-numbers language-none"><code class="language-none">params[:session]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>is itself a hash:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#123; password: &quot;foobar&quot;, email: &quot;user@example.com&quot; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>As a result,</p>
+<pre class="line-numbers language-none"><code class="language-none">params[:session][:email]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>is the submitted email address and</p>
+<pre class="line-numbers language-none"><code class="language-none">params[:session][:password]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Then we need to include SessionHelper in the ApplicationController</p>
+<p>To deal with <strong><em>session fixation</em></strong>. The solution is to reset the session immediately before logging in so that the attacker’s desired id gets cleared and a freshly created id ends up in the session hash, which we can do with the built-in Rails method <strong><code>reset_session</code></strong>:</p>
+<p>@ represents an instance variable: an instance of the model (redirect_to @user)</p>
+<p>while normal name represent a variable (redirect_to user)</p>
+<h5 id="Session-Helper"><a href="#Session-Helper" class="headerlink" title="Session Helper"></a>Session Helper</h5><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">module</span> <span class="token class-name">SessionsHelper</span>
+
+  <span class="token comment"># Logs in the given user.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">log_in</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+    session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span> <span class="token operator">=</span> user<span class="token punctuation">.</span>id
+  <span class="token keyword">end</span>
+
+  <span class="token comment"># Returns the current logged-in user (if any).</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">current_user</span></span>
+    <span class="token keyword">if</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span>
+        <span class="token operator">/</span><span class="token operator">/</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">if</span> <span class="token variable">@current_user</span> is <span class="token keyword">nil</span>
+      <span class="token variable">@current_user</span> <span class="token operator">||=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><strong>Turbo Streams</strong>: Turbo Streams is a feature of Turbo that allows you to send updates to the client, typically in response to some action, without a full page reload. It works by sending a stream of Turbo Frames, which are partial HTML responses, to the client.</li>
+<li><strong>turbo:load Event</strong>: The <code>turbo:load</code> event is triggered by Turbo when a new page is loaded or when a Turbo Frame is inserted into the DOM. It’s an event you can listen to in your JavaScript code to perform actions after the page or Turbo Frame has loaded.</li>
+</ol>
+<p><strong>Security</strong></p>
+<p>we can digest the password for the user model class we can add</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">def</span> <span class="token method-definition"><span class="token class-name">User</span><span class="token punctuation">.</span><span class="token function">digest</span></span><span class="token punctuation">(</span>string<span class="token punctuation">)</span>
+    cost <span class="token operator">=</span> ActiveModel<span class="token double-colon punctuation">::</span>SecurePassword<span class="token punctuation">.</span>min_cost <span class="token operator">?</span> BCrypt<span class="token double-colon punctuation">::</span>Engine<span class="token double-colon punctuation">::</span><span class="token constant">MIN_COST</span> <span class="token operator">:</span>
+                                                  BCrypt<span class="token double-colon punctuation">::</span>Engine<span class="token punctuation">.</span>cost
+    BCrypt<span class="token double-colon punctuation">::</span>Password<span class="token punctuation">.</span>create<span class="token punctuation">(</span>string<span class="token punctuation">,</span> <span class="token symbol">cost</span><span class="token operator">:</span> cost<span class="token punctuation">)</span>
+  <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> It uses the minimum cost parameter in tests and a normal (high) cost parameter in production. </p>
+<p>To guard against the session-fixation attacks, we’ll also add a call to <strong><code>reset_session</code></strong> immediately before logging in . </p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">def</span> <span class="token method-definition"><span class="token function">create</span></span>
+    <span class="token variable">@user</span> <span class="token operator">=</span> <span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>user_params<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token variable">@user</span><span class="token punctuation">.</span>save
+      reset_session
+      log_in <span class="token variable">@user</span>
+      flash<span class="token punctuation">[</span><span class="token symbol">:success</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"Welcome to the Sample App!"</span></span>
+      redirect_to <span class="token variable">@user</span>
+    <span class="token keyword">else</span>
+      render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">destroy</span></span>
+    log_out
+    redirect_to root_url<span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:see_other</span>
+  <span class="token keyword">end</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> log out 
+<span class="token keyword">module</span> <span class="token class-name">SessionsHelper</span>
+
+  <span class="token comment"># Logs in the given user.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">log_in</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+    session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span> <span class="token operator">=</span> user<span class="token punctuation">.</span>id
+  <span class="token keyword">end</span>
+  <span class="token punctuation">.</span>
+  <span class="token punctuation">.</span>
+  <span class="token punctuation">.</span>
+  <span class="token comment"># Logs out the current user.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">log_out</span></span>
+    reset_session
+    <span class="token variable">@current_user</span> <span class="token operator">=</span> <span class="token keyword">nil</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Remember-Token-and-Digest"><a href="#Remember-Token-and-Digest" class="headerlink" title="Remember Token and Digest"></a>Remember Token and Digest</h4><pre class="line-numbers language-none"><code class="language-none">$ rails console
+&gt;&gt; SecureRandom.urlsafe_base64
+&#x3D;&gt; &quot;brl_446-8bqHv87AQzUj_Q&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>urlsafe<em>base64 returns a random string of length 22 composed of the characters A–Z, a–z, 0–9, “-”, and “</em>” </p>
+<p>So under the User.digest(string) function we define new function for new_token and to remember it</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token comment">#create an accessible attribute</span>
+attr_accessor <span class="token symbol">:remember_token</span>
+<span class="token comment"># Returns a random token.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token class-name">User</span><span class="token punctuation">.</span><span class="token function">new_token</span></span>
+    SecureRandom<span class="token punctuation">.</span>urlsafe_base64
+  <span class="token keyword">end</span>
+
+  <span class="token comment"># Remembers a user in the database for use in persistent sessions.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">remember</span></span>
+    <span class="token keyword">self</span><span class="token punctuation">.</span>remember_token <span class="token operator">=</span> User<span class="token punctuation">.</span>new_token
+    update_attribute<span class="token punctuation">(</span><span class="token symbol">:remember_digest</span><span class="token punctuation">,</span> User<span class="token punctuation">.</span>digest<span class="token punctuation">(</span>remember_token<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>we now create a persistent session by storing a user’s (encrypted) id and remember token as permanent cookies on the browser. The way to do this is with the <strong><code>cookies</code></strong> method, which (as with <strong><code>session</code></strong>) we can treat as a hash.</p>
+<p>For token expiration date we can use <strong><code>permanent</code></strong>  for </p>
+<pre class="line-numbers language-none"><code class="language-none">cookies.permanent[:remember_token] &#x3D; remember_token
+--------
+cookies[:remember_token] &#x3D; &#123; value:   remember_token,
+                             expires: 20.years.from_now.utc &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>This causes Rails to set the expiration to <strong><code>20.years.from_now</code></strong> automatically</p>
+<p>the <code>remember_token</code> is the plain, unhashed token, while the <code>remember_digest</code> is the hashed version stored in the database. </p>
+<p>So we  can use the function </p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token comment"># Returns true if the given token matches the digest.</span>
+  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">authenticated</span></span><span class="token operator">?</span><span class="token punctuation">(</span>remember_token<span class="token punctuation">)</span>
+    BCrypt<span class="token double-colon punctuation">::</span><span class="token class-name">Password</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>remember_digest<span class="token punctuation">)</span><span class="token punctuation">.</span>is_password<span class="token operator">?</span><span class="token punctuation">(</span>remember_token<span class="token punctuation">)</span>
+  <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Instead of <strong><code>==</code></strong>, this uses the boolean method <strong><code>is_password?</code></strong> to perform the comparison. Because its meaning is a little clearer, we’ll prefer this second comparison form in the application code.</p>
+<p>And we will add a remember user for the function create, with log_in, we define the function calls user.remember in session helper</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>model
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">create</span></span>
+  user <span class="token operator">=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">email</span><span class="token operator">:</span> params<span class="token punctuation">[</span><span class="token symbol">:session</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token symbol">:email</span><span class="token punctuation">]</span><span class="token punctuation">.</span>downcase<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> user <span class="token operator">&amp;&amp;</span> user<span class="token punctuation">.</span>authenticate<span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:session</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token symbol">:password</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    reset_session
+    remember user
+    log_in user
+    redirect_to user
+  <span class="token keyword">else</span>
+    flash<span class="token punctuation">.</span>now<span class="token punctuation">[</span><span class="token symbol">:danger</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">'Invalid email/password combination'</span></span>
+    render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> helper
+<span class="token comment"># Remembers a user in a persistent session.</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">remember</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+  user<span class="token punctuation">.</span>remember
+  cookies<span class="token punctuation">.</span>permanent<span class="token punctuation">.</span>encrypted<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span> <span class="token operator">=</span> user<span class="token punctuation">.</span>id
+  cookies<span class="token punctuation">.</span>permanent<span class="token punctuation">[</span><span class="token symbol">:remember_token</span><span class="token punctuation">]</span> <span class="token operator">=</span> user<span class="token punctuation">.</span>remember_token
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>||= means if the variable is already set, then it will not be override</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">if</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span>
+  <span class="token variable">@current_user</span> <span class="token operator">||=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">elsif</span> cookies<span class="token punctuation">.</span>encrypted<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span>
+  user <span class="token operator">=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> cookies<span class="token punctuation">.</span>encrypted<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> user <span class="token operator">&amp;&amp;</span> user<span class="token punctuation">.</span>authenticated<span class="token operator">?</span><span class="token punctuation">(</span>cookies<span class="token punctuation">[</span><span class="token symbol">:remember_token</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    log_in user
+    <span class="token variable">@current_user</span> <span class="token operator">=</span> user
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> eliminate ver
+<span class="token keyword">if</span> <span class="token punctuation">(</span>user_id <span class="token operator">=</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token variable">@current_user</span> <span class="token operator">||=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> user_id<span class="token punctuation">)</span>
+<span class="token keyword">elsif</span> <span class="token punctuation">(</span>user_id <span class="token operator">=</span> cookies<span class="token punctuation">.</span>encrypted<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>if there is user id in session then we find it if we don’t have a current user, else we try to find if there is user in cookies</p>
+<p>this is <em>not</em> a comparison (which would use double-equals <strong><code>==</code></strong>), but rather is an <em>assignment</em></p>
+<h4 id="Remember-me-CheckBox"><a href="#Remember-me-CheckBox" class="headerlink" title="Remember me CheckBox"></a>Remember me CheckBox</h4><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:remember_me</span><span class="token punctuation">,</span> <span class="token symbol">class</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"checkbox inline"</span></span> <span class="token keyword">do</span> <span class="token string-literal"><span class="token string">%>
+        &lt;%= f.check_box :remember_me %></span></span>
+        <span class="token operator">&lt;</span>span<span class="token operator">></span>Remember me on this computer<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
+      <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token operator">%</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>How does rails know if a record is a new one?</p>
+<pre class="line-numbers language-none"><code class="language-none">$ rails console
+&gt;&gt; User.new.new_record?
+&#x3D;&gt; true
+&gt;&gt; User.first.new_record?
+&#x3D;&gt; false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>use new_record?</p>
+<p><strong>patch</strong> is used for making partial updates to existing resources.</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">test <span class="token string-literal"><span class="token string">"should redirect update when logged in as wrong user"</span></span> <span class="token keyword">do</span>
+    log_in_as<span class="token punctuation">(</span><span class="token variable">@other_user</span><span class="token punctuation">)</span>
+    patch user_path<span class="token punctuation">(</span><span class="token variable">@user</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token symbol">params</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">user</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">name</span><span class="token operator">:</span> <span class="token variable">@user</span><span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                                              <span class="token symbol">email</span><span class="token operator">:</span> <span class="token variable">@user</span><span class="token punctuation">.</span>email <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span>
+    assert flash<span class="token punctuation">.</span>empty<span class="token operator">?</span>
+    assert_redirected_to root_url
+  <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">before_action <span class="token symbol">:logged_in_user</span><span class="token punctuation">,</span> <span class="token symbol">only</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token symbol">:edit</span><span class="token punctuation">,</span> <span class="token symbol">:update</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><strong><code>before_action</code></strong>: This is a Rails method that defines a filter to be run before the specified controller actions.</li>
+<li><strong><code>:logged_in_user</code></strong>: This is the name of the method that will be called before the specified actions. In this case, it’s a method checks if a user is logged in.</li>
+<li><strong><code>only: [:edit, :update]</code></strong>: This option specifies that the <code>logged_in_user</code> method should only be executed before the <code>:edit</code> and <code>:update</code> actions in the controller. It restricts the filter’s application to specific actions.</li>
+</ul>
 
           
         
@@ -4024,160 +4351,6 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/06/docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/06/06/docker/" itemprop="url">docker</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-06-06T22:22:11+02:00">
-                2023-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Container image nameing</p>
-<p>hostname/repository:tag</p>
-<p>exp: docker.io/ubuntu:18.04</p>
-<p>A docker container is a runnable instance of an image</p>
-<h2 id="Container-Orchestration-容器编排"><a href="#Container-Orchestration-容器编排" class="headerlink" title="Container Orchestration 容器编排"></a>Container Orchestration 容器编排</h2><p>Define container images and registry</p>
-<p>Improves provisioning and deployment</p>
-<p>Secures network connectivity</p>
-<p>Ensures availability and performance</p>
-<p>…</p>
-<h2 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h2><p>no CI/CD </p>
-<h4 id="kublet-communicate-with-the-API-server"><a href="#kublet-communicate-with-the-API-server" class="headerlink" title="kublet communicate with the API server"></a>kublet communicate with the API server</h4><p>ensure pods and their associated containers are running, reports to the control plane on the pods health and status</p>
-<p><img src="/2023/06/06/docker/github\blog\source\_posts\image-20230618160708657.png" alt="image-20230618160708657"></p>
-<h2 id="K8s-objects"><a href="#K8s-objects" class="headerlink" title="K8s objects"></a>K8s objects</h2><p>persistent entities: Pods, Namespaces, ReplicaSets, Deployments</p>
-<p>Two main files: Object spec(user provide)          Status(provided by k8s)</p>
-<p>Label key/value pairs attached to objects</p>
-<p>Label selectors -</p>
-<p>Namespaces: mechanism for isolating groups of resources within a single cluster</p>
-<p>Pods: simplest unit in Kubernets one/more containers</p>
-<p>ReplicaSet: a set of horizontally scaled running Pods</p>
-<p>Deployment： Higher-level object provides updates for Pods and ReplicatSets</p>
-<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><h4 id="CluserIP"><a href="#CluserIP" class="headerlink" title="CluserIP"></a>CluserIP</h4><p>default/ most common</p>
-<h4 id="NodePort"><a href="#NodePort" class="headerlink" title="NodePort"></a>NodePort</h4><h4 id="External-Name"><a href="#External-Name" class="headerlink" title="External Name"></a>External Name</h4><h4 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h4><h3 id="Kubeclt"><a href="#Kubeclt" class="headerlink" title="Kubeclt"></a>Kubeclt</h3><p>It has below format</p>
-<p>kubectl [command] [type] [name] [flags]</p>
-<p>kubectl run nginx —image nginx</p>
-<p>The configuration file specified must contain</p>
-<h3 id="ReplicatSet"><a href="#ReplicatSet" class="headerlink" title="ReplicatSet:"></a>ReplicatSet:</h3><p>A replicaSet ensures the right number of pods are always up and running</p>
-<p>can be check with <code>kubectl get replicaset</code></p>
-<p>yaml kind:ReplicaSet</p>
-<p><code>kubectl create -f replicaset.yaml</code></p>
-<p><code>kubectl get pods</code></p>
-<p><code>kubectl get rs</code> rs for short replicaset</p>
-<h3 id="Autoscaler"><a href="#Autoscaler" class="headerlink" title="Autoscaler"></a>Autoscaler</h3><p><code>kubectl autoscale deploy ...</code></p>
-<p>Horizontal Pod Autoscaler: Adjust by increasing/decreasing number of pods</p>
-<p>Vertical Pod Autoscaler: Adjust with resource size or speed of the pods</p>
-<p>Cluster Autoscaler: Number of nodes in the cluster when pods fail to schedule</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4232,7 +4405,7 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
