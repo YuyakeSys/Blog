@@ -263,6 +263,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/10/filesAndDotNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/06/10/filesAndDotNet/" itemprop="url">filesAndDotNet</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-06-10T13:40:57+02:00">
+                2023-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre class="line-numbers language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; See https:&#x2F;&#x2F;aka.ms&#x2F;new-console-template for more information
+using System.IO;
+using System.Collections.Generic;
+
+var currentDirectory &#x3D; Directory.GetCurrentDirectory();
+var storesDirectory &#x3D; Path.Combine(currentDirectory, &quot;stores&quot;);
+var salesFiles &#x3D; FindFiles(storesDirectory);
+
+foreach (var file in salesFiles)
+&#123;
+    Console.WriteLine(file);
+&#125;
+
+IEnumerable&lt;string&gt; FindFiles(string folderName)
+&#123;
+    List&lt;string&gt; salesFiles &#x3D; new List&lt;string&gt;();
+
+    var foundFiles &#x3D; Directory.EnumerateFiles(folderName, &quot;*&quot;, SearchOption.AllDirectories);
+
+    foreach (var file in foundFiles)
+    &#123;
+        &#x2F;&#x2F; The file name will contain the full path, so only check the end of it
+        var extension &#x3D; Path.GetExtension(file);
+        if (extension &#x3D;&#x3D; &quot;.json&quot;)
+        &#123;
+            salesFiles.Add(file);
+        &#125;
+    &#125;
+
+    return salesFiles;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Create directories</p>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), &quot;stores&quot;,&quot;201&quot;,&quot;newDir&quot;));<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>is /stores/201 doesn’t exists, will be created automatically</p>
+<p>to check directories exists</p>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">bool doesDirectoryExist &#x3D; Directory.Exists(filePath);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>create files</p>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), &quot;greeting.txt&quot;), &quot;Hello World!&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Read data from files</p>
+<pre class="line-numbers language-C#" data-language="C#"><code class="language-C#">File.ReadAllText($&quot;stores&#123;Path.DirectorySeparatorChar&#125;201&#123;Path.DirectorySeparatorChar&#125;sales.json&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/06/docker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1933,232 +2093,11 @@ f_s(v, l) = \frac{D(h, \alpha)G(v,l,\alpha)F(v,h,f_0))}{4(n \cdot v)(n \cdot l)}
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/WRS3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/04/06/WRS3/" itemprop="url">WRS Lecture 8</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-06T15:44:04+02:00">
-                2023-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Web Recommender System</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>assumption for CF &amp; CB:</p>
-<p>user preference are long-term and dynamic</p>
-<h2 id="session-based-recommendation"><a href="#session-based-recommendation" class="headerlink" title="session-based recommendation"></a>session-based recommendation</h2><ul>
-<li><p>Session: List of interactions with a clear boundary</p>
-</li>
-<li><p>Interaction o = <user,item,action> = <u, i, a></u,></user,item,action></p>
-</li>
-<li><p>Time intervals between sessions do not have to be identical</p>
-</li>
-<li><p>Sessions can be ordered, unordered or weakly ordered</p>
-</li>
-<li>Sessions must be non-empty and temporally uniterrupted</li>
-<li>Sessions can contain duplicate interactions</li>
-</ul>
-<h4 id="Three-main-types-of-recommendations"><a href="#Three-main-types-of-recommendations" class="headerlink" title="Three main types of recommendations"></a>Three main types of recommendations</h4><ul>
-<li>Within-session prediction of the next interaction</li>
-<li>Within-session prediction of the remaining interactions</li>
-<li>Next session prediction</li>
-</ul>
-<h4 id="Frequent-Pattern-Association-Rule-Mining"><a href="#Frequent-Pattern-Association-Rule-Mining" class="headerlink" title="Frequent Pattern / Association Rule Mining:"></a>Frequent Pattern / Association Rule Mining:</h4><ul>
-<li>For single-type-actions only (<strong>actions of only one type in session</strong>)</li>
-<li>Given an incomplete session, predict next interaction</li>
-</ul>
-<p><img src="/2023/04/06/WRS3/github\blog\source\_posts\frequent.png" alt="frequent"></p>
-<p>A session can be reduced to:</p>
-<p><item, action> is user information is not logged</item,></p>
-<p><user, item> if action information always the same</user,></p>
-<p><item> user information is not logged and action information..</item></p>
-<p>Homogeneous sessions have similar types of actions, heterogeneous sessions do not</p>
-<h4 id="Neural-Networks-build-item-representations"><a href="#Neural-Networks-build-item-representations" class="headerlink" title="Neural Networks build item representations"></a>Neural Networks build item representations</h4><ul>
-<li><p>item embedding: dense vector representation that captures all in-session  co-occurrences in the dataset</p>
-</li>
-<li><p>Word2Vec</p>
-</li>
-<li><ul>
-<li>Skip-gram: given a word, predict its most likely context</li>
-<li>CBOW: given a context, predict its most likely missing word</li>
-<li><ul>
-<li>The cat —— over the puddle</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>1-hot encoding</p>
-<p>• 1-hot representation does not capture semantic  relationships between items </p>
-<p>• The inner product of 1-hot vectors is always zero</p>
-<p>• Item similarity within a session: cosine similarity of item embeddings</p>
-<p>Dataset of sessions: </p>
-<p>80% train: {context (including query), correct prediction} </p>
-<p>10% valid: pairs of {query, correct prediction} </p>
-<p>10% test: pairs of {query, correct prediction}</p>
-<h5 id="Common-item-embedding-parameters"><a href="#Common-item-embedding-parameters" class="headerlink" title="Common item embedding parameters"></a>Common item embedding parameters</h5><ol>
-<li><p><strong>Min number of times an item must occur in dataset for it to be embedded</strong> -&gt; Typically 1 to capture rare items </p>
-</li>
-<li><p><strong>Context window</strong>: how far apart items can be, to be placed in same session </p>
-<p>-&gt; Tunable </p>
-<p>-&gt;Choose range and increments according to task &amp; dataset</p>
-<ol>
-<li><strong>Negative sampling exponent</strong></li>
-</ol>
-</li>
-</ol>
-<p>Word2Vec finds items that help predict other in-session items by maximising the average log probability over all possible items -&gt; SoftMax <strong>Problem</strong>: SoftMax scales with vocabulary size (too expensive) </p>
-<p>SoftMax approximation: negative sampling  </p>
-<p>-&gt; Discern between an in-session item and an out-of-session item Negative samples chosen as per frequency distribution of items in the  dataset -&gt; controlled by negative sampling exponent </p>
-<p>1 = negative samples are mainly common items  </p>
-<p>0 = uniform distribution (all items are equally likely to be negative samples) -1 = negative samples are mainly rare items    </p>
-<ol>
-<li><p><strong>Number of negative samples</strong>: how many negative samples are used for  every positive example </p>
-<ul>
-<li><blockquote>
-<p>-&gt; Tunable </p>
-<p>-&gt; Choose range and increments according to task &amp; dataset</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-<p>When user Word2vec in session-based recommendation, we treat items as words and sessions as sentences.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -2208,7 +2147,7 @@ f_s(v, l) = \frac{D(h, \alpha)G(v,l,\alpha)F(v,h,f_0))}{4(n \cdot v)(n \cdot l)}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2219,7 +2158,7 @@ f_s(v, l) = \frac{D(h, \alpha)G(v,l,\alpha)F(v,h,f_0))}{4(n \cdot v)(n \cdot l)}
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

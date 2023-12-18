@@ -263,6 +263,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/16/LeetCodeExamples/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/12/16/LeetCodeExamples/" itemprop="url">LeetCodeExamples</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-12-16T15:59:23+01:00">
+                2023-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-sorted-array/">合并两个有序数组</a></li>
+</ol>
+<p>倒序双指针 避免覆盖</p>
+<p>完全背包问题 动态规划</p>
+<p>背包问题：<br>给定一个背包容量target，再给定一个数组nums(物品)，能否按一定方式选取nums中的元素得到target</p>
+<p>1、背包容量target和物品nums的类型可能是数，也可能是字符串<br>2、target可能题目已经给出(显式)，也可能是需要我们从题目的信息中挖掘出来(非显式)(常见的非显式target比如sum/2等)<br>3、选取方式有常见的一下几种：每个元素选一次/每个元素选多次/选元素进行排列组合<br>那么对应的背包问题就是下面我们要讲的背包分类</p>
+<p>常见的背包类型主要有以下几种：<br>1、0/1背包问题：每个元素最多选取一次<br>2、完全背包问题：每个元素可以重复选择<br>3、组合背包问题：背包中的物品要考虑顺序<br>4、分组背包问题：不止一个背包，需要遍历每个背包</p>
+<p>而每个背包问题要求的也是不同的，按照所求问题分类，又可以分为以下几种：<br>1、最值问题：要求最大值/最小值<br>2、存在问题：是否存在…………，满足…………<br>3、组合问题：求所有满足……的排列组合</p>
+<p><strong>通过不断求解小面额的解，一点点地逼近目标面额的最终解</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> math
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">coinChange</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> coins<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> amount<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token comment"># 创立动归表去跟踪每一个'子问题'的解, 所有元素初始都为infinity</span>
+        dp <span class="token operator">=</span> <span class="token punctuation">[</span>math<span class="token punctuation">.</span>inf <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        
+        <span class="token comment"># 总金额为0时，无法凑出解，所以为0</span>
+        dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+
+        <span class="token triple-quoted-string string">'''
+        遍历每一个子问题依次求解
+        E.g. coins = &#123;1, 2, 5&#125;, amount = 7
+        依次遍历 amount = 1, 2, 3, ..., 7求解
+        对于每一个amount，尝试在之前已求解基础上添加一枚新的硬币 (面额 = 1 or 2 or 5)
+        注意: 可能存在多解，但只选择花费硬币最少的解
+        '''</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> coin <span class="token keyword">in</span> coins<span class="token punctuation">:</span>
+                diff <span class="token operator">=</span> i <span class="token operator">-</span> coin
+                <span class="token keyword">if</span> diff <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>diff<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+        <span class="token triple-quoted-string string">'''
+        如果动归表最后一个元素(目标总金额)的值不为inf, 证明存在解，直接返回该值
+        如果动归表最后一个元素的值仍然是inf, 代表无解, 返回-1
+        '''</span>
+        <span class="token keyword">return</span> dp<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">if</span> dp<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">!=</span> math<span class="token punctuation">.</span>inf <span class="token keyword">else</span> <span class="token operator">-</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们有一个列表 从[0, amount] 个子问题</p>
+<p>从最初的问题开始dp[0] = 0,</p>
+<p>对每个我们依次试每个硬币 从0到amount个问题</p>
+<p>例如 amount = 7 coins = [1,3]</p>
+<pre class="line-numbers language-none"><code class="language-none">dp[1] &#x3D; 1
+dp[2] &#x3D; 2 (1+1)
+diff &#x3D; 2 - 1 &#x3D; 1 我们求min(dp[1] + 1 和 dp[2] &#x3D; inf)
+dp[3] 从 1开始
+diff &#x3D; 3 - 1 &#x3D; 2 求 min(dp[2] + 1 &#x3D; 3 和 dp[3] &#x3D; inf)
+然后是3 
+diff &#x3D; 3 - 3 &#x3D; 0 求 min(dp[0] + 1 和 dp[3] &#x3D; 3)
+dp[3] &#x3D; 1
+由此求得每个小问题的zui&#39;you<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/18/RailsAdvanced/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -317,8 +486,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ruby-on-Rails/" itemprop="url" rel="index">
-                    <span itemprop="name">Ruby on Rails</span>
+                  <a href="/categories/Ruby-on-RailS/" itemprop="url" rel="index">
+                    <span itemprop="name">Ruby on RailS</span>
                   </a>
                 </span>
 
@@ -356,7 +525,9 @@
       
         
           
-            
+            <p>Questions for third room on Monday</p>
+<p>GDPR </p>
+
           
         
       
@@ -1113,7 +1284,6 @@ const [state, disapatch] &#x3D; useReducer(reducer, &#123;count :0&#125;) &#x2F;
 const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>call dispatch to update the state</p>
 <p>we can dispatch a type to dispatch, like</p>
-<p>ruby programming</p>
 
           
         
@@ -4191,171 +4361,11 @@ root<span class="token punctuation">.</span><span class="token function">render<
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/10/filesAndDotNet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/06/10/filesAndDotNet/" itemprop="url">filesAndDotNet</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-06-10T13:40:57+02:00">
-                2023-06-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre class="line-numbers language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F; See https:&#x2F;&#x2F;aka.ms&#x2F;new-console-template for more information
-using System.IO;
-using System.Collections.Generic;
-
-var currentDirectory &#x3D; Directory.GetCurrentDirectory();
-var storesDirectory &#x3D; Path.Combine(currentDirectory, &quot;stores&quot;);
-var salesFiles &#x3D; FindFiles(storesDirectory);
-
-foreach (var file in salesFiles)
-&#123;
-    Console.WriteLine(file);
-&#125;
-
-IEnumerable&lt;string&gt; FindFiles(string folderName)
-&#123;
-    List&lt;string&gt; salesFiles &#x3D; new List&lt;string&gt;();
-
-    var foundFiles &#x3D; Directory.EnumerateFiles(folderName, &quot;*&quot;, SearchOption.AllDirectories);
-
-    foreach (var file in foundFiles)
-    &#123;
-        &#x2F;&#x2F; The file name will contain the full path, so only check the end of it
-        var extension &#x3D; Path.GetExtension(file);
-        if (extension &#x3D;&#x3D; &quot;.json&quot;)
-        &#123;
-            salesFiles.Add(file);
-        &#125;
-    &#125;
-
-    return salesFiles;
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Create directories</p>
-<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), &quot;stores&quot;,&quot;201&quot;,&quot;newDir&quot;));<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>is /stores/201 doesn’t exists, will be created automatically</p>
-<p>to check directories exists</p>
-<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">bool doesDirectoryExist &#x3D; Directory.Exists(filePath);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>create files</p>
-<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), &quot;greeting.txt&quot;), &quot;Hello World!&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Read data from files</p>
-<pre class="line-numbers language-C#" data-language="C#"><code class="language-C#">File.ReadAllText($&quot;stores&#123;Path.DirectorySeparatorChar&#125;201&#123;Path.DirectorySeparatorChar&#125;sales.json&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -4405,7 +4415,7 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -4416,7 +4426,7 @@ IEnumerable&lt;string&gt; FindFiles(string folderName)
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

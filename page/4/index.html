@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Docker Introduction," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,20 +79,15 @@
 
 
 
-<meta name="description" content="Container image nameing hostname&#x2F;repository:tag exp: docker.io&#x2F;ubuntu:18.04 A docker container is a runnable instance of an image Container Orchestration 容器编排Define container images and registry Impro">
-<meta property="og:type" content="article">
-<meta property="og:title" content="docker">
-<meta property="og:url" content="http://example.com/2023/06/06/docker/index.html">
+<meta name="description" content="A blog to save my notes">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Melo&#39;s blog">
+<meta property="og:url" content="http://example.com/page/4/index.html">
 <meta property="og:site_name" content="Melo&#39;s blog">
-<meta property="og:description" content="Container image nameing hostname&#x2F;repository:tag exp: docker.io&#x2F;ubuntu:18.04 A docker container is a runnable instance of an image Container Orchestration 容器编排Define container images and registry Impro">
+<meta property="og:description" content="A blog to save my notes">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/06/06/docker/github/blog/source/_posts/image-20230618160708657.png">
-<meta property="article:published_time" content="2023-06-06T20:22:11.000Z">
-<meta property="article:modified_time" content="2023-06-19T07:26:55.233Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Docker Introduction">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/06/06/docker/github/blog/source/_posts/image-20230618160708657.png">
 
 
 
@@ -122,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2023/06/06/docker/"/>
+  <link rel="canonical" href="http://example.com/page/4/"/>
 
 
 
 
 
-  <title>docker | Melo's blog</title>
+  <title>Melo's blog</title>
   
 
 
@@ -149,7 +144,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -252,9 +248,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -267,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/06/docker/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/31/MeloBlog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Meng Zhouyang">
@@ -284,7 +280,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">docker</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/12/31/MeloBlog/" itemprop="url">MeloBlog</a></h1>
         
 
         <div class="post-meta">
@@ -296,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-06-06T22:22:11+02:00">
-                2023-06-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-12-31T00:46:08+01:00">
+                2022-12-31
               </time>
             
 
@@ -334,42 +332,11 @@
       
 
       
-        <p>Container image nameing</p>
-<p>hostname/repository:tag</p>
-<p>exp: docker.io/ubuntu:18.04</p>
-<p>A docker container is a runnable instance of an image</p>
-<h2 id="Container-Orchestration-容器编排"><a href="#Container-Orchestration-容器编排" class="headerlink" title="Container Orchestration 容器编排"></a>Container Orchestration 容器编排</h2><p>Define container images and registry</p>
-<p>Improves provisioning and deployment</p>
-<p>Secures network connectivity</p>
-<p>Ensures availability and performance</p>
-<p>…</p>
-<h2 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h2><p>no CI/CD </p>
-<h4 id="kublet-communicate-with-the-API-server"><a href="#kublet-communicate-with-the-API-server" class="headerlink" title="kublet communicate with the API server"></a>kublet communicate with the API server</h4><p>ensure pods and their associated containers are running, reports to the control plane on the pods health and status</p>
-<p><img src="/2023/06/06/docker/github\blog\source\_posts\image-20230618160708657.png" alt="image-20230618160708657"></p>
-<h2 id="K8s-objects"><a href="#K8s-objects" class="headerlink" title="K8s objects"></a>K8s objects</h2><p>persistent entities: Pods, Namespaces, ReplicaSets, Deployments</p>
-<p>Two main files: Object spec(user provide)          Status(provided by k8s)</p>
-<p>Label key/value pairs attached to objects</p>
-<p>Label selectors -</p>
-<p>Namespaces: mechanism for isolating groups of resources within a single cluster</p>
-<p>Pods: simplest unit in Kubernets one/more containers</p>
-<p>ReplicaSet: a set of horizontally scaled running Pods</p>
-<p>Deployment： Higher-level object provides updates for Pods and ReplicatSets</p>
-<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><h4 id="CluserIP"><a href="#CluserIP" class="headerlink" title="CluserIP"></a>CluserIP</h4><p>default/ most common</p>
-<h4 id="NodePort"><a href="#NodePort" class="headerlink" title="NodePort"></a>NodePort</h4><h4 id="External-Name"><a href="#External-Name" class="headerlink" title="External Name"></a>External Name</h4><h4 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h4><h3 id="Kubeclt"><a href="#Kubeclt" class="headerlink" title="Kubeclt"></a>Kubeclt</h3><p>It has below format</p>
-<p>kubectl [command] [type] [name] [flags]</p>
-<p>kubectl run nginx —image nginx</p>
-<p>The configuration file specified must contain</p>
-<h3 id="ReplicatSet"><a href="#ReplicatSet" class="headerlink" title="ReplicatSet:"></a>ReplicatSet:</h3><p>A replicaSet ensures the right number of pods are always up and running</p>
-<p>can be check with <code>kubectl get replicaset</code></p>
-<p>yaml kind:ReplicaSet</p>
-<p><code>kubectl create -f replicaset.yaml</code></p>
-<p><code>kubectl get pods</code></p>
-<p><code>kubectl get rs</code> rs for short replicaset</p>
-<h3 id="Autoscaler"><a href="#Autoscaler" class="headerlink" title="Autoscaler"></a>Autoscaler</h3><p><code>kubectl autoscale deploy ...</code></p>
-<p>Horizontal Pod Autoscaler: Adjust by increasing/decreasing number of pods</p>
-<p>Vertical Pod Autoscaler: Adjust with resource size or speed of the pods</p>
-<p>Cluster Autoscaler: Number of nodes in the cluster when pods fail to schedule</p>
-
+        
+          
+            
+          
+        
       
     </div>
     
@@ -384,40 +351,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Docker-Introduction/" rel="tag"># Docker Introduction</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2023/06/06/rayTracing/" rel="next" title="rayTracing">
-                <i class="fa fa-chevron-left"></i> rayTracing
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2023/06/10/filesAndDotNet/" rel="prev" title="filesAndDotNet">
-                filesAndDotNet <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -427,11 +368,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
 
 
           </div>
@@ -439,10 +383,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -463,17 +403,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -547,22 +478,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Container-Orchestration-%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92"><span class="nav-number">1.</span> <span class="nav-text">Container Orchestration 容器编排</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes"><span class="nav-number">2.</span> <span class="nav-text">Kubernetes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kublet-communicate-with-the-API-server"><span class="nav-number">2.0.1.</span> <span class="nav-text">kublet communicate with the API server</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K8s-objects"><span class="nav-number">3.</span> <span class="nav-text">K8s objects</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Service"><span class="nav-number">3.1.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CluserIP"><span class="nav-number">3.1.1.</span> <span class="nav-text">CluserIP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NodePort"><span class="nav-number">3.1.2.</span> <span class="nav-text">NodePort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#External-Name"><span class="nav-number">3.1.3.</span> <span class="nav-text">External Name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ingress"><span class="nav-number">3.1.4.</span> <span class="nav-text">Ingress</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubeclt"><span class="nav-number">3.2.</span> <span class="nav-text">Kubeclt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReplicatSet"><span class="nav-number">3.3.</span> <span class="nav-text">ReplicatSet:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Autoscaler"><span class="nav-number">3.4.</span> <span class="nav-text">Autoscaler</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -699,10 +614,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
