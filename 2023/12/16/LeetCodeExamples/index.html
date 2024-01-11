@@ -86,10 +86,12 @@
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="合并两个有序数组  倒序双指针 避免覆盖 完全背包问题 动态规划 背包问题：给定一个背包容量target，再给定一个数组nums(物品)，能否按一定方式选取nums中的元素得到target 1、背包容量target和物品nums的类型可能是数，也可能是字符串2、target可能题目已经给出(显式)，也可能是需要我们从题目的信息中挖掘出来(非显式)(常见的非显式target比如sum&#x2F;2等)3、选">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/12/16/LeetCodeExamples/github/blog/source/_posts/image-20240101141407191.png">
 <meta property="article:published_time" content="2023-12-16T14:59:23.000Z">
-<meta property="article:modified_time" content="2023-12-17T16:28:32.257Z">
+<meta property="article:modified_time" content="2024-01-08T22:03:15.531Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/12/16/LeetCodeExamples/github/blog/source/_posts/image-20240101141407191.png">
 
 
 
@@ -381,6 +383,180 @@ diff &#x3D; 3 - 1 &#x3D; 2 求 min(dp[2] + 1 &#x3D; 3 和 dp[3] &#x3D; inf)
 diff &#x3D; 3 - 3 &#x3D; 0 求 min(dp[0] + 1 和 dp[3] &#x3D; 3)
 dp[3] &#x3D; 1
 由此求得每个小问题的zui&#39;you<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>打家劫舍 动态规划</li>
+</ol>
+<p>固定数组nums 不能偷相邻的房子</p>
+<p>如何偷k间房子 f(k) = f(k-1) / f(k-2) + 最后一间</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">rob</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        length <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        dp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+        dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+        dp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            dp<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span>k<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> dp<span class="token punctuation">[</span>length<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>LRU 缓存 </li>
+</ol>
+<p>双链表实现</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> value<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>key <span class="token operator">=</span> key
+        self<span class="token punctuation">.</span>value <span class="token operator">=</span> value
+        self<span class="token punctuation">.</span>prev <span class="token operator">=</span> <span class="token boolean">None</span>
+        self<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+<span class="token keyword">class</span> <span class="token class-name">LRUCache</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> capacity<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>capacity <span class="token operator">=</span> capacity
+        self<span class="token punctuation">.</span>hashmap <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+        self<span class="token punctuation">.</span>head <span class="token operator">=</span> ListNode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>tail <span class="token operator">=</span> ListNode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment"># 初始化链表为 head &lt;-> tail</span>
+        self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>tail
+        self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> self<span class="token punctuation">.</span>head
+
+    <span class="token keyword">def</span> <span class="token function">move_to_tail</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        node <span class="token operator">=</span> self<span class="token punctuation">.</span>hashmap<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+        node<span class="token punctuation">.</span>prev<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> node<span class="token punctuation">.</span><span class="token builtin">next</span>
+        node<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">.</span>prev <span class="token operator">=</span> node<span class="token punctuation">.</span>prev
+
+        node<span class="token punctuation">.</span>prev <span class="token operator">=</span> self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev
+        node<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>tail
+        self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> node
+        self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> node
+
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> key <span class="token keyword">in</span> self<span class="token punctuation">.</span>hashmap<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>move_to_tail<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        result <span class="token operator">=</span> self<span class="token punctuation">.</span>hashmap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> result <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> result
+        <span class="token keyword">else</span><span class="token punctuation">:</span> 
+            <span class="token keyword">return</span> result<span class="token punctuation">.</span>value
+
+
+    <span class="token keyword">def</span> <span class="token function">put</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> value<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> key <span class="token keyword">in</span> self<span class="token punctuation">.</span>hashmap<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>hashmap<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value
+            self<span class="token punctuation">.</span>move_to_tail<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>hashmap<span class="token punctuation">)</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>capacity<span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>hashmap<span class="token punctuation">.</span>pop<span class="token punctuation">(</span>self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">.</span>key<span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">.</span><span class="token builtin">next</span>
+                self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">.</span>prev <span class="token operator">=</span> self<span class="token punctuation">.</span>head
+            new <span class="token operator">=</span> ListNode<span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>hashmap<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> new
+            new<span class="token punctuation">.</span>prev <span class="token operator">=</span> self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev
+            new<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>tail
+            self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> new
+            self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> new
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>删除有序数组中的重复项</li>
+</ol>
+<p>反转双指针</p>
+<pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        # 方二：双指针（反转）
+        # 在一个序列中同向变动 + 改动原列表中的每个元素顺序（反转）
+        left, right &#x3D; 0,1
+        k&#x3D;1
+        while right &lt; len(nums):
+            if nums[left] &#x3D;&#x3D;nums[right]:
+                right +&#x3D; 1
+            else:
+                nums[left+1],nums[right] &#x3D; nums[right],nums[left+1]
+                left +&#x3D; 1
+                right +&#x3D; 1
+                k +&#x3D; 1
+        return k<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>中位数</li>
+</ol>
+<p>堆栈  小顶堆和大顶堆</p>
+<p>小顶堆 A 保存较大的一半 长度为 $N/2$  N 为偶数  或者 $\frac{N+1}{2}$  N 为奇数</p>
+<p>addNum()</p>
+<p>m 和 n 为 A B 中元素的个数</p>
+<ol>
+<li>m = n 向 A 添加一个元素: 将 num 插入 B， 将B 堆顶元素插入A</li>
+<li>m $\neq$ n： 向B添加一个元素 将新元素 num插入A 再将A堆顶元素插入B</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> heapq <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MedianFinder</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>A <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment"># 小顶堆，保存较大的一半</span>
+        self<span class="token punctuation">.</span>B <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment"># 大顶堆，保存较小的一半</span>
+
+    <span class="token keyword">def</span> <span class="token function">addNum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> num<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            heappush<span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">,</span> num<span class="token punctuation">)</span>
+            heappush<span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">,</span> <span class="token operator">-</span>heappop<span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            heappush<span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">,</span> <span class="token operator">-</span>num<span class="token punctuation">)</span>
+            heappush<span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">,</span> <span class="token operator">-</span>heappop<span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">findMedian</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">float</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>A<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">-</span> self<span class="token punctuation">.</span>B<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>heapq</code> 模块默认实现的是小顶堆，为了方便地使用大顶堆，可以通过在元素前取负值的方式来达到目的。</p>
+<p>在小顶堆中，堆顶元素是最小的元素，而在大顶堆中，堆顶元素是最大的元素。通过取反操作，可以将原本最小的元素变为最大的元素，从而实现在 <code>heapq</code> 中模拟大顶堆的效果。</p>
+<p>所以，这种技巧是为了绕过 <code>heapq</code> 模块默认是小顶堆的限制，以方便在算法中使用大顶堆。</p>
+<ol>
+<li>单词拆分</li>
+</ol>
+<p>给你一个字符串 <code>s</code> 和一个字符串列表 <code>wordDict</code> 作为字典。请你判断是否可以利用字典中出现的单词拼接出 <code>s</code> 。</p>
+<p>动态规划：</p>
+<p><img src="/2023/12/16/LeetCodeExamples/github\blog\source\_posts\image-20240101141407191.png" alt="image-20240101141407191"></p>
+<pre class="line-numbers language-none"><code class="language-none">1.初始化 长度为len(s) + 1 的列表 s长度为0时返回ture
+dp[i] 表示前i位是否可以用单词表示
+2. 遍历所有字串 开始索引i从[0，n)：遍历
+	结束索引为j 从[i +1, n+1):
+	如果dp[i] &#x3D; True 且 s[i, ...j)在wordlist中：dp[j] &#x3D; True.
+	(dp[i] &#x3D; True说明s的前i位可以用wordDictbiao&#39;s)
+	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>摩尔投票</li>
+</ol>
+<p>求大多数 假定一个数为结果几位+1， 其他数字记为-1 如果总和大于0 则这个数超过一半</p>
+<ol>
+<li>数组轮转</li>
+</ol>
+<p>方法1： 辅助空间 </p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">rotate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> k<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        Do not return anything, modify nums in-place instead.
+        """</span>
+        n <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        k <span class="token operator">%=</span> n 
+        tmp <span class="token operator">=</span> nums<span class="token punctuation">[</span>n<span class="token operator">-</span>k<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token operator">-</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            nums<span class="token punctuation">[</span>i <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> tmp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方法2： 双指针+翻转数组</p>
+<p>先整体翻转</p>
+<p>再反转[0, k-1] 和 [n-k, n-1]</p>
+<p>方法3: 裴蜀定理优化</p>
+<ul>
+<li>核心思路： 每处理一个位置就跳转到k个位置之后的新位置</li>
+<li>用pre变量保存上一个覆盖位置的值</li>
+</ul>
+<ol>
+<li>H index</li>
+</ol>
+<p>二分法缩小遍历范围</p>
+<p>计数<br>根据分析，利用最大的 h 不超过 nnn，我们可以再进一步，利用空间换时间，将复杂度降低到 O(n)O(n)O(n)。</p>
+<p>假设我们预处理出引用次数所对应的论文数量 cnt，其中 cnt[a] = b 含义为引用次数 恰好 为 a 的论文数量有 b 篇。</p>
+<p>那么再利用 h 是“最大”的满足定义的合法数，我们从 nnn 开始往前找，找到的第一个满足条件的数，即是答案。</p>
+<p>具体的，创建 cnt 数组，对 cs 进行计数，由于最大 h 不超过 nnn，因此对于引用次数超过 nnn 的论文，可等价为引用次数为 nnn，即有计数逻辑 cnt[min(c, n)]++。</p>
+<p>再根据处理好的 cnt，从 nnn 开始倒序找 h。</p>
+<p>由于我们处理的 cnt[a] 含义为引用次数 恰好 为 a，但题目定义则是 至少。同时「至少出现 k+1k + 1k+1 次」的集合必然慢「至少出现 kkk 次」要求（子集关系），我们可以使用变量 tot，对处理过的 cnt[i] 进行累加，从而实现从 恰好 到 至少 的转换。</p>
 
       
     </div>
@@ -414,6 +590,10 @@ dp[3] &#x3D; 1
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/01/11/php-crash/" rel="prev" title="php_crash">
+                php_crash <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -485,7 +665,7 @@ dp[3] &#x3D; 1
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -554,7 +734,7 @@ dp[3] &#x3D; 1
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

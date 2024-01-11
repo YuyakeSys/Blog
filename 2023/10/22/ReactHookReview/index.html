@@ -81,14 +81,14 @@
 
 <meta name="description" content="This blog aims to review the react Hooks or some other tricks for preparation with full-stack intern. 1. useState Used inside function component not class Every time runs, execute in the same order  c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ReactHookReview">
+<meta property="og:title" content="React Review">
 <meta property="og:url" content="http://example.com/2023/10/22/ReactHookReview/index.html">
 <meta property="og:site_name" content="Melo&#39;s blog">
 <meta property="og:description" content="This blog aims to review the react Hooks or some other tricks for preparation with full-stack intern. 1. useState Used inside function component not class Every time runs, execute in the same order  c">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/Kumc8N5.png">
 <meta property="article:published_time" content="2023-10-22T15:15:58.000Z">
-<meta property="article:modified_time" content="2023-12-05T14:16:32.922Z">
+<meta property="article:modified_time" content="2024-01-09T13:03:17.413Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/Kumc8N5.png">
@@ -127,7 +127,7 @@
 
 
 
-  <title>ReactHookReview | Melo's blog</title>
+  <title>React Review | Melo's blog</title>
   
 
 
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ReactHookReview</h1>
+          <h1 class="post-title" itemprop="name headline">React Review</h1>
         
 
         <div class="post-meta">
@@ -498,16 +498,138 @@ export function useThemeUpdate() &#123;
 	return useContext(ThemeUpdateContext)
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="UseReducer"><a href="#UseReducer" class="headerlink" title="UseReducer"></a>UseReducer</h3><p>start with two params</p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">type Actions &#x3D; 
+    | &#123;type: &quot;add&quot;; payload: string&#125;
+	| &#123;type： &quot;remove&quot;; payload: numb&#125;
+
 function reducer(state, action) &#123;
     
 &#125;
 
 
 const [state, disapatch] &#x3D; useReducer(reducer, &#123;count :0&#125;) &#x2F;&#x2F; object
-const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>call dispatch to update the state</p>
 <p>we can dispatch a type to dispatch, like</p>
+<h4 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h4><p>npm install axios</p>
+<pre class="line-numbers language-react" data-language="react"><code class="language-react">const api &#x3D; axios.create (&#123;
+	baseURL: &#39;url example&#39;,
+    headers: &#123;
+        &#39;X-auth-key&#39;: &quot;&quot;
+    &#125;
+&#125;)
+
+class App extends Component &#123;
+    state &#x3D; &#123;
+        courses:[]
+    &#125;
+    
+	constructor() &#123;
+		super();
+        this.getcourses();
+	&#125;
+    
+    getCourses &#x3D; async () &#x3D;&gt; &#123;
+        let data &#x3D; await api.get(&#39;&#x2F;&#39;, &#123;
+            params: &#123;
+                _limit: 3
+                _start: 0
+            &#125;
+        &#125;).then((&#123;data&#125;) &#x3D;&gt; data);
+		&#125;)
+        this.setState(&#123; courses: data&#125;)
+    &#125;
+    
+    getCourses2 &#x3D; async () &#x3D;&gt; &#123;
+        try &#123;
+        	let data &#x3D; await axios(&#123;
+                method: &#39;get&#39;,
+                url: &#39;xxxxxxx&#39;
+            &#125;);
+			&#125;).then((&#123;data&#125;) &#x3D;&gt; data)
+            this.setState(&#123; courses: data&#125;)
+    	&#125;
+    &#125;
+    
+    
+    createCourse &#x3D; async() &#x3D; &gt; &#123;
+        let res &#x3D; await api.post(&#39;&#x2F;&#39;, &#123; title: &quot;a&quot;, id：4； author : &#39;test&#39;&#125;)
+    &#125;
+    
+    deleteCourse &#x3D; async (id) &#x3D;&gt; &#123;
+        let data &#x3D; awai api.delete(&#96;&#x2F;$&#123;id&#125;&#96;)
+        this.getCourses();
+    &#125;
+    
+    updateCourse &#x3D; async (id, val) &#x3D;&gt; &#123;
+        let data &#x3D; await api.patch(&#96;&#x2F;$&#123;id&#125;&#96;, &#123;title: val&#125;)
+        this.getCourses();
+    &#125;
+    render() &#123;
+        return (
+        	&lt;div&gt;
+            	&#123;this.state.courses.map(course &#x3D;&gt;
+                      &lt;h2 key&#x3D;&#123;course.id&#125;&gt;&#123;course.title&#125;&lt;&#x2F;h2&gt;
+                                       )&#125;
+            &lt;&#x2F;div&gt;
+        )
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h4><pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">let</span> name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> role<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token builtin">number</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">// object</span>
+<span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token comment">// ? for optional</span>
+    age<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span> 
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">let</span> lotsOfPeople<span class="token operator">:</span> Person<span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+<span class="token comment">// union</span>
+<span class="token keyword">let</span> age：<span class="token builtin">number</span> <span class="token operator">|</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">printName</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// => for return type</span>
+<span class="token class-name"><span class="token keyword">let</span></span> <span class="token function-variable function">function</span><span class="token operator">:</span> <span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token builtin">never</span><span class="token punctuation">;</span>
+
+<span class="token comment">// alias: type and interface</span>
+
+<span class="token keyword">type</span> <span class="token class-name"><span class="token constant">X</span></span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    a<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    b<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">type</span> <span class="token class-name"><span class="token constant">Y</span></span> <span class="token operator">=</span> <span class="token constant">X</span> <span class="token operator">&amp;</span> <span class="token punctuation">&#123;</span>
+    c<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">let</span> y<span class="token operator">:</span> <span class="token constant">Y</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    c<span class="token operator">:</span> <span class="token string">"aaa00"</span><span class="token punctuation">;</span>
+    d<span class="token operator">:</span> <span class="token number">42</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//interface Person &#123;</span>
+<span class="token comment">//    name: string;</span>
+<span class="token comment">//    age?: number;</span>
+<span class="token comment">//&#125;</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Guy</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
+    profession<span class="token operator">:</span> <span class="token builtin">string</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">name</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span><span class="token punctuation">&#123;</span>
+    profession<span class="token operator">:</span> <span class="token builtin">string</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">interface</span> <span class="token class-name">Person</span> <span class="token keyword">extends</span> <span class="token class-name"><span class="token constant">X</span></span><span class="token punctuation">&#123;</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    age<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
       
     </div>
@@ -625,7 +747,7 @@ const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-n
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -690,7 +812,7 @@ const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-n
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-useState"><span class="nav-number">1.</span> <span class="nav-text">1. useState</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useEffect"><span class="nav-number">2.</span> <span class="nav-text">useEffect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-useMemo"><span class="nav-number">3.</span> <span class="nav-text">3. useMemo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-useRef"><span class="nav-number">4.</span> <span class="nav-text">4. useRef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useContext"><span class="nav-number">5.</span> <span class="nav-text">useContext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UseReducer"><span class="nav-number">6.</span> <span class="nav-text">UseReducer</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-useState"><span class="nav-number">1.</span> <span class="nav-text">1. useState</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useEffect"><span class="nav-number">2.</span> <span class="nav-text">useEffect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-useMemo"><span class="nav-number">3.</span> <span class="nav-text">3. useMemo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-useRef"><span class="nav-number">4.</span> <span class="nav-text">4. useRef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useContext"><span class="nav-number">5.</span> <span class="nav-text">useContext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UseReducer"><span class="nav-number">6.</span> <span class="nav-text">UseReducer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Axios"><span class="nav-number">6.1.</span> <span class="nav-text">Axios</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TypeScript"><span class="nav-number">6.2.</span> <span class="nav-text">TypeScript</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -710,7 +832,7 @@ const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-n
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
