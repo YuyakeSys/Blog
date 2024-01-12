@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="A blog to save my notes">
+<meta name="description" content="PHP Crash Course!This post aimed at understanding some basic php programming for laravel backend development. Define variableprint usually uses echo  while print function can only deal with one parame">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php_crash">
 <meta property="og:url" content="http://example.com/2024/01/11/php-crash/index.html">
 <meta property="og:site_name" content="Melo&#39;s blog">
-<meta property="og:description" content="A blog to save my notes">
+<meta property="og:description" content="PHP Crash Course!This post aimed at understanding some basic php programming for laravel backend development. Define variableprint usually uses echo  while print function can only deal with one parame">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/iRt2TZd.png">
 <meta property="article:published_time" content="2024-01-11T14:00:08.000Z">
-<meta property="article:modified_time" content="2024-01-11T14:00:08.288Z">
+<meta property="article:modified_time" content="2024-01-11T23:39:20.479Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/iRt2TZd.png">
 
 
 
@@ -331,7 +333,179 @@
       
 
       
+        <h1 id="PHP-Crash-Course"><a href="#PHP-Crash-Course" class="headerlink" title="PHP Crash Course!"></a>PHP Crash Course!</h1><p>This post aimed at understanding some basic php programming for laravel backend development.</p>
+<h4 id="Define-variable"><a href="#Define-variable" class="headerlink" title="Define variable"></a>Define variable</h4><p>print usually uses <code>echo</code>  while print function can only deal with one parameter</p>
+<p>print single values and arrays  <code>print_r</code></p>
+<p>return more info : data type and length <code>var_dump</code></p>
+<p>Similar to <code>var_dump()</code> outputs a string representation of a variable <code>var_export()</code></p>
+<h5 id="Define-variable-1"><a href="#Define-variable-1" class="headerlink" title="Define variable"></a>Define variable</h5><p>using <code>$</code></p>
+<ul>
+<li>define constant: using <code>define</code></li>
+</ul>
+<h5 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h5><p>$fruits = array(‘apple’, orange, ‘pear’)</p>
+<p>$colors = [</p>
+<p>​    1 =&gt; ‘red’,</p>
+<p>​    4 =&gt; ‘blue’</p>
+<p>]</p>
+<p><strong>Json Encode function</strong> <code>json_encode($colors)</code></p>
+<p>operator === : same value and same type</p>
+<p><code>empty()</code></p>
+<h5 id="Loop-similar"><a href="#Loop-similar" class="headerlink" title="Loop similar:"></a>Loop similar:</h5><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token variable">$x</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$x</span> <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">:</span> <span class="token variable">$x</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">echo</span> <span class="token variable">$x</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">do</span> <span class="token punctuation">&#123;</span>
+    
+<span class="token punctuation">&#125;</span><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$posts</span> <span class="token keyword">as</span> <span class="token variable">$post</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">echo</span> <span class="token variable">$post</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h3><p>using <code>function</code> keyword</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">function sum($n1, $n2) &#123;
+	return $n1 + $n2
+&#125;
+
+// Array function
+count($array1);
+
+in_array('apple', $fruits);
+// add to array
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+    <span class="token variable">$fruits</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string single-quoted-string">'apple'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'orange'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+	<span class="token variable">$fruits</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'grape'</span>
+    <span class="token function">array_push</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'blueberry'</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"strawberry"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// add to the end</span>
+	<span class="token function">array_unshift</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'mango'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// add to the top/beginning</span>
+<span class="token comment">// remove</span>
+	<span class="token function">array_pop</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">array_shift</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">unset</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Split into 2 chunks</span>
+	<span class="token variable">$chunked_array</span> <span class="token operator">=</span> <span class="token function">array_chunk</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// merge array</span>
+	<span class="token function">array_merge</span><span class="token punctuation">(</span><span class="token variable">$arr1</span><span class="token punctuation">,</span> <span class="token variable">$arr2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//array combine: one array as keys, one array as value</span>
+	<span class="token function">array_combine</span><span class="token punctuation">(</span><span class="token variable">$a1</span><span class="token punctuation">,</span> <span class="token variable">$a2</span><span class="token punctuation">)</span>
+
+     <span class="token comment">// flipp</span>
+       	<span class="token function">array_flip</span><span class="token punctuation">(</span><span class="token variable">$c</span><span class="token punctuation">)</span>
         
+        <span class="token comment">//</span>
+        <span class="token variable">$numbers</span> <span class="token operator">=</span> <span class="token function">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span>
+        <span class="token comment">//</span>
+        <span class="token variable">$nwe</span> numbers <span class="token operator">=</span> <span class="token function">array_map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token variable">$number</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token string double-quoted-string">"Number $&#123;numver&#125;"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token variable">$numbers</span><span class="token punctuation">)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="String-functions"><a href="#String-functions" class="headerlink" title="String functions"></a>String functions</h4><p>skipped </p>
+<h2 id="SuperGlobals"><a href="#SuperGlobals" class="headerlink" title="SuperGlobals"></a>SuperGlobals</h2><p>build in variables always available</p>
+<p><img src="https://i.imgur.com/iRt2TZd.png" alt="image-20240111172019674"></p>
+<h4 id="Get-and-Post"><a href="#Get-and-Post" class="headerlink" title="Get and Post"></a>Get and Post</h4><p>Example:</p>
+<pre class="line-numbers language-php+HTML" data-language="php+HTML"><code class="language-php+HTML">&lt;?php
+if(isset($_POST[&#39;submit&#39;])) &#123;
+	echo $_POST[&#39;name&#39;];
+	echo $_POST[&#39;age&#39;];
+&#125;
+?&gt;
+
+&lt;a href&#x3D;&quot;&lt;?php echo $_SERVER[&#39;PHP_SELF&#39;]; ?&gt;?name&#x3D;John&amp;age&#x3D;30&quot;&gt;Click&lt;&#x2F;a&gt; 
+
+&lt;form action&#x3D;&quot;&lt;? echo $_SERVER[&#39;PHP_SELF&#39;]; ?&gt;&quot;method&#x3D;&quot;POST&quot;&gt;
+	&lt;div&gt;
+		&lt;label for&#x3D;&quot;name&quot;&gt; Name: &lt;&#x2F;label&gt;
+		&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;name&quot;&gt;
+	&lt;&#x2F;div&gt;
+&lt;&#x2F;form&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>filter input / sanitize input</p>
+<p><code>$name = filter_input(INPUT_POST, &#39;name&#39;, FILTER_SANITIZE_SPECIAL_CHARS);</code></p>
+<h2 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h2><p>Set Cookies<br><code>setcookie(&#39;name, &#39;brad&#39;, time() + 1000)</code></p>
+<p>time: how long the cookies expire</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>sessions are stored in the server</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$username</span> <span class="token operator">==</span> <span class="token string single-quoted-string">'john'</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$password</span> <span class="token operator">==</span> <span class="token string single-quoted-string">'password'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'username'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$username</span><span class="token punctuation">;</span>
+	<span class="token function">header</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Location: /php/extras/example.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">echo</span> <span class="token string double-quoted-string">"error login"</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>session start</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?</span> php
+    <span class="token function">session_start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">echo</span> <span class="token string single-quoted-string">'&lt;h1> Welcome '</span> <span class="token operator">.</span> <span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'username'</span><span class="token punctuation">]</span><span class="token operator">.</span> <span class="token string single-quoted-string">'&lt;/h1>'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">echo</span> <span class="token string single-quoted-string">'&lt;h1>Welcome Guest &lt;/h1>'</span>
+        <span class="token keyword">echo</span> <span class="token string single-quoted-string">'&lt;a href="/sud/home.php">Home&lt;/a>'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>To log out : <code>session_destroy()</code></p>
+<h2 id="File-handling"><a href="#File-handling" class="headerlink" title="File handling"></a>File handling</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$file</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'extras/user.txt'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">file_exits</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">//echo readfile($file);</span>
+	<span class="token variable">$handle</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'r'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$contents</span> <span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">,</span> <span class="token function">filesize</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token variable">$contents</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token variable">$handle</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'w'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$contents</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'Brad'</span> <span class="token operator">.</span> <span class="token constant">PHP_EOL</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'Sara'</span><span class="token punctuation">;</span>
+    <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">,</span> <span class="token variable">$contents</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="File-upload"><a href="#File-upload" class="headerlink" title="File upload"></a>File upload</h2><pre class="line-numbers language-php+HTML" data-language="php+HTML"><code class="language-php+HTML">&lt;? php
+    if(isset($_POST[&#39;submit&#39;])) &#123;
+        $allowed_ext &#x3D; array(&#39;png&#39;, &#39;jpg&#39;)
+        if(!empty($_FILES[&#39;upload&#39;][&#39;name&#39;])) &#123;
+ 			$file_name &#x3D; $_FILES[&#39;upload&#39;][&#39;name&#39;];           	  $target_dir &#x3D; &quot;uploads&#x2F;$&#123;file_name&#125;&quot;
+            
+            &#x2F;&#x2F;get file ext
+            $file_ext &#x3D; explode(&#39;.&#39;, $file_name);
+            $file_ext &#x3D; strtolower(end($file_ext));
+            &#x2F;&#x2F;.... skip validate staff
+            
+            &#x2F;&#x2F;upload
+            move_uploaded_file($file_tmp, $target_dir)
+        &#125; else &#123;
+            $message &#x3D; &#39;&lt;p&gt; Please choose a file &lt;&#x2F;p&gt; &#39;
+        &#125;
+    &#125;
+   ?&gt;
+
+&lt;? php echo $message ?? null; ?&gt;
+&lt;form action&#x3D;&quot;&lt;? php echo $_SERVER[&#39;PHP_SELF&#39;]; ?&gt;&quot;
+      method&#x3D;&quot;POST&quot; enctype&quot;multipart&#x2F;form-data&quot;&gt;
+    Select image to upload:
+    &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;upload&quot;&gt;
+    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;Submit&quot; name&#x3D;&quot;submit&quot;&gt;
+&lt;&#x2F;form&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h4><p>try catch sentence</p>
+<h2 id="OOP-amp-Class"><a href="#OOP-amp-Class" class="headerlink" title="OOP &amp; Class"></a>OOP &amp; Class</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">class</span> <span class="token class-name-definition class-name">User</span> <span class="token punctuation">&#123;</span>
+	<span class="token operator">...</span>
+	<span class="token comment">// run when an object is created</span>
+	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token variable">$this</span><span class="token operator">-></span><span class="token property">name</span> <span class="token operator">=</span> <span class="token variable">$name</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">function</span> <span class="token function-definition function">set_name</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token variable">$this</span><span class="token operator">-></span><span class="token property">name</span> <span class="token operator">=</span> <span class="token variable">$name</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// protected - can only be accessed from inside the class and by inheriting classeses</span>
+
+<span class="token variable">$user1</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$user1</span><span class="token operator">-></span><span class="token property">name</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"Brad"</span><span class="token punctuation">;</span>
+<span class="token variable">$user1</span><span class="token operator">-></span><span class="token function">set_name</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"GGBOND"</span><span class="token punctuation">)</span>
+
+<span class="token comment">// Inheritence similar to super</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Employee</span> <span class="token keyword">extends</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__constrict</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$email</span><span class="token punctuation">,</span> <span class="token variable">$password</span><span class="token punctuation">,</span> <span class="token variable">$title</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword static-context">parent</span><span class="token operator">::</span><span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$email</span><span class="token punctuation">,</span> password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        this<span class="token operator">-></span><span class="token property">title</span> <span class="token operator">=</span> <span class="token variable">$title</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
       
     </div>
     
@@ -415,8 +589,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -490,6 +673,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-Crash-Course"><span class="nav-number">1.</span> <span class="nav-text">PHP Crash Course!</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Define-variable"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Define variable</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Define-variable-1"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">Define variable</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Arrays"><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">Arrays</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Loop-similar"><span class="nav-number">1.0.0.1.3.</span> <span class="nav-text">Loop similar:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Functions"><span class="nav-number">1.0.1.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String-functions"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">String functions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SuperGlobals"><span class="nav-number">1.1.</span> <span class="nav-text">SuperGlobals</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Get-and-Post"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Get and Post</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookies"><span class="nav-number">1.2.</span> <span class="nav-text">Cookies</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">1.3.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-handling"><span class="nav-number">1.4.</span> <span class="nav-text">File handling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-upload"><span class="nav-number">1.5.</span> <span class="nav-text">File upload</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Exception"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">Exception</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOP-amp-Class"><span class="nav-number">1.6.</span> <span class="nav-text">OOP &amp; Class</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -87,8 +87,9 @@
 <meta property="og:description" content="合并两个有序数组  倒序双指针 避免覆盖 完全背包问题 动态规划 背包问题：给定一个背包容量target，再给定一个数组nums(物品)，能否按一定方式选取nums中的元素得到target 1、背包容量target和物品nums的类型可能是数，也可能是字符串2、target可能题目已经给出(显式)，也可能是需要我们从题目的信息中挖掘出来(非显式)(常见的非显式target比如sum&#x2F;2等)3、选">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/12/16/LeetCodeExamples/github/blog/source/_posts/image-20240101141407191.png">
+<meta property="og:image" content="https://i.imgur.com/onuhEig.png">
 <meta property="article:published_time" content="2023-12-16T14:59:23.000Z">
-<meta property="article:modified_time" content="2024-01-08T22:03:15.531Z">
+<meta property="article:modified_time" content="2024-01-11T16:15:48.414Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/12/16/LeetCodeExamples/github/blog/source/_posts/image-20240101141407191.png">
@@ -557,6 +558,11 @@ dp[i] 表示前i位是否可以用单词表示
 <p>具体的，创建 cnt 数组，对 cs 进行计数，由于最大 h 不超过 nnn，因此对于引用次数超过 nnn 的论文，可等价为引用次数为 nnn，即有计数逻辑 cnt[min(c, n)]++。</p>
 <p>再根据处理好的 cnt，从 nnn 开始倒序找 h。</p>
 <p>由于我们处理的 cnt[a] 含义为引用次数 恰好 为 a，但题目定义则是 至少。同时「至少出现 k+1k + 1k+1 次」的集合必然慢「至少出现 kkk 次」要求（子集关系），我们可以使用变量 tot，对处理过的 cnt[i] 进行累加，从而实现从 恰好 到 至少 的转换。</p>
+<ol>
+<li>除自身以外数组的乘积</li>
+</ol>
+<p>不使用除法： </p>
+<p><img src="https://i.imgur.com/onuhEig.png" alt="image-20240111171533642"></p>
 
       
     </div>
