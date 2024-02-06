@@ -263,6 +263,410 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/10/WRS-Industry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/10/WRS-Industry/" itemprop="url">WRS_Industry</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-10T00:07:00+02:00">
+                2023-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Recommender System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Insurance-domain"><a href="#Insurance-domain" class="headerlink" title="Insurance domain"></a>Insurance domain</h3><p>• Many users navigate through the  insurance website but still prefer  to purchase over the phone.           <strong>User actions and purchase data</strong></p>
+<p>• The insurance domain is data-sparse because of few different  items and low purchase frequency.    <strong>Graph based approach</strong></p>
+<p>• Customers have dynamic needs of  insurance products as they are  closely connected to life events.             <strong>Session-based approach</strong></p>
+<p>The simple UB-KNN is better than  the latent factor models. </p>
+<p>The graph-based models  generally perform well. </p>
+<p>NGCF performs best, but  Genetically Optimized Graph  obtains competing results</p>
+<p><img src="/2023/04/10/WRS-Industry/github\blog\source\_posts\demographic.png" alt="demographic"></p>
+<h5 id="Cross-sessions-Model"><a href="#Cross-sessions-Model" class="headerlink" title="Cross-sessions Model"></a>Cross-sessions Model</h5><p>Model: RNN with a single GRU-layer.</p>
+<p>Input: A user’s multiple past sessions. </p>
+<p>Output: What items the user will buy  after the last time step.</p>
+<p>Cross-sessions outperforms SKNN</p>
+<p>Hybrid of Cross-sessions and Demographic  Mode</p>
+<h3 id="Pleaz"><a href="#Pleaz" class="headerlink" title="Pleaz"></a>Pleaz</h3><p>Content-hosting websites traditionally want their users to have a personalized  experience. Personalization increases user satisfaction, user satisfaction increases revenue</p>
+<p>Planning the recommendation system:</p>
+<p>Data -&gt; Method -&gt; Implementation</p>
+<h5 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h5><ul>
+<li><p>Data/signal collection </p>
+</li>
+<li><p>Data preprocessing</p>
+</li>
+</ul>
+<p>​        - excluding company data</p>
+<p>​        - excluding test/noise data points which exist because of technical/sync     errors</p>
+<ul>
+<li>Video localizations pairing with originals</li>
+<li>Connecting user behavior data to user accounts</li>
+<li>Distinguishing between company VS personal logins</li>
+</ul>
+<h5 id="Recommendation-methods-tested"><a href="#Recommendation-methods-tested" class="headerlink" title="Recommendation methods tested:"></a>Recommendation methods tested:</h5><ul>
+<li><p>Random recommendations </p>
+</li>
+<li><p>Top-K (most popular videos) </p>
+</li>
+<li><p>Collaborative filtering (surprise toolbox for Python) </p>
+</li>
+<li><p>Content based (based on video titles + descriptions)</p>
+</li>
+</ul>
+<p><img src="/2023/04/10/WRS-Industry/github\blog\source\_posts\metrics.png" alt="metrics"></p>
+<h4 id="Integration"><a href="#Integration" class="headerlink" title="Integration"></a>Integration</h4><h5 id="Core-concept"><a href="#Core-concept" class="headerlink" title="Core concept"></a>Core concept</h5><ol>
+<li>WordPress site connects to an external service (API) </li>
+<li>API responds with a recommendation list </li>
+<li>WordPress uses it to display recommendations</li>
+</ol>
+<h5 id="Challenge-s"><a href="#Challenge-s" class="headerlink" title="Challenge(s)?"></a>Challenge(s)?</h5><p>Python code running as an API </p>
+<p>Keeping an up-to-date version of the dataset </p>
+<p>Already-seen videos - multiple refreshes within the same day. </p>
+<p>It needs to be available all the time - no downtime for the server to retrain. </p>
+<p>Also, don’t crash the main site at any point!</p>
+<h4 id="Why-not-even-larger-effect-on-the-KPIs"><a href="#Why-not-even-larger-effect-on-the-KPIs" class="headerlink" title="Why not even larger effect  on the KPIs?"></a>Why not even larger effect  on the KPIs?</h4><p>To align with our editorial values after scale  up, we  </p>
+<p>• Limited the types of news content that  could be recommended,  </p>
+<p>• Only recommended to readers who  accepted profiling </p>
+<p>• Constrained model training to avoid  feedback loops that could create filter  bubbles </p>
+<p>• Among other things</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/07/PhysicBasedRendering/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/07/PhysicBasedRendering/" itemprop="url">PhysicBasedRendering</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-07T10:56:43+02:00">
+                2023-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Physic-Based-Rendering"><a href="#Physic-Based-Rendering" class="headerlink" title="Physic Based Rendering"></a>Physic Based Rendering</h1><p>eye don’t perceive color in linear way and more sensitve to darker tones</p>
+<p>sRGB - gamma of approximately 2.2</p>
+<p>openGL can handle encoding and decoding of sRGB images</p>
+<p>Gamma correction in OpenGL</p>
+<ul>
+<li>Textures:<ul>
+<li>Use internal format GL_SRGB or GL_SRGB_ALPHA</li>
+<li>Only use for color images (not normal map etc.)</li>
+<li>Only on normalized integer types ignored for floating point</li>
+</ul>
+</li>
+<li><p>Framebuffer:</p>
+</li>
+<li><ul>
+<li>glEnable(GL_FRAMEBUFFER_SRGB)</li>
+<li>Performs blending in linear space then changed to sRGB</li>
+<li>Careful with multi objects</li>
+</ul>
+</li>
+</ul>
+<h2 id="PBR"><a href="#PBR" class="headerlink" title="PBR"></a>PBR</h2><p>• Conditions for PBR, and a basic understanding of each one</p>
+<h5 id="Based-on-the-microfacet-surface-model"><a href="#Based-on-the-microfacet-surface-model" class="headerlink" title="Based on the microfacet surface model"></a>Based on the microfacet surface model</h5><p>surface modelled as a group of micro-surfaces with roughness parameter</p>
+<p>Only some microfacets will reflect light</p>
+<p><img src="/2023/04/07/PhysicBasedRendering/github\blog\source\_posts\image-20230605222816778.png" alt="image-20230605222816778"></p>
+<h5 id="Energy-conserving"><a href="#Energy-conserving" class="headerlink" title="Energy conserving"></a>Energy conserving</h5><p> No surface can reflect more light than it receives</p>
+<script type="math/tex; mode=display">
+E_{diffuse} + E_{specular} \leq E</script><p>Fresnel - determine the ratio of light reflected from a specific angle</p>
+<script type="math/tex; mode=display">
+E_{out} = E_{diffuse}(1-F) + E_{specular} * F\\
+E_{out} \leq E_{in}</script><p>• Application of Fresnel formula</p>
+<p>Diffuse  -  Light gets evenly spread in all directions</p>
+<p>Specular - Light gets evenly spread in all directions</p>
+<h5 id="Using-a-physically-based-BRDF"><a href="#Using-a-physically-based-BRDF" class="headerlink" title="Using a physically based BRDF"></a>Using a physically based BRDF</h5><p>• What is a BRDF? Definition and properties</p>
+<p>Bidirectional Reflectance Distribution Function</p>
+<script type="math/tex; mode=display">
+f_r(w_i, w_r)</script><ul>
+<li>Function that:<br>• Returns the ratio of light that gets reflected<br>• At a specific point<br>• Coming from one direction<br>• And exiting on another direction</li>
+<li>Determines the look of a material</li>
+<li>Different models to approximate different materials</li>
+<li>Can be obtained analitically (math formulas) \ measuring light response of a material</li>
+</ul>
+<h5 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h5><p>Helmholtz reciprocity: Light rays behave identically when following the same path, regardless of direction</p>
+<p>Energy conservation: surface can not reflect more light than it receives</p>
+<p>Positivity: Surfaces cannot reflect negative amount of light</p>
+<p><strong>• List the terms of the Cook-Torrance equation</strong></p>
+<script type="math/tex; mode=display">
+f_s(v, l) = \frac{D(h, \alpha)G(v,l,\alpha)F(v,h,f_0))}{4(n \cdot v)(n \cdot l)}</script><p>D: Distribution function</p>
+<p>G: Geometry function</p>
+<p>• The geometry term takes accounts for the microfacets that are<br>shadowed or masked by other microfacets</p>
+<p>F: Fresnel function</p>
+<p>Represents the ratio of the light that will get reflected</p>
+<p>————————————————————下面用不到 ——————————————————-</p>
+<p>Collection of render techniques</p>
+<p>Achieve more realistic look and adapt better to different lighting conditions</p>
+<ul>
+<li>Energy conservation: surface can not reflect more light than it receives</li>
+<li>Positivity: Surfaces cannot reflect negative amount of light</li>
+<li>Law of reflection: The angle of incidence equal the angle of reflection for specular light</li>
+<li>Fresnel equations: Light reflects and refracts in accordance with —</li>
+<li>Helmholtz reciprocity: Light rays behave identically when following the same path, regardless of direction</li>
+<li>Everything is shiny</li>
+</ul>
+<h5 id="Reflectance-equation"><a href="#Reflectance-equation" class="headerlink" title="Reflectance equation:"></a>Reflectance equation:</h5><script type="math/tex; mode=display">L_o(p,w_o)= \int f_r(p,w_i,w_o)L_i(p,w_i)n \cdot w_idw_i</script><p>Light output of position p on specific direction is equal to all the lighting input, multiply by the reflectance in those conditions, multiplied by cosine of normal and light vectors</p>
+<h4 id="Microface-surface-model"><a href="#Microface-surface-model" class="headerlink" title="Microface surface model"></a>Microface surface model</h4><p>a group of micro-surfaces</p>
+<p>Driven by a roughness parameter</p>
+<p>Bidirectional Reflectance Distribution Function</p>
+<script type="math/tex; mode=display">f_r(w_i,w_r)</script><p>input/ output direction</p>
+<h5 id="Properties-1"><a href="#Properties-1" class="headerlink" title="Properties"></a>Properties</h5><ul>
+<li><p>positivity <script type="math/tex">f_r(w_i,w_r)\geq0</script></p>
+</li>
+<li><p>Helmoholtz reciprocity <script type="math/tex">f_r(w_i,w_r)=f_r(w_r,w_i)</script></p>
+</li>
+<li><p>Energy conserving</p>
+<script type="math/tex; mode=display">\forall w_i, \int f_r(w_i,w_r)cos\theta_rdw_r \leq 1</script></li>
+</ul>
+<h3 id="Diffuse-models"><a href="#Diffuse-models" class="headerlink" title="Diffuse models"></a>Diffuse models</h3><ul>
+<li><p>Lambertian:</p>
+</li>
+<li><ul>
+<li>Needs normalizing:</li>
+<li><ul>
+<li>Light get scattered equally in all directions</li>
+<li>integral of cosine weighted hemisphere: <script type="math/tex">\int cos(\theta)d\omega = \pi</script></li>
+<li>Each direction gets <script type="math/tex">\frac{1}{\pi}</script></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><script type="math/tex; mode=display">f_d(v, l) = \frac{\rho}{\pi}</script></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/Forward%20rendering/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2216,473 +2620,6 @@ M_{viewport} = \begin{pmatrix}
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation-cont/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/14/Transformation-cont/" itemprop="url">Transformation_cont.</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-14T06:20:22+01:00">
-                2023-01-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>3D transformation</li>
-<li>Viewing(观测) transformation<ul>
-<li>View (视图)/ Camera transformation</li>
-<li>Projection (投影) transformation<ul>
-<li>Orthographic (正交) projection</li>
-<li>Perspective (透视) projection</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="3D-transformation"><a href="#3D-transformation" class="headerlink" title="3D transformation"></a>3D transformation</h3><ul>
-<li><p>point = $(x, y, z, 1)^T$</p>
-</li>
-<li><p>vector = $(x, y, z, 0)^T$</p>
-<h5 id="4-4-matrices-for-affine-transformations"><a href="#4-4-matrices-for-affine-transformations" class="headerlink" title="4 * 4 matrices for affine transformations"></a>4 * 4 matrices for affine transformations</h5><script type="math/tex; mode=display">
-\begin{pmatrix}
-    x' \\ y' \\z' 1
-\end{pmatrix}
-= \begin{pmatrix}
-    a & b& c & t_x \\
-    d & e & f & t_y \\
-    g & h & i & t_z \\
-    0 & 0 & 0 & 1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-x \\ y \\ z \\1
-\end{pmatrix}</script></li>
-</ul>
-<p>缩放 Scale ….</p>
-<script type="math/tex; mode=display">
-\begin{pmatrix}
-    S_x & 0& 0 & 0 \\
-    d & s_y & 0 & 0 \\
-    0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>旋转 important</p>
-<script type="math/tex; mode=display">
-R_x(\alpha)=\begin{pmatrix}
-    1 & 0& 0 & 0 \\
-    0 & cos\theta & -sin\theta & 0 \\
-    0 & sin\theta & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}\\
-R_y(\alpha)=\begin{pmatrix}
-    cos\theta & 0& sin\theta & 0 \\
-    0 & 0 & 0 & 0 \\
-    -sin\theta & 0 & cos\theta & 0 \\
-    0 & 0 & 0 & 1
-\end{pmatrix}</script><p>对x轴旋转 -&gt; 第一行为 1, 0 ,0</p>
-<p>2 x 2是对y与z操作</p>
-<p>对旋转不同 ？z × x -&gt; y 不是x叉乘z 所以相反</p>
-<h3 id="3D-Rotations"><a href="#3D-Rotations" class="headerlink" title="3D Rotations"></a>3D Rotations</h3><p>Compose 3D roration from $R_x, R_y, R_z$    $\bold{Euler \ angels}$</p>
-<script type="math/tex; mode=display">
-R_{xyz}(\alpha, \beta, \gamma) = R_x(\alpha)R_y(\beta)R_z(\gamma)</script><h4 id="Rodrigues’-Rotation-Formula"><a href="#Rodrigues’-Rotation-Formula" class="headerlink" title="Rodrigues’ Rotation Formula"></a>Rodrigues’ Rotation Formula</h4><h5 id="Rotation-by-angle-alpha-around-axis-bold-n"><a href="#Rotation-by-angle-alpha-around-axis-bold-n" class="headerlink" title="Rotation by angle $\alpha$ around axis $\bold{n}$"></a>Rotation by angle $\alpha$ around axis $\bold{n}$</h5><p>认为过原点 向量就是方向</p>
-<script type="math/tex; mode=display">
-R(\bold{n}, \alpha) = cos(\alpha)I + (1-cos(\alpha))\bold{n}\bold{n}^T + sin(\alpha)
-\begin{pmatrix}
-    0 & -n_z & n_y \\
-    n_z & 0 & -n_x \\
-    -n_y & n_x & 0
-\end{pmatrix}</script><p>Proof: </p>
-
-
-	<div class="row">
-    <embed src="PDF/GAMES101_Lecture_04_supp.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-   
-<h4 id="View-Camera-transformation-三维-gt-二维"><a href="#View-Camera-transformation-三维-gt-二维" class="headerlink" title="View / Camera transformation   三维-&gt;二维"></a>View / Camera transformation   三维-&gt;二维</h4><ul>
-<li>Take a photo<ul>
-<li>find place and arrange people (model transformation)</li>
-<li>find good “angle” (view)</li>
-<li>Cheese! (projection)</li>
-</ul>
-</li>
-</ul>
-<p>MVP!!!!!!!!!</p>
-<ul>
-<li><p>Define the camera first</p>
-<ul>
-<li>Position $\vec{e}$</li>
-<li>Look-at / gaze direction $\hat{g}$</li>
-<li>Up direction $\hat{t}$</li>
-</ul>
-<p>向上方向 固定相机旋转）</p>
-</li>
-<li><p>Key observation </p>
-<ul>
-<li>一起移动 相对运动 相片一定是一样的  = 固定相机（远点） 物体运动</li>
-<li>The origin, up at Y, look at -Z</li>
-<li>And transform the objects along with the camera</li>
-</ul>
-</li>
-</ul>
-<p><img src="/2023/01/14/Transformation-cont/image/view_img.png" alt></p>
-<h4 id="M-view-in-math"><a href="#M-view-in-math" class="headerlink" title="$M_{view}$ in math"></a>$M_{view}$ in math</h4><ul>
-<li><p>$M_{view} = R{view}T{view}$</p>
-</li>
-<li><p>Translate e to origin       </p>
-<script type="math/tex; mode=display">
-T_view = \begin{bmatrix}1&0&0&-x_e\\
-0&1&0&-y_e\\
-0&0&1&-z_e\\
-0&0&0&1\\
-\end{bmatrix}</script><p>inverse rotation is easier X to (g x t), Y to t, Z to -g 叉乘</p>
-<p>Model|View Transformation</p>
-<p><img src="/2023/01/14/Transformation-cont/image/orth-pers.png" alt="image-20230114091549245"></p>
-</li>
-</ul>
-<h3 id="Orthographic-Projection"><a href="#Orthographic-Projection" class="headerlink" title="Orthographic Projection"></a>Orthographic Projection</h3><p>map a cuboid [l, r] x [b, t] x [$f, n$] to</p>
-<p>the “canonical” cube $[- 1, 1]^3$ 标准的立方体</p>
-<p>离得远z小 近z大</p>
-<p>Translate (center to origin) first, then scale (length/width/height to 2) 转换为2也就是（-1 ， 1）</p>
-<p>Matrix is easy</p>
-<h3 id="Perspective-Projection"><a href="#Perspective-Projection" class="headerlink" title="Perspective Projection"></a>Perspective Projection</h3><p><img src="/2023/01/14/Transformation-cont/image\pers.png" alt="image-20230114095401335"></p>
-<p>如何挤压？</p>
-<p>从侧面往里看</p>
-<p>$y’ = \frac{n}{z}y$</p>
-<p>Observation for z’</p>
-<ul>
-<li>Any point near plane will not change</li>
-<li>Any point’s z on the far plane will not change</li>
-</ul>
-<p>third row must be of the form (0  0  A  B)</p>
-<p>Solve for A and B</p>
-<script type="math/tex; mode=display">
-An + B = n^2 \ \ \ A = n + f\\
-An + B = f^2 \ \ \ B = -nf</script>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/14/Transformation/" itemprop="url">Transformation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-14T05:21:02+01:00">
-                2023-01-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Transformation"><a href="#Transformation" class="headerlink" title="Transformation"></a>Transformation</h1><script type="math/tex; mode=display">
-\begin{bmatrix}
-
-x' \\\  y'
-
-\end{bmatrix}=\begin{bmatrix}a&b \\ c&d\end{bmatrix} \begin{bmatrix} x\\ y \end{bmatrix}</script><p>linear transforms = Matrices</p>
-<p>x’ = M x</p>
-<h4 id="齐次坐标-Translation"><a href="#齐次坐标-Translation" class="headerlink" title="齐次坐标 Translation"></a>齐次坐标 Translation</h4><script type="math/tex; mode=display">
-x' = x + t_x\\
-y' = y + t_y</script><h3 id="Can-we-turn-it-into-matrix-format-Affine-map-仿射"><a href="#Can-we-turn-it-into-matrix-format-Affine-map-仿射" class="headerlink" title="Can we turn it into matrix format? Affine map 仿射"></a>Can we turn it into matrix format? Affine map 仿射</h3><script type="math/tex; mode=display">
-\begin{bmatrix}x' \\ y'\end{bmatrix}=\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} + \begin{bmatrix}t_x \\ t_y\end{bmatrix}</script><h5 id="Not-linear-transform"><a href="#Not-linear-transform" class="headerlink" title="(Not linear transform!)"></a>(Not linear transform!)</h5><p>Add a third coordinate (w-coordinate)</p>
-<ul>
-<li>2D point = $(x, y, 1)^T$</li>
-<li>2D vector = $(x, y, 0)^T$</li>
-</ul>
-<h3 id="Using-homogenous-coordinates"><a href="#Using-homogenous-coordinates" class="headerlink" title="Using homogenous coordinates"></a>Using homogenous coordinates</h3><script type="math/tex; mode=display">
-\begin{pmatrix}
-  x'\\y'\\w'
-\end{pmatrix}
-=
-\begin{pmatrix}
-  1&0&t_x \\
-  0&1&t_y\\
-  0&0&1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-  x\\y\\1 
-\end{pmatrix}
-=\begin{pmatrix}
-  x+t_x\\y+t_y\\1 \\
-\end{pmatrix}</script><p>最后一行 0 0 1，</p>
-<script type="math/tex; mode=display">
-\begin{pmatrix}
-  x'\\y'\\1
-\end{pmatrix}
-=
-\begin{pmatrix}
-  a&b&t_x \\
-  c&d&t_y\\
-  0&0&1
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
-  x\\y\\1 
-\end{pmatrix}</script><p>Like Rotation</p>
-<script type="math/tex; mode=display">
-R(\alpha)=\begin{pmatrix}
-  cos\theta & -sin\theta&0 \\sin\theta&cos\theta\ &0 \\ 0&0&1
-\end{pmatrix}</script><h3 id="仿射才是以001收尾"><a href="#仿射才是以001收尾" class="headerlink" title="!仿射才是以001收尾"></a>!仿射才是以001收尾</h3><p>Sequence is important</p>
-<h5 id="Matrices-are-applied-right-to-left"><a href="#Matrices-are-applied-right-to-left" class="headerlink" title="Matrices are applied right to left"></a>Matrices are applied right to left</h5><h3 id="Composing-Transforms"><a href="#Composing-Transforms" class="headerlink" title="Composing Transforms"></a>Composing Transforms</h3><h5 id="Sequence-of-affine-transforms-A-1-A-2-A-3-…"><a href="#Sequence-of-affine-transforms-A-1-A-2-A-3-…" class="headerlink" title="Sequence of affine transforms $A_1,A_2,A_3$,…"></a>Sequence of affine transforms $A_1,A_2,A_3$,…</h5><script type="math/tex; mode=display">
-A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
-  x\\y\\1 
-\end{pmatrix}</script><p>Pre-multiply n matirices to obtain single matrix representing transformation</p>
-<h3 id="Decomposing-Complex-Transforms"><a href="#Decomposing-Complex-Transforms" class="headerlink" title="Decomposing Complex Transforms"></a>Decomposing Complex Transforms</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2737,7 +2674,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

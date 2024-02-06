@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/17fuE5f.png">
 <meta property="article:published_time" content="2023-10-08T13:33:46.000Z">
-<meta property="article:modified_time" content="2024-01-09T13:02:42.447Z">
+<meta property="article:modified_time" content="2024-01-19T12:06:13.422Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/17fuE5f.png">
@@ -432,6 +432,35 @@ const &#123;
     <span class="token comment">// ...</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&lt;table class&#x3D;&quot;table&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;&#x2F;th&gt;
+      &lt;th&gt;Description&lt;&#x2F;th&gt;
+      &lt;th&gt;Labels&lt;&#x2F;th&gt;
+    &lt;&#x2F;tr&gt;
+  &lt;&#x2F;thead&gt;
+  &lt;tbody&gt;
+    &lt;% @projects.each do |project| %&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;%&#x3D; project.name %&gt;&lt;&#x2F;td&gt;
+        &lt;td&gt;&lt;%&#x3D; project.description %&gt;&lt;&#x2F;td&gt;
+        &lt;td&gt;&lt;%&#x3D; project.labels %&gt;&lt;&#x2F;td&gt;
+      &lt;&#x2F;tr&gt;
+    &lt;% end %&gt;
+  &lt;&#x2F;tbody&gt;
+&lt;&#x2F;table&gt;
+
+
+
+  &lt;%&#x3D; form_with(url: projects_path, method: :get) do |form| %&gt;
+  &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+    &lt;%&#x3D; form.label :label, &#39;Filter by Label&#39; %&gt;
+    &lt;%&#x3D; form.select :label, Project.all_labels, &#123; include_blank: &#39;All Labels&#39; &#125;, class: &#39;form-select&#39; %&gt;
+  &lt;&#x2F;div&gt;
+
+  &lt;%&#x3D; form.submit &#39;Filter&#39;, class: &#39;btn btn-primary&#39; %&gt;
+&lt;% end %&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
       
     </div>
@@ -549,7 +578,7 @@ const &#123;
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
