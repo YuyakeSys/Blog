@@ -263,6 +263,664 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/17/shading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/17/shading/" itemprop="url">shading</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-17T07:50:53+01:00">
+                2023-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Games101/" itemprop="url" rel="index">
+                    <span itemprop="name">Games101</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Painter’s-Algorithm"><a href="#Painter’s-Algorithm" class="headerlink" title="Painter’s Algorithm"></a>Painter’s Algorithm</h3><p>Paint from back to front， <font color="red">overwrite</font> in the frame buffer</p>
+<p>由远到近 画画 （覆盖）</p>
+<p> Require sorting in depth (O(n log n)) for n triangles)</p>
+<p>可能有unresolvable depth order</p>
+<h2 id="Z-Buffer-深度缓存"><a href="#Z-Buffer-深度缓存" class="headerlink" title="Z-Buffer 深度缓存"></a>Z-Buffer 深度缓存</h2><h4 id="Idea"><a href="#Idea" class="headerlink" title="Idea:"></a>Idea:</h4><ul>
+<li><p>Store current min. z-value <font color="red">for each sample(pixel)</font></p>
+</li>
+<li><p>Needs an additional buffer for depth values</p>
+<pre><code> - frame buffer stores color values
+</code></pre></li>
+<li><p>depth buffer (z-buffer) stores depth</p>
+</li>
+</ul>
+<p>我们认为深度是点到摄像机的距离， 小-&gt;近 大-&gt;远</p>
+<p>因为原本是向 -z 方向看</p>
+<pre class="line-numbers language-none"><code class="language-none">for (each triangle T)
+	for (each sample (x,y,z) in T)
+		if (z&lt;zbuffer[x,y]) &#x2F;&#x2F; closest sample
+			framebuffer[x,y] &#x3D; rgb; &#x2F;&#x2F;update color
+			zbuffer[x,y] &#x3D; z; &#x2F;&#x2F;update depth
+		else
+			; &#x2F;&#x2F;do nothing<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>初始深度无限大 inf </p>
+<p>逐个判断</p>
+<p>Complexity</p>
+<ul>
+<li>O(n) for n triangles (constant coverage)</li>
+<li>我们并没有排序 只是记录当前看到的最小值</li>
+</ul>
+<p>很难判断浮点数相等 </p>
+<h3 id="Shading"><a href="#Shading" class="headerlink" title="Shading"></a>Shading</h3><p>The process of applying a material to an object</p>
+<p>specular highlights 高光</p>
+<p>Ambient lighting 简介光照</p>
+<p>首先定义 点到面的法线</p>
+<ul>
+<li>Viewer direction v 观测方向</li>
+<li>Surface normal n 法线</li>
+<li>Light direction 光照方向</li>
+</ul>
+<p>都是单位向量 同时需要物体表面信息 （有多么亮Shininess）颜色color</p>
+<p>Shading $\ne$ shadow</p>
+<p>Shading is Local 着色是局部的</p>
+<h4 id="Difuuse-Reflection-漫反射"><a href="#Difuuse-Reflection-漫反射" class="headerlink" title="Difuuse Reflection 漫反射"></a>Difuuse Reflection 漫反射</h4><p>Light is scattered uniformly in all directions</p>
+<p>法线与光线来源方向的夹角决定物体有多亮</p>
+<p>光是一种能量 光照 -&gt; 物体接收到了多少能量 (考虑单位面积)</p>
+<ul>
+<li>Lambert’s cosine law <ul>
+<li>cos $\theta$ = $I \cdot n$</li>
+</ul>
+</li>
+</ul>
+<h5 id="Light-Falloff"><a href="#Light-Falloff" class="headerlink" title="Light Falloff"></a>Light Falloff</h5><p>Shading independent of view direction</p>
+<script type="math/tex; mode=display">
+L_d = k_d(I/r^2)max(0,n \cdot l)</script><p>到达shading point的能量  n*l是cos的值</p>
+<p>$k_d$ 是颜色系数</p>
+<p>漫反射与观察方向完全无关</p>
+<h3 id="Shading-2"><a href="#Shading-2" class="headerlink" title="Shading 2"></a>Shading 2</h3><p>当v与r(镜面反射方向)是高光项</p>
+<p><img src="/2023/01/17/shading/image\shade\blin.png" alt="image-20230118214809696"></p>
+<p>v与r接近 就是n和h接近 半程向量和法线是否接近 （接近点乘接近1）</p>
+<p>后面需要考虑还有多少能量被吸收</p>
+<p>这个模型高光对$cos\theta$ (指数p)要到100-200 高光普遍只有几度</p>
+<h4 id="Ambient-Term-环境光照"><a href="#Ambient-Term-环境光照" class="headerlink" title="Ambient Term 环境光照"></a>Ambient Term 环境光照</h4><p>假设 Shading that does not depend on anything</p>
+<ul>
+<li>Add constant color to account for disregarded illumination and fill in black shadows</li>
+<li>Approximate</li>
+</ul>
+<script type="math/tex; mode=display">
+L_a = k_a I_a</script><p>$L_a$:reflected ambient light                                     $k_a$:ambient coefficient</p>
+<script type="math/tex; mode=display">
+L = L_a+L_d+L_s\\
+= k_aI_a + k_d(I/r^2)max(0,n\cdot l) + k_s(I/r^2)max(0,n\cdot h)^p</script><h3 id="Flat-逐三角形-Grouaud-逐顶点-Phong-逐像素-shading"><a href="#Flat-逐三角形-Grouaud-逐顶点-Phong-逐像素-shading" class="headerlink" title="Flat(逐三角形)/Grouaud(逐顶点)/Phong(逐像素) shading"></a>Flat(逐三角形)/Grouaud(逐顶点)/Phong(逐像素) shading</h3><p>Blinn-Phong is a model $\neq$ Phong shading</p>
+<p>取决于具体的物体</p>
+<h5 id="Defining-Per-Vertex-Normal-Vectors"><a href="#Defining-Per-Vertex-Normal-Vectors" class="headerlink" title="Defining Per-Vertex Normal Vectors"></a>Defining Per-Vertex Normal Vectors</h5><p><img src="/2023/01/17/shading/image\shade\normal.png" alt="image-20230118221458715"></p>
+<p>相邻的法线求平均</p>
+<h3 id="Graphics-Real-time-Rendering-Pipeline"><a href="#Graphics-Real-time-Rendering-Pipeline" class="headerlink" title="Graphics (Real-time Rendering) Pipeline"></a>Graphics (Real-time Rendering) Pipeline</h3><p>Vertex Processing -&gt; Triangle Processing -&gt; Rasterization -&gt; Fragment Processing -&gt; Framebuffer Operations -&gt; display</p>
+<h3 id="Shader-Programs"><a href="#Shader-Programs" class="headerlink" title="Shader Programs"></a>Shader Programs</h3><p>每一个顶点 fragment执行一次 通用的</p>
+<h3 id="Texture-Mapping-纹理映射"><a href="#Texture-Mapping-纹理映射" class="headerlink" title="Texture Mapping 纹理映射"></a>Texture Mapping 纹理映射</h3><p>Surface lives in 3D world space</p>
+<p>Every 3D surface point also has a place where it goes in the 2D image (<strong>texture</strong>)</p>
+<p><img src="/2023/01/17/shading/image\shade\texture.png" alt="image-20230118225008718"></p>
+<p>u,v 都是0-1之内</p>
+<p>纹理无缝衔接的合成</p>
+<h4 id="Interpolation-Across-Triangles-Barycenteric-Coordinates"><a href="#Interpolation-Across-Triangles-Barycenteric-Coordinates" class="headerlink" title="Interpolation Across Triangles : Barycenteric Coordinates"></a>Interpolation Across Triangles : Barycenteric Coordinates</h4><p>重心坐标</p>
+<p>为什么要插值(interpolate)?</p>
+<ul>
+<li>Specify values <strong>at vertices</strong></li>
+<li>Obtain smoothly varying values <strong>across triangles</strong></li>
+</ul>
+<p>is a coordinate system for triangles $(\alpha,\beta,\gamma)$</p>
+<script type="math/tex; mode=display">
+(x,y) = \alpha A + \beta B + \gamma C\\
+\alpha + \beta + \gamma =1</script><p>在三角形内如果三个坐标都是非负的</p>
+<p>A 1 0 0        B 0 1 0       C 0 0 1</p>
+<script type="math/tex; mode=display">
+\alpha = \frac{A_A}{A_A + A_B + A_C}
+\beta = \frac{A_B}{A_A + A_B + A_C}
+\gamma = \frac{A_C}{A_A + A_B + A_C}</script><p>重心 1/3 1/3 1/3 三个等面积三角形</p>
+<p>通过坐标属性线性结合起来</p>
+<p><img src="/2023/01/17/shading/image\shade\linearcent.png" alt="image-20230118232935132"></p>
+<p>重心坐标在投影下不能保持不变</p>
+<p>找到对应三维空间坐标的深度插值</p>
+<h5 id="Applying-Texture"><a href="#Applying-Texture" class="headerlink" title="Applying Texture"></a>Applying Texture</h5><pre class="line-numbers language-none"><code class="language-none">for each rasterized screen sample (x,y):
+	(u,v) &#x3D; evaluate texture coordinate at (x,y); &#x2F;&#x2F;重心坐标
+	texcolor &#x3D; texture.sample(u,v);
+	set sample&#39;s color to texcolor; &lt;- k_d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="Problem-1-Texture-Magnification-纹理放大"><a href="#Problem-1-Texture-Magnification-纹理放大" class="headerlink" title="Problem 1 Texture Magnification 纹理放大"></a>Problem 1 Texture Magnification 纹理放大</h5><p>如果纹理太小256x256 被拉大</p>
+<p>纹理上的像素 A pixel on a texture — a <strong>texel</strong> （纹素）</p>
+<p>四舍五入很难看 不连续</p>
+<p>-&gt; 双线性插值 Bilinear interpolation</p>
+<p>线性插值 Linear interpolation (1 D)</p>
+<p>$lerp(x,v_0,v_1)=v_0+x(v_1-v_0)$</p>
+<p><img src="/2023/01/17/shading/image\shade\lerp.png" alt="image-20230119001241519"></p>
+<p>Bicubic 取周围16个</p>
+<h5 id="Problem-2-hard-case-纹理太大"><a href="#Problem-2-hard-case-纹理太大" class="headerlink" title="Problem 2: hard case 纹理太大"></a>Problem 2: hard case 纹理太大</h5><p>supersampling is costly</p>
+<p>避免采样</p>
+<p>Point Query vs. (Avg.) Range Query</p>
+<h5 id="Mipmap"><a href="#Mipmap" class="headerlink" title="Mipmap"></a>Mipmap</h5><p>Allowing (<font color="red">fast, approx, square</font>) range queries</p>
+<p>一张图分成数张图 $log_2 n$</p>
+<p><img src="/2023/01/17/shading/image\shade\filter.png" alt="image-20230119004909853"></p>
+<p>再在层与层之间进行插值</p>
+<p>Trilinear Interpolation 三线性插值  Ripmaps</p>
+<p>D 层 -&gt; D+1层</p>
+<p>Anisotropic Filtering 各向异性过滤</p>
+<p>解决了矩形问题 无法解决斜的矩形 </p>
+<p>EWA 过滤 </p>
+<p>多次查询</p>
+<p>Wait for further update 最后俩topic</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/16/antialias/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/16/antialias/" itemprop="url">antialias</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-16T07:20:38+01:00">
+                2023-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Games101/" itemprop="url" rel="index">
+                    <span itemprop="name">Games101</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Antialias 反走样 遮挡</p>
+<p>锯齿 学名 走样 Alias</p>
+<p>Sampling Artifacts (Error/…)</p>
+<p>Moire Patterns in Imaging  </p>
+<p>Reason:</p>
+<p>Signals are changing too fast (high frequency), but<font color="red"> sampled too slow</font></p>
+<h3 id="Antialiasing-Idea-Blurring-Pre-Filtering-before-sampling"><a href="#Antialiasing-Idea-Blurring-Pre-Filtering-before-sampling" class="headerlink" title="Antialiasing Idea: Blurring (Pre-Filtering) before sampling"></a>Antialiasing Idea: Blurring (Pre-Filtering) before sampling</h3><h3 id="Frequency-Domain-频率"><a href="#Frequency-Domain-频率" class="headerlink" title="Frequency Domain 频率"></a>Frequency Domain 频率</h3><p>$f = \frac{1}{T}$</p>
+<p>Fourier Transform 傅里叶展开</p>
+<p>Represent a function as a weighted sum of sines and cosines</p>
+<p>$e^{ix}=cosx + isinx$</p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116074814025.png" alt="image-20230116074814025"></p>
+<p>不必要知道$F$</p>
+<p>不同正弦与余弦函数有不同的频率</p>
+<p>采样与函数频率有关</p>
+<p>走样</p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116075646896.png" alt="image-20230116075646896"></p>
+<p>Two frequencies that are indistinguishable at a given sampling are called “aliases”</p>
+<p>Filtering = <font color="red"> Getting rid of </font> certain frequency contents</p>
+<p>图像中心到周围频率++</p>
+<p>Filtert out low frequencies only (edges)</p>
+<p>高通滤波（高频可以通过）</p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080338635.png" alt="image-20230116080338635"></p>
+<p>Filtert out high frequencies (Blur)</p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080532333.png" alt="image-20230116080532333"></p>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116080634727.png" alt="image-20230116080634727"></p>
+<p>Filtering = Convolution (= Averaging)</p>
+<p>卷积： 用滤波器对信号进行处理 （图形学简化定义）</p>
+<h3 id="Convolution-Theorem"><a href="#Convolution-Theorem" class="headerlink" title="Convolution Theorem"></a>Convolution Theorem</h3><p>Convolution in the spatial domain is equal to multiplication in the frequency domain, and </p>
+<p>vice versa</p>
+<h4 id="Option-1"><a href="#Option-1" class="headerlink" title="Option 1:"></a>Option 1:</h4><ul>
+<li>Filter by convolution in the spatial domain</li>
+</ul>
+<h4 id="Option-2"><a href="#Option-2" class="headerlink" title="Option 2:"></a>Option 2:</h4><ul>
+<li>Transform to frequency domain (Fourier transform)</li>
+<li>Muliply by Fourier transform of convolution kernel</li>
+<li>Transform back to spatial domain (inverse Fourier)</li>
+</ul>
+<p><img src="/2023/01/16/antialias/image\Ras\image-20230116081527022.png" alt="image-20230116081527022"></p>
+<p>频谱混叠产生走样</p>
+<p>How can we reduce alias Error</p>
+<h5 id="Option1-Increase-sampling-rate"><a href="#Option1-Increase-sampling-rate" class="headerlink" title="Option1: Increase sampling rate"></a>Option1: Increase sampling rate</h5><ul>
+<li>Essentially increasing the distance between replicas in the Fourier domain</li>
+<li>Higher resolution displays, sensors, framebuffers…</li>
+<li>But: costly</li>
+</ul>
+<h5 id="Option-2-Antialiasing"><a href="#Option-2-Antialiasing" class="headerlink" title="Option 2: Antialiasing"></a>Option 2: Antialiasing</h5><ul>
+<li>Making Fourier contents “narrower” before repeating</li>
+<li>i.e. Filtering out high frequencies before sampling</li>
+</ul>
+<h4 id="A-Practical-Pre-Filter"><a href="#A-Practical-Pre-Filter" class="headerlink" title="A Practical Pre-Filter"></a>A Practical Pre-Filter</h4><p>A 1 pixel-width box filter (low pass, blurring)</p>
+<h4 id="Antialiasing-By-Averageing-Values-in-Pixel-Area"><a href="#Antialiasing-By-Averageing-Values-in-Pixel-Area" class="headerlink" title="Antialiasing By Averageing Values in Pixel Area"></a>Antialiasing By Averageing Values in Pixel Area</h4><p>Solution:</p>
+<ul>
+<li>Convolve f(x,y) by a 1-pixel box-blur<ul>
+<li>Recall: convolving = filtering = averaging</li>
+</ul>
+</li>
+<li>Then sample at every pixel’s center</li>
+</ul>
+<h4 id="Antialiasing-By-Supersampling-MSAA"><a href="#Antialiasing-By-Supersampling-MSAA" class="headerlink" title="Antialiasing By Supersampling (MSAA)"></a>Antialiasing By Supersampling (MSAA)</h4><p>Approximate the effect of the 1-pixel box filter by sampling multiple locatiuons</p>
+<p>within a pixel and averaging their values:</p>
+<p>Average NxN samples “inside” each pixel</p>
+<p>采样-&gt;一个格子一个颜色 解决了信号模糊这一操作</p>
+<h5 id="Cost"><a href="#Cost" class="headerlink" title="Cost:"></a>Cost:</h5><p>FXAA 图像的后期处理</p>
+<p>TAA</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/15/Rasterization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/15/Rasterization/" itemprop="url">Rasterization</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-15T07:20:13+01:00">
+                2023-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><h3 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h3><ul>
+<li>Different raster displays</li>
+<li>Rasterizing a triangle</li>
+</ul>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115073410188.png" alt="image-20230115073410188"></p>
+<p>红线之间角度 -&gt; 垂直可视角度 Vertical filed of view</p>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115073738823.png" alt="image-20230115073738823"></p>
+<p>角度/2</p>
+<p>屏幕是一个二维数组 由像素组成 e.g. 1920*1080 1080p</p>
+<p>An array of pixels</p>
+<p>Size of the array resolution</p>
+<p>A typical kind of raster display</p>
+<h4 id="Raster-screen-in-German"><a href="#Raster-screen-in-German" class="headerlink" title="Raster == screen in German"></a>Raster == screen in German</h4><ul>
+<li>Rasterize == drawing onto the screen</li>
+</ul>
+<h4 id="Pixel-picture-element"><a href="#Pixel-picture-element" class="headerlink" title="Pixel (picture element)"></a>Pixel (picture element)</h4><p>r,g,b</p>
+<h4 id="Canonical-Cube-to-Screen"><a href="#Canonical-Cube-to-Screen" class="headerlink" title="Canonical Cube to Screen"></a>Canonical Cube to Screen</h4><ul>
+<li><p>Defining the screen space</p>
+<ul>
+<li>Slightly different from 虎书</li>
+</ul>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115074741615.png" alt="image-20230115074741615"></p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+M_{viewport} = \begin{pmatrix}
+\frac{width}{2} &0 &0 & \frac{width}{2}\\
+0 & \frac{height}{2} &0 & \frac{width}{2} \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}</script><p>屏幕左下角在原点上需要移回来 z方向不需要改动  视口变换</p>
+<p>LED light emitting diode 发光二极管</p>
+<h3 id="Triangles-Fundamental-Shape-Primitives"><a href="#Triangles-Fundamental-Shape-Primitives" class="headerlink" title="Triangles - Fundamental Shape Primitives"></a>Triangles - Fundamental Shape Primitives</h3><ul>
+<li><p>Most basic polygon</p>
+<ul>
+<li>Break up other polygons (CG 坏了加班了)</li>
+</ul>
+</li>
+<li><p>Unique properties</p>
+<ul>
+<li>Guaranteed to be planar</li>
+<li>Well-defined interior</li>
+<li>Well-defined method for interpolating values at vertices over triangle</li>
+</ul>
+</li>
+<li><p>Pixel Values Approximate a Triangle</p>
+<p>判断一个像素和三角形的位置关系 </p>
+<p>三角形中心点与三角形的位置关系</p>
+</li>
+</ul>
+<h3 id="Sampling-a-Function-采样"><a href="#Sampling-a-Function-采样" class="headerlink" title="Sampling a Function 采样"></a>Sampling a Function 采样</h3><p>Evaluating a function a point is sampling</p>
+<p>We can discretize a function by sampling</p>
+<pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
+	output[x] &#x3D; f(x);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Core idea in graphics</p>
+<p>time (1D), area (2D), direction(2D) ….</p>
+<p>inside(t, x, y) 判断是否在三角形内</p>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115082117380.png" alt="image-20230115082117380"></p>
+<pre class="line-numbers language-none"><code class="language-none">for (int x &#x3D; 0; x &lt; xmax; ++x)
+	for (int y&#x3D;0; y &lt; ymax; ++y)
+		image[x][y] &#x3D; inside(tri, x+0.5, y+0.5)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>通过采样实现光栅化</p>
+<h3 id="Inside-Three-Cross-Product"><a href="#Inside-Three-Cross-Product" class="headerlink" title="Inside? Three Cross Product"></a>Inside? Three Cross Product</h3><p>P1P2 X P1Q -&gt; z是正的 Q 在P1左侧</p>
+<p>包围盒 Bounding Box</p>
+<p><img src="/2023/01/15/Rasterization/image\image-20230115083024989.png" alt="image-20230115083024989"></p>
+<p>加速方法</p>
+<p>采样率不够高 -&gt; 锯齿 Alias 抗锯齿 反走样</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/14/Transformation-cont/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1039,7 +1697,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1050,7 +1708,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

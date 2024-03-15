@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="dependencies: pubspec.yaml ClassText()  Build Contexttells the location of a particular widget in the widget tree used for navigation… ctrl + shift + r + right click ——&gt; remove this widget Column o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flutter">
+<meta property="og:url" content="http://example.com/2024/02/08/flutter/index.html">
+<meta property="og:site_name" content="Melo&#39;s blog">
+<meta property="og:description" content="dependencies: pubspec.yaml ClassText()  Build Contexttells the location of a particular widget in the widget tree used for navigation… ctrl + shift + r + right click ——&gt; remove this widget Column o">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/As6jVjy.png">
+<meta property="article:published_time" content="2024-02-08T13:05:07.000Z">
+<meta property="article:modified_time" content="2024-03-09T13:34:08.441Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/As6jVjy.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2024/02/08/flutter/"/>
+
+
+
+
+
+  <title>flutter | Melo's blog</title>
+  
+
+
+
+
+
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Melo's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Welcome</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/08/flutter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">flutter</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-02-08T14:05:07+01:00">
+                2024-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>dependencies: pubspec.yaml</p>
+<h4 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h4><p>Text() </p>
+<h3 id="Build-Context"><a href="#Build-Context" class="headerlink" title="Build Context"></a>Build Context</h3><p>tells the location of a particular widget in the widget tree</p>
+<p>used for navigation…</p>
+<p>ctrl + shift + r + right click ——&gt; remove this widget</p>
+<p><strong>Column</strong> only takes as much space as the children needs</p>
+<p>can use sizeBox instead of container for making padding</p>
+<h4 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h4><p>Mainaxis: top to bottom</p>
+<p>crossaxis: left to right</p>
+<p><strong>for for loop return more than 1 widget</strong></p>
+<p>…[]</p>
+<h4 id="For-example-text-widget"><a href="#For-example-text-widget" class="headerlink" title="For example text widget"></a>For example text widget</h4><p>return <strong>RichText</strong></p>
+<p>LeafRenderobjectWidget</p>
+<p>Single…</p>
+<p>Multi</p>
+<p>Widget tree will call render(element) tree to do sth</p>
+<p>(SetState)</p>
+<p>widget will createElement() for it self</p>
+<p>Then identify the new and old widget tree to find out what part needs  </p>
+<p>to get rendered again -&gt; improve performance </p>
+<p>build context helps locate the widget in the widget tree</p>
+<h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><p>provide data to all widgets below in the widget tree</p>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Provider</span><span class="token punctuation">(</span>
+	create<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>type of data<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token comment">// to use it </span>
+    <span class="token keyword">final</span> data <span class="token operator">=</span> <span class="token class-name">Provider</span><span class="token punctuation">.</span>of<span class="token generics"><span class="token punctuation">&lt;</span>type<span class="token punctuation">></span></span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//shorten</span>
+	context<span class="token punctuation">.</span>watch<span class="token generics"><span class="token punctuation">&lt;</span>type<span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>is a read only value</p>
+<h5 id="ChangeNotifierProvider-extends-ChangeNotifier"><a href="#ChangeNotifierProvider-extends-ChangeNotifier" class="headerlink" title="ChangeNotifierProvider extends ChangeNotifier\"></a>ChangeNotifierProvider extends ChangeNotifier\</h5><p>listen to variable</p>
+<ul>
+<li>context.watch should be used when child widgets need a certain value</li>
+</ul>
+<p>// Note by</p>
+<p>Consumer make only widgets rebuild efficiently</p>
+<h5 id="SteamProvider"><a href="#SteamProvider" class="headerlink" title="SteamProvider"></a>SteamProvider</h5><h5 id="FutureProvider"><a href="#FutureProvider" class="headerlink" title="FutureProvider"></a>FutureProvider</h5><pre class="line-numbers language-none"><code class="language-none">FutureProvider&lt;String(
+	initialData: &#39;loading&#39;,
+	create: (context) &#x3D;&gt; someFuture,
+	child: const MyApp(),
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="MultiProvider"><a href="#MultiProvider" class="headerlink" title="MultiProvider"></a>MultiProvider</h5><ul>
+<li><p>When one of our Provider depends on value from another provider </p>
+<p>we use Proxy Provider</p>
+</li>
+</ul>
+<h5 id="ProxyProvider"><a href="#ProxyProvider" class="headerlink" title="ProxyProvider"></a>ProxyProvider</h5><p><img src="https://i.imgur.com/As6jVjy.png" alt="image-20240309143357180"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/02/06/FunctionGuide/" rel="next" title="FunctionGuide">
+                <i class="fa fa-chevron-left"></i> FunctionGuide
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/02/28/elasticSearch/" rel="prev" title="elasticSearch">
+                elasticSearch <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="Meng Zhouyang" />
+            
+              <p class="site-author-name" itemprop="name">Meng Zhouyang</p>
+              <p class="site-description motion-element" itemprop="description">A blog to save my notes</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zmeng18cc@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Class"><span class="nav-number">1.</span> <span class="nav-text">Class</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-Context"><span class="nav-number"></span> <span class="nav-text">Build Context</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Container"><span class="nav-number">1.</span> <span class="nav-text">Container</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#For-example-text-widget"><span class="nav-number">2.</span> <span class="nav-text">For example text widget</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Provider"><span class="nav-number">3.</span> <span class="nav-text">Provider</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ChangeNotifierProvider-extends-ChangeNotifier"><span class="nav-number">3.1.</span> <span class="nav-text">ChangeNotifierProvider extends ChangeNotifier\</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SteamProvider"><span class="nav-number">3.2.</span> <span class="nav-text">SteamProvider</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FutureProvider"><span class="nav-number">3.3.</span> <span class="nav-text">FutureProvider</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MultiProvider"><span class="nav-number">3.4.</span> <span class="nav-text">MultiProvider</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ProxyProvider"><span class="nav-number">3.5.</span> <span class="nav-text">ProxyProvider</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng Zhouyang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

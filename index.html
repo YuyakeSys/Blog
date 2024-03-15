@@ -263,6 +263,547 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/12/LeetCode-Eng/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/03/12/LeetCode-Eng/" itemprop="url">LeetCode_Eng</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-03-12T15:30:19+01:00">
+                2024-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def jump(self, nums: List[int]) -&gt; int:
+        steps &#x3D; 0
+        end &#x3D; 0
+        farthest &#x3D; 0
+        for i in range(len(nums)-1):
+            farthest &#x3D; max(farthest, i + nums[i])
+            if farthest &gt;&#x3D; len(nums) -1:
+                steps +&#x3D; 1
+                break
+            if i &#x3D;&#x3D; end:
+                steps +&#x3D; 1
+                end &#x3D; farthest
+        return steps
+        <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>BFS keep track of farthest distance and return minimum step</p>
+<h4 id="Value-except-itself"><a href="#Value-except-itself" class="headerlink" title="Value except itself"></a>Value except itself</h4><p>prefix and postfix product</p>
+<p><img src="https://i.imgur.com/mocVEe7.png" alt="image-20240312202916303"></p>
+<h4 id="Gas-Station-Greed-algorithm"><a href="#Gas-Station-Greed-algorithm" class="headerlink" title="Gas Station - Greed algorithm"></a>Gas Station - Greed algorithm</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">canCompleteCircuit</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> gas<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> cost<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>gas<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>cost<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>  
+                                             
+        tank <span class="token operator">=</span> idx <span class="token operator">=</span> <span class="token number">0</span>                  
+                                             
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>gas<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>            
+                                             
+            tank<span class="token operator">+=</span> gas<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span>cost<span class="token punctuation">[</span>i<span class="token punctuation">]</span>             
+            <span class="token keyword">if</span> tank <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span> tank<span class="token punctuation">,</span> idx <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">1</span> 
+                                            
+        <span class="token keyword">return</span> idx     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Guarantee there is a solution exists then find the unique solution</p>
+<h4 id="Candy-Greed-algorithm"><a href="#Candy-Greed-algorithm" class="headerlink" title="Candy - Greed algorithm"></a>Candy - Greed algorithm</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">//</span> two path
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">candy</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ratings<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        children <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>ratings<span class="token punctuation">)</span>
+        candies <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> children
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> children<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> ratings<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> ratings<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                candies<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> candies<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>children<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> ratings<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> ratings<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                candies<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>candies<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> candies<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>candies<span class="token punctuation">)</span>
+<span class="token operator">//</span> on <span class="token keyword">pass</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">candy</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ratings<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> ratings<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        
+        ret<span class="token punctuation">,</span> up<span class="token punctuation">,</span> down<span class="token punctuation">,</span> peak <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span>
+        
+        <span class="token keyword">for</span> prev<span class="token punctuation">,</span> curr <span class="token keyword">in</span> <span class="token builtin">zip</span><span class="token punctuation">(</span>ratings<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ratings<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> prev <span class="token operator">&lt;</span> curr<span class="token punctuation">:</span>
+                up<span class="token punctuation">,</span> down<span class="token punctuation">,</span> peak <span class="token operator">=</span> up <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> up <span class="token operator">+</span> <span class="token number">1</span>
+                ret <span class="token operator">+=</span> <span class="token number">1</span> <span class="token operator">+</span> up
+            <span class="token keyword">elif</span> prev <span class="token operator">==</span> curr<span class="token punctuation">:</span>
+                up <span class="token operator">=</span> down <span class="token operator">=</span> peak <span class="token operator">=</span> <span class="token number">0</span>
+                ret <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                up<span class="token punctuation">,</span> down <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> down <span class="token operator">+</span> <span class="token number">1</span>
+                ret <span class="token operator">+=</span> down <span class="token operator">+</span> <span class="token builtin">int</span><span class="token punctuation">(</span>peak <span class="token operator">&lt;</span> down<span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> ret                
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="One-Pass-Greedy-Algorithm-Up-Down-Peak-Method"><a href="#One-Pass-Greedy-Algorithm-Up-Down-Peak-Method" class="headerlink" title="One-Pass Greedy Algorithm: Up-Down-Peak Method"></a>One-Pass Greedy Algorithm: Up-Down-Peak Method</h2><h3 id="Why-Up-Down-and-Peak"><a href="#Why-Up-Down-and-Peak" class="headerlink" title="Why Up, Down, and Peak?"></a>Why <code>Up</code>, <code>Down</code>, and <code>Peak</code>?</h3><p>The essence of the one-pass greedy algorithm lies in these three variables: <code>Up</code>, <code>Down</code>, and <code>Peak</code>. They serve as counters for the following:</p>
+<ul>
+<li><strong><code>Up</code>:</strong> Counts how many children have <strong>increasing ratings</strong> from the last child. This helps us determine how many candies we need for a child with a higher rating than the previous child.</li>
+<li><strong><code>Down</code>:</strong> Counts how many children have <strong>decreasing ratings</strong> from the last child. This helps us determine how many candies we need for a child with a lower rating than the previous child.</li>
+<li><strong><code>Peak</code>:</strong> Keeps track of the <strong>last highest point</strong> in an increasing sequence. When we have a decreasing sequence after the peak, we can refer back to the <code>Peak</code> to adjust the number of candies if needed.</li>
+</ul>
+<hr>
+<ol>
+<li>Loop Through Ratings<ul>
+<li>For each pair of adjacent children, compare their ratings. Here are the scenarios:<ul>
+<li><strong>If the rating is increasing</strong>: Update <code>up</code> and <code>peak</code> by incrementing them by 1. Set <code>down</code> to 0. Add <code>up + 1</code> to <code>ret</code> because the current child must have one more candy than the previous child.</li>
+<li><strong>If the rating is the same</strong>: Reset <code>up</code>, <code>down</code>, and <code>peak</code> to 0, because neither an increasing nor a decreasing trend is maintained. Add 1 to <code>ret</code> because the current child must have at least one candy.</li>
+<li><strong>If the rating is decreasing</strong>: Update <code>down</code> by incrementing it by 1. Reset <code>up</code> to 0. Add <code>down</code> to <code>ret</code>. Additionally, if <code>peak</code> is greater than or equal to <code>down</code>, decrement <code>ret</code> by 1. This is because the peak child can share the same number of candies as one of the children in the decreasing sequence, which allows us to reduce the total number of candies.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><code>for prev, curr in zip(ratings[:-1], ratings[1:]):</code></p>
+<p>creating two list from [1,2,3,4] -&gt; [1,2,3] , [2,3,4]</p>
+<p>Example [1, 5, 4, 3, 2, 1]</p>
+<p>for child 1 and 2: increase then its  1 + 2 = 3 up: 1, peak: 1 [1, 2 , <em>, </em>, <em>, </em>]</p>
+<p>for child 2 , 3 : decrease 3 + 1 + int(1 &lt; 1) = 4  up: 0  peak: 1 down: 1 [1, 2, </p>
+<p>1, <strong> ,  </strong>,_ ]</p>
+<p>for child 3,4 : decrease 4 + 2 + int(1 &lt; 2) = 7 peak: 1 down: 2 </p>
+<p>[1, 3, 2 , 1, <em>, </em>]</p>
+<p>for child 4,5: decrease: 7 + 3 + int(1 &lt; 3) = 11</p>
+<p>[1, 4, 3, 2, 1, _]</p>
+<p>compensate peak for 1 </p>
+<h3 id="Sliding-window"><a href="#Sliding-window" class="headerlink" title="Sliding window"></a>Sliding window</h3><p>use dict to keep track of each element need to be tracked,  </p>
+<p>and sliding from one side to another like find the left point and move a step to the right</p>
+<h4 id="36-Valid-sudoku"><a href="#36-Valid-sudoku" class="headerlink" title="36. Valid sudoku"></a>36. Valid sudoku</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">isValidSudoku</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> board<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                element <span class="token operator">=</span> board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                <span class="token keyword">if</span> element <span class="token operator">!=</span> <span class="token string">'.'</span><span class="token punctuation">:</span>
+                    res <span class="token operator">+=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>element<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>i <span class="token operator">//</span> <span class="token number">3</span><span class="token punctuation">,</span> j <span class="token operator">//</span> <span class="token number">3</span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">return</span> <span class="token builtin">len</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">set</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>find position of existing numbers for x position, y position, position in the 3x3 matrix, if there is duplicate then it breaks the rule</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/28/elasticSearch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/02/28/elasticSearch/" itemprop="url">elasticSearch</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-02-28T15:25:06+01:00">
+                2024-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Sharding speed up search</p>
+<p><strong>Replica shards</strong> reliabilty / improve elastic search</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--j2je7gXG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/i/843wihmgijd7wwku7a13.png" alt="Alt Text"></p>
+<p>create index </p>
+<p>put [name]</p>
+<p>generate doc</p>
+<p>POST favorite_candy/_doc</p>
+<p>…{</p>
+<p>}</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/08/flutter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/02/08/flutter/" itemprop="url">flutter</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-02-08T14:05:07+01:00">
+                2024-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>dependencies: pubspec.yaml</p>
+<h4 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h4><p>Text() </p>
+<h3 id="Build-Context"><a href="#Build-Context" class="headerlink" title="Build Context"></a>Build Context</h3><p>tells the location of a particular widget in the widget tree</p>
+<p>used for navigation…</p>
+<p>ctrl + shift + r + right click ——&gt; remove this widget</p>
+<p><strong>Column</strong> only takes as much space as the children needs</p>
+<p>can use sizeBox instead of container for making padding</p>
+<h4 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h4><p>Mainaxis: top to bottom</p>
+<p>crossaxis: left to right</p>
+<p><strong>for for loop return more than 1 widget</strong></p>
+<p>…[]</p>
+<h4 id="For-example-text-widget"><a href="#For-example-text-widget" class="headerlink" title="For example text widget"></a>For example text widget</h4><p>return <strong>RichText</strong></p>
+<p>LeafRenderobjectWidget</p>
+<p>Single…</p>
+<p>Multi</p>
+<p>Widget tree will call render(element) tree to do sth</p>
+<p>(SetState)</p>
+<p>widget will createElement() for it self</p>
+<p>Then identify the new and old widget tree to find out what part needs  </p>
+<p>to get rendered again -&gt; improve performance </p>
+<p>build context helps locate the widget in the widget tree</p>
+<h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><p>provide data to all widgets below in the widget tree</p>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Provider</span><span class="token punctuation">(</span>
+	create<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>type of data<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token comment">// to use it </span>
+    <span class="token keyword">final</span> data <span class="token operator">=</span> <span class="token class-name">Provider</span><span class="token punctuation">.</span>of<span class="token generics"><span class="token punctuation">&lt;</span>type<span class="token punctuation">></span></span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//shorten</span>
+	context<span class="token punctuation">.</span>watch<span class="token generics"><span class="token punctuation">&lt;</span>type<span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>is a read only value</p>
+<h5 id="ChangeNotifierProvider-extends-ChangeNotifier"><a href="#ChangeNotifierProvider-extends-ChangeNotifier" class="headerlink" title="ChangeNotifierProvider extends ChangeNotifier\"></a>ChangeNotifierProvider extends ChangeNotifier\</h5><p>listen to variable</p>
+<ul>
+<li>context.watch should be used when child widgets need a certain value</li>
+</ul>
+<p>// Note by</p>
+<p>Consumer make only widgets rebuild efficiently</p>
+<h5 id="SteamProvider"><a href="#SteamProvider" class="headerlink" title="SteamProvider"></a>SteamProvider</h5><h5 id="FutureProvider"><a href="#FutureProvider" class="headerlink" title="FutureProvider"></a>FutureProvider</h5><pre class="line-numbers language-none"><code class="language-none">FutureProvider&lt;String(
+	initialData: &#39;loading&#39;,
+	create: (context) &#x3D;&gt; someFuture,
+	child: const MyApp(),
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="MultiProvider"><a href="#MultiProvider" class="headerlink" title="MultiProvider"></a>MultiProvider</h5><ul>
+<li><p>When one of our Provider depends on value from another provider </p>
+<p>we use Proxy Provider</p>
+</li>
+</ul>
+<h5 id="ProxyProvider"><a href="#ProxyProvider" class="headerlink" title="ProxyProvider"></a>ProxyProvider</h5><p><img src="https://i.imgur.com/As6jVjy.png" alt="image-20240309143357180"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/06/FunctionGuide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2166,884 +2707,6 @@ class App extends Component &#123;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/14/RubyBasic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/10/14/RubyBasic/" itemprop="url">RubyBasic</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-14T13:00:16+02:00">
-                2023-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ruby-on-Rails/" itemprop="url" rel="index">
-                    <span itemprop="name">Ruby on Rails</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Ruby-on-Rails"><a href="#Ruby-on-Rails" class="headerlink" title="Ruby on Rails"></a>Ruby on Rails</h2><p>File directory example:</p>
-<p><img src="https://i.imgur.com/bgUWKix.png" alt="image-20231014130434451"></p>
-<h2 id="app-assets"><a href="#app-assets" class="headerlink" title="app - assets"></a><strong>app</strong> - assets</h2><p>folder for css, images…</p>
-<p>models - part  of mvc model</p>
-<h2 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h2><p>hardly modify</p>
-<p>routes.rb — routes</p>
-<hr>
-<p>rails routes -&gt; all the routes</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">Rails<span class="token punctuation">.</span>application<span class="token punctuation">.</span>routes<span class="token punctuation">.</span>draw <span class="token keyword">do</span>
-  <span class="token comment"># get 'home/index'</span>
-  root <span class="token string-literal"><span class="token string">'home#index'</span></span> <span class="token comment"># root page</span>
-  <span class="token comment"># Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html</span>
-
-  <span class="token comment"># Defines the root path route ("/")</span>
-  <span class="token comment"># root "articles#index"</span>
-<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="db"><a href="#db" class="headerlink" title="db"></a>db</h2><p>modes </p>
-<p>….</p>
-<h2 id="Gem"><a href="#Gem" class="headerlink" title="Gem"></a>Gem</h2><p>important</p>
-<h2 id="Create-a-controller"><a href="#Create-a-controller" class="headerlink" title="Create a controller"></a>Create a controller</h2><p>rails g controller [name (e.g. home -&gt; home_controller)] [page]</p>
-<h2 id="Navbar"><a href="#Navbar" class="headerlink" title="Navbar"></a>Navbar</h2><p>bootstrap 5.3 new dark nave bar <code>data-bs-theme=&quot;dark&quot;</code></p>
-<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>rails g scaffold + [name]</p>
-<p><img src="https://i.imgur.com/kq6y8Y2.png" alt="image-20231015155849915"></p>
-<p>It will generate a model for u</p>
-<h2 id="Simple-Deployment"><a href="#Simple-Deployment" class="headerlink" title="Simple Deployment"></a>Simple Deployment</h2><p>Both tutorial and project are using Heroku for deploying ruby application</p>
-<p>It’s using PostgreSQL</p>
-<p>example gemfile</p>
-<pre class="line-numbers language-none"><code class="language-none">source &quot;https:&#x2F;&#x2F;rubygems.org&quot;
-git_source(:github) &#123; |repo| &quot;https:&#x2F;&#x2F;github.com&#x2F;#&#123;repo&#125;.git&quot; &#125;
-
-ruby &quot;3.1.2&quot;
-
-gem &quot;rails&quot;,           &quot;7.0.4&quot;
-gem &quot;sprockets-rails&quot;, &quot;3.4.2&quot;
-gem &quot;importmap-rails&quot;, &quot;1.1.0&quot;
-gem &quot;turbo-rails&quot;,     &quot;1.1.1&quot;
-gem &quot;stimulus-rails&quot;,  &quot;1.0.4&quot;
-gem &quot;jbuilder&quot;,        &quot;2.11.5&quot;
-gem &quot;puma&quot;,            &quot;5.6.4&quot;
-gem &quot;bootsnap&quot;,        &quot;1.12.0&quot;, require: false
-
-group :development, :test do
-  gem &quot;sqlite3&quot;, &quot;1.4.2&quot;
-  gem &quot;debug&quot;,   &quot;1.5.0&quot;, platforms: %i[ mri mingw x64_mingw ]
-end
-
-group :development do
-  gem &quot;web-console&quot;, &quot;4.2.0&quot;
-end
-
-group :test do
-  gem &quot;capybara&quot;,           &quot;3.37.1&quot;
-  gem &quot;selenium-webdriver&quot;, &quot;4.2.0&quot;
-  gem &quot;webdrivers&quot;,         &quot;5.0.0&quot;
-end
-
-group :production do
-  gem &quot;pg&quot;, &quot;1.3.5&quot;
-end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>heroku login  -&gt; create </p>
-<p>Then push the main branch to heroku</p>
-<p>git push heroku main</p>
-<p>heroku apps:info</p>
-<p>small trick for domain address: (‘a’ .. ‘z’).to_a.shuffle[0..7].join</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">rails generate scaffold User name<span class="token symbol">:string</span> email<span class="token symbol">:string</span>
-rails db<span class="token symbol">:migrate</span>
-<span class="token keyword">for</span> looping usage<span class="token operator">:</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token variable">@users</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>user<span class="token operator">|</span> <span class="token string-literal"><span class="token string">%>
-		
-	&lt;% end %></span></span>
-        
-<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>models
-       one to many
-	<span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token operator">&lt;</span> ApplicationRecord
-        has_many <span class="token operator">:</span> microposts
-    <span class="token keyword">end</span>
-<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>
-   <span class="token keyword">class</span> <span class="token class-name">Micropost</span> <span class="token operator">&lt;</span> ApplicationRecord
-       belongs_to <span class="token operator">:</span> user
-       <span class="token symbol">validates</span><span class="token operator">:</span> content<span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token symbol">maximum</span><span class="token operator">:</span> <span class="token number">140</span><span class="token punctuation">&#125;</span>
-   <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Test-in-rails"><a href="#Test-in-rails" class="headerlink" title="Test in rails"></a>Test in rails</h3><p>Also generated by rails generate</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string-literal"><span class="token string">"test_helper"</span></span>
-
-<span class="token keyword">class</span> <span class="token class-name">StaticPagesControllerTest</span> <span class="token operator">&lt;</span> ActionDispatch<span class="token double-colon punctuation">::</span>IntegrationTest
-
-  test <span class="token string-literal"><span class="token string">"should get home"</span></span> <span class="token keyword">do</span>
-    get static_pages_home_url
-    assert_response <span class="token symbol">:success</span>
-    assert_select <span class="token string-literal"><span class="token string">"title"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"Home | Ruby on Rails Tutorial Sample App"</span></span>
-
-  <span class="token keyword">end</span>
-
-  test <span class="token string-literal"><span class="token string">"should get help"</span></span> <span class="token keyword">do</span>
-    get static_pages_help_url
-    assert_response <span class="token symbol">:success</span>
-    assert_select <span class="token string-literal"><span class="token string">"title"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"Help | Ruby on Rails Tutorial Sample App"</span></span>
-  <span class="token keyword">end</span>
-
-  test <span class="token string-literal"><span class="token string">"should get about"</span></span> <span class="token keyword">do</span>
-    get static_pages_about_url
-    assert_response <span class="token symbol">:success</span>
-    assert_select <span class="token string-literal"><span class="token string">"title"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"About | Ruby on Rails Tutorial Sample App"</span></span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span>
-
-<span class="token comment">#assert_select automatically inserts the value to verify the link exists </span>
-<span class="token keyword">require</span> <span class="token string-literal"><span class="token string">"test_helper"</span></span>
-
-<span class="token keyword">class</span> <span class="token class-name">SiteLayoutTest</span> <span class="token operator">&lt;</span> ActionDispatch<span class="token double-colon punctuation">::</span>IntegrationTest
-    
-assert_select <span class="token string-literal"><span class="token string">"a[href=?]"</span></span><span class="token punctuation">,</span> root_path<span class="token punctuation">,</span> <span class="token symbol">count</span><span class="token operator">:</span> <span class="token number">2</span>
-assert_select <span class="token string-literal"><span class="token string">"a[href=?]"</span></span><span class="token punctuation">,</span> help_path<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://i.imgur.com/aJ9WRDi.png" alt="image-20231105161812124"></p>
-<p><strong>template system called Haml,</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;% provide(:title, &quot;Home&quot;) %&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;&lt;%&#x3D; yield(:title) %&gt; | Ruby on Rails Tutorial Sample App&lt;&#x2F;title&gt;
-  &lt;&#x2F;head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Sample App&lt;&#x2F;h1&gt;
-    &lt;p&gt;
-      This is the home page for the
-      &lt;a href&#x3D;&quot;https:&#x2F;&#x2F;www.railstutorial.org&#x2F;&quot;&gt;Ruby on Rails Tutorial&lt;&#x2F;a&gt;
-      sample application.
-    &lt;&#x2F;p&gt;
-  &lt;&#x2F;body&gt;
-&lt;&#x2F;html&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>call the provide function with string “home” with label “title</p>
-<p>the <strong><code>provide</code></strong> function and associate the string <strong><code>&quot;Home&quot;</code></strong> with the label <strong><code>:title</code></strong>.</p>
-<p>use the closely related notation <strong><code>&lt;%= ... %&gt;</code></strong> to insert the title into the template using Ruby’s <strong><code>yield</code></strong> function:”</p>
-<ul>
-<li>distinction between the two types of embedded Ruby is that <strong><code>&lt;% ... %&gt;</code></strong> <em>executes</em> the code inside, while <strong><code>&lt;%= ... %&gt;</code></strong> executes it <em>and inserts</em> the result into the template</li>
-</ul>
-<h3 id="Helper-in-rails"><a href="#Helper-in-rails" class="headerlink" title="Helper in rails"></a>Helper in rails</h3><p><code>*app/helpers/application_helper.rb*</code></p>
-<p>Like for the title we can have a helper function </p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">module</span> <span class="token class-name">ApplicationHelper</span>
-
-  <span class="token comment"># Returns the full title on a per-page basis.</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">full_title</span></span><span class="token punctuation">(</span>page_title <span class="token operator">=</span> <span class="token string-literal"><span class="token string">''</span></span><span class="token punctuation">)</span>
-    base_title <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"Ruby on Rails Tutorial Sample App"</span></span>
-    <span class="token keyword">if</span> page_title<span class="token punctuation">.</span>empty<span class="token operator">?</span>
-      base_title
-    <span class="token keyword">else</span>
-      <span class="token string-literal"><span class="token string">"</span><span class="token interpolation"><span class="token delimiter punctuation">#&#123;</span><span class="token content">page_title</span><span class="token delimiter punctuation">&#125;</span></span><span class="token string"> | </span><span class="token interpolation"><span class="token delimiter punctuation">#&#123;</span><span class="token content">base_title</span><span class="token delimiter punctuation">&#125;</span></span><span class="token string">"</span></span>
-    <span class="token keyword">end</span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span>
-
-<span class="token comment"># then we can replace the original function with </span>
-<span class="token operator">&lt;</span>title<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">%=</span> full_title<span class="token punctuation">(</span><span class="token keyword">yield</span><span class="token punctuation">(</span><span class="token symbol">:title</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>&lt;/title></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>One more time: yield is yielding the contents to a block</p>
-<h3 id="Ruby-rush"><a href="#Ruby-rush" class="headerlink" title="Ruby rush!"></a>Ruby rush!</h3><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">puts <span class="token string-literal"><span class="token string">"foo"</span></span> <span class="token comment">#print string</span>
-
-<span class="token comment">#method definition</span>
-<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">name</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    
-<span class="token keyword">end</span>
-
-<span class="token comment">#array and split</span>
-<span class="token string-literal"><span class="token string">"foo bar   baz"</span></span><span class="token punctuation">.</span>split
-<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"foo"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"bar"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"baz"</span></span><span class="token punctuation">]</span>
-
-<span class="token symbol">method</span><span class="token operator">:</span>
-<span class="token keyword">include</span><span class="token operator">?</span>
-sort <span class="token operator">/</span> sort<span class="token operator">!</span>
-reverse
-shuffle
-
-<span class="token punctuation">(</span><span class="token number">0.</span><span class="token number">.9</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_a
-
-a <span class="token operator">=</span> <span class="token string-literal"><span class="token string">%w[foo bar baz quux]</span></span>         <span class="token comment"># Use %w to make a string array.</span>
-
-<span class="token comment">#Blocks</span>
-<span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token punctuation">&#123;</span> <span class="token operator">|</span>i<span class="token operator">|</span> puts <span class="token number">2</span> <span class="token operator">*</span> i <span class="token punctuation">&#125;</span>
-<span class="token number">2</span>
-<span class="token number">4</span>
-<span class="token number">6</span>
-<span class="token number">8</span>
-<span class="token number">10</span>
-
-<span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>number<span class="token operator">|</span>
-<span class="token operator">?</span><span class="token operator">></span>   puts <span class="token number">2</span> <span class="token operator">*</span> number
-<span class="token operator">>></span>   puts <span class="token string-literal"><span class="token string">'--'</span></span>
-<span class="token operator">>></span> <span class="token keyword">end</span>
-<span class="token number">2</span>
-<span class="token operator">-</span><span class="token operator">-</span>
-<span class="token number">4</span>
-<span class="token operator">-</span><span class="token operator">-</span>
-<span class="token number">6</span>
-<span class="token operator">-</span><span class="token operator">-</span>
-<span class="token number">8</span>
-<span class="token operator">-</span><span class="token operator">-</span>
-<span class="token number">10</span>
-<span class="token operator">-</span><span class="token operator">-</span>
-    
-<span class="token operator">>></span> <span class="token number">3.</span>times <span class="token punctuation">&#123;</span> puts <span class="token string-literal"><span class="token string">"Betelgeuse!"</span></span> <span class="token punctuation">&#125;</span>   <span class="token comment"># 3.times takes a block with no variables.</span>
-<span class="token string-literal"><span class="token string">"Betelgeuse!"</span></span>
-<span class="token string-literal"><span class="token string">"Betelgeuse!"</span></span>
-<span class="token string-literal"><span class="token string">"Betelgeuse!"</span></span>
-<span class="token operator">=></span> <span class="token number">3</span>
-<span class="token operator">>></span> <span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>map <span class="token punctuation">&#123;</span> <span class="token operator">|</span>i<span class="token operator">|</span> i<span class="token operator">**</span><span class="token number">2</span> <span class="token punctuation">&#125;</span>          <span class="token comment"># The ** notation is for 'power'.</span>
-<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">]</span>
-<span class="token operator">>></span> <span class="token string-literal"><span class="token string">%w[a b c]</span></span>                        <span class="token comment"># Recall that %w makes string arrays.</span>
-<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"a"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"b"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"c"</span></span><span class="token punctuation">]</span>
-<span class="token operator">>></span> <span class="token string-literal"><span class="token string">%w[a b c]</span></span><span class="token punctuation">.</span>map <span class="token punctuation">&#123;</span> <span class="token operator">|</span>char<span class="token operator">|</span> char<span class="token punctuation">.</span>upcase <span class="token punctuation">&#125;</span>
-<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"A"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"B"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"C"</span></span><span class="token punctuation">]</span>
-<span class="token operator">>></span> <span class="token string-literal"><span class="token string">%w[A B C]</span></span><span class="token punctuation">.</span>map <span class="token punctuation">&#123;</span> <span class="token operator">|</span>char<span class="token operator">|</span> char<span class="token punctuation">.</span>downcase <span class="token punctuation">&#125;</span>
-<span class="token operator">=></span> <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"a"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"b"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"c"</span></span><span class="token punctuation">]</span>
-
-<span class="token operator">>></span> h1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token symbol">:name</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"Michael Hartl"</span></span><span class="token punctuation">,</span> <span class="token symbol">:email</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"michael@example.com"</span></span> <span class="token punctuation">&#125;</span>
-<span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token symbol">:name</span><span class="token operator">=></span><span class="token string-literal"><span class="token string">"Michael Hartl"</span></span><span class="token punctuation">,</span> <span class="token symbol">:email</span><span class="token operator">=></span><span class="token string-literal"><span class="token string">"michael@example.com"</span></span><span class="token punctuation">&#125;</span>
-<span class="token operator">>></span> h2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token symbol">name</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"Michael Hartl"</span></span><span class="token punctuation">,</span> <span class="token symbol">email</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"michael@example.com"</span></span> <span class="token punctuation">&#125;</span>
-<span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token symbol">:name</span><span class="token operator">=></span><span class="token string-literal"><span class="token string">"Michael Hartl"</span></span><span class="token punctuation">,</span> <span class="token symbol">:email</span><span class="token operator">=></span><span class="token string-literal"><span class="token string">"michael@example.com"</span></span><span class="token punctuation">&#125;</span>
-<span class="token operator">>></span> h1 <span class="token operator">==</span> h2
-<span class="token operator">=></span> <span class="token boolean">true</span>
-<span class="token comment">#The last example uses the useful inspect method, which returns a string with a literal representation of the object it’s called on:</span>
-<span class="token operator">>></span> puts <span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_a            <span class="token comment"># Put an array as a string.</span>
-<span class="token number">1</span>
-<span class="token number">2</span>
-<span class="token number">3</span>
-<span class="token number">4</span>
-<span class="token number">5</span>
-<span class="token operator">>></span> puts <span class="token punctuation">(</span><span class="token number">1.</span><span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to_a<span class="token punctuation">.</span>inspect    <span class="token comment"># Put a literal array.</span>
-<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span>
-
-
-<span class="token operator">>></span> s <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"foobar"</span></span><span class="token punctuation">)</span>
-<span class="token operator">=></span> <span class="token string-literal"><span class="token string">"foobar"</span></span>
-<span class="token operator">>></span> s<span class="token punctuation">.</span><span class="token keyword">class</span>                        <span class="token comment"># Find the class of s.</span>
-<span class="token operator">=></span> <span class="token builtin">String</span>
-<span class="token operator">>></span> s<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span>superclass             <span class="token comment"># Find the superclass of String.</span>
-<span class="token operator">=></span> <span class="token builtin">Object</span>
-<span class="token operator">>></span> s<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span>superclass<span class="token punctuation">.</span>superclass  <span class="token comment"># Ruby has a BasicObject base class as of 1.9</span>
-<span class="token operator">=></span> BasicObject
-<span class="token operator">>></span> s<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span>superclass<span class="token punctuation">.</span>superclass<span class="token punctuation">.</span>superclass
-<span class="token operator">=></span> <span class="token keyword">nil</span>
-
-<span class="token comment">#define a class</span>
-<span class="token operator">>></span> <span class="token keyword">class</span> <span class="token class-name">Word</span> <span class="token operator">&lt;</span> <span class="token builtin">String</span>             <span class="token comment"># Word inherits from String.</span>
-<span class="token operator">>></span>   <span class="token comment"># Returns true if the string is its own reverse.</span>
-<span class="token operator">>></span>   <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">palindrome</span></span><span class="token operator">?</span>
-<span class="token operator">>></span>     <span class="token keyword">self</span> <span class="token operator">==</span> <span class="token keyword">self</span><span class="token punctuation">.</span>reverse        <span class="token comment"># self is the string itself.</span>
-<span class="token operator">>></span>   <span class="token keyword">end</span>
-<span class="token operator">>></span> <span class="token keyword">end</span>
-<span class="token operator">=></span> <span class="token keyword">nil</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Using-css-bootstrap-in-rails"><a href="#Using-css-bootstrap-in-rails" class="headerlink" title="Using css (bootstrap) in rails"></a>Using css (bootstrap) in rails</h3><pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; gem file
-.
-gem &quot;rails&quot;,           &quot;7.0.4&quot;
-gem &quot;bootstrap-sass&quot;,  &quot;3.4.1&quot;
-gem &quot;sassc-rails&quot;,     &quot;2.1.2&quot;
-gem &quot;sprockets-rails&quot;, &quot;3.4.2&quot;
-
-@import &quot;bootstrap-sprockets&quot;;
-@import &quot;bootstrap&quot;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><em>app/views/layouts/_footer.html.erb</em><br>-&gt; &lt;%= render ‘layouts/footer’ %&gt;</p>
-<ul>
-<li><strong><code>app/assets</code></strong>: assets specific to the present application</li>
-<li><strong><code>lib/assets</code></strong>: assets for libraries written by your dev team</li>
-<li><strong><code>vendor/assets</code></strong>: assets from third-party vendors (not present by default)</li>
-</ul>
-<h3 id="Rails-routes"><a href="#Rails-routes" class="headerlink" title="Rails routes"></a>Rails routes</h3><pre class="line-numbers language-none"><code class="language-none">&lt;a href&#x3D;&quot;&#x2F;static_pages&#x2F;about&quot;&gt;About&lt;&#x2F;a&gt;
--&gt; 
-&lt;%&#x3D; link_to &quot;About&quot;, about_path %&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Examples of routes:</p>
-<p><img src="https://i.imgur.com/IZOl4bu.png" alt="image-20231105131623737"></p>
-<h4 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h4><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">root <span class="token string-literal"><span class="token string">"static_pages#home"</span></span>
-root_path <span class="token operator">-</span><span class="token operator">></span> <span class="token string-literal"><span class="token string">'/'</span></span>
-root_url  <span class="token operator">-</span><span class="token operator">></span> <span class="token string-literal"><span class="token string">'http://www.example.com/'</span></span>
-get <span class="token string-literal"><span class="token string">"static_pages/help"</span></span> <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">></span> get <span class="token string-literal"><span class="token string">"/help"</span></span><span class="token punctuation">,</span> <span class="token symbol">to</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"static_pages#help"</span></span>
-<span class="token operator">/</span><span class="token operator">/</span> it will create two name space help_path <span class="token keyword">and</span> help_url  <span class="token operator">:</span>
-help_path <span class="token operator">-</span><span class="token operator">></span> <span class="token string-literal"><span class="token string">'/help'</span></span>
-help_url  <span class="token operator">-</span><span class="token operator">></span> <span class="token string-literal"><span class="token string">'http://www.example.com/help'</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Then-we-try-tests"><a href="#Then-we-try-tests" class="headerlink" title="Then we try tests:"></a>Then we try tests:</h4><pre class="line-numbers language-none"><code class="language-none">$ rails generate integration_test site_layout
-      invoke  test_unit
-      create    test&#x2F;integration&#x2F;site_layout_test.rb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Rails generator automatically appends <strong><code>_test</code></strong> to the name of the test file.</p>
-<p><strong>Tips: gem “tzinfo-data”</strong> do not include platform to avoid error with timezone</p>
-<p><img src="https://i.imgur.com/drCMurB.png" alt="image-20231105170406483"></p>
-<p>User:</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token operator">&lt;</span> ApplicationRecord
-  before_save <span class="token punctuation">&#123;</span> <span class="token keyword">self</span><span class="token punctuation">.</span>email <span class="token operator">=</span> email<span class="token punctuation">.</span>downcase <span class="token punctuation">&#125;</span>
-  validates <span class="token symbol">:name</span><span class="token punctuation">,</span>  <span class="token symbol">presence</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">maximum</span><span class="token operator">:</span> <span class="token number">50</span> <span class="token punctuation">&#125;</span>
-  <span class="token constant">VALID_EMAIL_REGEX</span> <span class="token operator">=</span> <span class="token regex-literal"><span class="token regex">/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i</span></span>
-  validates <span class="token symbol">:email</span><span class="token punctuation">,</span> <span class="token symbol">presence</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">maximum</span><span class="token operator">:</span> <span class="token number">255</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-                    <span class="token symbol">format</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">with</span><span class="token operator">:</span> <span class="token constant">VALID_EMAIL_REGEX</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token comment">#Validating the uniqueness of email addresses</span>
-                    <span class="token symbol">uniqueness</span><span class="token operator">:</span> uniqueness<span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">case_sensitive</span><span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">&#125;</span>
-  has_secure_password
-  validates <span class="token symbol">:password</span><span class="token punctuation">,</span> <span class="token symbol">presence</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token symbol">length</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">minimum</span><span class="token operator">:</span> <span class="token number">6</span> <span class="token punctuation">&#125;</span>
-<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>Uniqueness Validation</strong></p>
-<p> test for rejection of duplicate email addresses</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">
-<span class="token keyword">require</span> <span class="token string-literal"><span class="token string">"test_helper"</span></span>
-
-<span class="token keyword">class</span> <span class="token class-name">UserTest</span> <span class="token operator">&lt;</span> ActiveSupport<span class="token double-colon punctuation">::</span>TestCase
-
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">setup</span></span>
-    <span class="token variable">@user</span> <span class="token operator">=</span> <span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token symbol">name</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"Example User"</span></span><span class="token punctuation">,</span> <span class="token symbol">email</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"user@example.com"</span></span><span class="token punctuation">)</span>
-  <span class="token keyword">end</span>
-  <span class="token punctuation">.</span>
-  <span class="token punctuation">.</span>
-  <span class="token punctuation">.</span>
-  test <span class="token string-literal"><span class="token string">"email addresses should be unique"</span></span> <span class="token keyword">do</span>
-    duplicate_user <span class="token operator">=</span> <span class="token variable">@user</span><span class="token punctuation">.</span>dup
-    <span class="token variable">@user</span><span class="token punctuation">.</span>save
-    assert_not duplicate_user<span class="token punctuation">.</span>valid<span class="token operator">?</span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">rails generate migration add_index_to_users_email
-_______________
-rails generate migration add_password_digest_to_users password_digest:string
-
-class AddPasswordDigestToUsers &lt; ActiveRecord::Migration[7.0]
-  def change
-    add_column :users, :password_digest, :string
-  end
-end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">class AddIndexToUsersEmail &lt; ActiveRecord::Migration[7.0]
-  def change
-    add_index :users, :email, unique: true
-  end
-end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Then migrate to guarantee unique index</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/08/NextJS-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/10/08/NextJS-1/" itemprop="url">NextJS-1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-08T15:33:46+02:00">
-                2023-10-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NextJS/" itemprop="url" rel="index">
-                    <span itemprop="name">NextJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>‘use client’ : client side rendering</p>
-<p>state management (react hook)</p>
-<p><img src="https://i.imgur.com/17fuE5f.png" alt="image-20231008153916697"></p>
-<h1 id="How-to-fetch-data"><a href="#How-to-fetch-data" class="headerlink" title="How to fetch data?"></a>How to fetch data?</h1><ol>
-<li>server site rendering SSR</li>
-</ol>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">Page</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span>param<span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	<span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fectch</span> <span class="token punctuation">(</span>
-		<span class="token string">'url'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">cache</span><span class="token operator">:</span> <span class="token string">'no-store'</span><span class="token punctuation">&#125;</span> <span class="token comment">// don't store it</span>
-	<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">const</span> data <span class="token operator">=</span> <span class="token keyword">await</span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    	<span class="token operator">...</span><span class="token punctuation">.</span>
-    <span class="token punctuation">)</span> <span class="token comment">// refetch every single time -> server side rendering</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; server site generating saving it
-async function Page(&#123;param&#125;) &#123;
-	const res &#x3D; await fectch (
-		&#39;url&#39;
-	);
-	const data &#x3D; await res.json()
-    return (
-    	....
-    ) &#x2F;&#x2F; refetch every single time -&gt; server side rendering
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li>Incremental Static Generation  (ISR)</li>
-</ol>
-<p>{ next : {revalidate:10}}</p>
-<h4 id="Link-in-nextJs"><a href="#Link-in-nextJs" class="headerlink" title="Link in nextJs"></a>Link in nextJs</h4><p>Instead of ahref use <Link> intead</Link></p>
-<p>the <code>Link</code> component is similar to using <code>&lt;a&gt;</code> tags, but instead of <code>&lt;a href=&quot;…&quot;&gt;</code>, you use <code>&lt;Link href=&quot;…&quot;&gt;</code></p>
-<h4 id="Pattern-Showing-active-links"><a href="#Pattern-Showing-active-links" class="headerlink" title="Pattern: Showing active links"></a>Pattern: Showing active links</h4><p>Since <a target="_blank" rel="noopener" href="https://nextjs.org/docs/app/api-reference/functions/use-pathname"><code>usePathname()</code></a> is a hook, you’ll need to turn <code>nav-links.tsx</code> into a Client Component. Add React’s <code>&quot;use client&quot;</code> directive to the top of the file, then import <code>usePathname()</code> from <code>next/navigation</code></p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">&#39;use client&#39;;
- 
-import &#123;
-  UserGroupIcon,
-  HomeIcon,
-  InboxIcon,
-&#125; from &#39;@heroicons&#x2F;react&#x2F;24&#x2F;outline&#39;;
-import Link from &#39;next&#x2F;link&#39;;
-import &#123; usePathname &#125; from &#39;next&#x2F;navigation&#39;;
- 
-&#x2F;&#x2F; ...
-export default function NavLinks() &#123;
-  const pathname &#x3D; usePathname();
-  &#x2F;&#x2F; ...
-&#125;
-
-&#x2F;&#x2F;data fetching
-const revenue &#x3D; await fetchRevenue();
-const latestInvoices &#x3D; await fetchLatestInvoices(); &#x2F;&#x2F; wait for fetchRevenue() to finish
-const &#123;
-  numberOfInvoices,
-  numberOfCustomers,
-  totalPaidInvoices,
-  totalPendingInvoices,
-&#125; &#x3D; await fetchCardData(); &#x2F;&#x2F; wait for fetchLatestInvoices() to finish
-
-&#x2F;&#x2F; these are running in sequence <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Parallel-data-fetching"><a href="#Parallel-data-fetching" class="headerlink" title="Parallel data fetching"></a>Parallel data fetching</h4><p>In JavaScript, you can use the <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"><code>Promise.all()</code></a> or <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled"><code>Promise.allSettled()</code></a> functions to initiate all promises at the same time. For example, in <code>data.ts</code>, we’re using <code>Promise.all()</code> in the <code>fetchCardData()</code> function:</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">fetchCardData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> invoiceCountPromise <span class="token operator">=</span> sql<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">SELECT COUNT(*) FROM invoices</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
-    <span class="token keyword">const</span> customerCountPromise <span class="token operator">=</span> sql<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">SELECT COUNT(*) FROM customers</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
-    <span class="token keyword">const</span> invoiceStatusPromise <span class="token operator">=</span> sql<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">SELECT
-         SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
-         SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
-         FROM invoices</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
- 
-    <span class="token keyword">const</span> data <span class="token operator">=</span> <span class="token keyword">await</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
-      invoiceCountPromise<span class="token punctuation">,</span>
-      customerCountPromise<span class="token punctuation">,</span>
-      invoiceStatusPromise<span class="token punctuation">,</span>
-    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// ...</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">&lt;table class&#x3D;&quot;table&quot;&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Name&lt;&#x2F;th&gt;
-      &lt;th&gt;Description&lt;&#x2F;th&gt;
-      &lt;th&gt;Labels&lt;&#x2F;th&gt;
-    &lt;&#x2F;tr&gt;
-  &lt;&#x2F;thead&gt;
-  &lt;tbody&gt;
-    &lt;% @projects.each do |project| %&gt;
-      &lt;tr&gt;
-        &lt;td&gt;&lt;%&#x3D; project.name %&gt;&lt;&#x2F;td&gt;
-        &lt;td&gt;&lt;%&#x3D; project.description %&gt;&lt;&#x2F;td&gt;
-        &lt;td&gt;&lt;%&#x3D; project.labels %&gt;&lt;&#x2F;td&gt;
-      &lt;&#x2F;tr&gt;
-    &lt;% end %&gt;
-  &lt;&#x2F;tbody&gt;
-&lt;&#x2F;table&gt;
-
-
-
-  &lt;%&#x3D; form_with(url: projects_path, method: :get) do |form| %&gt;
-  &lt;div class&#x3D;&quot;mb-3&quot;&gt;
-    &lt;%&#x3D; form.label :label, &#39;Filter by Label&#39; %&gt;
-    &lt;%&#x3D; form.select :label, Project.all_labels, &#123; include_blank: &#39;All Labels&#39; &#125;, class: &#39;form-select&#39; %&gt;
-  &lt;&#x2F;div&gt;
-
-  &lt;%&#x3D; form.submit &#39;Filter&#39;, class: &#39;btn btn-primary&#39; %&gt;
-&lt;% end %&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/12/WebSecurity1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/09/12/WebSecurity1/" itemprop="url">WebSecurity1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-09-12T22:38:48+02:00">
-                2023-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>DNS Domain name system</p>
-<p>​                                    Root Name Server</p>
-<p>Client  $\leftarrow$ DNS Server  $\leftrightarrow$                           “.edu” Name server</p>
-<p>​                                    “stanford.edu” Name server</p>
-<p>Type a URL and press enter</p>
-<ol>
-<li>Client ask DNS Recursive Resolver to lookup a hostname (standford.edu)</li>
-<li>DNS Recursive Resolver sends DNS query to Root Name server</li>
-<li>DNS Recursive Resolver sends DNS query to TLD Name server</li>
-</ol>
-<h2 id="DNS-hjacking"><a href="#DNS-hjacking" class="headerlink" title="DNS hjacking"></a>DNS hjacking</h2><p>The attacker changes DNS recodes of target to point to own IP address, so all visitors are </p>
-<p>directed to the attacker’s web server.</p>
-<p>Several ways to achieve this </p>
-<ul>
-<li>Malware changes user’s local DNS settings</li>
-<li>Hacked recursive DNS resolver</li>
-<li>Hacked router</li>
-<li>Hacked DNS nameserver</li>
-<li>Compromised user account at DNS provider</li>
-</ul>
-<p><img src="https://i.imgur.com/l8NQAho.png" alt="image-20231001154425032"></p>
-<h2 id="DNS-privacy"><a href="#DNS-privacy" class="headerlink" title="DNS privacy"></a>DNS privacy</h2><p>Queries are plaintext. </p>
-<p><strong>Pro ti[:</strong> switch DNS settings to Cloudflare (1.1.1.1) or another provider with good privacy policy</p>
-<p>Http is a client-server model which is simple,extensible, stateless and transport protocol agnostic</p>
-<p><img src="https://i.imgur.com/4wfhYxA.png" alt="image-20231001162729542"></p>
-<ul>
-<li>200 ok</li>
-<li>206 Partial Content</li>
-</ul>
-<p><img src="https://i.imgur.com/hfpoN4u.png" alt="image-20231001163027378"></p>
-<p><img src="https://i.imgur.com/iCdi9Fx.png" alt="image-20231001163502925"></p>
-<p>Full process of request</p>
-<p><img src="https://i.imgur.com/mmWAfNB.png" alt="image-20231001165442747"></p>
-<h2 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h2><p>make cookie <strong>Path</strong> secure</p>
-<p>Cookies can only be accessed by equal or more-specific domains, so use a subdomain</p>
-<ul>
-<li><p>Just set it to Path =/ and don’t ever rely on it</p>
-<p>Set-Cookie: key = value; Secure; HttpOnly; Path =/</p>
-</li>
-</ul>
-<p>Cookie only send through http, So like javascript running on the server can not see the cookie</p>
-<h2 id="Problem-with-ambient-authority"><a href="#Problem-with-ambient-authority" class="headerlink" title="Problem with ambient authority"></a>Problem with ambient authority</h2><p>Unclear which site initiated a request: request from attacker will be included</p>
-<p><strong>Cross-Site Request Forgery(CSRF)</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3098,7 +2761,7 @@ const &#123;
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3109,7 +2772,7 @@ const &#123;
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
