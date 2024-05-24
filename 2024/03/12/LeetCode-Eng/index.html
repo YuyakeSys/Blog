@@ -87,8 +87,10 @@
 <meta property="og:description" content="class Solution:     def jump(self, nums: List[int]) -&gt; int:         steps &#x3D; 0         end &#x3D; 0         farthest &#x3D; 0         for i in range(len(nums)-1):             farthest &#x3D; ma">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.imgur.com/mocVEe7.png">
+<meta property="og:image" content="https://i.imgur.com/4CEkaDo.png">
+<meta property="og:image" content="https://i.imgur.com/sDTidsF.png">
 <meta property="article:published_time" content="2024-03-12T14:30:19.000Z">
-<meta property="article:modified_time" content="2024-03-15T18:18:21.761Z">
+<meta property="article:modified_time" content="2024-03-22T19:13:24.182Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/mocVEe7.png">
@@ -460,6 +462,65 @@
                     res <span class="token operator">+=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>element<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>i <span class="token operator">//</span> <span class="token number">3</span><span class="token punctuation">,</span> j <span class="token operator">//</span> <span class="token number">3</span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">]</span>
         <span class="token keyword">return</span> <span class="token builtin">len</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">set</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>find position of existing numbers for x position, y position, position in the 3x3 matrix, if there is duplicate then it breaks the rule</p>
+<h4 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h4><p><img src="https://i.imgur.com/4CEkaDo.png" alt="image-20240320153921714"></p>
+<p>by recursion  </p>
+<ol>
+<li><p>Construct Binary tree from preorder and inorder</p>
+<ol>
+<li><p><strong>Reasoning:</strong></p>
+<ul>
+<li><strong>Root Node Selection:</strong> We choose the first value of the preorder traversal as the root because, in a preorder traversal, the root node is visited first.</li>
+<li><strong>Finding Index of Root in Inorder:</strong> By finding the index of the root in the inorder list, we effectively split the inorder list into two halves: elements to the left represent nodes in the left subtree, and elements to the right represent nodes in the right subtree.</li>
+<li><strong>Recursive Splitting:</strong> Recursively splitting the inorder list into left and right subtrees helps maintain the relative ordering of nodes in the tree, ensuring the correctness of the constructed binary tree.</li>
+<li><strong>Preorder for Subtrees:</strong> After identifying the size of the left subtree from the inorder list, the subsequent elements in the preorder list represent nodes in the left subtree. Similarly, the remaining elements in the preorder list correspond to nodes in the right subtree, allowing us to construct the subtrees recursively.</li>
+</ul>
+<p>Identify the preorder and Inorder sequence</p>
+</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Definition for a binary tree node.</span>
+<span class="token comment"># class TreeNode:</span>
+<span class="token comment">#     def __init__(self, val=0, left=None, right=None):</span>
+<span class="token comment">#         self.val = val</span>
+<span class="token comment">#         self.left = left</span>
+<span class="token comment">#         self.right = right</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">buildTree</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> preorder<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> inorder<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Optional<span class="token punctuation">[</span>TreeNode<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> preorder <span class="token keyword">or</span> <span class="token keyword">not</span> inorder<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">None</span>
+        inorder_map <span class="token operator">=</span> <span class="token punctuation">&#123;</span>val<span class="token punctuation">:</span> index <span class="token keyword">for</span> index<span class="token punctuation">,</span> val <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>inorder<span class="token punctuation">)</span><span class="token punctuation">&#125;</span>    
+        <span class="token keyword">def</span> <span class="token function">build</span><span class="token punctuation">(</span>pre_start<span class="token punctuation">,</span> pre_end<span class="token punctuation">,</span> in_start<span class="token punctuation">,</span> in_end<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> pre_start <span class="token operator">></span> pre_end<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">None</span>       
+            root_val <span class="token operator">=</span> preorder<span class="token punctuation">[</span>pre_start<span class="token punctuation">]</span>
+            root <span class="token operator">=</span> TreeNode<span class="token punctuation">(</span>root_val<span class="token punctuation">)</span>
+
+            in_index <span class="token operator">=</span> inorder_map<span class="token punctuation">[</span>root_val<span class="token punctuation">]</span>
+            left_size <span class="token operator">=</span> in_index <span class="token operator">-</span> in_start
+
+             <span class="token comment"># Recursively build the left subtree</span>
+            root<span class="token punctuation">.</span>left <span class="token operator">=</span> build<span class="token punctuation">(</span>pre_start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> pre_start <span class="token operator">+</span> left_size<span class="token punctuation">,</span> in_start<span class="token punctuation">,</span> in_index <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+            <span class="token comment"># Recursively build the right subtree</span>
+            root<span class="token punctuation">.</span>right <span class="token operator">=</span> build<span class="token punctuation">(</span>pre_start <span class="token operator">+</span> left_size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> pre_end<span class="token punctuation">,</span> in_index <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> in_end<span class="token punctuation">)</span>
+
+            <span class="token keyword">return</span> root
+        
+        <span class="token keyword">return</span> build<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>preorder<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>inorder<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/sDTidsF.png" alt="image-20240320165257180"></p>
+<h5 id="236-Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#236-Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="236. Lowest Common Ancestor of a Binary Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">236. Lowest Common Ancestor of a Binary Tree</a></h5><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">lowestCommonAncestor</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> root<span class="token punctuation">:</span> <span class="token string">'TreeNode'</span><span class="token punctuation">,</span> p<span class="token punctuation">:</span> <span class="token string">'TreeNode'</span><span class="token punctuation">,</span> q<span class="token punctuation">:</span> <span class="token string">'TreeNode'</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token string">'TreeNode'</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> root <span class="token keyword">or</span> root <span class="token operator">==</span> p <span class="token keyword">or</span> root <span class="token operator">==</span> q<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> root
+
+        l <span class="token operator">=</span> self<span class="token punctuation">.</span>lowestCommonAncestor<span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span>
+        r <span class="token operator">=</span> self<span class="token punctuation">.</span>lowestCommonAncestor<span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> l <span class="token keyword">and</span> r<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> root
+        <span class="token keyword">return</span> l <span class="token keyword">or</span> r<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Find the common ancestor, if not the common lowest ancestor,</p>
 
       
     </div>
@@ -493,6 +554,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/04/24/flower/" rel="prev" title="flower">
+                flower <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -573,7 +638,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -584,7 +649,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -638,7 +703,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Value-except-itself"><span class="nav-number">1.</span> <span class="nav-text">Value except itself</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gas-Station-Greed-algorithm"><span class="nav-number">2.</span> <span class="nav-text">Gas Station - Greed algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Candy-Greed-algorithm"><span class="nav-number">3.</span> <span class="nav-text">Candy - Greed algorithm</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#One-Pass-Greedy-Algorithm-Up-Down-Peak-Method"><span class="nav-number"></span> <span class="nav-text">One-Pass Greedy Algorithm: Up-Down-Peak Method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Up-Down-and-Peak"><span class="nav-number"></span> <span class="nav-text">Why Up, Down, and Peak?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sliding-window"><span class="nav-number"></span> <span class="nav-text">Sliding window</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#36-Valid-sudoku"><span class="nav-number">1.</span> <span class="nav-text">36. Valid sudoku</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Value-except-itself"><span class="nav-number">1.</span> <span class="nav-text">Value except itself</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gas-Station-Greed-algorithm"><span class="nav-number">2.</span> <span class="nav-text">Gas Station - Greed algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Candy-Greed-algorithm"><span class="nav-number">3.</span> <span class="nav-text">Candy - Greed algorithm</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#One-Pass-Greedy-Algorithm-Up-Down-Peak-Method"><span class="nav-number"></span> <span class="nav-text">One-Pass Greedy Algorithm: Up-Down-Peak Method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Up-Down-and-Peak"><span class="nav-number"></span> <span class="nav-text">Why Up, Down, and Peak?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sliding-window"><span class="nav-number"></span> <span class="nav-text">Sliding window</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#36-Valid-sudoku"><span class="nav-number">1.</span> <span class="nav-text">36. Valid sudoku</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Binary-Tree"><span class="nav-number">2.</span> <span class="nav-text">Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#236-Lowest-Common-Ancestor-of-a-Binary-Tree"><span class="nav-number">2.1.</span> <span class="nav-text">236. Lowest Common Ancestor of a Binary Tree</span></a></li></ol></li></ol></div>
             
 
           </div>

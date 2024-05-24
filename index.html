@@ -263,6 +263,726 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/22/crash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/05/22/crash/" itemprop="url">crash</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-05-22T18:17:16+02:00">
+                2024-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="create-component"><a href="#create-component" class="headerlink" title="create component"></a>create component</h3><pre class="line-numbers language-none"><code class="language-none">ng generate component home --inline-template --skip-tests<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>open app.component.ts<br><code>Input</code> decorator</p>
+<p>@Input() housingLocation!: HousingLocation;<br>!: input is expecting the value to be passed. In this case, there is no default value.</p>
+<pre class="line-numbers language-angular" data-language="angular"><code class="language-angular">&lt;app-housing-location
+        [housingLocation]&#x3D;&quot;housingLocation&quot;
+      &gt;&lt;&#x2F;app-housing-location&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>When adding a property binding to a component tag, we use the <code>[attribute] = &quot;value&quot;</code> syntax to notify Angular that the assigned value should be treated as a property from the component class and not a string value.</p>
+<p>In Angular, <code>ngFor</code> is a specific type of <a target="_blank" rel="noopener" href="https://angular.io/guide/built-in-directives">directive</a> used to dynamically repeat data in a template.</p>
+<h4 id="Angular-services"><a href="#Angular-services" class="headerlink" title="Angular services"></a>Angular services</h4><p><em>Angular services</em> provide a way for you to separate Angular app data and functions that can be used by multiple components in your app. To be used by multiple components, a service must be made <em>injectable</em>. Services that are injectable and used by a component become dependencies of that component. The component depends on those services and can’t function without them.</p>
+<p>constructor is the first function runs when the component is created</p>
+<h3 id="get-the-id-in-the-routes-xxx-id"><a href="#get-the-id-in-the-routes-xxx-id" class="headerlink" title="get the id in the routes /xxx/:id"></a>get the id in the routes /xxx/:id</h3><p>in the component</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">DetailsComponent</span> <span class="token punctuation">&#123;</span>
+    route<span class="token operator">:</span> ActivatedRoute <span class="token operator">=</span> <span class="token function">inject</span><span class="token punctuation">(</span>ActivatedRoute<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    housingLocationId <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>housingLocationId <span class="token operator">=</span> <span class="token function">Number</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>route<span class="token punctuation">.</span>snapshot<span class="token punctuation">.</span>params<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> <code>ActivatedRoute</code> router feature that enables you to have access to the data about the current route</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;input type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;Filter by city&quot; #filter &#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="This-example-uses-a-template-reference-variable-to-get-access-to-the-input-element-as-its-value"><a href="#This-example-uses-a-template-reference-variable-to-get-access-to-the-input-element-as-its-value" class="headerlink" title="This example uses a template reference variable to get access to the input element as its value."></a>This example uses a <a target="_blank" rel="noopener" href="https://angular.io/guide/template-reference-variables">template reference variable</a> to get access to the <code>input</code> element as its value.</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/21/c-dotNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/05/21/c-dotNet/" itemprop="url">c#dotNet</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-05-21T23:26:34+02:00">
+                2024-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>dotnet <commnad> <argument> <option></option></argument></commnad></p>
+<p><img src="https://i.imgur.com/Uch8PaS.png" alt="image-20240521235139506"></p>
+<p><img src="https://i.imgur.com/fVTl9nv.png" alt="image-20240521235209945"></p>
+<p>Solid understanding of, and experience with, the Angular platform, JavaScript, and TypeScript </p>
+<p>Experience in C# and .NET ecosystem</p>
+<p>Azure </p>
+<p>You also have experience writing automated tests Excellent troubleshooting skills and responsiveness to problem-solving that prioritizes the customer experience first </p>
+<p>You have a “boy scout” mentality and will therefore always leave the code in a better shape than it was before you updated it You have experience and enjoy working in an agile setup </p>
+<p>You thrive in projects where the boundaries, scope, and goals are defined as we go and keep a constant eye out for new ways of working and ideas to maximize business impact </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/20/railsdocker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/05/20/railsdocker/" itemprop="url">railsdocker</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-05-20T12:23:04+02:00">
+                2024-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>CMD and EntryPoint</p>
+<pre class="line-numbers language-none"><code class="language-none">version: &quot;3.8&quot;
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: $&#123;CONEXUS_DATABASE_PASSWORD&#125;
+      POSTGRES_DB: conexus_development
+    volumes:
+      - postgres_data:&#x2F;var&#x2F;lib&#x2F;postgresql&#x2F;data
+    ports:
+      - &quot;5432:5432&quot;
+
+  web:
+    build: .
+    command: bundle exec rails server -b 0.0.0.0
+    volumes:
+      - .:&#x2F;app
+    ports:
+      - &quot;3000:3000&quot;
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres:&#x2F;&#x2F;postgres:$&#123;CONEXUS_DATABASE_PASSWORD&#125;@db:5432&#x2F;conexus_development
+      RAILS_MAX_THREADS: 5
+
+volumes:
+  postgres_data:
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/18/review-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/05/18/review-1/" itemprop="url">docker review</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-05-18T20:48:45+02:00">
+                2024-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/software-engineering/" itemprop="url" rel="index">
+                    <span itemprop="name">software engineering</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>start from docker file</p>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker">From: <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="Commands-Keywords"><a href="#Commands-Keywords" class="headerlink" title="Commands: Keywords"></a>Commands: Keywords</h3><p><strong>From:</strong> basic image for the new image<br><strong>WORDIR</strong>: working directory<br><strong>COPY</strong>: copying files or directories from the build context to the image</p>
+<p><strong>Run</strong>: executes commands in the Shell</p>
+<p><strong>Expose</strong>: informs Docker the container will listen on specific port on run time</p>
+<p><strong>ENV</strong>: set environment variable during process</p>
+<p><strong>ARG</strong>: define build time variables</p>
+<p><strong>VOLUME</strong>: create a mount point for externally mounted volumes</p>
+<p><strong>CMD</strong>: provide default command to execute when the container start (flexible, can be overridden)</p>
+<p><strong>ENTRYPOINT</strong>: Cannot be overridden</p>
+<p>docker run</p>
+<h3 id="create-own-image"><a href="#create-own-image" class="headerlink" title="create own image"></a>create own image</h3><p>docker build -t(tag)</p>
+<h4 id="port-mapping"><a href="#port-mapping" class="headerlink" title="port mapping"></a>port mapping</h4><p>map port container and local machine</p>
+<p>-v “$(pwd):/app” volume keeptrack of local file</p>
+<p> -v /app/node_modules changes in dependencies won’t need reinstall</p>
+<h2 id="Docker-compose"><a href="#Docker-compose" class="headerlink" title="Docker compose"></a>Docker compose</h2><p>YML file configure services volumes and network</p>
+<p>docker compose up</p>
+<p>with cli to generate the file docker init</p>
+<h3 id="Docker-compose-wathch"><a href="#Docker-compose-wathch" class="headerlink" title="Docker compose wathch"></a>Docker compose wathch</h3><p>rebuild the app</p>
+<p>automatically update the app</p>
+<h5 id="Three-main-things"><a href="#Three-main-things" class="headerlink" title="Three main things"></a>Three main things</h5><ul>
+<li>sync: everything up to date</li>
+<li>Rebuild</li>
+<li>Sync-restart: sync modification and restart the container</li>
+</ul>
+<p>web</p>
+<p>develop: for docker watch</p>
+<pre class="line-numbers language-none"><code class="language-none">develop:
+      # we specify the files to watch for changes
+      watch:
+        # it&#39;ll watch for changes in package.json and package-lock.json and rebuild the container if there are any changes
+        - path: .&#x2F;frontend&#x2F;package.json
+          action: rebuild
+        - path: .&#x2F;frontend&#x2F;package-lock.json
+          action: rebuild
+        # it&#39;ll watch for changes in the frontend directory and sync the changes with the container real time
+        - path: .&#x2F;frontend
+          target: &#x2F;app
+          action: sync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/24/flower/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/04/24/flower/" itemprop="url">flower</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-04-24T20:25:04+02:00">
+                2024-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>Central machine learning: move the data to the computation</li>
+<li>Federated (machine) learning: move the computation to the data</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/12/LeetCode-Eng/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -461,6 +1181,65 @@
                     res <span class="token operator">+=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>element<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>i <span class="token operator">//</span> <span class="token number">3</span><span class="token punctuation">,</span> j <span class="token operator">//</span> <span class="token number">3</span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">]</span>
         <span class="token keyword">return</span> <span class="token builtin">len</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">set</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>find position of existing numbers for x position, y position, position in the 3x3 matrix, if there is duplicate then it breaks the rule</p>
+<h4 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h4><p><img src="https://i.imgur.com/4CEkaDo.png" alt="image-20240320153921714"></p>
+<p>by recursion  </p>
+<ol>
+<li><p>Construct Binary tree from preorder and inorder</p>
+<ol>
+<li><p><strong>Reasoning:</strong></p>
+<ul>
+<li><strong>Root Node Selection:</strong> We choose the first value of the preorder traversal as the root because, in a preorder traversal, the root node is visited first.</li>
+<li><strong>Finding Index of Root in Inorder:</strong> By finding the index of the root in the inorder list, we effectively split the inorder list into two halves: elements to the left represent nodes in the left subtree, and elements to the right represent nodes in the right subtree.</li>
+<li><strong>Recursive Splitting:</strong> Recursively splitting the inorder list into left and right subtrees helps maintain the relative ordering of nodes in the tree, ensuring the correctness of the constructed binary tree.</li>
+<li><strong>Preorder for Subtrees:</strong> After identifying the size of the left subtree from the inorder list, the subsequent elements in the preorder list represent nodes in the left subtree. Similarly, the remaining elements in the preorder list correspond to nodes in the right subtree, allowing us to construct the subtrees recursively.</li>
+</ul>
+<p>Identify the preorder and Inorder sequence</p>
+</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Definition for a binary tree node.</span>
+<span class="token comment"># class TreeNode:</span>
+<span class="token comment">#     def __init__(self, val=0, left=None, right=None):</span>
+<span class="token comment">#         self.val = val</span>
+<span class="token comment">#         self.left = left</span>
+<span class="token comment">#         self.right = right</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">buildTree</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> preorder<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> inorder<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Optional<span class="token punctuation">[</span>TreeNode<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> preorder <span class="token keyword">or</span> <span class="token keyword">not</span> inorder<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">None</span>
+        inorder_map <span class="token operator">=</span> <span class="token punctuation">&#123;</span>val<span class="token punctuation">:</span> index <span class="token keyword">for</span> index<span class="token punctuation">,</span> val <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>inorder<span class="token punctuation">)</span><span class="token punctuation">&#125;</span>    
+        <span class="token keyword">def</span> <span class="token function">build</span><span class="token punctuation">(</span>pre_start<span class="token punctuation">,</span> pre_end<span class="token punctuation">,</span> in_start<span class="token punctuation">,</span> in_end<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> pre_start <span class="token operator">></span> pre_end<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">None</span>       
+            root_val <span class="token operator">=</span> preorder<span class="token punctuation">[</span>pre_start<span class="token punctuation">]</span>
+            root <span class="token operator">=</span> TreeNode<span class="token punctuation">(</span>root_val<span class="token punctuation">)</span>
+
+            in_index <span class="token operator">=</span> inorder_map<span class="token punctuation">[</span>root_val<span class="token punctuation">]</span>
+            left_size <span class="token operator">=</span> in_index <span class="token operator">-</span> in_start
+
+             <span class="token comment"># Recursively build the left subtree</span>
+            root<span class="token punctuation">.</span>left <span class="token operator">=</span> build<span class="token punctuation">(</span>pre_start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> pre_start <span class="token operator">+</span> left_size<span class="token punctuation">,</span> in_start<span class="token punctuation">,</span> in_index <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+            <span class="token comment"># Recursively build the right subtree</span>
+            root<span class="token punctuation">.</span>right <span class="token operator">=</span> build<span class="token punctuation">(</span>pre_start <span class="token operator">+</span> left_size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> pre_end<span class="token punctuation">,</span> in_index <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> in_end<span class="token punctuation">)</span>
+
+            <span class="token keyword">return</span> root
+        
+        <span class="token keyword">return</span> build<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>preorder<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>inorder<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/sDTidsF.png" alt="image-20240320165257180"></p>
+<h5 id="236-Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#236-Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="236. Lowest Common Ancestor of a Binary Tree"></a><a target="_blank" rel="noopener" href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">236. Lowest Common Ancestor of a Binary Tree</a></h5><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">lowestCommonAncestor</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> root<span class="token punctuation">:</span> <span class="token string">'TreeNode'</span><span class="token punctuation">,</span> p<span class="token punctuation">:</span> <span class="token string">'TreeNode'</span><span class="token punctuation">,</span> q<span class="token punctuation">:</span> <span class="token string">'TreeNode'</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token string">'TreeNode'</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> root <span class="token keyword">or</span> root <span class="token operator">==</span> p <span class="token keyword">or</span> root <span class="token operator">==</span> q<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> root
+
+        l <span class="token operator">=</span> self<span class="token punctuation">.</span>lowestCommonAncestor<span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span>
+        r <span class="token operator">=</span> self<span class="token punctuation">.</span>lowestCommonAncestor<span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> l <span class="token keyword">and</span> r<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> root
+        <span class="token keyword">return</span> l <span class="token keyword">or</span> r<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Find the common ancestor, if not the common lowest ancestor,</p>
 
           
         
@@ -1046,1672 +1825,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/11/php-crash/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2024/01/11/php-crash/" itemprop="url">php_crash</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-01-11T15:00:08+01:00">
-                2024-01-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="PHP-Crash-Course"><a href="#PHP-Crash-Course" class="headerlink" title="PHP Crash Course!"></a>PHP Crash Course!</h1><p>This post aimed at understanding some basic php programming for laravel backend development.</p>
-<h4 id="Define-variable"><a href="#Define-variable" class="headerlink" title="Define variable"></a>Define variable</h4><p>print usually uses <code>echo</code>  while print function can only deal with one parameter</p>
-<p>print single values and arrays  <code>print_r</code></p>
-<p>return more info : data type and length <code>var_dump</code></p>
-<p>Similar to <code>var_dump()</code> outputs a string representation of a variable <code>var_export()</code></p>
-<h5 id="Define-variable-1"><a href="#Define-variable-1" class="headerlink" title="Define variable"></a>Define variable</h5><p>using <code>$</code></p>
-<ul>
-<li>define constant: using <code>define</code></li>
-</ul>
-<h5 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h5><p>$fruits = array(‘apple’, orange, ‘pear’)</p>
-<p>$colors = [</p>
-<p>​    1 =&gt; ‘red’,</p>
-<p>​    4 =&gt; ‘blue’</p>
-<p>]</p>
-<p><strong>Json Encode function</strong> <code>json_encode($colors)</code></p>
-<p>operator === : same value and same type</p>
-<p><code>empty()</code></p>
-<h5 id="Loop-similar"><a href="#Loop-similar" class="headerlink" title="Loop similar:"></a>Loop similar:</h5><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token variable">$x</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$x</span> <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">:</span> <span class="token variable">$x</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	<span class="token keyword">echo</span> <span class="token variable">$x</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">do</span> <span class="token punctuation">&#123;</span>
-    
-<span class="token punctuation">&#125;</span><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    
-<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$posts</span> <span class="token keyword">as</span> <span class="token variable">$post</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">echo</span> <span class="token variable">$post</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h3><p>using <code>function</code> keyword</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php">function sum($n1, $n2) &#123;
-	return $n1 + $n2
-&#125;
-
-// Array function
-count($array1);
-
-in_array('apple', $fruits);
-// add to array
-<span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
-    <span class="token variable">$fruits</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string single-quoted-string">'apple'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'orange'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-	<span class="token variable">$fruits</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'grape'</span>
-    <span class="token function">array_push</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'blueberry'</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"strawberry"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// add to the end</span>
-	<span class="token function">array_unshift</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'mango'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// add to the top/beginning</span>
-<span class="token comment">// remove</span>
-	<span class="token function">array_pop</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">array_shift</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">unset</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">// Split into 2 chunks</span>
-	<span class="token variable">$chunked_array</span> <span class="token operator">=</span> <span class="token function">array_chunk</span><span class="token punctuation">(</span><span class="token variable">$fruits</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">// merge array</span>
-	<span class="token function">array_merge</span><span class="token punctuation">(</span><span class="token variable">$arr1</span><span class="token punctuation">,</span> <span class="token variable">$arr2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">//array combine: one array as keys, one array as value</span>
-	<span class="token function">array_combine</span><span class="token punctuation">(</span><span class="token variable">$a1</span><span class="token punctuation">,</span> <span class="token variable">$a2</span><span class="token punctuation">)</span>
-
-     <span class="token comment">// flipp</span>
-       	<span class="token function">array_flip</span><span class="token punctuation">(</span><span class="token variable">$c</span><span class="token punctuation">)</span>
-        
-        <span class="token comment">//</span>
-        <span class="token variable">$numbers</span> <span class="token operator">=</span> <span class="token function">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span>
-        <span class="token comment">//</span>
-        <span class="token variable">$nwe</span> numbers <span class="token operator">=</span> <span class="token function">array_map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token variable">$number</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token string double-quoted-string">"Number $&#123;numver&#125;"</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token variable">$numbers</span><span class="token punctuation">)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="String-functions"><a href="#String-functions" class="headerlink" title="String functions"></a>String functions</h4><p>skipped </p>
-<h2 id="SuperGlobals"><a href="#SuperGlobals" class="headerlink" title="SuperGlobals"></a>SuperGlobals</h2><p>build in variables always available</p>
-<p><img src="https://i.imgur.com/iRt2TZd.png" alt="image-20240111172019674"></p>
-<h4 id="Get-and-Post"><a href="#Get-and-Post" class="headerlink" title="Get and Post"></a>Get and Post</h4><p>Example:</p>
-<pre class="line-numbers language-php+HTML" data-language="php+HTML"><code class="language-php+HTML">&lt;?php
-if(isset($_POST[&#39;submit&#39;])) &#123;
-	echo $_POST[&#39;name&#39;];
-	echo $_POST[&#39;age&#39;];
-&#125;
-?&gt;
-
-&lt;a href&#x3D;&quot;&lt;?php echo $_SERVER[&#39;PHP_SELF&#39;]; ?&gt;?name&#x3D;John&amp;age&#x3D;30&quot;&gt;Click&lt;&#x2F;a&gt; 
-
-&lt;form action&#x3D;&quot;&lt;? echo $_SERVER[&#39;PHP_SELF&#39;]; ?&gt;&quot;method&#x3D;&quot;POST&quot;&gt;
-	&lt;div&gt;
-		&lt;label for&#x3D;&quot;name&quot;&gt; Name: &lt;&#x2F;label&gt;
-		&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;name&quot;&gt;
-	&lt;&#x2F;div&gt;
-&lt;&#x2F;form&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>filter input / sanitize input</p>
-<p><code>$name = filter_input(INPUT_POST, &#39;name&#39;, FILTER_SANITIZE_SPECIAL_CHARS);</code></p>
-<h2 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h2><p>Set Cookies<br><code>setcookie(&#39;name, &#39;brad&#39;, time() + 1000)</code></p>
-<p>time: how long the cookies expire</p>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>sessions are stored in the server</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$username</span> <span class="token operator">==</span> <span class="token string single-quoted-string">'john'</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$password</span> <span class="token operator">==</span> <span class="token string single-quoted-string">'password'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	<span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'username'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$username</span><span class="token punctuation">;</span>
-	<span class="token function">header</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Location: /php/extras/example.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-	<span class="token keyword">echo</span> <span class="token string double-quoted-string">"error login"</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>session start</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?</span> php
-    <span class="token function">session_start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">echo</span> <span class="token string single-quoted-string">'&lt;h1> Welcome '</span> <span class="token operator">.</span> <span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'username'</span><span class="token punctuation">]</span><span class="token operator">.</span> <span class="token string single-quoted-string">'&lt;/h1>'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">echo</span> <span class="token string single-quoted-string">'&lt;h1>Welcome Guest &lt;/h1>'</span>
-        <span class="token keyword">echo</span> <span class="token string single-quoted-string">'&lt;a href="/sud/home.php">Home&lt;/a>'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>To log out : <code>session_destroy()</code></p>
-<h2 id="File-handling"><a href="#File-handling" class="headerlink" title="File handling"></a>File handling</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$file</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'extras/user.txt'</span><span class="token punctuation">;</span>
-
-<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">file_exits</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	<span class="token comment">//echo readfile($file);</span>
-	<span class="token variable">$handle</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'r'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token variable">$contents</span> <span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">,</span> <span class="token function">filesize</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">echo</span> <span class="token variable">$contents</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    <span class="token variable">$handle</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'w'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token variable">$contents</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'Brad'</span> <span class="token operator">.</span> <span class="token constant">PHP_EOL</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'Sara'</span><span class="token punctuation">;</span>
-    <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">,</span> <span class="token variable">$contents</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="File-upload"><a href="#File-upload" class="headerlink" title="File upload"></a>File upload</h2><pre class="line-numbers language-php+HTML" data-language="php+HTML"><code class="language-php+HTML">&lt;? php
-    if(isset($_POST[&#39;submit&#39;])) &#123;
-        $allowed_ext &#x3D; array(&#39;png&#39;, &#39;jpg&#39;)
-        if(!empty($_FILES[&#39;upload&#39;][&#39;name&#39;])) &#123;
- 			$file_name &#x3D; $_FILES[&#39;upload&#39;][&#39;name&#39;];           	  $target_dir &#x3D; &quot;uploads&#x2F;$&#123;file_name&#125;&quot;
-            
-            &#x2F;&#x2F;get file ext
-            $file_ext &#x3D; explode(&#39;.&#39;, $file_name);
-            $file_ext &#x3D; strtolower(end($file_ext));
-            &#x2F;&#x2F;.... skip validate staff
-            
-            &#x2F;&#x2F;upload
-            move_uploaded_file($file_tmp, $target_dir)
-        &#125; else &#123;
-            $message &#x3D; &#39;&lt;p&gt; Please choose a file &lt;&#x2F;p&gt; &#39;
-        &#125;
-    &#125;
-   ?&gt;
-
-&lt;? php echo $message ?? null; ?&gt;
-&lt;form action&#x3D;&quot;&lt;? php echo $_SERVER[&#39;PHP_SELF&#39;]; ?&gt;&quot;
-      method&#x3D;&quot;POST&quot; enctype&quot;multipart&#x2F;form-data&quot;&gt;
-    Select image to upload:
-    &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;upload&quot;&gt;
-    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;Submit&quot; name&#x3D;&quot;submit&quot;&gt;
-&lt;&#x2F;form&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h4><p>try catch sentence</p>
-<h2 id="OOP-amp-Class"><a href="#OOP-amp-Class" class="headerlink" title="OOP &amp; Class"></a>OOP &amp; Class</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">class</span> <span class="token class-name-definition class-name">User</span> <span class="token punctuation">&#123;</span>
-	<span class="token operator">...</span>
-	<span class="token comment">// run when an object is created</span>
-	<span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		<span class="token variable">$this</span><span class="token operator">-></span><span class="token property">name</span> <span class="token operator">=</span> <span class="token variable">$name</span>
-	<span class="token punctuation">&#125;</span>
-	<span class="token keyword">function</span> <span class="token function-definition function">set_name</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	<span class="token variable">$this</span><span class="token operator">-></span><span class="token property">name</span> <span class="token operator">=</span> <span class="token variable">$name</span><span class="token punctuation">;</span>
-	<span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token comment">// protected - can only be accessed from inside the class and by inheriting classeses</span>
-
-<span class="token variable">$user1</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token variable">$user1</span><span class="token operator">-></span><span class="token property">name</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"Brad"</span><span class="token punctuation">;</span>
-<span class="token variable">$user1</span><span class="token operator">-></span><span class="token function">set_name</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"GGBOND"</span><span class="token punctuation">)</span>
-
-<span class="token comment">// Inheritence similar to super</span>
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">Employee</span> <span class="token keyword">extends</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__constrict</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$email</span><span class="token punctuation">,</span> <span class="token variable">$password</span><span class="token punctuation">,</span> <span class="token variable">$title</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword static-context">parent</span><span class="token operator">::</span><span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$email</span><span class="token punctuation">,</span> password<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        this<span class="token operator">-></span><span class="token property">title</span> <span class="token operator">=</span> <span class="token variable">$title</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/16/LeetCodeExamples/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/12/16/LeetCodeExamples/" itemprop="url">LeetCodeExamples</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-12-16T15:59:23+01:00">
-                2023-12-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-sorted-array/">合并两个有序数组</a></li>
-</ol>
-<p>倒序双指针 避免覆盖</p>
-<p>完全背包问题 动态规划</p>
-<p>背包问题：<br>给定一个背包容量target，再给定一个数组nums(物品)，能否按一定方式选取nums中的元素得到target</p>
-<p>1、背包容量target和物品nums的类型可能是数，也可能是字符串<br>2、target可能题目已经给出(显式)，也可能是需要我们从题目的信息中挖掘出来(非显式)(常见的非显式target比如sum/2等)<br>3、选取方式有常见的一下几种：每个元素选一次/每个元素选多次/选元素进行排列组合<br>那么对应的背包问题就是下面我们要讲的背包分类</p>
-<p>常见的背包类型主要有以下几种：<br>1、0/1背包问题：每个元素最多选取一次<br>2、完全背包问题：每个元素可以重复选择<br>3、组合背包问题：背包中的物品要考虑顺序<br>4、分组背包问题：不止一个背包，需要遍历每个背包</p>
-<p>而每个背包问题要求的也是不同的，按照所求问题分类，又可以分为以下几种：<br>1、最值问题：要求最大值/最小值<br>2、存在问题：是否存在…………，满足…………<br>3、组合问题：求所有满足……的排列组合</p>
-<p><strong>通过不断求解小面额的解，一点点地逼近目标面额的最终解</strong></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> math
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">coinChange</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> coins<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> amount<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
-        <span class="token comment"># 创立动归表去跟踪每一个'子问题'的解, 所有元素初始都为infinity</span>
-        dp <span class="token operator">=</span> <span class="token punctuation">[</span>math<span class="token punctuation">.</span>inf <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        
-        <span class="token comment"># 总金额为0时，无法凑出解，所以为0</span>
-        dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
-
-        <span class="token triple-quoted-string string">'''
-        遍历每一个子问题依次求解
-        E.g. coins = &#123;1, 2, 5&#125;, amount = 7
-        依次遍历 amount = 1, 2, 3, ..., 7求解
-        对于每一个amount，尝试在之前已求解基础上添加一枚新的硬币 (面额 = 1 or 2 or 5)
-        注意: 可能存在多解，但只选择花费硬币最少的解
-        '''</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">for</span> coin <span class="token keyword">in</span> coins<span class="token punctuation">:</span>
-                diff <span class="token operator">=</span> i <span class="token operator">-</span> coin
-                <span class="token keyword">if</span> diff <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">min</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>diff<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-        <span class="token triple-quoted-string string">'''
-        如果动归表最后一个元素(目标总金额)的值不为inf, 证明存在解，直接返回该值
-        如果动归表最后一个元素的值仍然是inf, 代表无解, 返回-1
-        '''</span>
-        <span class="token keyword">return</span> dp<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">if</span> dp<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">!=</span> math<span class="token punctuation">.</span>inf <span class="token keyword">else</span> <span class="token operator">-</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们有一个列表 从[0, amount] 个子问题</p>
-<p>从最初的问题开始dp[0] = 0,</p>
-<p>对每个我们依次试每个硬币 从0到amount个问题</p>
-<p>例如 amount = 7 coins = [1,3]</p>
-<pre class="line-numbers language-none"><code class="language-none">dp[1] &#x3D; 1
-dp[2] &#x3D; 2 (1+1)
-diff &#x3D; 2 - 1 &#x3D; 1 我们求min(dp[1] + 1 和 dp[2] &#x3D; inf)
-dp[3] 从 1开始
-diff &#x3D; 3 - 1 &#x3D; 2 求 min(dp[2] + 1 &#x3D; 3 和 dp[3] &#x3D; inf)
-然后是3 
-diff &#x3D; 3 - 3 &#x3D; 0 求 min(dp[0] + 1 和 dp[3] &#x3D; 3)
-dp[3] &#x3D; 1
-由此求得每个小问题的zui&#39;you<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li>打家劫舍 动态规划</li>
-</ol>
-<p>固定数组nums 不能偷相邻的房子</p>
-<p>如何偷k间房子 f(k) = f(k-1) / f(k-2) + 最后一间</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">rob</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        length <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        dp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
-        dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
-        dp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-        <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            dp<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span>k<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> dp<span class="token punctuation">[</span>length<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li>LRU 缓存 </li>
-</ol>
-<p>双链表实现</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> value<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>key <span class="token operator">=</span> key
-        self<span class="token punctuation">.</span>value <span class="token operator">=</span> value
-        self<span class="token punctuation">.</span>prev <span class="token operator">=</span> <span class="token boolean">None</span>
-        self<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> <span class="token boolean">None</span>
-<span class="token keyword">class</span> <span class="token class-name">LRUCache</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> capacity<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>capacity <span class="token operator">=</span> capacity
-        self<span class="token punctuation">.</span>hashmap <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-        self<span class="token punctuation">.</span>head <span class="token operator">=</span> ListNode<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>tail <span class="token operator">=</span> ListNode<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token comment"># 初始化链表为 head &lt;-> tail</span>
-        self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>tail
-        self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> self<span class="token punctuation">.</span>head
-
-    <span class="token keyword">def</span> <span class="token function">move_to_tail</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        node <span class="token operator">=</span> self<span class="token punctuation">.</span>hashmap<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
-        node<span class="token punctuation">.</span>prev<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> node<span class="token punctuation">.</span><span class="token builtin">next</span>
-        node<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">.</span>prev <span class="token operator">=</span> node<span class="token punctuation">.</span>prev
-
-        node<span class="token punctuation">.</span>prev <span class="token operator">=</span> self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev
-        node<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>tail
-        self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> node
-        self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> node
-
-    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> key <span class="token keyword">in</span> self<span class="token punctuation">.</span>hashmap<span class="token punctuation">:</span>
-            self<span class="token punctuation">.</span>move_to_tail<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
-        result <span class="token operator">=</span> self<span class="token punctuation">.</span>hashmap<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> result <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> result
-        <span class="token keyword">else</span><span class="token punctuation">:</span> 
-            <span class="token keyword">return</span> result<span class="token punctuation">.</span>value
-
-
-    <span class="token keyword">def</span> <span class="token function">put</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> value<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> key <span class="token keyword">in</span> self<span class="token punctuation">.</span>hashmap<span class="token punctuation">:</span>
-            self<span class="token punctuation">.</span>hashmap<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value
-            self<span class="token punctuation">.</span>move_to_tail<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>hashmap<span class="token punctuation">)</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>capacity<span class="token punctuation">:</span>
-                self<span class="token punctuation">.</span>hashmap<span class="token punctuation">.</span>pop<span class="token punctuation">(</span>self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">.</span>key<span class="token punctuation">)</span>
-                self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">.</span><span class="token builtin">next</span>
-                self<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">.</span>prev <span class="token operator">=</span> self<span class="token punctuation">.</span>head
-            new <span class="token operator">=</span> ListNode<span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
-            self<span class="token punctuation">.</span>hashmap<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> new
-            new<span class="token punctuation">.</span>prev <span class="token operator">=</span> self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev
-            new<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>tail
-            self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev<span class="token punctuation">.</span><span class="token builtin">next</span> <span class="token operator">=</span> new
-            self<span class="token punctuation">.</span>tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> new
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li>删除有序数组中的重复项</li>
-</ol>
-<p>反转双指针</p>
-<pre class="line-numbers language-none"><code class="language-none">class Solution:
-    def removeDuplicates(self, nums: List[int]) -&gt; int:
-        # 方二：双指针（反转）
-        # 在一个序列中同向变动 + 改动原列表中的每个元素顺序（反转）
-        left, right &#x3D; 0,1
-        k&#x3D;1
-        while right &lt; len(nums):
-            if nums[left] &#x3D;&#x3D;nums[right]:
-                right +&#x3D; 1
-            else:
-                nums[left+1],nums[right] &#x3D; nums[right],nums[left+1]
-                left +&#x3D; 1
-                right +&#x3D; 1
-                k +&#x3D; 1
-        return k<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li>中位数</li>
-</ol>
-<p>堆栈  小顶堆和大顶堆</p>
-<p>小顶堆 A 保存较大的一半 长度为 $N/2$  N 为偶数  或者 $\frac{N+1}{2}$  N 为奇数</p>
-<p>addNum()</p>
-<p>m 和 n 为 A B 中元素的个数</p>
-<ol>
-<li>m = n 向 A 添加一个元素: 将 num 插入 B， 将B 堆顶元素插入A</li>
-<li>m $\neq$ n： 向B添加一个元素 将新元素 num插入A 再将A堆顶元素插入B</li>
-</ol>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> heapq <span class="token keyword">import</span> <span class="token operator">*</span>
-
-<span class="token keyword">class</span> <span class="token class-name">MedianFinder</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>A <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment"># 小顶堆，保存较大的一半</span>
-        self<span class="token punctuation">.</span>B <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment"># 大顶堆，保存较小的一半</span>
-
-    <span class="token keyword">def</span> <span class="token function">addNum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> num<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            heappush<span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">,</span> num<span class="token punctuation">)</span>
-            heappush<span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">,</span> <span class="token operator">-</span>heappop<span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            heappush<span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">,</span> <span class="token operator">-</span>num<span class="token punctuation">)</span>
-            heappush<span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">,</span> <span class="token operator">-</span>heappop<span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">findMedian</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">float</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>A<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>A<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">-</span> self<span class="token punctuation">.</span>B<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><code>heapq</code> 模块默认实现的是小顶堆，为了方便地使用大顶堆，可以通过在元素前取负值的方式来达到目的。</p>
-<p>在小顶堆中，堆顶元素是最小的元素，而在大顶堆中，堆顶元素是最大的元素。通过取反操作，可以将原本最小的元素变为最大的元素，从而实现在 <code>heapq</code> 中模拟大顶堆的效果。</p>
-<p>所以，这种技巧是为了绕过 <code>heapq</code> 模块默认是小顶堆的限制，以方便在算法中使用大顶堆。</p>
-<ol>
-<li>单词拆分</li>
-</ol>
-<p>给你一个字符串 <code>s</code> 和一个字符串列表 <code>wordDict</code> 作为字典。请你判断是否可以利用字典中出现的单词拼接出 <code>s</code> 。</p>
-<p>动态规划：</p>
-<p><img src="/2023/12/16/LeetCodeExamples/github\blog\source\_posts\image-20240101141407191.png" alt="image-20240101141407191"></p>
-<pre class="line-numbers language-none"><code class="language-none">1.初始化 长度为len(s) + 1 的列表 s长度为0时返回ture
-dp[i] 表示前i位是否可以用单词表示
-2. 遍历所有字串 开始索引i从[0，n)：遍历
-	结束索引为j 从[i +1, n+1):
-	如果dp[i] &#x3D; True 且 s[i, ...j)在wordlist中：dp[j] &#x3D; True.
-	(dp[i] &#x3D; True说明s的前i位可以用wordDictbiao&#39;s)
-	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li>摩尔投票</li>
-</ol>
-<p>求大多数 假定一个数为结果几位+1， 其他数字记为-1 如果总和大于0 则这个数超过一半</p>
-<ol>
-<li>数组轮转</li>
-</ol>
-<p>方法1： 辅助空间 </p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">rotate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> k<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token boolean">None</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        Do not return anything, modify nums in-place instead.
-        """</span>
-        n <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        k <span class="token operator">%=</span> n 
-        tmp <span class="token operator">=</span> nums<span class="token punctuation">[</span>n<span class="token operator">-</span>k<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token operator">-</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            nums<span class="token punctuation">[</span>i <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> tmp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>方法2： 双指针+翻转数组</p>
-<p>先整体翻转</p>
-<p>再反转[0, k-1] 和 [n-k, n-1]</p>
-<p>方法3: 裴蜀定理优化</p>
-<ul>
-<li>核心思路： 每处理一个位置就跳转到k个位置之后的新位置</li>
-<li>用pre变量保存上一个覆盖位置的值</li>
-</ul>
-<ol>
-<li>H index</li>
-</ol>
-<p>二分法缩小遍历范围</p>
-<p>计数<br>根据分析，利用最大的 h 不超过 nnn，我们可以再进一步，利用空间换时间，将复杂度降低到 O(n)O(n)O(n)。</p>
-<p>假设我们预处理出引用次数所对应的论文数量 cnt，其中 cnt[a] = b 含义为引用次数 恰好 为 a 的论文数量有 b 篇。</p>
-<p>那么再利用 h 是“最大”的满足定义的合法数，我们从 nnn 开始往前找，找到的第一个满足条件的数，即是答案。</p>
-<p>具体的，创建 cnt 数组，对 cs 进行计数，由于最大 h 不超过 nnn，因此对于引用次数超过 nnn 的论文，可等价为引用次数为 nnn，即有计数逻辑 cnt[min(c, n)]++。</p>
-<p>再根据处理好的 cnt，从 nnn 开始倒序找 h。</p>
-<p>由于我们处理的 cnt[a] 含义为引用次数 恰好 为 a，但题目定义则是 至少。同时「至少出现 k+1k + 1k+1 次」的集合必然慢「至少出现 kkk 次」要求（子集关系），我们可以使用变量 tot，对处理过的 cnt[i] 进行累加，从而实现从 恰好 到 至少 的转换。</p>
-<ol>
-<li>除自身以外数组的乘积</li>
-</ol>
-<p>不使用除法： </p>
-<p><img src="https://i.imgur.com/onuhEig.png" alt="image-20240111171533642"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/18/RailsAdvanced/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/11/18/RailsAdvanced/" itemprop="url">RailsAdvanced</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-11-18T15:08:12+01:00">
-                2023-11-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ruby-on-RailS/" itemprop="url" rel="index">
-                    <span itemprop="name">Ruby on RailS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Questions for third room on Monday</p>
-<p>GDPR </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/05/rubyOnRailsPart2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/11/05/rubyOnRailsPart2/" itemprop="url">ruby on Rails Part 2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-11-05T19:24:18+01:00">
-                2023-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ruby-on-Rails/" itemprop="url" rel="index">
-                    <span itemprop="name">Ruby on Rails</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Debugs-on-development-envieroment"><a href="#Debugs-on-development-envieroment" class="headerlink" title="Debugs on development envieroment"></a>Debugs on development envieroment</h3><p>when using development build, we can  use</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;%&#x3D; debug(params) if Rails.env.development? %&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>in layout, it won’t be inserted into production applications or tests</p>
-<p><strong>Box 7.1: Rails environments</strong></p>
-<p>Rails comes equipped with three environments: <code>test</code>, <code>development</code>, and <code>production</code>. The default environment for the Rails console is <code>development</code>:</p>
-<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0318-04">Click here to view code image</a></p>
-<pre class="line-numbers language-none"><code class="language-none">$ rails console
-Loading development environment
-&gt;&gt; Rails.env
-&#x3D;&gt; &quot;development&quot;
-&gt;&gt; Rails.env.development?
-&#x3D;&gt; true
-&gt;&gt; Rails.env.test?
-&#x3D;&gt; false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>As you can see, Rails provides a <code>Rails</code> object with an <code>env</code> attribute and associated environment boolean methods, so that, for example, <code>Rails.env.test?</code> returns <code>true</code> in a test environment and <code>false</code> otherwise.</p>
-<p>If you ever need to run a console in a different environment (to debug a test, for example), you can pass the environment as an option to the <code>console</code> script:</p>
-<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-01">Click here to view code image</a></p>
-<pre class="line-numbers language-none"><code class="language-none">$ rails console --environment test
-Loading test environment
-&gt;&gt; Rails.env
-&#x3D;&gt; &quot;test&quot;
-&gt;&gt; Rails.env.test?
-&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>As with the console, <code>development</code> is the default environment for the Rails server, but you can also run it in a different environment:</p>
-<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-02">Click here to view code image</a></p>
-<pre class="line-numbers language-none"><code class="language-none">$ rails server --environment production<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>If you view your app running in production, it won’t work without a production database, which we can create by running <code>rails db:migrate</code> in production:</p>
-<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-03">Click here to view code image</a></p>
-<pre class="line-numbers language-none"><code class="language-none">$ rails db:migrate RAILS_ENV&#x3D;production<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>By the way, if you have deployed your sample app to Heroku, you can see its environment using <code>heroku run rails console:</code></p>
-<p><a href="chrome-extension://bfpfpfenkimhijpdcbbhmemcimbeehcl/OEBPS/Images/ch07_images.xhtml#f0319-04">Click here to view code image</a></p>
-<pre class="line-numbers language-none"><code class="language-none">$ heroku run rails console
-&gt;&gt; Rails.env
-&#x3D;&gt; &quot;production&quot;
-&gt;&gt; Rails.env.production?
-&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Naturally, since Heroku is a platform for production sites, it runs each application in a production environment.</p>
-<hr>
-<h4 id="Consequence-of-variable-in-controller-and-view"><a href="#Consequence-of-variable-in-controller-and-view" class="headerlink" title="Consequence of variable in controller and view"></a>Consequence of variable in controller and view</h4><p>For example we want to present user information, in the view we can use  <code>@user.param</code></p>
-<p>then we need to define <code>@user</code> variable in corresponding view controller (e.g. <code>show</code>), and also we can use <code>find</code> function the select the data</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span> provide<span class="token punctuation">(</span><span class="token symbol">:title</span><span class="token punctuation">,</span> <span class="token variable">@user</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>
-&lt;h1></span></span>
-  <span class="token operator">&lt;</span><span class="token operator">%=</span> gravatar_for <span class="token variable">@user</span> <span class="token string-literal"><span class="token string">%>
-  &lt;%= @user.name %></span></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-    
-<span class="token keyword">class</span> <span class="token class-name">UsersController</span> <span class="token operator">&lt;</span> ApplicationController
-
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">show</span></span>
-    <span class="token variable">@user</span> <span class="token operator">=</span> User<span class="token punctuation">.</span>find<span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token comment"># debug options to show Ruby debugger prompt</span>
-    debugger
-  <span class="token keyword">end</span>
-
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">new</span></span>
-      <span class="token variable">@user</span> <span class="token operator">=</span> <span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>user_params<span class="token punctuation">)</span>    
-    <span class="token keyword">if</span> <span class="token variable">@user</span><span class="token punctuation">.</span>save
-      flash<span class="token punctuation">[</span><span class="token symbol">:success</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"Welcome to the Sample App!"</span></span>
-      redirect_to <span class="token variable">@user</span>
-    <span class="token keyword">else</span>
-      render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
-    <span class="token keyword">end</span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span>
-
-<span class="token keyword">private</span>
-
-    <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">user_params</span></span>
-      params<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token symbol">:user</span><span class="token punctuation">)</span><span class="token punctuation">.</span>permit<span class="token punctuation">(</span><span class="token symbol">:name</span><span class="token punctuation">,</span> <span class="token symbol">:email</span><span class="token punctuation">,</span> <span class="token symbol">:password</span><span class="token punctuation">,</span>
-                                   <span class="token symbol">:password_confirmation</span><span class="token punctuation">)</span>
-    <span class="token keyword">end</span>
-<span class="token comment">#use strong parameter</span>
-<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>avatar
-<span class="token keyword">module</span> <span class="token class-name">UsersHelper</span>
-
-  <span class="token comment"># Returns the Gravatar for the given user.</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">gravatar_for</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
-    gravatar_id  <span class="token operator">=</span> Digest<span class="token double-colon punctuation">::</span><span class="token constant">MD5</span><span class="token double-colon punctuation">::</span>hexdigest<span class="token punctuation">(</span>user<span class="token punctuation">.</span>email<span class="token punctuation">.</span>downcase<span class="token punctuation">)</span>
-    gravatar_url <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"https://secure.gravatar.com/avatar/</span><span class="token interpolation"><span class="token delimiter punctuation">#&#123;</span><span class="token content">gravatar_id</span><span class="token delimiter punctuation">&#125;</span></span><span class="token string">"</span></span>
-    image_tag<span class="token punctuation">(</span>gravatar_url<span class="token punctuation">,</span> <span class="token symbol">alt</span><span class="token operator">:</span> user<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token symbol">class</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"gravatar"</span></span><span class="token punctuation">)</span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span>
-<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> sign up form format
-<span class="token operator">&lt;</span><span class="token operator">%</span> provide<span class="token punctuation">(</span><span class="token symbol">:title</span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">'Sign up'</span></span><span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>
-&lt;h1></span></span>Sign up<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-
-<span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"row"</span></span><span class="token operator">></span>
-  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"col-md-6 col-md-offset-3"</span></span><span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">%=</span> form_with<span class="token punctuation">(</span><span class="token symbol">model</span><span class="token operator">:</span> <span class="token variable">@user</span><span class="token punctuation">)</span> <span class="token keyword">do</span> <span class="token operator">|</span>f<span class="token operator">|</span> <span class="token string-literal"><span class="token string">%>
-	&lt;%= render 'shared/error_messages', object: f.object %></span></span>
-<span class="token operator">/</span><span class="token operator">/</span> html format
-<span class="token operator">/</span><span class="token operator">/</span><span class="token operator">&lt;</span>label <span class="token keyword">for</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"user_name"</span></span><span class="token operator">></span>Name<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
-<span class="token operator">/</span><span class="token operator">/</span><span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string-literal"><span class="token string">"user_name"</span></span> name<span class="token operator">=</span><span class="token string-literal"><span class="token string">"user[name]"</span></span> type<span class="token operator">=</span><span class="token string-literal"><span class="token string">"text"</span></span> <span class="token operator">/</span><span class="token operator">></span>
-      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:name</span> <span class="token string-literal"><span class="token string">%>
-      &lt;%= f.text_field :name %></span></span>
-
-      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:email</span> <span class="token string-literal"><span class="token string">%>
-      &lt;%= f.email_field :email %></span></span>
-
-      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:password</span> <span class="token string-literal"><span class="token string">%>
-      &lt;%= f.password_field :password %></span></span>
-
-      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:password_confirmation</span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"Confirmation"</span></span> <span class="token string-literal"><span class="token string">%>
-      &lt;%= f.password_field :password_confirmation %></span></span>
-
-      <span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>submit <span class="token string-literal"><span class="token string">"Create my account"</span></span><span class="token punctuation">,</span> <span class="token symbol">class</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"btn btn-primary"</span></span> <span class="token string-literal"><span class="token string">%>
-    &lt;% end %></span></span>
-  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Strong-parameter"><a href="#Strong-parameter" class="headerlink" title="Strong parameter"></a>Strong parameter</h3><p>In the present instance, we want to require the <strong><code>params</code></strong> hash to have a <strong><code>:user</code></strong> attribute, and we want to permit the name, email, password, and password confirmation attributes</p>
-<pre class="line-numbers language-none"><code class="language-none">params.require(:user).permit(:name, :email, :password, :password_confirmation)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>to show the error message we can create a folder shared/error_messages</p>
-<p>&lt;%= render ‘shared/error_messages’, object: f.object %&gt;</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>any<span class="token operator">?</span> <span class="token string-literal"><span class="token string">%>
-  &lt;div id="error_explanation"></span></span>
-    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string-literal"><span class="token string">"alert alert-danger"</span></span><span class="token operator">></span>
-      The form contains <span class="token operator">&lt;</span><span class="token operator">%=</span> pluralize<span class="token punctuation">(</span><span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>count<span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"error"</span></span><span class="token punctuation">)</span> <span class="token string-literal"><span class="token string">%>.
-    &lt;/div></span></span>
-    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token variable">@user</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>full_messages<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>msg<span class="token operator">|</span> <span class="token string-literal"><span class="token string">%>
-      &lt;li></span></span><span class="token operator">&lt;</span><span class="token operator">%=</span> msg <span class="token string-literal"><span class="token string">%>&lt;/li></span></span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string-literal"><span class="token string">%>
-    &lt;/ul></span></span>
-  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token operator">%</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>count return number of errors. any? empty? is one of a pair of complementary methods</p>
-<pre class="line-numbers language-none"><code class="language-none">&gt;&gt; user.errors.empty?
-&#x3D;&gt; false
-&gt;&gt; user.errors.any?
-&#x3D;&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>The other new idea is the <strong><code>pluralize</code></strong> text helper, which is available in the console via the <strong><code>helper</code></strong> object</p>
-<pre class="line-numbers language-none"><code class="language-none">&gt;&gt; helper.pluralize(1, &quot;error&quot;)
-&#x3D;&gt; &quot;1 error&quot;
-&gt;&gt; helper.pluralize(5, &quot;error&quot;)
-&#x3D;&gt; &quot;5 errors&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><code>flash</code> method is to display the assigned message on the first page after the redirect</p>
-<h4 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h4><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">SessionsController</span> <span class="token operator">&lt;</span> ApplicationController
-
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">new</span></span>
-  <span class="token keyword">end</span>
-
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">create</span></span>
-    user <span class="token operator">=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">email</span><span class="token operator">:</span> params<span class="token punctuation">[</span><span class="token symbol">:session</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token symbol">:email</span><span class="token punctuation">]</span><span class="token punctuation">.</span>downcase<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> user <span class="token operator">&amp;&amp;</span> user<span class="token punctuation">.</span>authenticate<span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:session</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token symbol">:password</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-      reset_session
-      log_in user
-      redirect_to user
-    <span class="token keyword">else</span>
-      flash<span class="token punctuation">.</span>now<span class="token punctuation">[</span><span class="token symbol">:danger</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">'Invalid email/password combination'</span></span>
-      render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
-    <span class="token keyword">end</span>
-  <span class="token keyword">end</span>
-
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">destroy</span></span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong><code>:unprocessable_entity</code></strong> status code is necessary when using turbo</p>
-<p>This means that</p>
-<pre class="line-numbers language-none"><code class="language-none">params[:session]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>is itself a hash:</p>
-<pre class="line-numbers language-none"><code class="language-none">&#123; password: &quot;foobar&quot;, email: &quot;user@example.com&quot; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>As a result,</p>
-<pre class="line-numbers language-none"><code class="language-none">params[:session][:email]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>is the submitted email address and</p>
-<pre class="line-numbers language-none"><code class="language-none">params[:session][:password]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Then we need to include SessionHelper in the ApplicationController</p>
-<p>To deal with <strong><em>session fixation</em></strong>. The solution is to reset the session immediately before logging in so that the attacker’s desired id gets cleared and a freshly created id ends up in the session hash, which we can do with the built-in Rails method <strong><code>reset_session</code></strong>:</p>
-<p>@ represents an instance variable: an instance of the model (redirect_to @user)</p>
-<p>while normal name represent a variable (redirect_to user)</p>
-<h5 id="Session-Helper"><a href="#Session-Helper" class="headerlink" title="Session Helper"></a>Session Helper</h5><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">module</span> <span class="token class-name">SessionsHelper</span>
-
-  <span class="token comment"># Logs in the given user.</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">log_in</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
-    session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span> <span class="token operator">=</span> user<span class="token punctuation">.</span>id
-  <span class="token keyword">end</span>
-
-  <span class="token comment"># Returns the current logged-in user (if any).</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">current_user</span></span>
-    <span class="token keyword">if</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span>
-        <span class="token operator">/</span><span class="token operator">/</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">if</span> <span class="token variable">@current_user</span> is <span class="token keyword">nil</span>
-      <span class="token variable">@current_user</span> <span class="token operator">||=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token keyword">end</span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li><strong>Turbo Streams</strong>: Turbo Streams is a feature of Turbo that allows you to send updates to the client, typically in response to some action, without a full page reload. It works by sending a stream of Turbo Frames, which are partial HTML responses, to the client.</li>
-<li><strong>turbo:load Event</strong>: The <code>turbo:load</code> event is triggered by Turbo when a new page is loaded or when a Turbo Frame is inserted into the DOM. It’s an event you can listen to in your JavaScript code to perform actions after the page or Turbo Frame has loaded.</li>
-</ol>
-<p><strong>Security</strong></p>
-<p>we can digest the password for the user model class we can add</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">def</span> <span class="token method-definition"><span class="token class-name">User</span><span class="token punctuation">.</span><span class="token function">digest</span></span><span class="token punctuation">(</span>string<span class="token punctuation">)</span>
-    cost <span class="token operator">=</span> ActiveModel<span class="token double-colon punctuation">::</span>SecurePassword<span class="token punctuation">.</span>min_cost <span class="token operator">?</span> BCrypt<span class="token double-colon punctuation">::</span>Engine<span class="token double-colon punctuation">::</span><span class="token constant">MIN_COST</span> <span class="token operator">:</span>
-                                                  BCrypt<span class="token double-colon punctuation">::</span>Engine<span class="token punctuation">.</span>cost
-    BCrypt<span class="token double-colon punctuation">::</span>Password<span class="token punctuation">.</span>create<span class="token punctuation">(</span>string<span class="token punctuation">,</span> <span class="token symbol">cost</span><span class="token operator">:</span> cost<span class="token punctuation">)</span>
-  <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p> It uses the minimum cost parameter in tests and a normal (high) cost parameter in production. </p>
-<p>To guard against the session-fixation attacks, we’ll also add a call to <strong><code>reset_session</code></strong> immediately before logging in . </p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">def</span> <span class="token method-definition"><span class="token function">create</span></span>
-    <span class="token variable">@user</span> <span class="token operator">=</span> <span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>user_params<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token variable">@user</span><span class="token punctuation">.</span>save
-      reset_session
-      log_in <span class="token variable">@user</span>
-      flash<span class="token punctuation">[</span><span class="token symbol">:success</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"Welcome to the Sample App!"</span></span>
-      redirect_to <span class="token variable">@user</span>
-    <span class="token keyword">else</span>
-      render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
-    <span class="token keyword">end</span>
-  <span class="token keyword">end</span>
-
-<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">destroy</span></span>
-    log_out
-    redirect_to root_url<span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:see_other</span>
-  <span class="token keyword">end</span>
-<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> log out 
-<span class="token keyword">module</span> <span class="token class-name">SessionsHelper</span>
-
-  <span class="token comment"># Logs in the given user.</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">log_in</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
-    session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span> <span class="token operator">=</span> user<span class="token punctuation">.</span>id
-  <span class="token keyword">end</span>
-  <span class="token punctuation">.</span>
-  <span class="token punctuation">.</span>
-  <span class="token punctuation">.</span>
-  <span class="token comment"># Logs out the current user.</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">log_out</span></span>
-    reset_session
-    <span class="token variable">@current_user</span> <span class="token operator">=</span> <span class="token keyword">nil</span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Remember-Token-and-Digest"><a href="#Remember-Token-and-Digest" class="headerlink" title="Remember Token and Digest"></a>Remember Token and Digest</h4><pre class="line-numbers language-none"><code class="language-none">$ rails console
-&gt;&gt; SecureRandom.urlsafe_base64
-&#x3D;&gt; &quot;brl_446-8bqHv87AQzUj_Q&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>urlsafe<em>base64 returns a random string of length 22 composed of the characters A–Z, a–z, 0–9, “-”, and “</em>” </p>
-<p>So under the User.digest(string) function we define new function for new_token and to remember it</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token comment">#create an accessible attribute</span>
-attr_accessor <span class="token symbol">:remember_token</span>
-<span class="token comment"># Returns a random token.</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token class-name">User</span><span class="token punctuation">.</span><span class="token function">new_token</span></span>
-    SecureRandom<span class="token punctuation">.</span>urlsafe_base64
-  <span class="token keyword">end</span>
-
-  <span class="token comment"># Remembers a user in the database for use in persistent sessions.</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">remember</span></span>
-    <span class="token keyword">self</span><span class="token punctuation">.</span>remember_token <span class="token operator">=</span> User<span class="token punctuation">.</span>new_token
-    update_attribute<span class="token punctuation">(</span><span class="token symbol">:remember_digest</span><span class="token punctuation">,</span> User<span class="token punctuation">.</span>digest<span class="token punctuation">(</span>remember_token<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>we now create a persistent session by storing a user’s (encrypted) id and remember token as permanent cookies on the browser. The way to do this is with the <strong><code>cookies</code></strong> method, which (as with <strong><code>session</code></strong>) we can treat as a hash.</p>
-<p>For token expiration date we can use <strong><code>permanent</code></strong>  for </p>
-<pre class="line-numbers language-none"><code class="language-none">cookies.permanent[:remember_token] &#x3D; remember_token
---------
-cookies[:remember_token] &#x3D; &#123; value:   remember_token,
-                             expires: 20.years.from_now.utc &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>This causes Rails to set the expiration to <strong><code>20.years.from_now</code></strong> automatically</p>
-<p>the <code>remember_token</code> is the plain, unhashed token, while the <code>remember_digest</code> is the hashed version stored in the database. </p>
-<p>So we  can use the function </p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token comment"># Returns true if the given token matches the digest.</span>
-  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">authenticated</span></span><span class="token operator">?</span><span class="token punctuation">(</span>remember_token<span class="token punctuation">)</span>
-    BCrypt<span class="token double-colon punctuation">::</span><span class="token class-name">Password</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>remember_digest<span class="token punctuation">)</span><span class="token punctuation">.</span>is_password<span class="token operator">?</span><span class="token punctuation">(</span>remember_token<span class="token punctuation">)</span>
-  <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Instead of <strong><code>==</code></strong>, this uses the boolean method <strong><code>is_password?</code></strong> to perform the comparison. Because its meaning is a little clearer, we’ll prefer this second comparison form in the application code.</p>
-<p>And we will add a remember user for the function create, with log_in, we define the function calls user.remember in session helper</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>model
-<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">create</span></span>
-  user <span class="token operator">=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">email</span><span class="token operator">:</span> params<span class="token punctuation">[</span><span class="token symbol">:session</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token symbol">:email</span><span class="token punctuation">]</span><span class="token punctuation">.</span>downcase<span class="token punctuation">)</span>
-  <span class="token keyword">if</span> user <span class="token operator">&amp;&amp;</span> user<span class="token punctuation">.</span>authenticate<span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:session</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token symbol">:password</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    reset_session
-    remember user
-    log_in user
-    redirect_to user
-  <span class="token keyword">else</span>
-    flash<span class="token punctuation">.</span>now<span class="token punctuation">[</span><span class="token symbol">:danger</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">'Invalid email/password combination'</span></span>
-    render <span class="token string-literal"><span class="token string">'new'</span></span><span class="token punctuation">,</span> <span class="token symbol">status</span><span class="token operator">:</span> <span class="token symbol">:unprocessable_entity</span>
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span>
-<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> helper
-<span class="token comment"># Remembers a user in a persistent session.</span>
-<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">remember</span></span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
-  user<span class="token punctuation">.</span>remember
-  cookies<span class="token punctuation">.</span>permanent<span class="token punctuation">.</span>encrypted<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span> <span class="token operator">=</span> user<span class="token punctuation">.</span>id
-  cookies<span class="token punctuation">.</span>permanent<span class="token punctuation">[</span><span class="token symbol">:remember_token</span><span class="token punctuation">]</span> <span class="token operator">=</span> user<span class="token punctuation">.</span>remember_token
-<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>||= means if the variable is already set, then it will not be override</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">if</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span>
-  <span class="token variable">@current_user</span> <span class="token operator">||=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token keyword">elsif</span> cookies<span class="token punctuation">.</span>encrypted<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span>
-  user <span class="token operator">=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> cookies<span class="token punctuation">.</span>encrypted<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token keyword">if</span> user <span class="token operator">&amp;&amp;</span> user<span class="token punctuation">.</span>authenticated<span class="token operator">?</span><span class="token punctuation">(</span>cookies<span class="token punctuation">[</span><span class="token symbol">:remember_token</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    log_in user
-    <span class="token variable">@current_user</span> <span class="token operator">=</span> user
-  <span class="token keyword">end</span>
-<span class="token keyword">end</span>
-<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span> eliminate ver
-<span class="token keyword">if</span> <span class="token punctuation">(</span>user_id <span class="token operator">=</span> session<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token variable">@current_user</span> <span class="token operator">||=</span> User<span class="token punctuation">.</span>find_by<span class="token punctuation">(</span><span class="token symbol">id</span><span class="token operator">:</span> user_id<span class="token punctuation">)</span>
-<span class="token keyword">elsif</span> <span class="token punctuation">(</span>user_id <span class="token operator">=</span> cookies<span class="token punctuation">.</span>encrypted<span class="token punctuation">[</span><span class="token symbol">:user_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>if there is user id in session then we find it if we don’t have a current user, else we try to find if there is user in cookies</p>
-<p>this is <em>not</em> a comparison (which would use double-equals <strong><code>==</code></strong>), but rather is an <em>assignment</em></p>
-<h4 id="Remember-me-CheckBox"><a href="#Remember-me-CheckBox" class="headerlink" title="Remember me CheckBox"></a>Remember me CheckBox</h4><pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token operator">&lt;</span><span class="token operator">%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:remember_me</span><span class="token punctuation">,</span> <span class="token symbol">class</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"checkbox inline"</span></span> <span class="token keyword">do</span> <span class="token string-literal"><span class="token string">%>
-        &lt;%= f.check_box :remember_me %></span></span>
-        <span class="token operator">&lt;</span>span<span class="token operator">></span>Remember me on this computer<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
-      <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token operator">%</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>How does rails know if a record is a new one?</p>
-<pre class="line-numbers language-none"><code class="language-none">$ rails console
-&gt;&gt; User.new.new_record?
-&#x3D;&gt; true
-&gt;&gt; User.first.new_record?
-&#x3D;&gt; false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>use new_record?</p>
-<p><strong>patch</strong> is used for making partial updates to existing resources.</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">test <span class="token string-literal"><span class="token string">"should redirect update when logged in as wrong user"</span></span> <span class="token keyword">do</span>
-    log_in_as<span class="token punctuation">(</span><span class="token variable">@other_user</span><span class="token punctuation">)</span>
-    patch user_path<span class="token punctuation">(</span><span class="token variable">@user</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token symbol">params</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">user</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token symbol">name</span><span class="token operator">:</span> <span class="token variable">@user</span><span class="token punctuation">.</span>name<span class="token punctuation">,</span>
-                                              <span class="token symbol">email</span><span class="token operator">:</span> <span class="token variable">@user</span><span class="token punctuation">.</span>email <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span>
-    assert flash<span class="token punctuation">.</span>empty<span class="token operator">?</span>
-    assert_redirected_to root_url
-  <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">before_action <span class="token symbol">:logged_in_user</span><span class="token punctuation">,</span> <span class="token symbol">only</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token symbol">:edit</span><span class="token punctuation">,</span> <span class="token symbol">:update</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<ul>
-<li><strong><code>before_action</code></strong>: This is a Rails method that defines a filter to be run before the specified controller actions.</li>
-<li><strong><code>:logged_in_user</code></strong>: This is the name of the method that will be called before the specified actions. In this case, it’s a method checks if a user is logged in.</li>
-<li><strong><code>only: [:edit, :update]</code></strong>: This option specifies that the <code>logged_in_user</code> method should only be executed before the <code>:edit</code> and <code>:update</code> actions in the controller. It restricts the filter’s application to specific actions.</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/22/ReactHookReview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/10/22/ReactHookReview/" itemprop="url">React Review</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-22T17:15:58+02:00">
-                2023-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Software-study/" itemprop="url" rel="index">
-                    <span itemprop="name">Software study</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>This blog aims to review the react Hooks or some other tricks for preparation with full-stack intern.</p>
-<h3 id="1-useState"><a href="#1-useState" class="headerlink" title="1. useState"></a>1. useState</h3><ul>
-<li>Used inside function component not class</li>
-<li>Every time runs, execute in the same order</li>
-</ul>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">const [count, setCount (funtion to update first(current state))] &#x3D; useState(4)
-
-&#x2F;&#x2F; set 
-function decrementCount() &#123;
-    setCount(prevCount &#x3D;&gt; prevCount - 1)
-&#125;
-
-&lt;button conclick &#x3D; &#123;decrementCount&#125;&gt; - &lt;&#x2F;button&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>2 ways passing the state ( direct / function )</p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">useState(() &#x3D; &gt; CountInitial())
-
-const CountInitial() &#123;
-    return 4
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Function only runs once -&gt; good for performance</p>
-<p>Update the parameter we want：</p>
-<pre class="line-numbers language-none"><code class="language-none">function decrememtCount() &#123;
-setState(prevState &#x3D;&gt; &#123;
-return &#123;...prevState, count: prevState.count + 1&#125;
-&#125;)
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Advantage, make multiple state to split them </p>
-<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><p>side effect for state changes</p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">
-const [resourceType, func ] &#x3D; useState(...)
-useEffect(() &#x3D;&gt; &#123;
-	code
-&#125;, [resourceType]) &#x2F;&#x2F; run the code when parameter changes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">export default function App() &#123;
-    const[windowWidth, setwindoWidth] &#x3D; useState(window.innerWidth)
-    const handleResize &#x3D; () &#x3D;&gt; &#123;
-        setwindowWidth(window.innerWidth)
-    &#125;
-    
-    useEffect(() &#x3D;&gt; &#123;
-        window.addEvenListener(&#39;resize&#39;, handleResize)
-        
-    &#125;, [])
-    return (
-    	&lt;div&gt;&#123;windowWidth&#125;&lt;&#x2F;div&gt;
-    )
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="3-useMemo"><a href="#3-useMemo" class="headerlink" title="3. useMemo"></a>3. useMemo</h3><p>Momo: memoization</p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">const number &#x3D; useMemo(() &#x3D;&gt; slowFunction(para), [number])
-
-function slowFunction(para) &#123;
-    
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>or we can use useMemo for invoking useEffect when the value changes</p>
-<h3 id="4-useRef"><a href="#4-useRef" class="headerlink" title="4. useRef"></a>4. useRef</h3><p>similar to state</p>
-<p>not cause re-update when changes  Separate from render cycle</p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">const renderCount &#x3D; useRef(0)
-&#x2F;&#x2F;&#123; current: 0 &#125;
-useEffect(()&#x3D;&gt; &#123;
-    renderCount.current &#x3D; renderCount.current +1
-&#125;)
-
---------------------------------------------------------
-&#x2F;&#x2F; common usage 
-inputRef &#x3D; useRef()
-
-function focus() &#123;
-    inputRef.current.focus()
-    &#x2F;&#x2F;inputRef.current.value &#x3D; &#39;Some value&#39;
-&#125;
-
-return (
-	&lt;&gt;
-    	&lt;input ref&#x3D;&#123;inputRef&#125; value&#x3D;&#123;name&#125; onChange&#123;e &#x3D;&gt; setName(e.target.value)&#125;&#x2F;&gt;
-        &lt;div&gt;&lt;&#x2F;div&gt;
-    &lt;&#x2F;&gt;
-)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol>
-<li><h3 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h3></li>
-</ol>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">&#x2F;&#x2F; create context
-export const ThemeContext &#x3D; React.createContext()
-
-export default function App() &#123;
-    const [darkTheme, setDarkTheme] &#x3D; useState(true)
-    
-    function toggleTheme()&#123;
-        setDarkTheme(prevDrakTheme &#x3D;&gt; !prevDarkTheme)
-    &#125;
-    
-    return
-    &lt;&gt;
-    	&lt;ThemeContext.Provider value&#x3D;&#123;darkTheme&#125;&gt;	
-    		&lt;button onclick&#x3D;&#123;toggleTheme&#125;&gt;Toggle Theme&lt;&#x2F;button&gt;
-        	&lt;FunctionContextComponent&#x2F;&gt;
-        	&lt;ClassContextComponent&#x2F;&gt;
-    	&lt;&#x2F;ThemeContext.Provider&gt;
-    &lt;&#x2F;&gt;
-&#125;
-
---------------------------------
-ClassContextComponent.js 
-
-import &#123;ThemeContext&#125; from &#39;.&#x2F;App&#39;
-
-render() &#123;
-    return (
-    	&lt;ThemeContext.Consumer&gt;
-        	&#123;darkTheme &#x3D;&gt; &#123;
-                return &lt;div style &#x3D; &#123;this.themStyles(darkTheme)&#125;&gt;Class 					Theme&lt;&#x2F;div&gt;
-            &#125;&#125;
-        &lt;&#x2F;ThemeContext.Consumer&gt;
-    )
-&#125;
-
--------------------------------------------------
-FunctionContextComponent.js
-import React, &#123;useContext&#125; from &#39;react&#39;
-import &#123;ThemeContext&#125; from &#39;.&#x2F;App&#39;
-
-export default function FunctionContextComponent()&#123;
-    const darkTheme &#x3D; useContext(ThemeContext)
-    const themeStyles &#x3D; &#123;
-        color: darkTheme ? &#39;#CCC&#39; : &#39;#333&#39;
-    &#125;
-    return (
-    	&lt;div style&#x3D;&#123;themeStyles&#125;&gt;Function Theme&lt;&#x2F;div&gt;
-    )
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Context is broke into two sections </p>
-<ul>
-<li>Context.provider: Wrap all the code need to access in the provider. All the child components have access to the <code>value</code> prop (Context is for passing dawn value without manual process)</li>
-</ul>
-<p>Function get rid of the nesting </p>
-<p><img src="https://i.imgur.com/Kumc8N5.png" alt="image-20231025013452430"></p>
-<p>Then we can use custom hook for use the themeContext</p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">export function useTheme() &#123;
-	return useContext(ThemeContext)
-&#125;
-export function useThemeUpdate() &#123;
-	return useContext(ThemeUpdateContext)
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="UseReducer"><a href="#UseReducer" class="headerlink" title="UseReducer"></a>UseReducer</h3><p>start with two params</p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">type Actions &#x3D; 
-    | &#123;type: &quot;add&quot;; payload: string&#125;
-	| &#123;type： &quot;remove&quot;; payload: numb&#125;
-
-function reducer(state, action) &#123;
-    
-&#125;
-
-
-const [state, disapatch] &#x3D; useReducer(reducer, &#123;count :0&#125;) &#x2F;&#x2F; object
-const [count, setCount] &#x3D; useState(0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>call dispatch to update the state</p>
-<p>we can dispatch a type to dispatch, like</p>
-<h4 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h4><p>npm install axios</p>
-<pre class="line-numbers language-react" data-language="react"><code class="language-react">const api &#x3D; axios.create (&#123;
-	baseURL: &#39;url example&#39;,
-    headers: &#123;
-        &#39;X-auth-key&#39;: &quot;&quot;
-    &#125;
-&#125;)
-
-class App extends Component &#123;
-    state &#x3D; &#123;
-        courses:[]
-    &#125;
-    
-	constructor() &#123;
-		super();
-        this.getcourses();
-	&#125;
-    
-    getCourses &#x3D; async () &#x3D;&gt; &#123;
-        let data &#x3D; await api.get(&#39;&#x2F;&#39;, &#123;
-            params: &#123;
-                _limit: 3
-                _start: 0
-            &#125;
-        &#125;).then((&#123;data&#125;) &#x3D;&gt; data);
-		&#125;)
-        this.setState(&#123; courses: data&#125;)
-    &#125;
-    
-    getCourses2 &#x3D; async () &#x3D;&gt; &#123;
-        try &#123;
-        	let data &#x3D; await axios(&#123;
-                method: &#39;get&#39;,
-                url: &#39;xxxxxxx&#39;
-            &#125;);
-			&#125;).then((&#123;data&#125;) &#x3D;&gt; data)
-            this.setState(&#123; courses: data&#125;)
-    	&#125;
-    &#125;
-    
-    
-    createCourse &#x3D; async() &#x3D; &gt; &#123;
-        let res &#x3D; await api.post(&#39;&#x2F;&#39;, &#123; title: &quot;a&quot;, id：4； author : &#39;test&#39;&#125;)
-    &#125;
-    
-    deleteCourse &#x3D; async (id) &#x3D;&gt; &#123;
-        let data &#x3D; awai api.delete(&#96;&#x2F;$&#123;id&#125;&#96;)
-        this.getCourses();
-    &#125;
-    
-    updateCourse &#x3D; async (id, val) &#x3D;&gt; &#123;
-        let data &#x3D; await api.patch(&#96;&#x2F;$&#123;id&#125;&#96;, &#123;title: val&#125;)
-        this.getCourses();
-    &#125;
-    render() &#123;
-        return (
-        	&lt;div&gt;
-            	&#123;this.state.courses.map(course &#x3D;&gt;
-                      &lt;h2 key&#x3D;&#123;course.id&#125;&gt;&#123;course.title&#125;&lt;&#x2F;h2&gt;
-                                       )&#125;
-            &lt;&#x2F;div&gt;
-        )
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h4><pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">let</span> name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> role<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token builtin">number</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token comment">// object</span>
-<span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-    <span class="token comment">// ? for optional</span>
-    age<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span> 
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">let</span> lotsOfPeople<span class="token operator">:</span> Person<span class="token punctuation">[</span><span class="token punctuation">]</span>
-
-<span class="token comment">// union</span>
-<span class="token keyword">let</span> age：<span class="token builtin">number</span> <span class="token operator">|</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-
-<span class="token keyword">function</span> <span class="token function">printName</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// => for return type</span>
-<span class="token class-name"><span class="token keyword">let</span></span> <span class="token function-variable function">function</span><span class="token operator">:</span> <span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token builtin">never</span><span class="token punctuation">;</span>
-
-<span class="token comment">// alias: type and interface</span>
-
-<span class="token keyword">type</span> <span class="token class-name"><span class="token constant">X</span></span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    a<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-    b<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">type</span> <span class="token class-name"><span class="token constant">Y</span></span> <span class="token operator">=</span> <span class="token constant">X</span> <span class="token operator">&amp;</span> <span class="token punctuation">&#123;</span>
-    c<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">let</span> y<span class="token operator">:</span> <span class="token constant">Y</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    c<span class="token operator">:</span> <span class="token string">"aaa00"</span><span class="token punctuation">;</span>
-    d<span class="token operator">:</span> <span class="token number">42</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">//interface Person &#123;</span>
-<span class="token comment">//    name: string;</span>
-<span class="token comment">//    age?: number;</span>
-<span class="token comment">//&#125;</span>
-
-<span class="token keyword">interface</span> <span class="token class-name">Guy</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
-    profession<span class="token operator">:</span> <span class="token builtin">string</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">class</span> <span class="token class-name">name</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span><span class="token punctuation">&#123;</span>
-    profession<span class="token operator">:</span> <span class="token builtin">string</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">interface</span> <span class="token class-name">Person</span> <span class="token keyword">extends</span> <span class="token class-name"><span class="token constant">X</span></span><span class="token punctuation">&#123;</span>
-    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-    age<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -2761,7 +1879,7 @@ class App extends Component &#123;
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2772,7 +1890,7 @@ class App extends Component &#123;
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

@@ -263,6 +263,1314 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/Forward%20rendering/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/06/Forward%20rendering/" itemprop="url">Forward rendering</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-06T15:46:04+02:00">
+                2023-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Forward and deferred rendering</p>
+<h3 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h3><script type="math/tex; mode=display">R_{phong}=R_{ambient}+R_{diffuse}+R_{specular}</script><script type="math/tex; mode=display">R_{phong}=I_a*k_a*color+\sum(IIi_{ghti}*(k_d*(N\cdot L_i)*color+ks+(N*H_i)^{exp}))</script><h5 id="Texture-format"><a href="#Texture-format" class="headerlink" title="Texture format"></a>Texture format</h5><p>Internal format defines the size and encoding</p>
+<h5 id="Dept-test"><a href="#Dept-test" class="headerlink" title="Dept test"></a>Dept test</h5><p>Depth is computed automatically based on the position</p>
+<hr>
+<h3 id="Forward-rendering"><a href="#Forward-rendering" class="headerlink" title="Forward rendering"></a>Forward rendering</h3><p><strong>Describe how forward rendering works</strong></p>
+<p>Render the object with the first light + indirect lighting</p>
+<p>if more than one light, render again in additive mode</p>
+<p>Shader renders one light at a time</p>
+<ul>
+<li>First pass<ul>
+<li>No blending</li>
+<li>Writes to depth</li>
+<li>Depth comparison by default GL_LESS</li>
+<li>Compute indirect lighting</li>
+</ul>
+</li>
+<li>Additional passes:<ul>
+<li>Additive blending: GL_ONE, GL_ONE</li>
+<li>No depth -&gt; first pass did</li>
+<li>Depth comparison  GL_EQUAL\GL_LEQUAL</li>
+<li>no indirect light</li>
+</ul>
+</li>
+</ul>
+<p>bad for many lights (light of small range)</p>
+<h1 id="Deferred-rendering"><a href="#Deferred-rendering" class="headerlink" title="Deferred rendering"></a>Deferred rendering</h1><p> Describe how deferred rendering works</p>
+<h4 id="Geometry-pass"><a href="#Geometry-pass" class="headerlink" title="Geometry pass"></a>Geometry pass</h4><p>All the lights, reading from the g-buffers and computing<br>lighting</p>
+<ul>
+<li>Render all objects</li>
+<li>Render to textures (g-butters) geometry buffers, each texture stores specific data</li>
+<li>Each object can have its own specific shader</li>
+</ul>
+<h4 id="Lighting-pass"><a href="#Lighting-pass" class="headerlink" title="Lighting pass"></a>Lighting pass</h4><p>All the lights, </p>
+<p>reading from the g-buffers and computing<br>lighting</p>
+<ul>
+<li>Render all lights</li>
+<li>For each light<ul>
+<li>Read information stored in g-buffers</li>
+<li>Transform it to original form</li>
+<li><ul>
+<li>reconstruct position from depth</li>
+<li>Recover Z component of normal</li>
+<li>undo any range transformations</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Obtain view direction/ light direction and compute lighting equation</li>
+<li>Lighting in view space: relative to the camera</li>
+<li><ul>
+<li>Read normals from g-buffer</li>
+<li>Light position or direction(passed as uniform) must be in view space</li>
+</ul>
+</li>
+<li>Render all the lights in additive passes</li>
+</ul>
+<h3 id="Advantages"><a href="#Advantages" class="headerlink" title="Advantages"></a>Advantages</h3><p>Efficient for rendering many lights</p>
+<p>decrease time complexity O(m * n) -&gt; O(m) + O(n)</p>
+<h3 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h3><ol>
+<li>Memory usage</li>
+</ol>
+<p>More data in g-buffers needed for special materials</p>
+<ol>
+<li>Shader complexity</li>
+</ol>
+<p>handle different lighting models for different materials increases the complexity for ALL fragments</p>
+<ol>
+<li>Transparency</li>
+</ol>
+<p><strong>It can not handle transparent objects</strong></p>
+<p>G-buffers store one value per fragment</p>
+<p>Only one depth =&gt; one position</p>
+<h4 id="G-buffers-•-G-buffer-What-is-it-and-some-examples"><a href="#G-buffers-•-G-buffer-What-is-it-and-some-examples" class="headerlink" title="G-buffers • G-buffer: What is it and some examples"></a>G-buffers • G-buffer: What is it and some examples</h4><p>textures store geometry data same size as framebuffer</p>
+<p>Example Bling-Phong with 4 g-buffers</p>
+<ul>
+<li><p>Depth buffer (D32)</p>
+<ul>
+<li><ul>
+<li>Range [0,1]</li>
+<li>Reconstruct fragment position<ul>
+<li>value in texture -&gt; Z component in clip space</li>
+<li>X, Y pass projected position from vertex shader</li>
+<li>once have (X,Y,Z) in clip space, transform it by the inverse of projection matrix</li>
+<li>for position in wold space, multiply by the inverse of view matrix</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Albedo(RGB8)</p>
+</li>
+<li><ul>
+<li>reflection color of the objects</li>
+</ul>
+</li>
+<li><p>Normals(RG16F)</p>
+</li>
+<li><ul>
+<li>store per-fragment normals in view space</li>
+<li>normal mapping computed before storing the normal</li>
+</ul>
+</li>
+<li>Other(RGBA8)</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/WRS3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/06/WRS3/" itemprop="url">WRS Lecture 8</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-06T15:44:04+02:00">
+                2023-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Recommender System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>assumption for CF &amp; CB:</p>
+<p>user preference are long-term and dynamic</p>
+<h2 id="session-based-recommendation"><a href="#session-based-recommendation" class="headerlink" title="session-based recommendation"></a>session-based recommendation</h2><ul>
+<li><p>Session: List of interactions with a clear boundary</p>
+</li>
+<li><p>Interaction o = <user,item,action> = <u, i, a></u,></user,item,action></p>
+</li>
+<li><p>Time intervals between sessions do not have to be identical</p>
+</li>
+<li><p>Sessions can be ordered, unordered or weakly ordered</p>
+</li>
+<li>Sessions must be non-empty and temporally uniterrupted</li>
+<li>Sessions can contain duplicate interactions</li>
+</ul>
+<h4 id="Three-main-types-of-recommendations"><a href="#Three-main-types-of-recommendations" class="headerlink" title="Three main types of recommendations"></a>Three main types of recommendations</h4><ul>
+<li>Within-session prediction of the next interaction</li>
+<li>Within-session prediction of the remaining interactions</li>
+<li>Next session prediction</li>
+</ul>
+<h4 id="Frequent-Pattern-Association-Rule-Mining"><a href="#Frequent-Pattern-Association-Rule-Mining" class="headerlink" title="Frequent Pattern / Association Rule Mining:"></a>Frequent Pattern / Association Rule Mining:</h4><ul>
+<li>For single-type-actions only (<strong>actions of only one type in session</strong>)</li>
+<li>Given an incomplete session, predict next interaction</li>
+</ul>
+<p><img src="/2023/04/06/WRS3/github\blog\source\_posts\frequent.png" alt="frequent"></p>
+<p>A session can be reduced to:</p>
+<p><item, action> is user information is not logged</item,></p>
+<p><user, item> if action information always the same</user,></p>
+<p><item> user information is not logged and action information..</item></p>
+<p>Homogeneous sessions have similar types of actions, heterogeneous sessions do not</p>
+<h4 id="Neural-Networks-build-item-representations"><a href="#Neural-Networks-build-item-representations" class="headerlink" title="Neural Networks build item representations"></a>Neural Networks build item representations</h4><ul>
+<li><p>item embedding: dense vector representation that captures all in-session  co-occurrences in the dataset</p>
+</li>
+<li><p>Word2Vec</p>
+</li>
+<li><ul>
+<li>Skip-gram: given a word, predict its most likely context</li>
+<li>CBOW: given a context, predict its most likely missing word</li>
+<li><ul>
+<li>The cat —— over the puddle</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>1-hot encoding</p>
+<p>• 1-hot representation does not capture semantic  relationships between items </p>
+<p>• The inner product of 1-hot vectors is always zero</p>
+<p>• Item similarity within a session: cosine similarity of item embeddings</p>
+<p>Dataset of sessions: </p>
+<p>80% train: {context (including query), correct prediction} </p>
+<p>10% valid: pairs of {query, correct prediction} </p>
+<p>10% test: pairs of {query, correct prediction}</p>
+<h5 id="Common-item-embedding-parameters"><a href="#Common-item-embedding-parameters" class="headerlink" title="Common item embedding parameters"></a>Common item embedding parameters</h5><ol>
+<li><p><strong>Min number of times an item must occur in dataset for it to be embedded</strong> -&gt; Typically 1 to capture rare items </p>
+</li>
+<li><p><strong>Context window</strong>: how far apart items can be, to be placed in same session </p>
+<p>-&gt; Tunable </p>
+<p>-&gt;Choose range and increments according to task &amp; dataset</p>
+<ol>
+<li><strong>Negative sampling exponent</strong></li>
+</ol>
+</li>
+</ol>
+<p>Word2Vec finds items that help predict other in-session items by maximising the average log probability over all possible items -&gt; SoftMax <strong>Problem</strong>: SoftMax scales with vocabulary size (too expensive) </p>
+<p>SoftMax approximation: negative sampling  </p>
+<p>-&gt; Discern between an in-session item and an out-of-session item Negative samples chosen as per frequency distribution of items in the  dataset -&gt; controlled by negative sampling exponent </p>
+<p>1 = negative samples are mainly common items  </p>
+<p>0 = uniform distribution (all items are equally likely to be negative samples) -1 = negative samples are mainly rare items    </p>
+<ol>
+<li><p><strong>Number of negative samples</strong>: how many negative samples are used for  every positive example </p>
+<ul>
+<li><blockquote>
+<p>-&gt; Tunable </p>
+<p>-&gt; Choose range and increments according to task &amp; dataset</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<p>When user Word2vec in session-based recommendation, we treat items as words and sessions as sentences.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/Web%20Recommender%20System/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/06/Web%20Recommender%20System/" itemprop="url">WRS Lecture 3+</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-06T01:02:00+02:00">
+                2023-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Web Recommender System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="WRS-Lecture3"><a href="#WRS-Lecture3" class="headerlink" title="WRS Lecture3"></a>WRS Lecture3</h2><p>MSE:  <script type="math/tex">\frac{\sum_{(u,j)\in E}\ e^2_{u,j}}{|E|}</script></p>
+<p>RMSE: <script type="math/tex">\sqrt\frac{\sum_{(u,j)\in E}\ e^2_{u,j}}{|E|}</script></p>
+<p>diffRMSE : <script type="math/tex">\frac{1}{|E|}\sqrt{\sum_{(u,j)\in E}\ e^2_{u,j}}</script></p>
+<ul>
+<li>Offline evaluation:<ul>
+<li>Offline process with data previously collected;</li>
+<li>Train/Validation/Test splits and measures as HitRate, Precision, Recalls, AP, etc;</li>
+<li>Risk: might not reflect the performance of the system when deployed online.</li>
+</ul>
+</li>
+<li>Online Evaluation:<ul>
+<li>Online process with live interactions from real users</li>
+<li>Different modalities, e.g., A/B testing, user studies, surveys, etc;</li>
+<li>Risk: might harm user experience, loose customers;</li>
+</ul>
+</li>
+<li>Counterfactual evaluation: </li>
+<li><ul>
+<li>Idea: use users interaction data (logs from an online system) to simulate online evaluation.</li>
+</ul>
+</li>
+</ul>
+<h2 id="A-B-Testing"><a href="#A-B-Testing" class="headerlink" title="A/B Testing"></a>A/B Testing</h2><ul>
+<li>A/B Testing is a classic between-subject experiment, where each subject is exposed to exactly one  of two conditions:  </li>
+<li><ul>
+<li>Control: the current system; </li>
+<li>Treatment: an experimental system that is hypothesised to outperform the control</li>
+</ul>
+</li>
+<li><strong>Statistical tests</strong> should be run to confirm differences are not due to chance</li>
+</ul>
+<h2 id="Interleaving"><a href="#Interleaving" class="headerlink" title="Interleaving"></a>Interleaving</h2><p>• Idea: rather than showing each user the results from just one of the 2 systems, the results are  combined in an unbiased way so that every user can observe results produced by both systems;</p>
+<p> • If one system returns better results on average, users can select them more often; </p>
+<p>• Interleaved comparison methods consists of two components: </p>
+<ul>
+<li>Mixing policy: method to select documents from the original rankings and construct the  interleaved lists; </li>
+<li><ul>
+<li>Scoring rule: method for inferring comparison outcomes, i.e., how to interpret observed  interactions; </li>
+</ul>
+</li>
+</ul>
+<p>• Based on hypothesis that the constructed interleaved result should <strong>minimally differ</strong> from either  candidate ranking</p>
+<h2 id="Sparsity"><a href="#Sparsity" class="headerlink" title="Sparsity"></a>Sparsity</h2><p><img src="/2023/04/06/Web%20Recommender%20System/image\WRS\sparsity.png" alt="image-20230412152359413"></p>
+<h3 id="Model-based-Collaborative-Filtering"><a href="#Model-based-Collaborative-Filtering" class="headerlink" title="Model-based Collaborative Filtering"></a>Model-based Collaborative <strong>Filtering</strong></h3><p>• Memory-based: user-item matrix held in memory and used directly to produce  recommendations; </p>
+<p>• Model-based: summarised model of the data is created up front and used to  generate recommendations;</p>
+<h3 id="Latent-Factor-Models"><a href="#Latent-Factor-Models" class="headerlink" title="Latent Factor Models"></a>Latent Factor Models</h3><p>• Goal: dimensionality reduction to estimate the complete user-item matrix; </p>
+<p>• Idea: portions of rows and columns can be highly correlated → redundancies → low-rank matrix → derive latent factors to characterise both user and items</p>
+<p><strong>State-of-the-art</strong> in Collaborative Filtering </p>
+<h3 id="Singular-Value-Decomposition"><a href="#Singular-Value-Decomposition" class="headerlink" title="Singular Value Decomposition"></a>Singular Value Decomposition</h3><p>Assume we have a complete user-item matrix </p>
+<script type="math/tex; mode=display">R=Q\sum P^T</script><p>Truncated SVD: approximate the full matrix with the most important features (largest singular  values), where ; U V k k &lt; &lt; min{m, n}</p>
+<p><img src="/2023/04/06/Web%20Recommender%20System/image\WRS\SVD.png" alt="image-20230412153618667"></p>
+<h4 id="SVD-with-Missing-Entries"><a href="#SVD-with-Missing-Entries" class="headerlink" title="SVD with Missing Entries"></a>SVD with Missing Entries</h4><ol>
+<li><p>Mean-center each row of by subtracting the average rating <script type="math/tex">u_i</script>→ <script type="math/tex">R_c</script>;</p>
+</li>
+<li><p>Set the missing entries of <script type="math/tex">R_c</script> to 0 (equivalent to set missing entries to the  average rating);</p>
+</li>
+<li><p>Apply SVD <script type="math/tex">R_c</script> to to obtain the factorisation: <script type="math/tex">U = Q_k \sum_k</script> and <script type="math/tex">V=P_k</script> ;</p>
+</li>
+<li><p>Make the prediction as follows:</p>
+<p>$\hat{r}_{i,j} = \bar{u_i}\cdot \bar{v_j} + \mu_i$</p>
+</li>
+</ol>
+<h4 id="Graph-Based-Collaborative-Filtering"><a href="#Graph-Based-Collaborative-Filtering" class="headerlink" title="Graph Based Collaborative  Filtering"></a>Graph Based Collaborative  Filtering</h4><h5 id="Katz-Measure"><a href="#Katz-Measure" class="headerlink" title="Katz Measure"></a>Katz Measure</h5><p>Katz Measure — Discount for long  paths, β ∈ (0,1)</p>
+<p>Katz(i, j) = $\sum^{\infin}<em>{t=1}\beta^t \cdot n</em>{i,j}^{(t)}$ -&gt; number of paths of length t between nodes i and j </p>
+<p>• Adjacency matrix: only {0, 1}, where 1 an edge exists between 2 nodes; </p>
+<p>• Replace adjacency matrix with weight based on ratings;</p>
+<h4 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank"></a>PageRank</h4><pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD<span class="token punctuation">;</span>
+    A<span class="token arrow operator">--></span>B<span class="token punctuation">;</span>
+    A<span class="token arrow operator">--></span>C<span class="token punctuation">;</span>
+    C<span class="token arrow operator">--></span>A<span class="token punctuation">;</span>
+    B<span class="token arrow operator">--></span>C<span class="token punctuation">;</span>
+    C<span class="token arrow operator">--></span>B<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>In</th>
+<th>Out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>C</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>given a start score </p>
+<p>End score A = $\frac{0.5}{2}$ = 0.25</p>
+<p>PageRank(A) = (1-d) + d * EndScore(A)</p>
+<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h5><script type="math/tex; mode=display">PR(p_i) = \frac{1-d}{N}+d \sum_{p_j \in M(p_i) }\frac{PR(p_j)}{|L(p_j)|}</script><p>d: damping factor;</p>
+<p>N: total number of webpages;</p>
+<p>$M(p_i)$: set of in-links of $p_i$</p>
+<script type="math/tex; mode=display">|L(p_j)|$$: cardinality of the set of out-links of $p_j$
+
+# Lecutre4
+
+Content-based Recommendation:
+
+\- User’s own ratings on similar items
+
+\- Useful for new items 
+
+it contains two sources of data:
+
+- item description: text description of item
+- User profile: generated by user feedback , e.g., ratings from a  user to specific items;
+
+User profiles: relate attributes of items to user interests;
+
+generated by user feedback (explicit or implicit), e.g., ratings from a  user to specific items;
+
+• Document: information conveying item represented with text, e.g., item  description, review, tweet, Web page, news article, … 
+
+• Corpus: collection of documents (dataset); 
+
+• Vocabulary: set of all tokens (words) in the corpus.
+
+### Text Preprocessing
+
+![image-20230412164258955](..\image\WRS\text_pipeline.png)
+
+#### Lexical Analysis -> 
+
+treat digits, hyphens, punctuation marks, case of letters
+
+**Blank spaces and punctuation** are separator and all words convert to lower cases
+
+**numbers** -> regareded
+
+**Hyphens** state-of-art -> single word
+
+**Upoercases** usually not important (city name exception)
+
+#### Elimination of stopwords -> 
+
+Examples of stopwords: articles, prepositions, pronouns, conjunctions
+
+Advantage: reduces the size of the vocabulary
+
+Disadvantage: ‘to be or not to be’ → represented as ‘{}’;
+
+#### Stemming and Lemmatization
+
+Stemming: crude heuristic process that chops off the ends of words;
+
+Suffixes(mainly) danish and prefixes ploymorph
+
+- Advantages: reduce variants of the same root word to a common concept and reduce the  size of the vocabulary; 
+- Disadvantages: controversy in the literature and many conflicting conclusions
+
+Lemmatization: use of a vocabulary and morphological analysis of words
+
+Reduces a term to a lemma 
+
+- Example: run is the lemma of runs, running, and ran
+
+##### Stemming 
+
+**Stem**: portion of a word after removal of affixes, i.e., prefixes and suffixes, example: ‘connect’ is the  stem for the variants connected, connecting and connections
+
+• Improve efficiency: reduces the  vocabulary size; 
+
+• Fast to execute; 
+
+• Can be overly aggressive: with Porter  stemmer orient → oriental,  orienteering, orienteers; 
+
+• Might allow inappropriate matches.
+
+##### Lemmatization 
+
+Reduces a term to a **lemma** ~ word in the sense of a dictionary entry;
+
+• Improve efficiency: reduces the  vocabulary size (but less than stemming); 
+
+• Easier to interpret; 
+
+• Not so fast to run and added complexity:  meeting → to meet or meeting?; 
+
+• Might allows unwanted matches: good is  the lemma for better and best.
+
+##### Advantages and Disadvantages
+
+![image-20230412172400169](..\image\WRS\text_pro_con.png)
+
+### Text Represented as a Vector
+
+#### One-Hot Encoding
+
+#### Zipf Law
+
+• Terms that are too frequent: do not  describe the content of the document; 
+
+• Terms that are too rare: are often noise,  for example typos or misspelled words.
+
+#### Term Weighting 
+
+One of the most popular weighting scheme: **Term Frequency** (TF) and **Inverse  Document Frequency** (IDF).
+
+$$TF_{t,d}=f_{t,d}= \frac{count\,of\,t\,in\,d}{number\,of\,terms\,in\,d}</script><p><strong>Inverse Document Frequency</strong> (IDF)</p>
+<p>number of documents term occurs $N_t$</p>
+<script type="math/tex; mode=display">w_{t,d} = \begin{cases}(1+log_2f_{t,d})*log_2\frac{N}{N_t} \, if f_{t,d}>0\\0\,otherwise\end{cases}</script><p>Inverse of the number of </p>
+<h5 id="Representations-Based-on-BoW"><a href="#Representations-Based-on-BoW" class="headerlink" title="Representations Based on BoW"></a>Representations Based on BoW</h5><h5 id="Advantages-and-Disadvantage"><a href="#Advantages-and-Disadvantage" class="headerlink" title="Advantages and Disadvantage"></a>Advantages and Disadvantage</h5><p>• Advantages: </p>
+<ul>
+<li>Easy and fast to compute; </li>
+<li><ul>
+<li>Easy to interpret; </li>
+</ul>
+</li>
+</ul>
+<p>• Disadvantages: </p>
+<ul>
+<li>Size, i.e., number of dimensions, increases with the size of the vocabulary, sparse  representation; </li>
+<li><ul>
+<li>Term proximity is not considered and terms are mutually independent.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Similarity-Based-Representation"><a href="#Similarity-Based-Representation" class="headerlink" title="Similarity Based Representation"></a>Similarity Based Representation</h2><h4 id="Word-Embedding"><a href="#Word-Embedding" class="headerlink" title="Word Embedding"></a>Word Embedding</h4><p>The GloVe model is trained on the non-zero entries of a global word-word cooccurrence matrix → capture both global and local statistics</p>
+<p>Advantages: </p>
+<ul>
+<li>Very good properties for semantic representation; </li>
+<li>Very good performance in many NLP tasks (Q&amp;A, speech recognition, machine  translation, … ). </li>
+</ul>
+<p>Disadvantages: </p>
+<ul>
+<li>Training is computationally expensive → pre-trained word embeddings; </li>
+<li>What about new words (neologisms, misspellings, out of vocabulary words…)? </li>
+<li>Interpretability?</li>
+</ul>
+<h1 id="Lecture6-Hybrid-Recommendation"><a href="#Lecture6-Hybrid-Recommendation" class="headerlink" title="Lecture6 Hybrid Recommendation"></a>Lecture6 Hybrid Recommendation</h1><h4 id="Three-types"><a href="#Three-types" class="headerlink" title="Three types:"></a>Three types:</h4><h4 id="Ensemble-combine-predictions-of-different-recommender-models"><a href="#Ensemble-combine-predictions-of-different-recommender-models" class="headerlink" title="Ensemble: combine predictions of different recommender models"></a>Ensemble: combine predictions of different recommender models</h4><ul>
+<li><p>Linear combination of model outputs</p>
+<p>• Each model is used off-the-shelf </p>
+<p>• Combine only outputs </p>
+<p>• Models can have different inputs</p>
+</li>
+</ul>
+<p>Advantages </p>
+<p>• Easy </p>
+<p>• Parallel execution </p>
+<p>Disadvantages </p>
+<p>• Optimal values of weights depend on dataset </p>
+<p>• Works better when outputs are on the same scale</p>
+<p><strong>Round roubin</strong></p>
+<ul>
+<li>for the sequence of recommendation pick the top k items for recommendation</li>
+</ul>
+<p>Advantage: independent of output scale </p>
+<p>Disadvantage: hard to calibrate the quality of each model</p>
+<p><strong>BordaFuse</strong></p>
+<p>First item with k-1 point, the last item is 0 point </p>
+<p>Advantage: considers importance of rank position </p>
+<p>Disadvantage: assumes “equal distance” between ranks</p>
+<p><strong>Condorcet method</strong> Pairwise</p>
+<p><img src="/2023/04/06/Web%20Recommender%20System/image\pairwise.png" alt="1680876426842"></p>
+<p>Reciprocal Rank  Fusion (RRF)</p>
+<script type="math/tex; mode=display">RRF(m)=\sum_j \frac{1}{k+r_j(m)}</script><p>m: movie r_j: rank position k parameter</p>
+<p><img src="/2023/04/06/Web%20Recommender%20System/image\WRS\pipeline_seq.png" alt="1680880359591"></p>
+<p><strong>Advantage</strong> </p>
+<p>• Increased density of User Rating Matrix  gives better recommendations </p>
+<p><strong>Disadvantages</strong> </p>
+<p>• Computational efficiency (memory, runtime, …) </p>
+<p>• Too dense User Rating Matrix can lead to overfitting</p>
+<p>• Parallel combination of outputs </p>
+<p>​    • Combinations of ratings: weighted sum, combMAX, combMIN,  combMZ </p>
+<p>​    • Combinations of rank positions: round robin, Borda, Condorcet, RRF </p>
+<p>• Sequential combination</p>
+<h4 id="Monolithic-create-a-new-recommender-model"><a href="#Monolithic-create-a-new-recommender-model" class="headerlink" title="Monolithic: create a new recommender model"></a>Monolithic: create a new recommender model</h4><h4 id><a href="#" class="headerlink" title=" "></a> </h4><h4 id="Mixed-present-predictions-of-different-recommender-models-side-by-side"><a href="#Mixed-present-predictions-of-different-recommender-models-side-by-side" class="headerlink" title="Mixed: present predictions of different recommender models side by side"></a>Mixed: present predictions of different recommender models side by side</h4><h1 id="Lecture7"><a href="#Lecture7" class="headerlink" title="Lecture7"></a>Lecture7</h1><p>Explanation: piece of information justifying why an item is recommended </p>
+<h5 id="Ablation-is-the-simplest-type-of-attribution"><a href="#Ablation-is-the-simplest-type-of-attribution" class="headerlink" title="Ablation is the simplest type of attribution"></a>Ablation is the simplest type of attribution</h5><p>• Drop each feature (one at a time)  </p>
+<p>• Attribute the change in prediction to the ablated feature </p>
+<p>Advantage </p>
+<p>• Simple and intuitive to interpret Disadvantages </p>
+<p>• Indirect and partial explainability </p>
+<p>• Does not always explain output (output invariant to ablation) </p>
+<p>• Improper accounting of interactive features </p>
+<p>• Can be computationally expensive</p>
+<h5 id="Shapley-value"><a href="#Shapley-value" class="headerlink" title="Shapley value"></a>Shapley value</h5><p>Game where players collaborate to make profit </p>
+<p>• Take all possible subsets of players (in all possible orderings) </p>
+<p>• Compute marginal contribution of a player </p>
+<p>​    • For each player entering a subset:  </p>
+<p>​        • profit that the player creates by entering the subset </p>
+<p>​        • profit in the subset before the player entered </p>
+<p>• At the end, compute the average marginal contribution of each player </p>
+<p>• The higher the average marginal contribution, the higher the attribution</p>
+<p>NNs may use only the simplest feature and remain invariant to more  complex features, even when every complex feature has significantly  greater predictive power than each simple feature</p>
+<p>Gradient-based optimization may get  stuck at local minima</p>
+<p>• At the start of training, the gradient  of the simplest feature has  predominant role </p>
+<p>• Drags the model towards the best  decision boundary of the simplest  feature </p>
+<p>• The model may get stuck in there</p>
+<h4 id="Attribution-ablation-Shapley-for-recommendation-explainability"><a href="#Attribution-ablation-Shapley-for-recommendation-explainability" class="headerlink" title="Attribution (ablation, Shapley) for recommendation explainability:"></a><strong>Attribution</strong> (ablation, Shapley) for recommendation explainability:</h4><p><strong>feature importance to output</strong> </p>
+<h5 id="Good-for"><a href="#Good-for" class="headerlink" title="Good for:"></a>Good for:</h5><p>• Generating an explanation for the user </p>
+<p>• Debugging model predictions </p>
+<p>• Analysing model robustness (irrelevant features getting attributed? relevant features not  getting attributed?) </p>
+<h5 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h5><p>Computationally costly for hundreds of features </p>
+<p>Reductive formulation of “why this prediction”: </p>
+<p>• Not explain how features interact </p>
+<p>• Not explain the model logic (e.g. model that recommends a photo when there is an even  number of black pixels in it, otherwise it does not recommend it) </p>
+<p>• Training-agnostic (what training samples influenced the prediction)</p>
+<h5 id="Item-based-vs-User-based"><a href="#Item-based-vs-User-based" class="headerlink" title="Item based vs User based"></a>Item based vs User based</h5><p>• Item-based explanations are more intuitive &amp; credible to users  because users are familiar with the items they interacted with before </p>
+<p>• User-based explanations are less convincing &amp; trustworthy because  the target user may know nothing about other “similar” users</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/13/basic-c-sharp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/02/13/basic-c-sharp/" itemprop="url">basic_c_sharp</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-02-13T07:36:52+01:00">
+                2023-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C#</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>array</p>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">int[] intArray &#x3D; new int[5];
+int[] intArray &#x3D; new int[] &#123;1,2,4,5&#125;;
+List&lt;int&gt; a &#x3D; new List&lt;int&gt;() &#123;1,2,3&#125;;
+enum PlayerState &#123;
+    Idle,
+    Attacking
+&#125;
+static PlayerState playerState;
+static void Main(String[] args) &#123;
+    switch (playerState) &#123;
+        case PlayerState.Idle:
+            break;
+        case PlayerState.Attcaking:
+            break;
+    &#125;
+&#125;
+foreach(int i in int Array)&#123;&#125;
+for(int i&#x3D;0; i &lt; intList.Count; i++)&#123;
+    Console.WriteLine()
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Unity</p>
+<p>URP-HighFidelity-Renderer</p>
+<p><code>Screen Space Ambient Occlusion</code></p>
+<p>Add shadow when some items across each other</p>
+<p>intensity : 4 radius .3 strength 1</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/21/geometry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/01/21/geometry/" itemprop="url">Geometry & Render</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-21T04:27:45+01:00">
+                2023-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphics-Programing/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphics Programing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Geometry"><a href="#Geometry" class="headerlink" title="Geometry"></a>Geometry</h1><h2 id="VBO-amp-EBO-amp-VAO"><a href="#VBO-amp-EBO-amp-VAO" class="headerlink" title="VBO &amp; EBO &amp; VAO"></a>VBO &amp; EBO &amp; VAO</h2><h4 id="Vertex-buffer-objects"><a href="#Vertex-buffer-objects" class="headerlink" title="Vertex buffer objects"></a>Vertex buffer objects</h4><h5 id="Describe-what-they-are"><a href="#Describe-what-they-are" class="headerlink" title="- Describe what they are"></a>- Describe what they are</h5><p>Buffer object that uses the target </p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">GL_ARRAY_BUFFER<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>Contain vertex data, one or more attributes pervertex</li>
+<li>Buffer size: Number of vertices * Size of all attributes</li>
+<li>Each attribute stored separately</li>
+</ul>
+<h5 id="List-different-vertex-attributes"><a href="#List-different-vertex-attributes" class="headerlink" title="- List different vertex attributes"></a>- List different vertex attributes</h5><ul>
+<li>Position: 3D space</li>
+<li>Color</li>
+<li>Normal</li>
+<li>Tangent</li>
+<li>Texture coords</li>
+</ul>
+<h4 id="Element-Buffer-Object"><a href="#Element-Buffer-Object" class="headerlink" title="Element Buffer Object"></a>Element Buffer Object</h4><h5 id="Describe-what-they-are-1"><a href="#Describe-what-they-are-1" class="headerlink" title="- Describe what they are"></a>- Describe what they are</h5><ul>
+<li>Buffer object that uses the target</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">GL_ELEMENT_ARRAY_BUFFER<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><p>Contains a list of numbers (indices) of the vertices to be used</p>
+</li>
+<li><p>Buffer size: Number of primitives <em> Vertex per primitive </em> Size of integer type</p>
+</li>
+</ul>
+<h5 id="What-is-the-benefit-of-using-them"><a href="#What-is-the-benefit-of-using-them" class="headerlink" title="- What is the benefit of using them?"></a>- What is the benefit of using them?</h5><p>Allows to reuses vertices in primitives</p>
+<h4 id="Vertex-Array-Object"><a href="#Vertex-Array-Object" class="headerlink" title="Vertex Array Object"></a>Vertex Array Object</h4><h5 id="•-Describe-what-they-are"><a href="#•-Describe-what-they-are" class="headerlink" title="• Describe what they are"></a>• Describe what they are</h5><ul>
+<li>Subtype of OpenGL objects (but not a buffer object)</li>
+<li>Contains the information required to draw geometry</li>
+<li>Does not store the data itself, just references</li>
+<li>Bind it before calling glDrawArrays or glDrawElements functions</li>
+</ul>
+<h5 id="•-Relation-to-VBO-and-EBO"><a href="#•-Relation-to-VBO-and-EBO" class="headerlink" title="• Relation to VBO and EBO"></a>• Relation to VBO and EBO</h5><p> Keeps pointers to all the vertex attributes stored in vertex buffer  objects (<strong>VBO</strong>)</p>
+<p> it specifies an element buffer object (<strong>EBO</strong>)</p>
+<p><img src="/2023/01/21/geometry/image/gp/VAORelationship.png" alt="VAORelationship"></p>
+<h2 id="Primitives"><a href="#Primitives" class="headerlink" title="Primitives"></a>Primitives</h2><h3 id="Different-types"><a href="#Different-types" class="headerlink" title="Different types"></a>Different types</h3><p>Points, Lines, Triangles, Patches</p>
+<h3 id="What-is-the-winding-order"><a href="#What-is-the-winding-order" class="headerlink" title="What is the winding order"></a>What is the winding order</h3><p>• Triangle facing determined by winding order</p>
+<p>The winding order has attribute GLENUM mode with clockwise and counter clockwise for drawing the triangle</p>
+<p><strong>Culling</strong>: Discard back and/or front faces</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void glCullFace( GLenum mode); &#x2F;&#x2F; Culling mode
+&#x2F;**
+• GL_FRONT
+• GL_BACK
+• GL_FRONT_AND_BACK
+**&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Rendering-pipeline"><a href="#Rendering-pipeline" class="headerlink" title="Rendering pipeline:"></a>Rendering pipeline:</h2><p><img src="/2023/01/21/geometry/image\shader_pipeline.png" alt="hader_pipeline"></p>
+<h4 id="enumerate-all-the-stages-in-order"><a href="#enumerate-all-the-stages-in-order" class="headerlink" title="enumerate all the stages in order"></a>enumerate all the stages in order</h4><h4 id="what-happens-on-each-stage"><a href="#what-happens-on-each-stage" class="headerlink" title="what happens on each stage"></a>what happens on each stage</h4><h5 id="Vertex-specification"><a href="#Vertex-specification" class="headerlink" title="Vertex specification"></a><strong>Vertex specification</strong></h5><p>​        Takes the input data and builds the list of vertices that we need to process . </p>
+<p>​        Extract attributes from VBO using pointers in the VAO</p>
+<h5 id="Vertex-processing-programmable"><a href="#Vertex-processing-programmable" class="headerlink" title="Vertex processing (programmable)"></a><strong>Vertex processing</strong> (programmable)</h5><p>• Process each vertex individually, in parallel </p>
+<p>• Behavior is defined by shaders</p>
+<p>Transform vertex attributes -&gt; <strong>Transform postion</strong></p>
+<h5 id="Vertex-post-processing"><a href="#Vertex-post-processing" class="headerlink" title="Vertex post-processing"></a><strong>Vertex post-processing</strong></h5><p>• Transform feedback (optional) </p>
+<p>• Can be used to store transformed vertices back into buffer objects</p>
+<h5 id="Primitive-assembly"><a href="#Primitive-assembly" class="headerlink" title="Primitive assembly"></a>Primitive assembly</h5><p> Split the input in a sequence of individual basic primitives</p>
+<h5 id="Rasterization"><a href="#Rasterization" class="headerlink" title="Rasterization"></a>Rasterization</h5><p>• Transform each primitive to the screen </p>
+<p>• Breaks it into fragments </p>
+<p>• Interpolates vertex data to fragments</p>
+<h5 id="Fragment-processing-Programmable"><a href="#Fragment-processing-Programmable" class="headerlink" title="Fragment processing (Programmable)"></a>Fragment processing (Programmable)</h5><p>• Process each fragment individually, in parallel </p>
+<p>• the behavior is defined by fragment shaders</p>
+<h5 id="Per-sample-operations"><a href="#Per-sample-operations" class="headerlink" title="Per-sample operations"></a>Per-sample operations</h5><p>Writes the pixel color, blending the fragment color with the previous  content in the draw buffer</p>
+<hr>
+<h5 id="Which-ones-are-progammable"><a href="#Which-ones-are-progammable" class="headerlink" title="Which ones are progammable"></a>Which ones are progammable</h5><h1 id="Render"><a href="#Render" class="headerlink" title="Render"></a>Render</h1><h2 id="What-is-a-shader-and-a-shader-program"><a href="#What-is-a-shader-and-a-shader-program" class="headerlink" title="What is a shader and a shader program"></a>What is a shader and a shader program</h2><p>Shader: Computer program that runs on the GPU</p>
+<p>Single instruction, multiple data (SIMD)</p>
+<p><strong>Shader program</strong>: Set of shaders required for the entire pipeline</p>
+<h2 id="List-all-the-different-shader-types"><a href="#List-all-the-different-shader-types" class="headerlink" title="List all the different shader types"></a>List all the different shader types</h2><ul>
+<li>input and outputs of each one</li>
+<li>Pipeline stage and order in which they are executed</li>
+<li>Compute shaders X</li>
+</ul>
+<h4 id="Vertex-shader"><a href="#Vertex-shader" class="headerlink" title="Vertex shader"></a>Vertex shader</h4><p>One input vertex -&gt;  at least position is provided as an attribute</p>
+<p>One output vertex -&gt; output position in clip coordinates to gl_Position / Can have any other output attributes</p>
+<h4 id="Geometry-shader"><a href="#Geometry-shader" class="headerlink" title="Geometry shader"></a>Geometry shader</h4><p>Input： One primitive, a collection of vertex attributes from previous stage arrays</p>
+<p>Output:    zero or more output primitives, multiple vertices per invocation, not arrays</p>
+<p>e.g One line primitive expands to 2 triangles</p>
+<h4 id="Fragment-shader-in-Fragment-processing"><a href="#Fragment-shader-in-Fragment-processing" class="headerlink" title="Fragment shader (in Fragment processing)"></a>Fragment shader (in Fragment processing)</h4><p>Input: attribute from last stage, usually vertex shader</p>
+<p>Output: main output is a color</p>
+<p>Most common format is 4 components RGBA within in (0.0 - 1.0)</p>
+<p>If depth test enabled, additional depth output</p>
+<h4 id="Compute-shader"><a href="#Compute-shader" class="headerlink" title="Compute shader"></a>Compute shader</h4><p><strong>Not</strong> using rasterization rendering pipeline</p>
+<h2 id="Vertex-attributes"><a href="#Vertex-attributes" class="headerlink" title="Vertex attributes"></a>Vertex attributes</h2><p>How is geometry data (VAO, VBO) received by the shader</p>
+<p>variables are specific to each instance of the shader</p>
+<p>the data is declared by specifying data type and name</p>
+<p>the data can be input or output type qualifier.</p>
+<p><strong>Data</strong> stored in VBO, <strong>Pointers</strong> stored in VAO</p>
+<p>Vertex shader can specify the attribute location index using <strong>layout</strong></p>
+<pre class="line-numbers language-glsl" data-language="glsl"><code class="language-glsl"><span class="token keyword">layout</span> <span class="token punctuation">(</span>location <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">in</span> <span class="token keyword">vec3</span> aPosition<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Uniforms"><a href="#Uniforms" class="headerlink" title="Uniforms"></a>Uniforms</h2><h4 id="What-are-they-used-for-and-how-to-set-them"><a href="#What-are-they-used-for-and-how-to-set-them" class="headerlink" title="What are they used for and how to set them"></a>What are they used for and how to set them</h4><p>Uniforms: Variables with same value for all the data set </p>
+<p>• Can change every frame </p>
+<p>• Provided by the application</p>
+<p>To set uniforms, find uniform location to set the value</p>
+<h2 id="Interpolation"><a href="#Interpolation" class="headerlink" title="Interpolation"></a>Interpolation</h2><h4 id="What-to-do-in-fragment-shader-if-we-pass-normal-from-vertex-and-projected-position"><a href="#What-to-do-in-fragment-shader-if-we-pass-normal-from-vertex-and-projected-position" class="headerlink" title="What to do in fragment shader if we pass normal from vertex and projected position"></a>What to do in fragment shader if we pass normal from vertex and projected position</h4><p>• Normalized vectors preserve direction, but not length</p>
+<ul>
+<li><p>normal need to be normalize again normalize(normal)</p>
+</li>
+<li><p>Projected position in only linear in homogeneous coordinates</p>
+</li>
+<li><ul>
+<li>need to divide by fourth component (W) in fragment shader</li>
+<li>automatically done for <script type="math/tex">gl\_Position</script></li>
+</ul>
+</li>
+</ul>
+<h2 id="GLSL-code-in-project"><a href="#GLSL-code-in-project" class="headerlink" title="GLSL code in project"></a>GLSL code in project</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/17/shading/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1375,279 +2683,11 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/11/review/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/01/11/review/" itemprop="url">review</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-11T04:46:08+01:00">
-                2023-01-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index">
-                    <span itemprop="name">Games101</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-
-	<div class="row">
-    <embed src="../PDF/Linear_Algebra_Review.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/31/MeloBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/12/31/MeloBlog/" itemprop="url">MeloBlog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-12-31T00:46:08+01:00">
-                2022-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -1697,7 +2737,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1708,7 +2748,7 @@ A_n(...A_2(A_1(x))) = A_n\cdot\cdot\cdot A_2\cdot A_1 \cdot\begin{pmatrix}
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
