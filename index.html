@@ -263,6 +263,364 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/06/DSA-part1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/06/06/DSA-part1/" itemprop="url">DSA-part1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-06-06T14:13:48+02:00">
+                2024-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/24/AWSEssentials/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/05/24/AWSEssentials/" itemprop="url">AWSEssentials</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-05-24T14:53:38+02:00">
+                2024-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="/2024/05/24/AWSEssentials/github\blog\source\_posts\image-20240524145403035.png" alt="image-20240524145403035"></p>
+<p> AWS access</p>
+<ul>
+<li><strong>Effect</strong> indicates whether to <em>Allow</em> or <em>Deny</em> the permissions.</li>
+<li><strong>Action</strong> specifies the API calls allowed to an AWS service (such as <em>cloudwatch:ListMetrics</em>).</li>
+<li><strong>Resource</strong> defines the scope of entities covered by the policy rule (i.e., a specific Amazon S3 bucket, Amazon EC2 instance</li>
+</ul>
+<p>ECs: cluster of EC2</p>
+<p><strong>REMOVE THE UNDIFFERENTIATED HEAVY LIFTING</strong></p>
+<p>If you run your code on Amazon EC2, AWS is responsible for the physical hardware and you are responsible for the logical controls, such as guest operating system, security and patching, networking, security, and scaling.If you run your code in containers on Amazon ECS and Amazon EKS, AWS is responsible for more of the container management, such as deploying containers across EC2 instances and managing the container cluster. However, when running ECS and EKS on EC2, you are still responsible for maintaining the underlying EC2 instances.If you want to deploy your workloads and applications without having to manage any EC2 instances, you can do that on AWS with <em>serverless</em> compute.</p>
+<p><strong>GO SERVERLESS</strong></p>
+<p>Every definition of serverless mentions four aspects.</p>
+<ul>
+<li>No servers to provision or manage.</li>
+<li>Scales with usage.</li>
+<li>You never pay for idle resources.</li>
+<li>Availability and fault tolerance are built-in.</li>
+</ul>
+<p>Amazon ECS and Amazon EKS enable you to run your containers in two <strong>modes</strong>.</p>
+<ul>
+<li>Amazon EC2 mode</li>
+<li>AWS Fargate mode</li>
+</ul>
+<p>AWS Fargate is a purpose-built serverless compute engine for containers. </p>
+<h5 id="AWS-Lambda"><a href="#AWS-Lambda" class="headerlink" title="AWS Lambda"></a>AWS Lambda</h5><p><img src="https://i.imgur.com/0DK05aM.png" alt="image-20240526131446780"></p>
+<p>It consists of  trigger, code, and configuration, </p>
+<h3 id="VPC"><a href="#VPC" class="headerlink" title="VPC"></a>VPC</h3><p>boundary for inside and outside project</p>
+<p>Create VPC:</p>
+<ul>
+<li>Regiion</li>
+<li>IP Range</li>
+</ul>
+<p>To create a subnet:</p>
+<ul>
+<li>VPC</li>
+<li>AZ: availability zone</li>
+<li>IP Range (CIDR block)</li>
+</ul>
+<h5 id="Connectivity-Internet-Gateway"><a href="#Connectivity-Internet-Gateway" class="headerlink" title="Connectivity: Internet Gateway"></a>Connectivity: Internet Gateway</h5><p>attach to VPC</p>
+<p>VGW virtual Internet gateway</p>
+<h4 id="VPC-route-tables"><a href="#VPC-route-tables" class="headerlink" title="VPC route tables"></a>VPC route tables</h4><p>pulic / priavte</p>
+<p><strong>security</strong></p>
+<p>open up inbound ports to accept traffic from the internet</p>
+<ul>
+<li>Block storage in the cloud is analogous to <strong>direct-attached storage (DAS) or a storage area network (SAN)</strong>.</li>
+<li>File storage systems are often supported with a <strong>network attached storage (NAS)</strong> server.</li>
+</ul>
+<h4 id="EBS-elastic-block-storage"><a href="#EBS-elastic-block-storage" class="headerlink" title="EBS elastic block storage"></a>EBS elastic block storage</h4><p>drive separate from EC2</p>
+<h3 id="Benefits-of-Using-Amazon-EBS"><a href="#Benefits-of-Using-Amazon-EBS" class="headerlink" title="Benefits of Using Amazon EBS"></a>Benefits of Using Amazon EBS</h3><p>Here are the following benefits of using Amazon EBS (in case you need a quick cheat sheet).</p>
+<ul>
+<li>High availability: When you create an EBS volume, it is automatically replicated within its Availability Zone to prevent data loss from single points of failure.</li>
+<li>Data persistence: The storage persists even when your instance doesn’t.</li>
+<li>Data encryption: All EBS volumes support encryption.</li>
+<li>Flexibility: EBS volumes support on-the-fly changes. You can modify volume type, volume size, and input/output operations per second (IOPS) capacity without stopping your instance.</li>
+<li>Backups: Amazon EBS provides you the ability to create backups of any EBS volume.</li>
+</ul>
+<h4 id="S3"><a href="#S3" class="headerlink" title="S3"></a>S3</h4><p><img src="https://i.imgur.com/nmrWvKf.png" alt="image-20240526210059846"></p>
+<p>objects stored in containers called <strong>buckets</strong></p>
+<p>S3 bucket policies are similar to IAM policies, in that they are both defined using the same policy language in a JSON format. The difference is IAM policies are attached to users, groups, and roles, whereas S3 bucket policies are only attached to buckets. S3 bucket policies specify what actions are allowed or denied on the bucket.</p>
+<p><strong>ENCRYPT S3</strong></p>
+<p>Amazon S3 reinforces encryption in transit (as it travels to and from Amazon S3) and at rest. To protect data at rest, you can use:</p>
+<ul>
+<li><strong>Server-side encryption:</strong> This allows Amazon S3 to encrypt your object before saving it on disks in its data centers and then decrypt it when you download the objects.</li>
+<li><strong>Client-side encryption:</strong> Encrypt your data client-side and upload the encrypted data to Amazon S3. In this case, you manage the encryption process, the encryption keys, and all related tools.</li>
+</ul>
+<p>To encrypt in transit, you can use client-side encryption or Secure Sockets Layer (SSL).</p>
+<p>EBS only be attached to EC2 and can not be large in size</p>
+<p>EC Instance storage: not kept long not durability</p>
+<p>persistence  and durability: EBS</p>
+<p>Lambda: S3</p>
+<p>temporary data: EC Instance storage</p>
+<ul>
+<li>EFS (elastic file storage system (extra))</li>
+</ul>
+<h4 id="THE-BENEFITS-OF-USING-A-RELATIONAL-DATABASE"><a href="#THE-BENEFITS-OF-USING-A-RELATIONAL-DATABASE" class="headerlink" title="THE BENEFITS OF USING A RELATIONAL DATABASE"></a>THE BENEFITS OF USING A RELATIONAL DATABASE</h4><p>There are many benefits to using a relational database. A few of them are listed here.</p>
+<ul>
+<li><strong>Joins:</strong> You can join tables, enabling you to better understand relationships between your data.</li>
+<li><strong>Reduced redundancy:</strong> You can store data in one table and reference it from other tables instead of saving the same data in different places.</li>
+<li><strong>Familiarity:</strong> Relational databases have been a popular choice since the 1970s. Due to this popularity, technical professionals often have familiarity and experience with this type of database.</li>
+<li><strong>Accuracy:</strong> Relational databases ensure that your data is persisted with high integrity and adheres to the ACID (atomicity, consistency, isolation, durability) principle.</li>
+</ul>
+<h5 id="What-Is-Amazon-DynamoDB"><a href="#What-Is-Amazon-DynamoDB" class="headerlink" title="What Is Amazon DynamoDB?"></a>What Is Amazon DynamoDB?</h5><p>Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. </p>
+<h4 id="Automatic-scaling"><a href="#Automatic-scaling" class="headerlink" title="Automatic scaling"></a>Automatic scaling</h4><h5 id="vertical-scaling"><a href="#vertical-scaling" class="headerlink" title="vertical scaling"></a>vertical scaling</h5><p>With EC2 instances, you select either a larger type or a different instance type. This can only be done while the instance is in a stopped state. In this scenario, the following steps occur: </p>
+<ol>
+<li>Stop the passive instance. This doesn’t impact the application since it’s not taking any traffic.</li>
+<li>Change the instance size or type, then start the instance again.</li>
+<li>Shift the traffic to the passive instance, turning it active.</li>
+<li>The last step is to stop, change the size, and start the previous active instance as both instances should match.</li>
+</ol>
+<h5 id="Horizontal-scaling"><a href="#Horizontal-scaling" class="headerlink" title="Horizontal scaling"></a>Horizontal scaling</h5><p>for the application to work in an active-active system, it’s already created as stateless, not storing any client session on the server. This means that having two servers or having four wouldn’t require any application changes. It would only be a matter of creating more instances when required and shutting them down when the traffic decreases.</p>
+<p>The Amazon EC2 Auto Scaling service can take care of that task by automatically creating and removing EC2 instances based on metrics from Amazon CloudWatch. </p>
+<p>There are three main components to EC2 Auto Scaling.</p>
+<ul>
+<li><strong>Launch template or configuration:</strong> What resource should be automatically scaled?</li>
+<li><strong>EC2 Auto Scaling Group:</strong> Where should the resources be deployed?</li>
+<li><strong>Scaling policies:</strong> When should the resources be added or removed?</li>
+</ul>
+<p><img src="https://i.imgur.com/NkDWxKp.png" alt="image-20240603144938720"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/22/crash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1570,261 +1928,6 @@ volumes:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/06/FunctionGuide/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2024/02/06/FunctionGuide/" itemprop="url">FunctionGuide</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-02-06T10:26:08+01:00">
-                2024-02-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>For sign up adjust the devise-api config: app/config/initializers/devise.rb</p>
-<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">config<span class="token punctuation">.</span>api<span class="token punctuation">.</span>configure <span class="token keyword">do</span> <span class="token operator">|</span>api<span class="token operator">|</span>
-    <span class="token comment"># Sign up</span>
-    api<span class="token punctuation">.</span>sign_up<span class="token punctuation">.</span>enabled <span class="token operator">=</span> <span class="token boolean">true</span>
-    <span class="token comment"># add extra fields here</span>
-    api<span class="token punctuation">.</span>sign_up<span class="token punctuation">.</span>extra_fields <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token symbol">:fullname</span><span class="token punctuation">,</span> <span class="token symbol">:education</span><span class="token punctuation">,</span> <span class="token symbol">:user_type</span><span class="token punctuation">]</span>
-  <span class="token keyword">end</span>
-
-<span class="token comment"># in controllers/api/v1/user_controller</span>
-<span class="token comment"># adjust the user_params</span>
-<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">user_params</span></span>
-    <span class="token comment"># This allows the :fullname and :education attributes to be modified through the update action</span>
-    params<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token symbol">:user</span><span class="token punctuation">)</span><span class="token punctuation">.</span>permit<span class="token punctuation">(</span><span class="token symbol">:fullname</span><span class="token punctuation">,</span> <span class="token symbol">:education</span><span class="token punctuation">)</span>
-  <span class="token keyword">end</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>The frontend update can be based on the code</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/05/tailwindCSS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2024/02/05/tailwindCSS/" itemprop="url">tailwindCSS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-02-05T13:48:29+01:00">
-                2024-02-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1879,7 +1982,7 @@ volumes:
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1890,7 +1993,7 @@ volumes:
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

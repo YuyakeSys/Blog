@@ -263,6 +263,261 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/06/FunctionGuide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/02/06/FunctionGuide/" itemprop="url">FunctionGuide</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-02-06T10:26:08+01:00">
+                2024-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>For sign up adjust the devise-api config: app/config/initializers/devise.rb</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">config<span class="token punctuation">.</span>api<span class="token punctuation">.</span>configure <span class="token keyword">do</span> <span class="token operator">|</span>api<span class="token operator">|</span>
+    <span class="token comment"># Sign up</span>
+    api<span class="token punctuation">.</span>sign_up<span class="token punctuation">.</span>enabled <span class="token operator">=</span> <span class="token boolean">true</span>
+    <span class="token comment"># add extra fields here</span>
+    api<span class="token punctuation">.</span>sign_up<span class="token punctuation">.</span>extra_fields <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token symbol">:fullname</span><span class="token punctuation">,</span> <span class="token symbol">:education</span><span class="token punctuation">,</span> <span class="token symbol">:user_type</span><span class="token punctuation">]</span>
+  <span class="token keyword">end</span>
+
+<span class="token comment"># in controllers/api/v1/user_controller</span>
+<span class="token comment"># adjust the user_params</span>
+<span class="token keyword">def</span> <span class="token method-definition"><span class="token function">user_params</span></span>
+    <span class="token comment"># This allows the :fullname and :education attributes to be modified through the update action</span>
+    params<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token symbol">:user</span><span class="token punctuation">)</span><span class="token punctuation">.</span>permit<span class="token punctuation">(</span><span class="token symbol">:fullname</span><span class="token punctuation">,</span> <span class="token symbol">:education</span><span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The frontend update can be based on the code</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/05/tailwindCSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/02/05/tailwindCSS/" itemprop="url">tailwindCSS</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-02-05T13:48:29+01:00">
+                2024-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/11/php-crash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2789,645 +3044,6 @@ const &#123;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/04/React-P3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/08/04/React-P3/" itemprop="url">React-P1.5</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-08-04T15:15:08+02:00">
-                2023-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react/" itemprop="url" rel="index">
-                    <span itemprop="name">react</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>When may not need UseEffect</p>
-<p><a target="_blank" rel="noopener" href="https://react.dev/learn/you-might-not-need-an-effect">https://react.dev/learn/you-might-not-need-an-effect</a></p>
-<p>File structure</p>
-<h4 id="Project-Structure-Export-Group"><a href="#Project-Structure-Export-Group" class="headerlink" title="Project Structure - Export Group"></a>Project Structure - Export Group</h4><ul>
-<li>create Example directory</li>
-<li>setup two components (setup simple returns) and index.jsx file</li>
-<li>in index.jsx setup return and render both components (import)</li>
-<li>import/render index.jsx in App.jsx</li>
-</ul>
-<h4 id="Project-Structure-Extra-Extensions"><a href="#Project-Structure-Extra-Extensions" class="headerlink" title="Project Structure - Extra Extensions"></a>Project Structure - Extra Extensions</h4><p>- code spell checker - works well with code and documents.</p>
-<p>- glean - easy extract JSX into a new component</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/17/React-P2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/07/17/React-P2/" itemprop="url">React-P2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-07-17T13:50:44+02:00">
-                2023-07-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react/" itemprop="url" rel="index">
-                    <span itemprop="name">react</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Backroads-App"><a href="#Backroads-App" class="headerlink" title="Backroads App"></a>Backroads App</h1><p><a target="_blank" rel="noopener" href="https://backroads-app.netlify.app/">Working Application - Deployed</a></p>
-<ul>
-<li>backroads-html - working html/css/javascript project (contains assets)</li>
-<li>final(complete source code) - working react application<ul>
-<li>navigate to the folder</li>
-<li>run ‘npm install’</li>
-<li>once the dependencies are installed run ‘npm start’</li>
-</ul>
-</li>
-</ul>
-<h4 id="Create-New-React-App"><a href="#Create-New-React-App" class="headerlink" title="Create New React App"></a>Create New React App</h4><ul>
-<li>install</li>
-</ul>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx create-react-app@latest backroads-app<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<ul>
-<li>run dev server</li>
-</ul>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="SRC-Folder-boilerplate"><a href="#SRC-Folder-boilerplate" class="headerlink" title="SRC Folder (boilerplate)"></a>SRC Folder (boilerplate)</h4><ul>
-<li>index.js</li>
-</ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom/client'</span>
-
-<span class="token comment">// styles (typically global)</span>
-<span class="token keyword">import</span> <span class="token string">'./index.css'</span>
-
-<span class="token comment">// convention to name it App and setup in a separate file</span>
-<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./App'</span>
-<span class="token comment">// import report web vitals</span>
-<span class="token keyword">import</span> reportWebVitals <span class="token keyword">from</span> <span class="token string">'./reportWebVitals'</span>
-
-<span class="token comment">// StrictMode</span>
-
-<span class="token comment">// StrictMode is a tool for highlighting potential problems in an application.Activates additional checks and warnings for its descendants.Runs only in Development, does not impact the production build. RENDERS TWICE !!! Possible to remove.</span>
-
-<span class="token keyword">const</span> root <span class="token operator">=</span> ReactDOM<span class="token punctuation">.</span><span class="token function">createRoot</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-root<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
-  <span class="token operator">&lt;</span>React<span class="token punctuation">.</span>StrictMode<span class="token operator">></span>
-    <span class="token operator">&lt;</span>App <span class="token operator">/</span><span class="token operator">></span>
-  <span class="token operator">&lt;</span><span class="token operator">/</span>React<span class="token punctuation">.</span>StrictMode<span class="token operator">></span>
-<span class="token punctuation">)</span>
-
-<span class="token comment">// If you want to start measuring performance in your app, pass a function</span>
-<span class="token comment">// to log results (for example: reportWebVitals(console.log))</span>
-<span class="token comment">// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals</span>
-<span class="token function">reportWebVitals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li><p>remove in src</p>
-<ul>
-<li>setupTests.js</li>
-<li>reportWebVitals.js</li>
-<li>App.test.js</li>
-</ul>
-</li>
-<li><p>be careful with multiple css files</p>
-</li>
-</ul>
-<p>App.js</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>backroads app<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> App<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>remove<ul>
-<li>remove logo.svg</li>
-<li>App.css</li>
-</ul>
-</li>
-</ul>
-<h4 id="Setup-Structure"><a href="#Setup-Structure" class="headerlink" title="Setup Structure"></a>Setup Structure</h4><ul>
-<li><p>public/index.html</p>
-<ul>
-<li>change title</li>
-<li>copy/paste font-awesome link (from html project)</li>
-</ul>
-</li>
-<li><p>index.css</p>
-<ul>
-<li>copy/paste css (from html project - css/styles.css)</li>
-<li>error in line 209, just comment out for now</li>
-</ul>
-</li>
-</ul>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 768px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">/* .hero &#123;
-    background: linear-gradient(rgb(44, 174, 186, 0.7), rgba(0, 0, 0, 0.7)),
-      url('../images/main.jpeg') center/cover no-repeat;
-  &#125; */</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>src folder<ul>
-<li>copy/paste images folder (from html project)</li>
-<li>move favicon.ico to public</li>
-</ul>
-</li>
-<li>App.js<ul>
-<li>refactor to <React.Fragment></React.Fragment></li>
-<li>copy/paste all the content within body tags, up to <script> (index.html)</li>
-<li>select all “class” instances and refactor to “className” (CMD + D)</li>
-<li>fix the comment bug (remove or comment out)</li>
-<li>don’t worry about - Using target=”_blank” without rel=”noreferrer” warning,<br>will fix it later</li>
-<li>move README.md from final to current project</li>
-</ul>
-</li>
-</ul>
-<h4 id="Setup-Components"><a href="#Setup-Components" class="headerlink" title="Setup Components"></a>Setup Components</h4><ul>
-<li>in src create components folder</li>
-<li>in the components create following files<ul>
-<li>Navbar.js</li>
-<li>Hero.js</li>
-<li>About.js</li>
-<li>Services.js</li>
-<li>Tours.j</li>
-<li>Footer.js</li>
-</ul>
-</li>
-<li>setup components with default export (snippet - rafce)</li>
-<li>carefully move the code from App.js into components (files)<ul>
-<li>hint - look for navbar, footer and section tags</li>
-</ul>
-</li>
-<li>App.js should be empty</li>
-<li>import and render all components in App.js (try auto imports)</li>
-<li>result is going to be the same, it’s just easier to manage the code</li>
-<li>again, it’s just my preference to split up code in such way.<br>You can split it up in any way that makes the most sense to you.</li>
-</ul>
-<h4 id="Navbar"><a href="#Navbar" class="headerlink" title="Navbar"></a>Navbar</h4><ul>
-<li>first let’s fix the image (logo)<ul>
-<li>setup import from images and update source</li>
-</ul>
-</li>
-</ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// import</span>
-<span class="token keyword">import</span> logo <span class="token keyword">from</span> <span class="token string">'../images/logo.svg'</span>
-
-<span class="token comment">// JSX</span>
-<span class="token punctuation">;</span><span class="token operator">&lt;</span>img src<span class="token operator">=</span><span class="token punctuation">&#123;</span>logo<span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">'nav-logo'</span> alt<span class="token operator">=</span><span class="token string">'backroads'</span> <span class="token operator">/</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Smooth-Scroll"><a href="#Smooth-Scroll" class="headerlink" title="Smooth Scroll"></a>Smooth Scroll</h4><ul>
-<li>html/css feature</li>
-</ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- link --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#services<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> services <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-<span class="token comment">&lt;!-- element --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>services<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">html</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">scroll-behavior</span><span class="token punctuation">:</span> smooth<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">.section</span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">/* navbar height */</span>
-  <span class="token property">scroll-margin-top</span><span class="token punctuation">:</span> 4rem<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Page-Links"><a href="#Page-Links" class="headerlink" title="Page Links"></a>Page Links</h4><ul>
-<li>refactor repeating code</li>
-</ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>li<span class="token operator">></span>
-  <span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token string">'#home'</span> className<span class="token operator">=</span><span class="token string">'nav-link'</span><span class="token operator">></span>
-    home
-  <span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>figure out which data is repeating hint (href, text )</li>
-<li>in src create data.js and setup a structure<ul>
-<li>(hint - [{property:value},{property:value}])</li>
-</ul>
-</li>
-<li>export/import iterate over the list,return elements and inject data</li>
-</ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> pageLinks <span class="token operator">=</span> <span class="token punctuation">[</span>
-  <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">href</span><span class="token operator">:</span> <span class="token string">'#home'</span><span class="token punctuation">,</span> <span class="token literal-property property">text</span><span class="token operator">:</span> <span class="token string">'home'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token literal-property property">href</span><span class="token operator">:</span> <span class="token string">'#about'</span><span class="token punctuation">,</span> <span class="token literal-property property">text</span><span class="token operator">:</span> <span class="token string">'about'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token literal-property property">href</span><span class="token operator">:</span> <span class="token string">'#services'</span><span class="token punctuation">,</span> <span class="token literal-property property">text</span><span class="token operator">:</span> <span class="token string">'services'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token literal-property property">href</span><span class="token operator">:</span> <span class="token string">'#tours'</span><span class="token punctuation">,</span> <span class="token literal-property property">text</span><span class="token operator">:</span> <span class="token string">'tours'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> pageLinks <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'../data'</span>
-
-<span class="token punctuation">&#123;</span>
-  pageLinks<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">link</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token operator">&lt;</span>li key<span class="token operator">=</span><span class="token punctuation">&#123;</span>link<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token punctuation">&#123;</span>link<span class="token punctuation">.</span>href<span class="token punctuation">&#125;</span> className<span class="token operator">=</span><span class="token string">'nav-link'</span><span class="token operator">></span>
-          <span class="token punctuation">&#123;</span>link<span class="token punctuation">.</span>text<span class="token punctuation">&#125;</span>
-        <span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">></span>
-      <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-    <span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Nav-Icons-social-links"><a href="#Nav-Icons-social-links" class="headerlink" title="Nav Icons (social-links)"></a>Nav Icons (social-links)</h4><ul>
-<li>repeat the same steps (as with page links)</li>
-<li>add rel=’noreferrer’</li>
-</ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">&#123;</span>
-  socialLinks<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">link</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> id<span class="token punctuation">,</span> href<span class="token punctuation">,</span> icon <span class="token punctuation">&#125;</span> <span class="token operator">=</span> link
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token operator">&lt;</span>li key<span class="token operator">=</span><span class="token punctuation">&#123;</span>id<span class="token punctuation">&#125;</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token punctuation">&#123;</span>href<span class="token punctuation">&#125;</span> target<span class="token operator">=</span><span class="token string">'_blank'</span> rel<span class="token operator">=</span><span class="token string">'noreferrer'</span> className<span class="token operator">=</span><span class="token string">'nav-icon'</span><span class="token operator">></span>
-          <span class="token operator">&lt;</span>i className<span class="token operator">=</span><span class="token punctuation">&#123;</span>icon<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">></span>
-        <span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">></span>
-      <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-    <span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Hero"><a href="#Hero" class="headerlink" title="Hero"></a>Hero</h4><ul>
-<li>change title or text (optional)</li>
-<li>fix the image (path in css)</li>
-</ul>
-<h4 id="About"><a href="#About" class="headerlink" title="About"></a>About</h4><ul>
-<li>fix the image (hint - just like with logo in the navbar)</li>
-</ul>
-<h4 id="Section-Title"><a href="#Section-Title" class="headerlink" title="Section Title"></a>Section Title</h4><ul>
-<li>in components create Title.js</li>
-<li>get the structure from one of the sections</li>
-<li>setup two props</li>
-<li>replace in About, Services, Tours</li>
-</ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">Title</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span> title<span class="token punctuation">,</span> subTitle <span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'section-title'</span><span class="token operator">></span>
-      <span class="token operator">&lt;</span>h2<span class="token operator">></span>
-        <span class="token punctuation">&#123;</span>title<span class="token punctuation">&#125;</span> <span class="token operator">&lt;</span>span<span class="token operator">></span><span class="token punctuation">&#123;</span>subTitle<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
-      <span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">export</span> <span class="token keyword">default</span> Title<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>About.js</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// import</span>
-<span class="token keyword">import</span> Title <span class="token keyword">from</span> <span class="token string">'./Title'</span>
-
-<span class="token comment">// display</span>
-<span class="token punctuation">;</span><span class="token operator">&lt;</span>Title title<span class="token operator">=</span><span class="token string">'about'</span> subTitle<span class="token operator">=</span><span class="token string">'us'</span> <span class="token operator">/</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h4><ul>
-<li>refactor repeating code (hint - just like with page and social links)<ul>
-<li>setup data, export/import, iterate</li>
-</ul>
-</li>
-</ul>
-<p>data.js</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> services <span class="token operator">=</span> <span class="token punctuation">[</span>
-  <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">icon</span><span class="token operator">:</span> <span class="token string">'fas fa-wallet fa-fw'</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'saving money'</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">text</span><span class="token operator">:</span> <span class="token string">'Lorem ipsum dolor sit amet consectetur adipisicing elit.Asperiores, officia'</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token comment">// rest of the objects</span>
-<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Services.js</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> Title <span class="token keyword">from</span> <span class="token string">'./Title'</span>
-<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> services <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'../data'</span>
-<span class="token keyword">const</span> <span class="token function-variable function">Services</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span>section className<span class="token operator">=</span><span class="token string">'section services'</span> id<span class="token operator">=</span><span class="token string">'services'</span><span class="token operator">></span>
-      <span class="token operator">&lt;</span>Title title<span class="token operator">=</span><span class="token string">'our'</span> subTitle<span class="token operator">=</span><span class="token string">'services'</span> <span class="token operator">/</span><span class="token operator">></span>
-
-      <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'section-center services-center'</span><span class="token operator">></span>
-        <span class="token punctuation">&#123;</span>services<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">service</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-          <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> id<span class="token punctuation">,</span> icon<span class="token punctuation">,</span> title<span class="token punctuation">,</span> text <span class="token punctuation">&#125;</span> <span class="token operator">=</span> service
-          <span class="token keyword">return</span> <span class="token punctuation">(</span>
-            <span class="token operator">&lt;</span>article className<span class="token operator">=</span><span class="token string">'service'</span> key<span class="token operator">=</span><span class="token punctuation">&#123;</span>id<span class="token punctuation">&#125;</span><span class="token operator">></span>
-              <span class="token operator">&lt;</span>span className<span class="token operator">=</span><span class="token string">'service-icon'</span><span class="token operator">></span>
-                <span class="token operator">&lt;</span>i className<span class="token operator">=</span><span class="token punctuation">&#123;</span>icon<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">></span>
-              <span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
-              <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'service-info'</span><span class="token operator">></span>
-                <span class="token operator">&lt;</span>h4 className<span class="token operator">=</span><span class="token string">'service-title'</span><span class="token operator">></span><span class="token punctuation">&#123;</span>title<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h4<span class="token operator">></span>
-                <span class="token operator">&lt;</span>p className<span class="token operator">=</span><span class="token string">'service-text'</span><span class="token operator">></span><span class="token punctuation">&#123;</span>text<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-              <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-            <span class="token operator">&lt;</span><span class="token operator">/</span>article<span class="token operator">></span>
-          <span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
-      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">export</span> <span class="token keyword">default</span> Services<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Tours"><a href="#Tours" class="headerlink" title="Tours"></a>Tours</h4><ul>
-<li>refactor repeating code</li>
-</ul>
-<h4 id="Footer"><a href="#Footer" class="headerlink" title="Footer"></a>Footer</h4><ul>
-<li>refactor repeating code</li>
-<li>re-use page and social links</li>
-<li>in the <span id="date">provide current year (hint - {})</li>
-</ul>
-<h4 id="Alternative-Approach-optional"><a href="#Alternative-Approach-optional" class="headerlink" title="Alternative Approach (optional)"></a>Alternative Approach (optional)</h4><ul>
-<li>in components create PageLinks.js</li>
-<li>import pageLinks</li>
-<li>return the entire list and replace current setup in Navbar, Footer</li>
-<li>“gotcha”<ul>
-<li>the more “moving parts” you will have the harder it’s going to be to manage</li>
-<li>my personal preference, if possible just use data</li>
-</ul>
-</li>
-</ul>
-<h4 id="Challenge-optional"><a href="#Challenge-optional" class="headerlink" title="Challenge (optional)"></a>Challenge (optional)</h4><ul>
-<li>create more components (essentially, split up the code more)</li>
-<li>find all map methods and move elements to separate components</li>
-<li>By the end of the video you should have four additional components<ul>
-<li>Tour.js</li>
-<li>Service.js</li>
-<li>SocialLink.js</li>
-<li>PageLink.js</li>
-</ul>
-</li>
-</ul>
-<h4 id="Continuous-Deployment"><a href="#Continuous-Deployment" class="headerlink" title="Continuous Deployment"></a>Continuous Deployment</h4><ul>
-<li><p>fix warnings (About Section)</p>
-</li>
-<li><p>netlify account</p>
-</li>
-<li>github account</li>
-<li><p>basic git commands :</p>
-<ul>
-<li>remove existing git repo<ul>
-<li>Mac : rm -rf .git</li>
-<li>Windows : rmdir -Force -Recurse .git</li>
-<li>Windows : rd /s /q .git<br>Windows commands were shared by students and I have not personally tested them.</li>
-</ul>
-</li>
-<li>setup new repo<ul>
-<li>git init<br>create an empty git repository</li>
-<li>git add<br>adds new or changed files in your working directory<br>to the Git staging area</li>
-<li>git add .<br>adds entire project<br>apart from files/directories specified in .gitignore</li>
-<li>git commit -m “first commit”<br>A shortcut command that immediately creates a commit<br>with a passed commit message.</li>
-<li>push to github<br>git remote add origin git@github.com:your-profile/repo-name.git<br>git branch -M main<br>git push -u origin main</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h4><ul>
-<li>don’t need to keep project locally</li>
-<li>automatic builds</li>
-</ul>
-<h4 id="Warnings-“Gotcha”"><a href="#Warnings-“Gotcha”" class="headerlink" title="Warnings “Gotcha”"></a>Warnings “Gotcha”</h4><ul>
-<li>Netlify treats warnings as errors</li>
-</ul>
-<p>package.json</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">"start"</span><span class="token operator">:</span> <span class="token string">"react-scripts start"</span><span class="token punctuation">,</span>
-    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"CI= react-scripts build"</span><span class="token punctuation">,</span>
-    <span class="token property">"local-build"</span><span class="token operator">:</span> <span class="token string">"react-scripts build"</span><span class="token punctuation">,</span>
-    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"react-scripts test"</span><span class="token punctuation">,</span>
-    <span class="token property">"eject"</span><span class="token operator">:</span> <span class="token string">"react-scripts eject"</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</script></li></ul></li></ul>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3482,7 +3098,7 @@ root<span class="token punctuation">.</span><span class="token function">render<
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3493,7 +3109,7 @@ root<span class="token punctuation">.</span><span class="token function">render<
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
