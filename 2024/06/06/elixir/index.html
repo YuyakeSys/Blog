@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="This is the note for learning elixir with prior experience of erlang Basic type1          # integer 0x1F       # integer 1.0        # float true       # boolean :atom      # atom &#x2F; symbol &quot;elixir&quot;   #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="elixir">
+<meta property="og:url" content="http://example.com/2024/06/06/elixir/index.html">
+<meta property="og:site_name" content="Melo&#39;s blog">
+<meta property="og:description" content="This is the note for learning elixir with prior experience of erlang Basic type1          # integer 0x1F       # integer 1.0        # float true       # boolean :atom      # atom &#x2F; symbol &quot;elixir&quot;   #">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/r9LAdiu.png">
+<meta property="article:published_time" content="2024-06-06T21:08:48.000Z">
+<meta property="article:modified_time" content="2024-06-08T10:04:41.517Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/r9LAdiu.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2024/06/06/elixir/"/>
+
+
+
+
+
+  <title>elixir | Melo's blog</title>
+  
+
+
+
+
+
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Melo's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Welcome</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/06/elixir/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">elixir</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-06-06T23:08:48+02:00">
+                2024-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>This is the note for learning elixir with prior experience of erlang</p>
+<h3 id="Basic-type"><a href="#Basic-type" class="headerlink" title="Basic type"></a>Basic type</h3><pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir"><span class="token number">1</span>          <span class="token comment"># integer</span>
+<span class="token number">0x1F</span>       <span class="token comment"># integer</span>
+<span class="token number">1.0</span>        <span class="token comment"># float</span>
+<span class="token boolean">true</span>       <span class="token comment"># boolean</span>
+<span class="token atom symbol">:atom</span>      <span class="token comment"># atom / symbol</span>
+<span class="token string">"elixir"</span>   <span class="token comment"># string</span>
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>  <span class="token comment"># list</span>
+<span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">&#125;</span>  <span class="token comment"># tuple</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>All functions in the <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Kernel.html"><code>Kernel</code></a> module are automatically imported into our namespace.</p>
+<p>h trunc/1 is  a build in function that /1 means take 1 element</p>
+<h2 id="Atoms"><a href="#Atoms" class="headerlink" title="Atoms"></a>Atoms</h2><p>An atom is a constant whose value is its own name. Some other languages call these symbols. They are often useful to enumerate over distinct values.</p>
+<p>Atoms are equal if their names are equal.</p>
+<p>Often they are used to express the state of an operation, by using values such as <code>:ok</code> and <code>:error</code>.</p>
+<p>The booleans <code>true</code> and <code>false</code> are also atoms:</p>
+<pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir"><span class="token boolean">true</span> <span class="token operator">==</span> <span class="token atom symbol">:true</span>
+<span class="token boolean">true</span>
+<span class="token function">is_atom</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
+<span class="token boolean">true</span>
+<span class="token function">is_boolean</span><span class="token punctuation">(</span><span class="token atom symbol">:false</span><span class="token punctuation">)</span>
+<span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>string interpolation: </p>
+<p>string = “world” </p>
+<p>iex&gt; “hello #{string}!” </p>
+<p>I will try to solve a binary search tree problem </p>
+<p>which in format </p>
+<p><code>&#123;“left”: null, “value”: 3, “right”: null&#125;</code> </p>
+<p>insert 2 : </p>
+<p><code>&#123; “left”: &#123;“left”: null, “right”: null, “value”: 2&#125; , “value”: 3, “right”: null &#125;</code></p>
+<p>which not require that it is  a balanced tree, every left node is smaller than its parent value.</p>
+<p>First check the modules and functions:</p>
+<h3 id="Module-and-functions"><a href="#Module-and-functions" class="headerlink" title="Module and functions"></a>Module and functions</h3><p>functions are grouped in a module</p>
+<p>we can define modules and functions like</p>
+<pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> <span class="token module class-name">Math</span> <span class="token keyword">do</span>
+	<span class="token keyword">def</span> <span class="token function">sum</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token keyword">do</span>
+		a <span class="token operator">+</span> b
+	<span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token module class-name">Math</span><span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Function declarations also support guards and multiple clauses. If a function has several clauses, Elixir will try each clause until it finds one that matches. Here is an implementation of a function that checks if the given number is zero or not:</p>
+<pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> <span class="token module class-name">Math</span> <span class="token keyword">do</span>
+  <span class="token keyword">def</span> <span class="token function">zero?</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token boolean">true</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> <span class="token function">zero?</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">when</span> <span class="token function">is_integer</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token boolean">false</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token module class-name">IO</span><span class="token punctuation">.</span>puts <span class="token module class-name">Math</span><span class="token punctuation">.</span><span class="token function">zero?</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>         <span class="token comment">#=> true</span>
+<span class="token module class-name">IO</span><span class="token punctuation">.</span>puts <span class="token module class-name">Math</span><span class="token punctuation">.</span><span class="token function">zero?</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>         <span class="token comment">#=> false</span>
+<span class="token module class-name">IO</span><span class="token punctuation">.</span>puts <span class="token module class-name">Math</span><span class="token punctuation">.</span><span class="token function">zero?</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment">#=> ** (FunctionClauseError)</span>
+<span class="token module class-name">IO</span><span class="token punctuation">.</span>puts <span class="token module class-name">Math</span><span class="token punctuation">.</span><span class="token function">zero?</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">)</span>       <span class="token comment">#=> ** (FunctionClauseError)</span>
+
+
+<span class="token keyword">defmodule</span> <span class="token module class-name">DefaultTest</span> <span class="token keyword">do</span>
+  <span class="token keyword">def</span> <span class="token function">dowork</span><span class="token punctuation">(</span>x <span class="token operator">\\</span> <span class="token string">"hello"</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
+    x
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token keyword">defmodule</span> <span class="token module class-name">Concat</span> <span class="token keyword">do</span>
+  <span class="token comment"># A function head declaring defaults</span>
+  <span class="token keyword">def</span> <span class="token function">join</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b <span class="token operator">\\</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> sep <span class="token operator">\\</span> <span class="token string">" "</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">join</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> _sep<span class="token punctuation">)</span> <span class="token keyword">when</span> <span class="token function">is_nil</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    a
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> <span class="token function">join</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> sep<span class="token punctuation">)</span> <span class="token keyword">do</span>
+    a <span class="token operator">&lt;></span> sep <span class="token operator">&lt;></span> b
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>here <code>&quot;hello&quot;</code> is the default value</p>
+<h3 id="Recursion"><a href="#Recursion" class="headerlink" title="Recursion"></a>Recursion</h3><p>My favorite FP feature haha</p>
+<pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> <span class="token module class-name">Recursion</span> <span class="token keyword">do</span>
+  <span class="token keyword">def</span> <span class="token function">print_multiple_times</span><span class="token punctuation">(</span>msg<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token keyword">when</span> n <span class="token operator">></span> <span class="token number">0</span> <span class="token keyword">do</span>
+    <span class="token module class-name">IO</span><span class="token punctuation">.</span><span class="token function">puts</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span>
+    <span class="token function">print_multiple_times</span><span class="token punctuation">(</span>msg<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> <span class="token function">print_multiple_times</span><span class="token punctuation">(</span>_msg<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
+    <span class="token atom symbol">:ok</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+
+<span class="token module class-name">Recursion</span><span class="token punctuation">.</span><span class="token function">print_multiple_times</span><span class="token punctuation">(</span><span class="token string">"Hello!"</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token comment"># Hello!</span>
+<span class="token comment"># Hello!</span>
+<span class="token comment"># Hello!</span>
+<span class="token atom symbol">:ok</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>for list it also have [head | tail ] property</p>
+<h4 id="Enumerables-and-Streams"><a href="#Enumerables-and-Streams" class="headerlink" title="Enumerables and Streams"></a>Enumerables and Streams</h4><pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir"><span class="token module class-name">Enum</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">..</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token keyword">fn</span> x <span class="token operator">-></span> x <span class="token operator">*</span> <span class="token number">2</span> <span class="token keyword">end</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span>
+<span class="token module class-name">Enum</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">..</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token operator">+</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token number">6</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>as for BST I want to check for maps </p>
+<p>I got</p>
+<h3 id="Nested-data-structures"><a href="#Nested-data-structures" class="headerlink" title="Nested data structures"></a>Nested data structures</h3><p>Both key-based access syntaxes can be used with the nested update functions and macros in <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Kernel.html"><code>Kernel</code></a></p>
+<p><img src="https://i.imgur.com/r9LAdiu.png" alt="image-20240606233605167"></p>
+<pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir">languages <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">%</span><span class="token punctuation">&#123;</span><span class="token attr-name">name:</span> <span class="token string">"elixir"</span><span class="token punctuation">,</span> <span class="token attr-name">type:</span> <span class="token atom symbol">:functional</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">%</span><span class="token punctuation">&#123;</span><span class="token attr-name">name:</span> <span class="token string">"c"</span><span class="token punctuation">,</span> <span class="token attr-name">type:</span> <span class="token atom symbol">:procedural</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span>
+user <span class="token operator">=</span> <span class="token punctuation">%</span><span class="token punctuation">&#123;</span><span class="token attr-name">name:</span> <span class="token string">"john"</span><span class="token punctuation">,</span> <span class="token attr-name">languages:</span> languages<span class="token punctuation">&#125;</span>
+<span class="token function">update_in</span><span class="token punctuation">(</span>user<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token atom symbol">:languages</span><span class="token punctuation">,</span> <span class="token module class-name">Access</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token atom symbol">:name</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token module class-name">String</span><span class="token punctuation">.</span><span class="token function">upcase</span><span class="token operator">/</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">%</span><span class="token punctuation">&#123;</span>
+  <span class="token attr-name">name:</span> <span class="token string">"john"</span><span class="token punctuation">,</span>
+  <span class="token attr-name">languages:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">%</span><span class="token punctuation">&#123;</span><span class="token attr-name">name:</span> <span class="token string">"ELIXIR"</span><span class="token punctuation">,</span> <span class="token attr-name">type:</span> <span class="token atom symbol">:functional</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">%</span><span class="token punctuation">&#123;</span><span class="token attr-name">name:</span> <span class="token string">"C"</span><span class="token punctuation">,</span> <span class="token attr-name">type:</span> <span class="token atom symbol">:procedural</span><span class="token punctuation">&#125;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="Access-behaviour"><a href="#Access-behaviour" class="headerlink" title="Access behaviour"></a>Access behaviour</h5><p>Then what I want to do is check the data structure as we usually define nodes for BST  (struct node (self, left, right))</p>
+<pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> <span class="token module class-name">User</span> <span class="token keyword">do</span>
+  <span class="token keyword">defstruct</span> <span class="token attr-name">name:</span> <span class="token string">"John"</span><span class="token punctuation">,</span> <span class="token attr-name">age:</span> <span class="token number">27</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Then we can start!</p>
+<p>… elixir name .ex</p>
+<p>It not hard then is the restful api section</p>
+<p>:( for test with mix need to do mix new {path} —module {module name}</p>
+<p>Then return to api section I’m going with<br><a target="_blank" rel="noopener" href="https://github.com/elixir-plug/plug">elixir-plug/plug: Compose web applications with functions (github.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://hexdocs.pm/plug/readme.html">Plug — Plug v1.16.0 (hexdocs.pm)</a></p>
+<h4 id="Simple-K8s-deployment"><a href="#Simple-K8s-deployment" class="headerlink" title="Simple K8s deployment"></a>Simple K8s deployment</h4><p>Steps:</p>
+<ul>
+<li>Create Container registries</li>
+<li>push docker image </li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> push <span class="token punctuation">&#123;</span>ACR Name<span class="token punctuation">&#125;</span>.azurecr.io/<span class="token punctuation">&#123;</span>image<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>Create AKS  cluster (mostly default, disable monitoring for lower cost)</li>
+<li>using ACR integration with AKS (might not be that secure)</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">az aks update <span class="token parameter variable">-n</span> <span class="token operator">&lt;</span>yourAKSClusterName<span class="token operator">></span> <span class="token parameter variable">-g</span> <span class="token operator">&lt;</span>yourResourceGroup<span class="token operator">></span> --attach-acr motoprojectregistry<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>Create <code>deployment.yaml</code> and <code>service.yaml</code> for deploy and expose port.</li>
+</ul>
+<p>That’s it!</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/06/06/DSA-part1/" rel="next" title="DSA-part1">
+                <i class="fa fa-chevron-left"></i> DSA-part1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="Meng Zhouyang" />
+            
+              <p class="site-author-name" itemprop="name">Meng Zhouyang</p>
+              <p class="site-description motion-element" itemprop="description">A blog to save my notes</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zmeng18cc@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-type"><span class="nav-number">1.</span> <span class="nav-text">Basic type</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Atoms"><span class="nav-number"></span> <span class="nav-text">Atoms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Module-and-functions"><span class="nav-number">1.</span> <span class="nav-text">Module and functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Recursion"><span class="nav-number">2.</span> <span class="nav-text">Recursion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Enumerables-and-Streams"><span class="nav-number">2.1.</span> <span class="nav-text">Enumerables and Streams</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nested-data-structures"><span class="nav-number">3.</span> <span class="nav-text">Nested data structures</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Access-behaviour"><span class="nav-number">3.0.1.</span> <span class="nav-text">Access behaviour</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Simple-K8s-deployment"><span class="nav-number">3.1.</span> <span class="nav-text">Simple K8s deployment</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng Zhouyang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

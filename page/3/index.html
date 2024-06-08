@@ -263,6 +263,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/12/WebSecurity1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/09/12/WebSecurity1/" itemprop="url">WebSecurity1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-09-12T22:38:48+02:00">
+                2023-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>DNS Domain name system</p>
+<p>​                                    Root Name Server</p>
+<p>Client  $\leftarrow$ DNS Server  $\leftrightarrow$                           “.edu” Name server</p>
+<p>​                                    “stanford.edu” Name server</p>
+<p>Type a URL and press enter</p>
+<ol>
+<li>Client ask DNS Recursive Resolver to lookup a hostname (standford.edu)</li>
+<li>DNS Recursive Resolver sends DNS query to Root Name server</li>
+<li>DNS Recursive Resolver sends DNS query to TLD Name server</li>
+</ol>
+<h2 id="DNS-hjacking"><a href="#DNS-hjacking" class="headerlink" title="DNS hjacking"></a>DNS hjacking</h2><p>The attacker changes DNS recodes of target to point to own IP address, so all visitors are </p>
+<p>directed to the attacker’s web server.</p>
+<p>Several ways to achieve this </p>
+<ul>
+<li>Malware changes user’s local DNS settings</li>
+<li>Hacked recursive DNS resolver</li>
+<li>Hacked router</li>
+<li>Hacked DNS nameserver</li>
+<li>Compromised user account at DNS provider</li>
+</ul>
+<p><img src="https://i.imgur.com/l8NQAho.png" alt="image-20231001154425032"></p>
+<h2 id="DNS-privacy"><a href="#DNS-privacy" class="headerlink" title="DNS privacy"></a>DNS privacy</h2><p>Queries are plaintext. </p>
+<p><strong>Pro ti[:</strong> switch DNS settings to Cloudflare (1.1.1.1) or another provider with good privacy policy</p>
+<p>Http is a client-server model which is simple,extensible, stateless and transport protocol agnostic</p>
+<p><img src="https://i.imgur.com/4wfhYxA.png" alt="image-20231001162729542"></p>
+<ul>
+<li>200 ok</li>
+<li>206 Partial Content</li>
+</ul>
+<p><img src="https://i.imgur.com/hfpoN4u.png" alt="image-20231001163027378"></p>
+<p><img src="https://i.imgur.com/iCdi9Fx.png" alt="image-20231001163502925"></p>
+<p>Full process of request</p>
+<p><img src="https://i.imgur.com/mmWAfNB.png" alt="image-20231001165442747"></p>
+<h2 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h2><p>make cookie <strong>Path</strong> secure</p>
+<p>Cookies can only be accessed by equal or more-specific domains, so use a subdomain</p>
+<ul>
+<li><p>Just set it to Path =/ and don’t ever rely on it</p>
+<p>Set-Cookie: key = value; Secure; HttpOnly; Path =/</p>
+</li>
+</ul>
+<p>Cookie only send through http, So like javascript running on the server can not see the cookie</p>
+<h2 id="Problem-with-ambient-authority"><a href="#Problem-with-ambient-authority" class="headerlink" title="Problem with ambient authority"></a>Problem with ambient authority</h2><p>Unclear which site initiated a request: request from attacker will be included</p>
+<p><strong>Cross-Site Request Forgery(CSRF)</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/04/React-P3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3456,256 +3618,6 @@ return distance;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/10/WRSL1-L2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/04/10/WRSL1-L2/" itemprop="url">WRSL1+L2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-10T12:57:45+02:00">
-                2023-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web-Recommender-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Web Recommender System</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Lecture1"><a href="#Lecture1" class="headerlink" title="Lecture1"></a>Lecture1</h2><h3 id="Feature-of-a-Recommender-System"><a href="#Feature-of-a-Recommender-System" class="headerlink" title="Feature of a Recommender System"></a>Feature of a Recommender System</h3><ul>
-<li><p><strong>Personalised</strong> Recommendations → different recommendations for every user; </p>
-</li>
-<li><p>Maintain a <strong>user model</strong> or user profile, describes the users’s preferences;  </p>
-</li>
-<li><p>Implicit or explicit <strong>behavioural</strong> signals → ethical concerns? </p>
-</li>
-<li><p>Account for the <strong>context</strong> and additional information; </p>
-</li>
-<li><p>Types of Recommender Systems: <strong>Collaborative Filtering</strong> and <strong>Content-Based</strong></p>
-</li>
-</ul>
-<h2 id="Problem-Setting"><a href="#Problem-Setting" class="headerlink" title="Problem Setting"></a>Problem Setting</h2><h3 id="User-Item-Matrix"><a href="#User-Item-Matrix" class="headerlink" title="User-Item Matrix"></a>User-Item Matrix</h3><p>Goal: predict ratings for unseen items</p>
-<h2 id="Properties-of-the-Ratings-Matrix"><a href="#Properties-of-the-Ratings-Matrix" class="headerlink" title="Properties of the Ratings Matrix"></a>Properties of the Ratings Matrix</h2><p><strong>Sparse matrix</strong>: a small subset of entries are specified</p>
-<ul>
-<li>Ratings can be: </li>
-<li><ul>
-<li><strong>Continuous</strong>: level of like or dislike (rare); </li>
-<li><strong>Interval based ratings</strong>: 5 or 7-point scale, sometimes 10 points, e.g., 5-star ratings; </li>
-<li><strong>Ordinal ratings</strong>: categorical values, e.g., strongly disagree, disagree, neutral, agree,  strongly agree; </li>
-<li><strong>Binary ratings</strong>: 2 options (forced choice), e.g., like or dislike; </li>
-<li><strong>Unary ratings</strong>: only positive preference (positive preference utility matrix), e.g., purchase</li>
-</ul>
-</li>
-</ul>
-<h3 id="Implicit-Explicit-Feedback"><a href="#Implicit-Explicit-Feedback" class="headerlink" title="Implicit / Explicit Feedback"></a>Implicit / Explicit Feedback</h3><ul>
-<li>Explicit feedback: ratings explicitly provided by users, e.g., click on “like” button;</li>
-<li>Implicit feedback, sometimes <strong>Positive-Unlabeled</strong> (PU): </li>
-<li><ul>
-<li>Ratings are inferred from user actions; </li>
-<li>Easier to obtain, transparent to users;  </li>
-<li>Almost no cost;</li>
-<li>Harder to interpret and can be misleading: no information whether the user liked/disliked  an item;</li>
-</ul>
-</li>
-</ul>
-<h3 id="Long-tail-Distribution"><a href="#Long-tail-Distribution" class="headerlink" title="Long-tail Distribution"></a>Long-tail Distribution</h3><p>• Low frequency items: </p>
-<ul>
-<li><ul>
-<li>Larger profit; </li>
-<li>More difficult to recommend;</li>
-</ul>
-</li>
-</ul>
-<h2 id="Collaborative-Filtering-Recommendation"><a href="#Collaborative-Filtering-Recommendation" class="headerlink" title="Collaborative Filtering Recommendation"></a>Collaborative Filtering Recommendation</h2><p>• Idea: exploit past behaviour/opinions of an existing user community to predict items the  current users will like in the future (collective intelligence);</p>
-<p>• Input: ratings matrix (pure CF)</p>
-<p>• Output: </p>
-<p>A. Predicted rate for unobserved user-item; </p>
-<p>B. List of top-k recommended items (or users);</p>
-<p><strong>User-based</strong> nearest neighbour recommendation: </p>
-<p>• Similar users have similar ratings on the same item; •</p>
-<p> Use ratings from neighbouring users; </p>
-<p><strong>Item-based</strong> nearest neighbour recommendation: </p>
-<p>• Reverse the problem → similarity between items; </p>
-<p>• Similar items are rated in a similar way by the same user; </p>
-<p>• Use user’s own ratings on neighbouring items.</p>
-<h3 id="User-based-Nearest-Neighbour-Recommendation"><a href="#User-based-Nearest-Neighbour-Recommendation" class="headerlink" title="User-based Nearest Neighbour  Recommendation"></a>User-based Nearest Neighbour  Recommendation</h3><p>• Idea: given a target user: </p>
-<ol>
-<li>Identify users (peer users or nearest neighbours) that have similar  preferences; </li>
-<li>For every unobserved item, make a prediction based on the preferences of  peer users; </li>
-</ol>
-<p>• Assumptions: </p>
-<p>​    • Similar tastes in the past → similar tastes in the future; </p>
-<p>​    • Preferences are stable and consistent over time.</p>
-<h4 id="Step-1-Similarity-with-Pearson-Coefficient"><a href="#Step-1-Similarity-with-Pearson-Coefficient" class="headerlink" title="Step 1: Similarity with Pearson Coefficient"></a>Step 1: Similarity with Pearson Coefficient</h4><p><img src="/2023/04/10/WRSL1-L2/image\pearson_Co.png" alt="image-20230411181714647"></p>
-<p>• Simple approach: users with highest similarity score (Pearson coefficient); </p>
-<p>• Problem: number of observed ratings can be very different depending on the  item, e.g., popular items;</p>
-<h3 id="Step-2-Mean-centered-Rating-Prediction"><a href="#Step-2-Mean-centered-Rating-Prediction" class="headerlink" title="Step 2: Mean-centered Rating Prediction"></a>Step 2: Mean-centered Rating Prediction</h3><p><strong>Solution</strong>: center ratings by their row-mean</p>
-<script type="math/tex; mode=display">s_{u,j}=r_{u,j}-\mu_u</script><p>Use a weighted average to predict the rating:</p>
-<script type="math/tex; mode=display">\hat{r}_{u,j}=\mu_U+\frac{\sum_{v \in P_u(j) Sim(u,v) \cdot s_{v,j}}}{\sum_{v \in P_u(j) |Sim(u,v)|}}</script><h2 id="Better-Neighbourhood-Selection"><a href="#Better-Neighbourhood-Selection" class="headerlink" title="Better Neighbourhood Selection?"></a>Better Neighbourhood Selection?</h2><p>• Include all users? </p>
-<p>​    • Negative impact on accuracy and computing time; </p>
-<p>• Minimum threshold on user similarity: </p>
-<p>​    • Only positive correlation (negative correlations → inversion     → not much predictive value); </p>
-<p>​    • High threshold → small sets of neighbours → no                      predictions (reduced coverage); </p>
-<p>• Top-k closest neighbours: </p>
-<p>​    • High value for k → additional noise; </p>
-<p>​    • Empirically: good values for k are in the range of [20, 50]</p>
-<p><img src="/2023/04/10/WRSL1-L2/image\longtailImpact.png" alt="image-20230411183239484"></p>
-<h2 id="Item-based-Nearest-Neighbour-Recommendation"><a href="#Item-based-Nearest-Neighbour-Recommendation" class="headerlink" title="Item-based Nearest Neighbour  Recommendation"></a>Item-based Nearest Neighbour  Recommendation</h2><p>similarity  between items instead of similarity  between users</p>
-<p>Works better with offline pre-processing</p>
-<h3 id="Step-1-Cosine-Similarity"><a href="#Step-1-Cosine-Similarity" class="headerlink" title="Step 1: Cosine Similarity"></a>Step 1: Cosine Similarity</h3><p> <strong>Cosine similarity</strong>: empirically better than Pearson for item-based recommendation</p>
-<p>Adjusted cosine similarity: mean centred ratings <script type="math/tex">s_{u,j}</script>;</p>
-<p><img src="/2023/04/10/WRSL1-L2/image\WRS\cosine_similarity.png" alt="image-20230411184516752"></p>
-<h3 id="Step-2-Rating-Prediction"><a href="#Step-2-Rating-Prediction" class="headerlink" title="Step 2: Rating Prediction"></a>Step 2: Rating Prediction</h3><p>Consider the top-k similar items on a user basis;</p>
-<p><script type="math/tex">Q_t(u)</script> set of <strong>K</strong> closest items (adjusted cosine similarity) to the target item that  were rated by user ;</p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><img src="/2023/04/10/WRSL1-L2/image\WRS\ub_ib.png" alt="image-20230411183921420"></p>
-<h1 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h1><h2 id="Computational-Complexity"><a href="#Computational-Complexity" class="headerlink" title="Computational Complexity"></a>Computational Complexity</h2><ul>
-<li>User-based CF does not scale well to large numbers of users and items.</li>
-<li>Item-based CF is more stable with changes to the ratings:</li>
-</ul>
-<h2 id="Dimensionality-Reduction"><a href="#Dimensionality-Reduction" class="headerlink" title="Dimensionality Reduction"></a>Dimensionality Reduction</h2><p>Improve neighbourhood-based methods: quality and efficiency;</p>
-<p><strong>Latent factor models</strong>: dense low dimensional representation: </p>
-<ol>
-<li>Reduced representation of the data, either row-wise or column-wise, to  reduce sparsity; </li>
-<li>Latent representation of both row-space and column space (simultaneously);</li>
-</ol>
-<p>ea: use PCA-like methods or <strong>SVD</strong>-like methods to project R into a reduced d-dimensional space;</p>
-<h2 id="Offline-and-Online-Evaluation"><a href="#Offline-and-Online-Evaluation" class="headerlink" title="Offline and Online Evaluation"></a>Offline and Online Evaluation</h2><h3 id="Offline-and-Online-Evaluation-1"><a href="#Offline-and-Online-Evaluation-1" class="headerlink" title="Offline and Online Evaluation"></a>Offline and Online Evaluation</h3><h4 id="Training-and-Test-Split"><a href="#Training-and-Test-Split" class="headerlink" title="Training and Test Split"></a>Training and Test Split</h4><ul>
-<li>Hold-out: a fraction of the entries in the ratings matrix is hidden for testing and the remaining is used  for training:</li>
-<li>K-fold cross validation: K equal sets of entries, one used for testing and K-1 for training, then repeat  K times, until each segment has been used for testing</li>
-</ul>
-<h3 id="Set-Based-Evaluation"><a href="#Set-Based-Evaluation" class="headerlink" title="Set Based Evaluation"></a>Set Based Evaluation</h3><ul>
-<li><strong>Precision</strong> is the proportion of recommended items that are actually relevant </li>
-<li><strong>Recall</strong> is the proportion of relevant items actually recommended</li>
-</ul>
-<h4 id="Hit-Rate"><a href="#Hit-Rate" class="headerlink" title="Hit Rate"></a>Hit Rate</h4><p>Specifically suited for implicit feedback data (e.g., purchases) and when there is a  single hidden relevant item (e.g., leave-one-out cross validation)</p>
-<p>Hit Rate (HR) = fraction of users for which the relevant (e.g., purchased) item is  within the top k items:</p>
-<h4 id="Mean-Reciprocal-Rank-MRR"><a href="#Mean-Reciprocal-Rank-MRR" class="headerlink" title="Mean Reciprocal Rank (MRR)"></a>Mean Reciprocal Rank (MRR)</h4><p>Reciprocal Rank (RR): inverse of the rank position of the (first) relevant item;</p>
-<h4 id="Average-Precision-AP"><a href="#Average-Precision-AP" class="headerlink" title="Average Precision (AP)"></a>Average Precision (AP)</h4><p>The Mean Average Precision (MAP) is the mean of AP over all users:</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3760,7 +3672,7 @@ return distance;
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3782,7 +3694,7 @@ return distance;
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

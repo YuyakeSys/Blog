@@ -263,6 +263,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/08/flutter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meng Zhouyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Melo's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2024/02/08/flutter/" itemprop="url">flutter</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-02-08T14:05:07+01:00">
+                2024-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>dependencies: pubspec.yaml</p>
+<h4 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h4><p>Text() </p>
+<h3 id="Build-Context"><a href="#Build-Context" class="headerlink" title="Build Context"></a>Build Context</h3><p>tells the location of a particular widget in the widget tree</p>
+<p>used for navigation…</p>
+<p>ctrl + shift + r + right click ——&gt; remove this widget</p>
+<p><strong>Column</strong> only takes as much space as the children needs</p>
+<p>can use sizeBox instead of container for making padding</p>
+<h4 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h4><p>Mainaxis: top to bottom</p>
+<p>crossaxis: left to right</p>
+<p><strong>for for loop return more than 1 widget</strong></p>
+<p>…[]</p>
+<h4 id="For-example-text-widget"><a href="#For-example-text-widget" class="headerlink" title="For example text widget"></a>For example text widget</h4><p>return <strong>RichText</strong></p>
+<p>LeafRenderobjectWidget</p>
+<p>Single…</p>
+<p>Multi</p>
+<p>Widget tree will call render(element) tree to do sth</p>
+<p>(SetState)</p>
+<p>widget will createElement() for it self</p>
+<p>Then identify the new and old widget tree to find out what part needs  </p>
+<p>to get rendered again -&gt; improve performance </p>
+<p>build context helps locate the widget in the widget tree</p>
+<h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><p>provide data to all widgets below in the widget tree</p>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Provider</span><span class="token punctuation">(</span>
+	create<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>type of data<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token comment">// to use it </span>
+    <span class="token keyword">final</span> data <span class="token operator">=</span> <span class="token class-name">Provider</span><span class="token punctuation">.</span>of<span class="token generics"><span class="token punctuation">&lt;</span>type<span class="token punctuation">></span></span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//shorten</span>
+	context<span class="token punctuation">.</span>watch<span class="token generics"><span class="token punctuation">&lt;</span>type<span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>is a read only value</p>
+<h5 id="ChangeNotifierProvider-extends-ChangeNotifier"><a href="#ChangeNotifierProvider-extends-ChangeNotifier" class="headerlink" title="ChangeNotifierProvider extends ChangeNotifier\"></a>ChangeNotifierProvider extends ChangeNotifier\</h5><p>listen to variable</p>
+<ul>
+<li>context.watch should be used when child widgets need a certain value</li>
+</ul>
+<p>// Note by</p>
+<p>Consumer make only widgets rebuild efficiently</p>
+<h5 id="SteamProvider"><a href="#SteamProvider" class="headerlink" title="SteamProvider"></a>SteamProvider</h5><h5 id="FutureProvider"><a href="#FutureProvider" class="headerlink" title="FutureProvider"></a>FutureProvider</h5><pre class="line-numbers language-none"><code class="language-none">FutureProvider&lt;String(
+	initialData: &#39;loading&#39;,
+	create: (context) &#x3D;&gt; someFuture,
+	child: const MyApp(),
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="MultiProvider"><a href="#MultiProvider" class="headerlink" title="MultiProvider"></a>MultiProvider</h5><ul>
+<li><p>When one of our Provider depends on value from another provider </p>
+<p>we use Proxy Provider</p>
+</li>
+</ul>
+<h5 id="ProxyProvider"><a href="#ProxyProvider" class="headerlink" title="ProxyProvider"></a>ProxyProvider</h5><p><img src="https://i.imgur.com/As6jVjy.png" alt="image-20240309143357180"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/06/FunctionGuide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2882,168 +3049,6 @@ const &#123;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/12/WebSecurity1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Meng Zhouyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Melo's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/09/12/WebSecurity1/" itemprop="url">WebSecurity1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-09-12T22:38:48+02:00">
-                2023-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>DNS Domain name system</p>
-<p>​                                    Root Name Server</p>
-<p>Client  $\leftarrow$ DNS Server  $\leftrightarrow$                           “.edu” Name server</p>
-<p>​                                    “stanford.edu” Name server</p>
-<p>Type a URL and press enter</p>
-<ol>
-<li>Client ask DNS Recursive Resolver to lookup a hostname (standford.edu)</li>
-<li>DNS Recursive Resolver sends DNS query to Root Name server</li>
-<li>DNS Recursive Resolver sends DNS query to TLD Name server</li>
-</ol>
-<h2 id="DNS-hjacking"><a href="#DNS-hjacking" class="headerlink" title="DNS hjacking"></a>DNS hjacking</h2><p>The attacker changes DNS recodes of target to point to own IP address, so all visitors are </p>
-<p>directed to the attacker’s web server.</p>
-<p>Several ways to achieve this </p>
-<ul>
-<li>Malware changes user’s local DNS settings</li>
-<li>Hacked recursive DNS resolver</li>
-<li>Hacked router</li>
-<li>Hacked DNS nameserver</li>
-<li>Compromised user account at DNS provider</li>
-</ul>
-<p><img src="https://i.imgur.com/l8NQAho.png" alt="image-20231001154425032"></p>
-<h2 id="DNS-privacy"><a href="#DNS-privacy" class="headerlink" title="DNS privacy"></a>DNS privacy</h2><p>Queries are plaintext. </p>
-<p><strong>Pro ti[:</strong> switch DNS settings to Cloudflare (1.1.1.1) or another provider with good privacy policy</p>
-<p>Http is a client-server model which is simple,extensible, stateless and transport protocol agnostic</p>
-<p><img src="https://i.imgur.com/4wfhYxA.png" alt="image-20231001162729542"></p>
-<ul>
-<li>200 ok</li>
-<li>206 Partial Content</li>
-</ul>
-<p><img src="https://i.imgur.com/hfpoN4u.png" alt="image-20231001163027378"></p>
-<p><img src="https://i.imgur.com/iCdi9Fx.png" alt="image-20231001163502925"></p>
-<p>Full process of request</p>
-<p><img src="https://i.imgur.com/mmWAfNB.png" alt="image-20231001165442747"></p>
-<h2 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h2><p>make cookie <strong>Path</strong> secure</p>
-<p>Cookies can only be accessed by equal or more-specific domains, so use a subdomain</p>
-<ul>
-<li><p>Just set it to Path =/ and don’t ever rely on it</p>
-<p>Set-Cookie: key = value; Secure; HttpOnly; Path =/</p>
-</li>
-</ul>
-<p>Cookie only send through http, So like javascript running on the server can not see the cookie</p>
-<h2 id="Problem-with-ambient-authority"><a href="#Problem-with-ambient-authority" class="headerlink" title="Problem with ambient authority"></a>Problem with ambient authority</h2><p>Unclear which site initiated a request: request from attacker will be included</p>
-<p><strong>Cross-Site Request Forgery(CSRF)</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3098,7 +3103,7 @@ const &#123;
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -3120,7 +3125,7 @@ const &#123;
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
